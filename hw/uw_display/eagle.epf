@@ -1,0 +1,25 @@
+[Eagle]
+Version="07 02 00"
+Platform="Linux"
+Serial="7303F23845-LS-WLM-1ES"
+Globals="Globals"
+Desktop="Desktop"
+
+[Globals]
+AutoSaveProject=1
+UsedLibrary="/home/usevolt/Dropbox/usevolt/projects/lib/eagle/arm.lbr"
+UsedLibrary="/home/usevolt/Dropbox/usevolt/projects/lib/eagle/frames.lbr"
+UsedLibrary="/home/usevolt/Dropbox/usevolt/projects/lib/eagle/holes.lbr"
+UsedLibrary="/home/usevolt/Dropbox/usevolt/projects/lib/eagle/supply1.lbr"
+UsedLibrary="/home/usevolt/Dropbox/usevolt/projects/lib/eagle/supply2.lbr"
+UsedLibrary="/home/usevolt/Dropbox/usevolt/projects/lib/eagle/usevolt.lbr"
+
+[Win_1]
+Type="Control Panel"
+Loc="181 386 1041 867"
+State=2
+Number=0
+
+[Desktop]
+Screen="1920 1080"
+Window="Win_1"
