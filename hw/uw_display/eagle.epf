@@ -16,7 +16,7 @@ UsedLibrary="/home/usevolt/Dropbox/usevolt/projects/lib/eagle/usevolt.lbr"
 
 [Win_1]
 Type="Control Panel"
-Loc="181 386 1041 867"
+Loc="160 121 1188 791"
 State=2
 Number=0
 

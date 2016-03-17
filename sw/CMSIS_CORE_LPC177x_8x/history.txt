@@ -1,0 +1,47 @@
+History of updates to CMSIS_CORE_LPC177x_8x
+===========================================
+
+18 July 2013
+------------
+CMSIS library project using ARM Cortex-M0 CMSIS files as
+supplied in ARM's CMSIS 3.20 March 2013 release, together
+with NXP's device specific files taken from old
+CMSISv2p00_LPC177x_8x project.
+
+Note files are built -Os for both Debug and Release
+
+
+History of updates to CMSISv2p00_LPC177x_8x
+===========================================
+
+16 June 2011
+------------
+Updated with latest files from NXP...
+- LPC177x_8x.h (now v1.0, but dated 02 June 2011), with minor mod by
+  CodeRed (16Jun11) to comment back in #include of system_LPC177x_8x.h
+- system_LPC177x_8x.h (now v1.0, but dated 02 June 2011)
+- system_LPC177x_8x.c (now v1.0, but dated 02 June 2011)
+
+Also fixed project so that it contained CMSIS 2.0 Cortex-M3 files 
+(CMSIS 1.30 files had accidentally been substituted in.)
+
+30 March 2011
+-------------
+Updated with latest files from NXP...
+- LPC177x_8x.h (2011-03-03)
+- system_LPC177x_8x.h (some changes, but still V1.11, 10 November 2010)
+- system_LPC177x_8x.c (some changes, but still V1.11, 10 November 2010)
+
+Note that NXP have changed filenames back to '...177x_8x' 
+from '...178x'. Wrapper headers have been provided to redirect
+includes of the previous header filenames onto the current filenames.
+
+7 March 2011
+------------
+LPC177x/LPC178x CMSIS 2.0 library project using ARM 
+Cortex-M3 CMSIS files as supplied in ARM's CMSIS 2.0
+December 2010 release, together with latest device/board 
+specific files from NXP.
+
+
+

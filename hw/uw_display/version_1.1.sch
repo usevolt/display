@@ -2107,7 +2107,7 @@ The FSMD series from Multicomp are surface mountable PTC (positive Temperature c
 <wire x1="3.302" y1="-0.9525" x2="3.302" y2="0" width="0.254" layer="94"/>
 <wire x1="3.302" y1="0" x2="3.302" y2="0.9525" width="0.254" layer="94"/>
 <wire x1="3.302" y1="0.9525" x2="-0.762" y2="0.9525" width="0.254" layer="94"/>
-<text x="3.683" y="-1.016" size="0.8128" layer="96">&gt;VALUE</text>
+<text x="3.683" y="-1.27" size="1.016" layer="96">&gt;VALUE</text>
 <text x="3.556" y="0.254" size="1.27" layer="95">&gt;NAME</text>
 <wire x1="-0.762" y1="0" x2="-2.54" y2="0" width="0.1524" layer="94"/>
 <wire x1="3.302" y1="0" x2="5.08" y2="0" width="0.1524" layer="94"/>
@@ -2116,7 +2116,7 @@ The FSMD series from Multicomp are surface mountable PTC (positive Temperature c
 <pin name="P$1" x="-5.08" y="0" visible="off" length="short" swaplevel="1"/>
 <pin name="P$2" x="2.54" y="0" visible="off" length="short" swaplevel="1" rot="R180"/>
 <wire x1="-1.905" y1="1.397" x2="-1.905" y2="0" width="0.254" layer="94"/>
-<text x="-0.254" y="0.254" size="0.8128" layer="96">&gt;VALUE</text>
+<text x="-0.254" y="0.254" size="1.016" layer="96">&gt;VALUE</text>
 <wire x1="-1.905" y1="0" x2="-1.905" y2="-1.397" width="0.254" layer="94"/>
 <wire x1="-0.635" y1="-1.397" x2="-0.635" y2="0" width="0.254" layer="94"/>
 <wire x1="-0.635" y1="0" x2="-0.635" y2="1.397" width="0.254" layer="94"/>
@@ -2595,9 +2595,9 @@ TFT LCD 4.3 INCH</text>
 <pin name="+5V" x="-5.08" y="-5.08" length="middle"/>
 <pin name="GND" x="-5.08" y="-10.16" length="middle"/>
 <wire x1="0" y1="7.62" x2="0" y2="-15.24" width="0.254" layer="94"/>
-<wire x1="0" y1="-15.24" x2="12.7" y2="-15.24" width="0.254" layer="94"/>
-<wire x1="12.7" y1="-15.24" x2="12.7" y2="7.62" width="0.254" layer="94"/>
-<wire x1="12.7" y1="7.62" x2="0" y2="7.62" width="0.254" layer="94"/>
+<wire x1="0" y1="-15.24" x2="10.16" y2="-15.24" width="0.254" layer="94"/>
+<wire x1="10.16" y1="-15.24" x2="10.16" y2="7.62" width="0.254" layer="94"/>
+<wire x1="10.16" y1="7.62" x2="0" y2="7.62" width="0.254" layer="94"/>
 <text x="0" y="8.636" size="1.778" layer="95">&gt;NAME</text>
 <text x="0" y="-17.78" size="1.778" layer="96">&gt;VALUE</text>
 <pin name="GND@1" x="-5.08" y="-12.7" length="middle"/>
@@ -4685,6 +4685,15 @@ Output Voltage Nom.: 1.8V</description>
 <part name="R5" library="usevolt" deviceset="RES" device="_0603" value="1k"/>
 <part name="R6" library="usevolt" deviceset="RES" device="_0603"/>
 <part name="P+15" library="supply1" deviceset="+5V" device=""/>
+<part name="R7" library="usevolt" deviceset="RES" device="_0603" value="10k"/>
+<part name="+3V14" library="supply1" deviceset="+3V3" device=""/>
+<part name="C49" library="usevolt" deviceset="CAP" device="_0603" value="100nF"/>
+<part name="C50" library="usevolt" deviceset="CAP" device="_0603" value="100nF"/>
+<part name="C51" library="usevolt" deviceset="CAP" device="_0603" value="100nF"/>
+<part name="C52" library="usevolt" deviceset="CAP" device="_0603" value="100nF"/>
+<part name="C53" library="usevolt" deviceset="CAP" device="_0603" value="100nF"/>
+<part name="C54" library="usevolt" deviceset="CAP" device="_0603" value="100nF"/>
+<part name="GND31" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -5000,6 +5009,13 @@ Developer: Olli Usenius</text>
 <instance part="+3V9" gate="G$1" x="111.76" y="91.44"/>
 <instance part="GND18" gate="1" x="30.48" y="10.16"/>
 <instance part="GND19" gate="1" x="109.22" y="10.16"/>
+<instance part="C49" gate="G$1" x="27.94" y="81.28" rot="R180"/>
+<instance part="C50" gate="G$1" x="27.94" y="76.2" rot="R180"/>
+<instance part="C51" gate="G$1" x="30.48" y="60.96"/>
+<instance part="C52" gate="G$1" x="30.48" y="15.24"/>
+<instance part="C53" gate="G$1" x="116.84" y="53.34"/>
+<instance part="C54" gate="G$1" x="116.84" y="68.58"/>
+<instance part="GND31" gate="1" x="119.38" y="43.18"/>
 </instances>
 <busses>
 </busses>
@@ -5079,6 +5095,27 @@ Developer: Olli Usenius</text>
 <wire x1="30.48" y1="53.34" x2="30.48" y2="68.58" width="0.1524" layer="91"/>
 <wire x1="30.48" y1="68.58" x2="53.34" y2="68.58" width="0.1524" layer="91"/>
 <junction x="30.48" y="53.34"/>
+<wire x1="30.48" y1="12.7" x2="25.4" y2="12.7" width="0.1524" layer="91"/>
+<junction x="30.48" y="12.7"/>
+<pinref part="C52" gate="G$1" pin="P$1"/>
+<wire x1="25.4" y1="12.7" x2="25.4" y2="15.24" width="0.1524" layer="91"/>
+<pinref part="C51" gate="G$1" pin="P$1"/>
+<wire x1="25.4" y1="15.24" x2="25.4" y2="60.96" width="0.1524" layer="91"/>
+<junction x="25.4" y="15.24"/>
+<pinref part="C50" gate="G$1" pin="P$2"/>
+<wire x1="25.4" y1="60.96" x2="25.4" y2="76.2" width="0.1524" layer="91"/>
+<junction x="25.4" y="60.96"/>
+<pinref part="C49" gate="G$1" pin="P$2"/>
+<wire x1="25.4" y1="76.2" x2="25.4" y2="81.28" width="0.1524" layer="91"/>
+<junction x="25.4" y="76.2"/>
+</segment>
+<segment>
+<pinref part="C54" gate="G$1" pin="P$2"/>
+<pinref part="C53" gate="G$1" pin="P$2"/>
+<wire x1="119.38" y1="68.58" x2="119.38" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="119.38" y1="53.34" x2="119.38" y2="45.72" width="0.1524" layer="91"/>
+<junction x="119.38" y="53.34"/>
+<pinref part="GND31" gate="1" pin="GND"/>
 </segment>
 </net>
 <net name="+3V3" class="0">
@@ -5111,6 +5148,9 @@ Developer: Olli Usenius</text>
 <pinref part="+3V6" gate="G$1" pin="+3V3"/>
 <wire x1="121.92" y1="154.94" x2="121.92" y2="147.32" width="0.1524" layer="91"/>
 <junction x="121.92" y="147.32"/>
+<pinref part="U1" gate="A" pin="VREFP"/>
+<wire x1="147.32" y1="142.24" x2="144.78" y2="142.24" width="0.1524" layer="91"/>
+<wire x1="144.78" y1="142.24" x2="144.78" y2="147.32" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="+3V7" gate="G$1" pin="+3V3"/>
@@ -5149,6 +5189,11 @@ Developer: Olli Usenius</text>
 <wire x1="33.02" y1="48.26" x2="33.02" y2="15.24" width="0.1524" layer="91"/>
 <wire x1="33.02" y1="15.24" x2="53.34" y2="15.24" width="0.1524" layer="91"/>
 <junction x="33.02" y="48.26"/>
+<pinref part="C49" gate="G$1" pin="P$1"/>
+<pinref part="C50" gate="G$1" pin="P$1"/>
+<pinref part="C51" gate="G$1" pin="P$2"/>
+<pinref part="C52" gate="G$1" pin="P$2"/>
+<junction x="33.02" y="15.24"/>
 </segment>
 <segment>
 <pinref part="+3V9" gate="G$1" pin="+3V3"/>
@@ -5159,6 +5204,9 @@ Developer: Olli Usenius</text>
 <wire x1="111.76" y1="68.58" x2="111.76" y2="53.34" width="0.1524" layer="91"/>
 <wire x1="111.76" y1="53.34" x2="88.9" y2="53.34" width="0.1524" layer="91"/>
 <junction x="111.76" y="68.58"/>
+<pinref part="C53" gate="G$1" pin="P$1"/>
+<junction x="111.76" y="53.34"/>
+<pinref part="C54" gate="G$1" pin="P$1"/>
 </segment>
 </net>
 <net name="SWDCLK" class="0">
@@ -5976,6 +6024,8 @@ Developer: Olli Usenius</text>
 <instance part="R18" gate="G$1" x="172.72" y="45.72" rot="R90"/>
 <instance part="R19" gate="G$1" x="175.26" y="48.26" rot="R90"/>
 <instance part="+3V13" gate="G$1" x="175.26" y="60.96"/>
+<instance part="R7" gate="G$1" x="198.12" y="127" rot="R270"/>
+<instance part="+3V14" gate="G$1" x="198.12" y="134.62"/>
 </instances>
 <busses>
 </busses>
@@ -6046,6 +6096,11 @@ Developer: Olli Usenius</text>
 <junction x="175.26" y="55.88"/>
 <pinref part="R18" gate="G$1" pin="P$2"/>
 <wire x1="172.72" y1="55.88" x2="172.72" y2="50.8" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="R7" gate="G$1" pin="P$1"/>
+<pinref part="+3V14" gate="G$1" pin="+3V3"/>
+<wire x1="198.12" y1="129.54" x2="198.12" y2="132.08" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -6645,6 +6700,14 @@ Developer: Olli Usenius</text>
 <pinref part="U1" gate="C" pin="P1[7]/ENET_COL/SD_DAT[1]/PWM0[5]"/>
 <wire x1="63.5" y1="55.88" x2="58.42" y2="55.88" width="0.1524" layer="91"/>
 <label x="58.42" y="55.88" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="ISP" class="0">
+<segment>
+<pinref part="U1" gate="C" pin="P2[10]/!EINT0!/NMI"/>
+<pinref part="R7" gate="G$1" pin="P$2"/>
+<wire x1="198.12" y1="121.92" x2="165.1" y2="121.92" width="0.1524" layer="91"/>
+<label x="190.5" y="121.92" size="1.27" layer="95"/>
 </segment>
 </net>
 </nets>
