@@ -46,9 +46,9 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_CORE_LPC177x_8x/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_DSPLIB_CM3/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_hal/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_hal/freertos/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_hal/freertos/portable/GCC/ARM_CM3}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/hal/uw_hal/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/hal/uw_hal/freertos/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/hal/uw_hal/freertos/portable/GCC/ARM_CM3}&quot;"/>
 								</option>
 								<option id="com.crt.advproject.gcc.exe.debug.option.optimization.level.1462015691" name="Optimization Level" superClass="com.crt.advproject.gcc.exe.debug.option.optimization.level" value="gnu.c.optimization.level.size" valueType="enumerated"/>
 								<inputType id="com.crt.advproject.compiler.input.97094434" superClass="com.crt.advproject.compiler.input"/>
@@ -62,8 +62,6 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_CORE_LPC177x_8x}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_DSPLIB_CM3}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_hal/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_hal/freertos/include}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1635983474" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 								<inputType id="com.crt.advproject.assembler.input.972454036" name="Additional Assembly Source Files" superClass="com.crt.advproject.assembler.input"/>
@@ -95,9 +93,9 @@
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CMSIS_CORE_LPC177x_8x"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CMSIS_DSPLIB_CM3"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="hal"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="inc"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="uw_hal"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
