@@ -1546,8 +1546,8 @@ TXC  7M-14.31818MAAJ-T  XTAL, 14.31818MHZ, 18PF,SMD, 3.2X2.5
 <text x="2.54" y="-1.27" size="0.8128" layer="21" font="vector">&gt;VALUE</text>
 </package>
 <package name="XTAL_SMD_5X3.2">
-<smd name="P$1" x="-2.54" y="0" dx="1.384" dy="1.7" layer="1" rot="R90"/>
-<smd name="P$2" x="2.54" y="0" dx="1.384" dy="1.7" layer="1" rot="R90"/>
+<smd name="P$1" x="-2.54" y="0" dx="2.4" dy="1.7" layer="1" rot="R90"/>
+<smd name="P$2" x="2.54" y="0" dx="2.4" dy="1.7" layer="1" rot="R90"/>
 <wire x1="-2.6" y1="1.5" x2="-2.4" y2="1.7" width="0.127" layer="21"/>
 <wire x1="-2.4" y1="1.7" x2="2.4" y2="1.7" width="0.127" layer="21"/>
 <wire x1="2.4" y1="1.7" x2="2.6" y2="1.5" width="0.127" layer="21"/>
@@ -1583,20 +1583,20 @@ TXC  7M-14.31818MAAJ-T  XTAL, 14.31818MHZ, 18PF,SMD, 3.2X2.5
 <text x="7.5" y="-1" size="1.27" layer="21" font="vector">&gt;VALUE</text>
 </package>
 <package name="XTAL_ABS25">
-<smd name="1" x="0" y="0" dx="1.27" dy="1.905" layer="1"/>
-<smd name="4" x="0" y="3.175" dx="1.27" dy="1.905" layer="1"/>
-<smd name="2" x="6.858" y="0" dx="1.27" dy="1.905" layer="1"/>
-<smd name="3" x="6.858" y="3.175" dx="1.27" dy="1.905" layer="1"/>
-<wire x1="-1.143" y1="3.175" x2="-1.905" y2="3.175" width="0.2032" layer="21"/>
-<wire x1="-1.905" y1="3.175" x2="-1.905" y2="0" width="0.2032" layer="21"/>
-<wire x1="-1.905" y1="0" x2="-1.143" y2="0" width="0.2032" layer="21"/>
-<wire x1="1.016" y1="0" x2="5.842" y2="0" width="0.2032" layer="21"/>
-<wire x1="1.016" y1="3.175" x2="5.842" y2="3.175" width="0.2032" layer="21"/>
-<wire x1="7.874" y1="3.175" x2="8.636" y2="3.175" width="0.2032" layer="21"/>
-<wire x1="8.636" y1="3.175" x2="8.636" y2="0" width="0.2032" layer="21"/>
-<wire x1="8.636" y1="0" x2="7.874" y2="0" width="0.2032" layer="21"/>
-<text x="1.27" y="1.905" size="0.8128" layer="21" font="vector">&gt;NAME</text>
-<text x="1.27" y="0.635" size="0.8128" layer="21" font="vector">&gt;VALUE</text>
+<smd name="1" x="0" y="0" dx="1.3" dy="1.9" layer="1"/>
+<smd name="4" x="0" y="3.2" dx="1.3" dy="1.9" layer="1"/>
+<smd name="2" x="5.5" y="0" dx="1.3" dy="1.9" layer="1"/>
+<smd name="3" x="5.5" y="3.175" dx="1.3" dy="1.9" layer="1"/>
+<wire x1="-1.143" y1="3.175" x2="-1.305" y2="3.175" width="0.2032" layer="21"/>
+<wire x1="-1.305" y1="3.175" x2="-1.305" y2="0" width="0.2032" layer="21"/>
+<wire x1="-1.305" y1="0" x2="-1.143" y2="0" width="0.2032" layer="21"/>
+<wire x1="1.016" y1="0" x2="4.442" y2="0" width="0.2032" layer="21"/>
+<wire x1="1.016" y1="3.175" x2="4.442" y2="3.175" width="0.2032" layer="21"/>
+<wire x1="6.674" y1="3.175" x2="6.836" y2="3.175" width="0.2032" layer="21"/>
+<wire x1="6.836" y1="3.175" x2="6.836" y2="0" width="0.2032" layer="21"/>
+<wire x1="6.836" y1="0" x2="6.674" y2="0" width="0.2032" layer="21"/>
+<text x="1.07" y="-1.095" size="0.8128" layer="21" font="vector">&gt;NAME</text>
+<text x="0.47" y="-2.165" size="0.8128" layer="21" font="vector">&gt;VALUE</text>
 </package>
 <package name="DO219AB">
 <smd name="P$1" x="0" y="0" dx="1.3" dy="1.4" layer="1"/>
@@ -1620,6 +1620,23 @@ TXC  7M-14.31818MAAJ-T  XTAL, 14.31818MHZ, 18PF,SMD, 3.2X2.5
 <wire x1="0.45" y1="1.4" x2="0.45" y2="1.1" width="0.2032" layer="21"/>
 <wire x1="5.25" y1="-1.4" x2="5.25" y2="-1.1" width="0.2032" layer="21"/>
 <wire x1="5.2" y1="1.4" x2="5.2" y2="1.1" width="0.2032" layer="21"/>
+</package>
+<package name="SOIC8_W">
+<smd name="P$1" x="0.014" y="-0.03" dx="0.635" dy="1.524" layer="1" rot="R270"/>
+<smd name="P$2" x="0.014" y="-1.3" dx="0.635" dy="1.524" layer="1" roundness="100" rot="R270"/>
+<smd name="P$3" x="0.014" y="-2.57" dx="0.635" dy="1.524" layer="1" roundness="100" rot="R270"/>
+<smd name="P$4" x="0.014" y="-3.84" dx="0.635" dy="1.524" layer="1" roundness="100" rot="R270"/>
+<smd name="P$5" x="7.356" y="-3.84" dx="0.635" dy="1.524" layer="1" roundness="100" rot="R270"/>
+<smd name="P$6" x="7.356" y="-2.57" dx="0.635" dy="1.524" layer="1" roundness="100" rot="R270"/>
+<smd name="P$7" x="7.356" y="-1.3" dx="0.635" dy="1.524" layer="1" roundness="100" rot="R270"/>
+<smd name="P$8" x="7.356" y="-0.03" dx="0.635" dy="1.524" layer="1" roundness="100" rot="R270"/>
+<wire x1="6.086" y1="0.986" x2="6.086" y2="-4.856" width="0.2032" layer="21"/>
+<wire x1="6.086" y1="-4.856" x2="1.284" y2="-4.856" width="0.2032" layer="21"/>
+<wire x1="1.284" y1="-4.856" x2="1.284" y2="0.986" width="0.2032" layer="21"/>
+<wire x1="1.284" y1="0.986" x2="6.086" y2="0.986" width="0.2032" layer="21"/>
+<circle x="2.3" y="-0.03" radius="0.359209375" width="0.2032" layer="21"/>
+<text x="1.665" y="-1.935" size="0.8128" layer="21" font="vector">&gt;NAME</text>
+<text x="1.665" y="-3.205" size="0.8128" layer="21" font="vector">&gt;VALUE</text>
 </package>
 <package name="SOIC8">
 <smd name="P$1" x="-2.286" y="2.54" dx="0.635" dy="1.524" layer="1" rot="R270"/>
@@ -1809,67 +1826,67 @@ The FSMD series from Multicomp are surface mountable PTC (positive Temperature c
 <text x="-0.635" y="-10.795" size="1.27" layer="21" font="vector">&gt;VALUE</text>
 </package>
 <package name="TSOP_II_54_PIN">
-<smd name="P$1" x="-6.2992" y="10.2362" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$2" x="-6.2992" y="9.4488" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$3" x="-6.2992" y="8.6614" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$4" x="-6.2992" y="7.874" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$5" x="-6.2992" y="7.0866" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$6" x="-6.2992" y="6.2992" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$7" x="-6.2992" y="5.5118" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$8" x="-6.2992" y="4.7244" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$9" x="-6.2992" y="3.937" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$10" x="-6.2992" y="3.1496" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$11" x="-6.2992" y="2.3622" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$12" x="-6.2992" y="1.5748" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$13" x="-6.2992" y="0.7874" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$14" x="-6.2992" y="0" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$15" x="-6.2992" y="-0.7874" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$16" x="-6.2992" y="-1.5748" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$17" x="-6.2992" y="-2.3622" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$18" x="-6.2992" y="-3.1496" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$19" x="-6.2992" y="-3.937" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$20" x="-6.2992" y="-4.7244" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$21" x="-6.2992" y="-5.5118" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$22" x="-6.2992" y="-6.2992" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$23" x="-6.2992" y="-7.0866" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$24" x="-6.2992" y="-7.874" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$25" x="-6.2992" y="-8.6614" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$26" x="-6.2992" y="-9.4488" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$27" x="-6.2992" y="-10.2362" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$28" x="5.5118" y="-10.2362" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$29" x="5.5118" y="-9.4488" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$30" x="5.5118" y="-8.6614" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$31" x="5.5118" y="-7.874" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$32" x="5.5118" y="-7.0866" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$33" x="5.5118" y="-6.2992" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$34" x="5.5118" y="-5.5118" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$35" x="5.5118" y="-4.7244" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$36" x="5.5118" y="-3.937" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$37" x="5.5118" y="-3.1496" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$38" x="5.5118" y="-2.3622" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$39" x="5.5118" y="-1.5748" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$40" x="5.5118" y="-0.7874" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$41" x="5.5118" y="0" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$42" x="5.5118" y="0.7874" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$43" x="5.5118" y="1.5748" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$44" x="5.5118" y="2.3622" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$45" x="5.5118" y="3.1496" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$46" x="5.5118" y="3.937" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$47" x="5.5118" y="4.7244" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$48" x="5.5118" y="5.5118" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$49" x="5.5118" y="6.2992" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$50" x="5.5118" y="7.0866" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$51" x="5.5118" y="7.874" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$52" x="5.5118" y="8.6614" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$53" x="5.5118" y="9.4488" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<smd name="P$54" x="5.5118" y="10.2362" dx="0.3556" dy="1.016" layer="1" rot="R270"/>
-<wire x1="-5.5118" y1="-11.0236" x2="-5.5118" y2="11.0236" width="0.2032" layer="21"/>
-<wire x1="-5.5118" y1="11.0236" x2="4.7244" y2="11.0236" width="0.2032" layer="21"/>
-<wire x1="4.7244" y1="11.0236" x2="4.7244" y2="-11.0236" width="0.2032" layer="21"/>
-<wire x1="4.7244" y1="-11.0236" x2="-5.5118" y2="-11.0236" width="0.2032" layer="21"/>
-<circle x="-3.937" y="9.4488" radius="0.7874" width="0.2032" layer="21"/>
-<text x="-3.1496" y="6.2992" size="1.27" layer="21" font="vector">&gt;NAME</text>
-<text x="-3.1496" y="4.7244" size="0.8128" layer="21" font="vector">&gt;VALUE</text>
+<wire x1="-5.5118" y1="-11.4046" x2="-5.5118" y2="11.1506" width="0.2032" layer="21"/>
+<wire x1="-5.5118" y1="11.1506" x2="4.7244" y2="11.1506" width="0.2032" layer="21"/>
+<wire x1="4.7244" y1="11.1506" x2="4.7244" y2="-11.4046" width="0.2032" layer="21"/>
+<wire x1="4.7244" y1="-11.4046" x2="-5.5118" y2="-11.4046" width="0.2032" layer="21"/>
+<circle x="-3.937" y="9.3218" radius="0.7874" width="0.2032" layer="21"/>
+<text x="-3.1496" y="6.1722" size="0.8128" layer="21" font="vector">&gt;NAME</text>
+<text x="-3.1496" y="4.5974" size="0.8128" layer="21" font="vector">&gt;VALUE</text>
+<smd name="P$1" x="-6.3" y="10.25" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$2" x="-6.3" y="9.45" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$3" x="-6.3" y="8.65" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$4" x="-6.3" y="7.85" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$5" x="-6.3" y="7.05" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$6" x="-6.3" y="6.25" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$7" x="-6.3" y="5.45" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$8" x="-6.3" y="4.65" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$9" x="-6.3" y="3.85" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$10" x="-6.3" y="3.05" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$11" x="-6.3" y="2.25" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$12" x="-6.3" y="1.45" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$13" x="-6.3" y="0.65" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$14" x="-6.3" y="-0.15" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$15" x="-6.3" y="-0.95" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$16" x="-6.3" y="-1.75" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$17" x="-6.3" y="-2.55" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$18" x="-6.3" y="-3.35" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$19" x="-6.3" y="-4.15" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$20" x="-6.3" y="-4.95" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$21" x="-6.3" y="-5.75" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$22" x="-6.3" y="-6.55" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$23" x="-6.3" y="-7.35" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$24" x="-6.3" y="-8.15" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$25" x="-6.3" y="-8.95" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$26" x="-6.3" y="-9.75" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$27" x="-6.3" y="-10.55" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$54" x="5.5" y="10.25" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$53" x="5.5" y="9.45" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$52" x="5.5" y="8.65" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$51" x="5.5" y="7.85" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$50" x="5.5" y="7.05" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$49" x="5.5" y="6.25" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$48" x="5.5" y="5.45" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$47" x="5.5" y="4.65" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$46" x="5.5" y="3.85" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$45" x="5.5" y="3.05" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$44" x="5.5" y="2.25" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$43" x="5.5" y="1.45" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$42" x="5.5" y="0.65" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$41" x="5.5" y="-0.15" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$40" x="5.5" y="-0.95" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$39" x="5.5" y="-1.75" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$38" x="5.5" y="-2.55" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$37" x="5.5" y="-3.35" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$36" x="5.5" y="-4.15" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$35" x="5.5" y="-4.95" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$34" x="5.5" y="-5.75" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$33" x="5.5" y="-6.55" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$32" x="5.5" y="-7.35" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$31" x="5.5" y="-8.15" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$30" x="5.5" y="-8.95" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$29" x="5.5" y="-9.75" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
+<smd name="P$28" x="5.5" y="-10.55" dx="0.3556" dy="1.016" layer="1" rot="R90"/>
 </package>
 <package name="MOLEX_MX120G">
 <pad name="P$1" x="-15.75" y="0" drill="4" diameter="5"/>
@@ -4017,10 +4034,7 @@ AS4C4M16S-6TAN-ND</description>
 <connect gate="G$1" pin="VSSQ@4" pad="P$52"/>
 </connects>
 <technologies>
-<technology name="">
-<attribute name="DIGIKEY_ID" value="1450-1154-ND" constant="no"/>
-<attribute name="MANUFACTURER_ID" value="AS4C4M16S-6TAN" constant="no"/>
-</technology>
+<technology name=""/>
 </technologies>
 </device>
 </devices>
@@ -4124,7 +4138,7 @@ Operating Temperature	-40°C ~ 85°C</description>
 <gate name="G$1" symbol="WINDBOND_W25Q32FV" x="15.24" y="-7.62"/>
 </gates>
 <devices>
-<device name="_SOIC8" package="SOIC8">
+<device name="_SOIC8_W" package="SOIC8_W">
 <connects>
 <connect gate="G$1" pin="!CS" pad="P$1"/>
 <connect gate="G$1" pin="!RESET!/IO3" pad="P$7"/>
@@ -4136,10 +4150,7 @@ Operating Temperature	-40°C ~ 85°C</description>
 <connect gate="G$1" pin="VCC" pad="P$8"/>
 </connects>
 <technologies>
-<technology name="">
-<attribute name="DIGIKEY_ID" value="W25Q32FVSSIG-ND" constant="no"/>
-<attribute name="MANUFACTURER_ID" value="W25Q32FVSSIG" constant="no"/>
-</technology>
+<technology name=""/>
 </technologies>
 </device>
 </devices>
@@ -4475,7 +4486,7 @@ TVP5150AM1IPBSRQ)</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="MICREL_MIC5247-1.8YM5" uservalue="yes">
+<deviceset name="REG_MICREL_MIC5247-1.8YM5" uservalue="yes">
 <description>MICREL SEMICONDUCTOR  MIC5247-1.8YM5 TR  V REG, 2.7-6V, 0.15A, 1.8V, 2%, 5SOT23 
 
 http://www.farnell.com/datasheets/1670792.pdf
@@ -4504,7 +4515,9 @@ Output Voltage Nom.: 1.8V</description>
 <technologies>
 <technology name="">
 <attribute name="FARNELL_ID" value="2219070" constant="no"/>
+<attribute name="INPUT_VOLTAGE_MAX" value="6 V" constant="no"/>
 <attribute name="MANUFACTURER_ID" value="MIC5247-1.8YM5 TR" constant="no"/>
+<attribute name="OUTPUT_VOLTAGE" value="1.8 V" constant="no"/>
 </technology>
 </technologies>
 </device>
@@ -4613,7 +4626,7 @@ Output Voltage Nom.: 1.8V</description>
 <part name="GND19" library="supply1" deviceset="GND" device=""/>
 <part name="U2" library="usevolt" deviceset="MCP2551" device="_SOIC8" value="MCP2551"/>
 <part name="U$2" library="usevolt" deviceset="HEADER12" device="_MX120G" value="MX120G"/>
-<part name="U4" library="usevolt" deviceset="WINDBOND_W25Q32FV" device="_SOIC8" value="W25Q32FV"/>
+<part name="U4" library="usevolt" deviceset="WINDBOND_W25Q32FV" device="_SOIC8_W" value="W25Q32FV"/>
 <part name="+3V10" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND20" library="supply1" deviceset="GND" device=""/>
 <part name="C23" library="usevolt" deviceset="CAP" device="_0603" value="100nF"/>
@@ -4622,7 +4635,7 @@ Output Voltage Nom.: 1.8V</description>
 <part name="GND21" library="supply1" deviceset="GND" device=""/>
 <part name="+3V11" library="supply1" deviceset="+3V3" device=""/>
 <part name="FRAME6" library="frames" deviceset="A4L-LOC" device=""/>
-<part name="U5" library="usevolt" deviceset="MICREL_MIC5247-1.8YM5" device="_SOT23-5" value="MIC5247-1.8YM5"/>
+<part name="U5" library="usevolt" deviceset="REG_MICREL_MIC5247-1.8YM5" device="_SOT23-5" value="MIC5247-1.8YM5"/>
 <part name="P+7" library="supply1" deviceset="+5V" device=""/>
 <part name="P+8" library="supply1" deviceset="V+" device=""/>
 <part name="GND22" library="supply1" deviceset="GND" device=""/>

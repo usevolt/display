@@ -6,11 +6,18 @@
  */
 
 #include "dspl_commands.h"
+#include <uw_utilities.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define this ((dspl_st*)me)
 
 const uw_command_st terminal_commands[] = {
-
+		{
+				.id = CMD_STEP_TIME,
+				.str = "step",
+				.instructions = "Sets the application step cycle time."
+		}
 };
 
 
@@ -27,5 +34,14 @@ unsigned int dspl_commands_count(void) {
 
 
 void dspl_command_callback(void *me, int command, char **args) {
-
+	switch (command) {
+	case CMD_STEP_TIME:
+		if (*(args[0])) {
+			this->step_cycle_ms = atoi(args[0]);
+		}
+		printf("%u\n\r", this->step_cycle_ms);
+		break;
+	default:
+		break;
+	}
 }

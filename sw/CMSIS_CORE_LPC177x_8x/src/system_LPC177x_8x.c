@@ -423,6 +423,8 @@ void SystemCoreClockUpdate (void)            /* Get Core Clock Frequency      */
  */
 void SystemInit (void)
 {
+
+
 #if (CLOCK_SETUP)                       /* Clock Setup                        */
   LPC_SC->SCS       = SCS_Val;
   if (SCS_Val & (1 << 5)) {             /* If Main Oscillator is enabled      */
@@ -458,9 +460,9 @@ void SystemInit (void)
 #if (FLASH_SETUP == 1)                  /* Flash Accelerator Setup            */
   LPC_SC->FLASHCFG  = FLASHCFG_Val|0x03A;
 #endif
-#ifdef  __RAM_MODE__
-  SCB->VTOR  = 0x10000000 & 0x3FFFFF80;
-#else
-  SCB->VTOR  = 0x00000000 & 0x3FFFFF80;
-#endif
+//#ifdef  __RAM_MODE__
+//  SCB->VTOR  = 0x10000000 & 0x3FFFFF80;
+//#else
+//  SCB->VTOR  = 0x00000000 & 0x3FFFFF80;
+//#endif
 }

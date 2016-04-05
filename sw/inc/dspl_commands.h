@@ -14,6 +14,7 @@
 
 /// @brief: Enum describing all commands
 typedef enum {
+	CMD_STEP_TIME,
 	CMD_COUNT
 } dspl_commands_e;
 

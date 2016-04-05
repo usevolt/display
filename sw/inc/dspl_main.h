@@ -29,7 +29,10 @@ typedef struct {
 
 
 typedef struct {
+
 	uw_data_start_t data_start;
+
+	unsigned int step_cycle_ms;
 
 	// CANopen object dictionary data
 	struct {
@@ -57,5 +60,7 @@ typedef struct {
 void dspl_init(dspl_st *me);
 //void dspl_step(void *me, unsigned int step_ms);
 void dspl_pin_callback(void *me, uw_gpios_e pin);
+
+void dspl_step(void *me);
 
 #endif /* DSPL_MAIN_H_ */
