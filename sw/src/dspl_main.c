@@ -68,6 +68,7 @@ void dspl_pin_callback(void *me, uw_gpios_e pin) {
 int main(void) {
 //	uw_wdt_init(10);
 
+
 	uw_set_int_priority(INT_SYSTICK, 31);
 	uw_set_int_priority(INT_UART0, 30);
 

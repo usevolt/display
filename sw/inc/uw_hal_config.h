@@ -22,6 +22,24 @@
 
 
 
+#define CONFIG_LOG_ERRORS				1
+#define CONFIG_INFORMATIVE_ERRORS		1
+
+
+
+/* Selects the memory module attached to the external memory controller.
+ * CONFIG_EMC_DYNAMIC_RAM means that EMC is configured to communicate with SDRAM chips
+ * and CONFIG_EMC_STATIC_RAM means that EMC is configured to static RAM chips.
+ */
+#define CONFIG_EMC_DYNAMIC_RAM			1
+#define CONFIG_EMC_STATIC_RAM			0
+
+/* Defines the amount of memory chips attached to the system.
+ * The maximum number of memory chips is hardware dependant.
+ */
+#define CONFIG_EMC_CHIP_COUNT			4
+
+
 
 
 /* Enables FreeRTOS implementation.
@@ -255,6 +273,118 @@
 
 
 
+/* Enables or disables the CAN modules.
+ * Refer to the MCU manual for available channels.
+ */
+#define CONFIG_CAN1							1
+#define CONFIG_CAN2							0
+
+#define CONFIG_CAN_LOG						0
+
+/*
+ * Defines the corresponding CAN channel's baud rate
+ */
+#define CONFIG_CAN1_BAUDRATE				250000
+#define CONFIG_CAN2_BAUDRATE				250000
+
+/* Defines the corresponding CAN channel's
+ * transmit buffer size in CAN messages
+ */
+#define CONFIG_CAN1_TX_BUFFER_SIZE			3
+#define CONFIG_CAN2_TX_BUFFER_SIZE			3
+
+/* Defines the corresponding CAN channel's
+ * receive buffer size in CAN messages
+ */
+#define CONFIG_CAN1_RX_BUFFER_SIZE			3
+#define CONFIG_CAN2_RX_BUFFER_SIZE			3
+
+
+
+
+
+/*
+ * Enabled or disables the CANopen module.
+ */
+#define CONFIG_CANOPEN						1
+/* Specifies which CAN channel is used as a CANopen node.
+ * CANopen stack can be used only for 1 CAN channel
+ */
+#define CONFIG_CANOPEN_CHANNEL				0
+
+#define CONFIG_CANOPEN_LOG					0
+
+/* Defines the object dictionary index where
+ * CANopen node id can be read.
+ * Sub index should be 0.
+ */
+#define CONFIG_CANOPEN_NODEID_INDEX			0x100B
+
+
+/* Defines the object dictionary index where
+ * CANopen producer heartbeat time can be read.
+ * Sub index should be 0.
+ */
+#define CONFIG_CANOPEN_HEARTBEAT_INDEX		0x1017
+
+
+/* Defines the CANopen object dictionary index where
+ * TX PDO communication parameters for TX PDO1 can be found.
+ * For TX PDO's 2, 3, ... communication parameters are
+ * assumed to be offsetted from this address forward.
+ * For example, if CONFIG_CANOPEN_TXPDO_COM_INDEX = 0x1400 ->
+ * 		TXPDO1 = 0x1400, TXPDO2 = 0x1401, TXPDO3 = 0x1402, etc.
+ *
+ * PDO communication parameter is assumed to be of type UW_PDO_COM_ARRAY,
+ * which contains uw_rxpdo_com_parameter_st variable inside.
+ */
+#define CONFIG_CANOPEN_RXPDO_COM_INDEX		0x1400
+
+
+/* Defines the CANopen object dictionary index where
+ * TX PDO mapping parameters for TX PDO1 can be found.
+ * For TX PDO's 2, 3, ... mapping parameters are
+ * assumed to be offsetted from this address forward.
+ * For example, if CONFIG_CANOPEN_TXPDO1_MAP_INDEX = 0x1600 ->
+ * 		TXPDO2 = 0x1601, TXPDO3 = 0x1602, etc.
+ *
+ * PDO mapping parameter is assumed to be of type UW_PDO_MAP_ARRAY,
+ * which contains uw_pdo_mapping_parameter_st variables.
+ */
+#define CONFIG_CANOPEN_RXPDO_MAP_INDEX		0x1600
+
+
+/* Defines the CANopen object dictionary index where
+ * TX PDO communication parameters for RX PDO1 can be found.
+ * For RX PDO's 2, 3, ... communication parameters are
+ * assumed to be offsetted from this addres forward.
+ * For example, if CONFIG_CANOPEN_RXPDO1_COM_INDEX = 0x1400 ->
+ * 		RXPDO2 = 0x1401, RXPDO3 = 0x1402, etc.
+ *
+ * PDO communication parameter is assumed to be of type UW_PDO_COM_ARRAY,
+ * which contains uw_txpdo_com_parameter_st variable inside.
+ */
+#define CONFIG_CANOPEN_TXPDO_COM_INDEX		0x1800
+
+
+/* Defines the CANopen object dictionary index where
+ * RX PDO mapping parameters for RX PDO1 can be found.
+ * For RX PDO's 2, 3, ... mapping parameters are
+ * assumed to be offsetted from this address forward.
+ * For example, if CONFIG_CANOPEN_RXPDO1_MAP_INDEX = 0x1600 ->
+ * 		RXPDO2 = 0x1601, RXPDO3 = 0x1602, etc.
+ *
+ * PDO mapping parameter is assumed to be of type UW_PDO_MAP_ARRAY,
+ * which contains uw_pdo_mapping_parameter_st variables.
+ */
+#define CONFIG_CANOPEN_TXPDO_MAP_INDEX		0x1A00
+
+
+#define CONFIG_CANOPEN_RXPDO_COUNT			2
+
+#define CONFIG_CANOPEN_TXPDO_COUNT			2
+
+#define CONFIG_CANOPEN_PDO_MAPPING_COUNT	8
 
 
 
