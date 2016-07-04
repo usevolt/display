@@ -10,7 +10,7 @@
 
 
 #include "dspl_main.h"
-#include <uw_terminal.h>
+#include <uv_terminal.h>
 
 /// @brief: Enum describing all commands
 typedef enum {
@@ -20,7 +20,7 @@ typedef enum {
 
 
 /// @brief: Returns the pointer to terminal commands array
-const uw_command_st * const dspl_commands(void);
+const uv_command_st * const dspl_commands(void);
 
 
 /// @brief: Returns the count how many terminal commands are

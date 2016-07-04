@@ -11,7 +11,7 @@
 #include "dspl_main.h"
 
 // object dictionary definition
-extern const uw_canopen_object_st obj_dict[];
+extern const uv_canopen_object_st obj_dict[];
 unsigned int dspl_object_dictionary_size(void);
 
 

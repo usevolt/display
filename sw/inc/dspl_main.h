@@ -8,9 +8,9 @@
 #ifndef DSPL_MAIN_H_
 #define DSPL_MAIN_H_
 
-#include <uw_gpio.h>
-#include <uw_memory.h>
-#include <uw_canopen.h>
+#include <uv_gpio.h>
+#include <uv_memory.h>
+#include <uv_canopen.h>
 
 #define DSPL_CANOPEN_ERROR_COUNT				10
 #define DSPL_CANOPEN_HEARTBEAT_TIME				20
@@ -30,7 +30,7 @@ typedef struct {
 
 typedef struct {
 
-	uw_data_start_t data_start;
+	uv_data_start_t data_start;
 
 	unsigned int step_cycle_ms;
 
@@ -44,22 +44,22 @@ typedef struct {
 		uint8_t heartbeat_time;
 		uint32_t save_req;
 		uint32_t restore_req;
-		uw_identity_object_st identity_obj;
-		uw_rxpdo_com_parameter_st rxpdo_coms[DSPL_CANOPEN_RXPDO_COUNT];
-		uw_pdo_mapping_parameter_st rxpdo_mappings[DSPL_CANOPEN_PDO_MAPPING_MAX_COUNT]
+		uv_identity_object_st identity_obj;
+		uv_rxpdo_com_parameter_st rxpdo_coms[DSPL_CANOPEN_RXPDO_COUNT];
+		uv_pdo_mapping_parameter_st rxpdo_mappings[DSPL_CANOPEN_PDO_MAPPING_MAX_COUNT]
 												   [DSPL_CANOPEN_RXPDO_COUNT];
-		uw_txpdo_com_parameter_st txpdo_coms[DSPL_CANOPEN_TXPDO_COUNT];
-		uw_pdo_mapping_parameter_st txpdo_mappings[DSPL_CANOPEN_PDO_MAPPING_MAX_COUNT]
+		uv_txpdo_com_parameter_st txpdo_coms[DSPL_CANOPEN_TXPDO_COUNT];
+		uv_pdo_mapping_parameter_st txpdo_mappings[DSPL_CANOPEN_PDO_MAPPING_MAX_COUNT]
 												   [DSPL_CANOPEN_TXPDO_COUNT];
 	} obj_dict;
 
 
-	uw_data_end_t data_endl;
+	uv_data_end_t data_endl;
 } dspl_st;
 
 void dspl_init(dspl_st *me);
 //void dspl_step(void *me, unsigned int step_ms);
-void dspl_pin_callback(void *me, uw_gpios_e pin);
+void dspl_pin_callback(void *me, uv_gpios_e pin);
 
 void dspl_step(void *me);
 

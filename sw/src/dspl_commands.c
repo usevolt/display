@@ -6,13 +6,13 @@
  */
 
 #include "dspl_commands.h"
-#include <uw_utilities.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <uv_utilities.h>
 
 #define this ((dspl_st*)me)
 
-const uw_command_st terminal_commands[] = {
+const uv_command_st terminal_commands[] = {
 		{
 				.id = CMD_STEP_TIME,
 				.str = "step",
@@ -22,14 +22,14 @@ const uw_command_st terminal_commands[] = {
 
 
 /// @brief: Returns the pointer to terminal commands array
-const uw_command_st * const dspl_commands(void) {
+const uv_command_st * const dspl_commands(void) {
 	return terminal_commands;
 }
 
 
 /// @brief: Returns the count how many terminal commands are
 unsigned int dspl_commands_count(void) {
-	return sizeof(terminal_commands) / sizeof(uw_command_st);
+	return sizeof(terminal_commands) / sizeof(uv_command_st);
 }
 
 
