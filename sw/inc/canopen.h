@@ -5,14 +5,16 @@
  *      Author: usevolt
  */
 
-#ifndef DSPL_CANOPEN_H_
-#define DSPL_CANOPEN_H_
+#ifndef CANOPEN_H_
+#define CANOPEN_H_
 
-#include "dspl_main.h"
+#include <main.h>
 
 // object dictionary definition
 extern const uv_canopen_object_st obj_dict[];
-unsigned int dspl_object_dictionary_size(void);
+
+unsigned int object_dictionary_size(void);
 
 
-#endif /* DSPL_CANOPEN_H_ */
+
+#endif /* CANOPEN_H_ */

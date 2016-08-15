@@ -1,0 +1,20 @@
+EESchema Schematic File Version 2
+LIBS:kemet
+LIBS:multicomp
+LIBS:usevolt
+LIBS:wurth_elektronik_LED
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "Usewood Display"
+Date "2016-08-09"
+Rev "2"
+Comp "Usevolt Oy"
+Comment1 "Olli Usenius"
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$EndSCHEMATC

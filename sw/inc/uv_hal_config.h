@@ -28,9 +28,19 @@
 
 
 #define CONFIG_EMC_DYNAMIC_RAM			1
+#define CONFIG_EMC_SDRAM_1				1
+#define CONFIG_EMC_SDRAM_2				0
+#define CONFIG_EMC_SDRAM_3				0
+#define CONFIG_EMC_SDRAM_4				0
 #define CONFIG_EMC_STATIC_RAM			0
-#define CONFIG_EMC_CHIP_COUNT			4
+#define CONFIG_EMC_CHIP_COUNT			1
 #define CONFIG_EMC_CLOCK_DIV_HALF		0
+#define CONFIG_EMC_SDRAM_MODE_REGISTER	(0x33 << (2 + 8 + 1))
+#define CONFIG_EMC_SDRAM_AM0			0b000101
+#define CONFIG_EMC_SDRAM_AM1			0
+#define CONFIG_EMC_SDRAM_RAS			3
+#define CONFIG_EMC_SDRAM_CAS			3
+#define CONFIG_EMC_SDRAM_REFRESH		54
 
 
 
@@ -43,7 +53,7 @@
 
 
 #define CONFIG_NON_VOLATILE_MEMORY		1
-
+#define CONFIG_NON_VOLATILE_START_ADDR	0x0001000
 
 
 
@@ -150,6 +160,8 @@
 
 
 
+#define CONFIG_I2C							0
+
 
 
 
@@ -249,21 +261,10 @@
 
 
 
-/*
- * Defines the terminal receive buffer size in bytes.
- * The buffer has to be big enough for terminal command
- * as well as all arguments.
- */
-#define CONFIG_TERMINAL_BUFFER_SIZE		200
-/*
- * Set's the maximum argument count for terminal
- */
-#define CONFIG_TERMINAL_ARG_COUNT		4
-/*
- * Enables instructions for terminal commands.
- * If disabled, terminal commands do not contain any usage instructions.
- */
-#define CONFIG_TERMINAL_INSTRUCTIONS	0
+#define CONFIG_TERMINAL_BUFFER_SIZE			200
+#define CONFIG_TERMINAL_ARG_COUNT			4
+#define CONFIG_TERMINAL_INSTRUCTIONS		1
+#define CONFIG_TERMINAL_DEDICATED_CALLBACKS 1
 
 
 
@@ -327,7 +328,7 @@
 #define CONFIG_CANOPEN_REVISION_CODE				2
 
 #define CONFIG_CANOPEN_RXPDO1_ID					(CANOPEN_RXPDO1_ID | CONFIG_CANOPEN_DEFAULT_NODE_ID | CANOPEN_PDO_DISABLED)
-#define CONFIG_CANOPEN_RXPDO1_TRANSMISSION_TYPE		PDO_TRANSMISSION_ASYNC
+#define CONFIG_CANOPEN_RXPDO1_TRANSMISSION_TYPE		CANOPEN_PDO_TRANSMISSION_ASYNC
 #define CONFIG_CANOPEN_RXPDO1_MAPPING1_MAIN_INDEX	0
 #define CONFIG_CANOPEN_RXPDO1_MAPPING1_SUB_INDEX	0
 #define CONFIG_CANOPEN_RXPDO1_MAPPING1_LEN			0
@@ -354,7 +355,7 @@
 #define CONFIG_CANOPEN_RXPDO1_MAPPING8_LEN			0
 
 #define CONFIG_CANOPEN_RXPDO2_ID					(CANOPEN_RXPDO2_ID | CONFIG_CANOPEN_DEFAULT_NODE_ID | CANOPEN_PDO_DISABLED)
-#define CONFIG_CANOPEN_RXPDO2_TRANSMISSION_TYPE		PDO_TRANSMISSION_ASYNC
+#define CONFIG_CANOPEN_RXPDO2_TRANSMISSION_TYPE		CANOPEN_PDO_TRANSMISSION_ASYNC
 #define CONFIG_CANOPEN_RXPDO2_MAPPING1_MAIN_INDEX	0
 #define CONFIG_CANOPEN_RXPDO2_MAPPING1_SUB_INDEX	0
 #define CONFIG_CANOPEN_RXPDO2_MAPPING1_LEN			0
@@ -468,26 +469,9 @@
 
 
 
-/* Defines the ADC mode.
- * Note: Not both of these should be defined!
- *
- * in CONTINUOUS MODE the ADC runs in the background all the time and
- * reading the ADC values is fast since they can only be read from memory.
- * in STANDARD MODE, the conversion is started when calling uv_read_adc.
- * The function waits for the conversion to finish and returns the value retrieved.
- *
- * CONTINUOUS MODE is fast, but not precise since the output value is harder
- * to average. In ADC_STANDARD_MODE, conversion can be run multiple times and
- * average of the conversion can be taken.
- */
 #define CONFIG_ADC_MODE_STANDARD		1
 #define CONFIG_ADC_MODE_CONTINOUS		0
 
-/* Enables ADC channels.
- * If a channel is not enabled here, it's not
- * configured as an analog input and
- * cannot be used as a ADC source.
- */
 #define CONFIG_ADC_CHANNEL0				1
 #define CONFIG_ADC_CHANNEL1				1
 #define CONFIG_ADC_CHANNEL2				1
@@ -502,13 +486,11 @@
 
 
 
+#define I2C								0
 
-/* Enables all GPIO pins from specific ports.
- * GPIO pin functions cannot be used for specific port pins
- * if the port is not enabled with these or
- * pin is not enabled with configurations below.
- *
- * Refer to the MCU datasheet for PORTs available.*/
+
+
+
 #define CONFIG_PORT0					0
 #define CONFIG_PORT1					0
 #define CONFIG_PORT2					0
@@ -517,11 +499,6 @@
 #define CONFIG_PORT5					0
 
 
-/* Enabled a individual port pin.
- * GPIO pin functions cannot be used for specific pins
- * if they or their port is not enabled.
- * Refer to the MCU datasheet for pins available.
- */
 #define CONFIG_PIO0_0					0
 #define CONFIG_PIO0_1					0
 #define CONFIG_PIO0_2					0

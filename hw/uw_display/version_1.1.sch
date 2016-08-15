@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="7.2.0">
+<eagle version="7.6.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="mm" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -4557,8 +4557,8 @@ Output Voltage Nom.: 1.8V</description>
 <part name="C4" library="usevolt" deviceset="CAP" device="_0603" value="100nF"/>
 <part name="GND4" library="supply1" deviceset="GND" device=""/>
 <part name="X1" library="usevolt" deviceset="XTAL_7A-20.000MAAJ-T" device="" value="20MHz"/>
-<part name="C5" library="usevolt" deviceset="CAP" device="_0603" value="15pF"/>
-<part name="C6" library="usevolt" deviceset="CAP" device="_0603" value="15pF"/>
+<part name="C5" library="usevolt" deviceset="CAP" device="_0603" value="18pF"/>
+<part name="C6" library="usevolt" deviceset="CAP" device="_0603" value="18pF"/>
 <part name="+3V4" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND5" library="supply1" deviceset="GND" device=""/>
 <part name="C8" library="usevolt" deviceset="CAP" device="_0603" value="100nF"/>
