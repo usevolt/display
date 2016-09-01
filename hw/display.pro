@@ -1,4 +1,4 @@
-update=Tue 09 Aug 2016 18:20:57 EEST
+update=Wed 17 Aug 2016 18:29:28 EEST
 version=1
 last_client=kicad
 [pcbnew]
@@ -33,3 +33,4 @@ LibName1=/home/usevolt/uv/kicad/libs/kemet
 LibName2=/home/usevolt/uv/kicad/libs/multicomp
 LibName3=/home/usevolt/uv/kicad/libs/usevolt
 LibName4=/home/usevolt/uv/kicad/libs/wurth_elektronik_LED
+LibName5=power
