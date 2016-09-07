@@ -26,6 +26,8 @@ typedef enum {
 	CMD_GSM_CONF,
 	CMD_EMC_WRITE,
 	CMD_EMC_READ,
+	CMD_EEPROM_WRITE,
+	CMD_EEPROM_READ,
 	CMD_COUNT
 } dspl_commands_e;
 
@@ -41,6 +43,8 @@ unsigned int commands_count(void);
 
 void emcwrite_callb(void *me, unsigned int cmd, unsigned int args, ...);
 void emcread_callb(void *me, unsigned int cmd, unsigned int args, ...);
+void eepromwrite_callb(void *me, unsigned int cmd, unsigned int args, ...);
+void eepromread_callb(void *me, unsigned int cmd, unsigned int args, ...);
 
 
 

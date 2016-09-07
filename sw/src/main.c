@@ -22,6 +22,8 @@
 #include <uv_utilities.h>
 #include <uv_wdt.h>
 #include <uv_emc.h>
+#include <uv_lcd.h>
+#include <uv_eeprom.h>
 #include "pin_mappings.h"
 
 #define this ((dspl_st*)me)
@@ -81,12 +83,19 @@ int main(void) {
 	// init GPIO's
 	uv_gpio_add_interrupt_callback(dspl_pin_callback);
 	uv_gpio_init_output(LED_PIN, false);
+	uv_gpio_init_output(LCD_PIN, true);
+
+	// init EEPROM
+	uv_eeprom_init();
 
 	// init UART0
 	uv_uart_init(UART0);
 
 	// init MEC
 	uv_emc_init();
+
+	// init TFT LCD
+	uv_lcd_tft_init();
 
 	// init terminal
 	uv_terminal_init(commands(), commands_count());

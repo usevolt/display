@@ -11,6 +11,7 @@
 #include <string.h>
 #include <uv_emc.h>
 #include <uv_utilities.h>
+#include <uv_eeprom.h>
 #include "commands.h"
 #include "network.h"
 
@@ -98,14 +99,30 @@ const uv_command_st terminal_commands[] = {
 		{
 				.id = CMD_EMC_WRITE,
 				.str = "emcwrite",
-				.instructions= "",
+				.instructions= "Write data to eternal SDRAM.\n\r"
+						"Usage: emcwrite <value> <addr> <count>",
 				.callback = emcwrite_callb
 		},
 		{
 				.id = CMD_EMC_READ,
 				.str = "emcread",
-				.instructions= "",
+				.instructions= "Read data from external SDRAM.\n\r"
+						"Usage: emcread <addr> <count>",
 				.callback = emcread_callb
+		},
+		{
+				.id = CMD_EEPROM_WRITE,
+				.str = "eepromwrite",
+				.instructions = "Write data to EEPROM.\n\r"
+						"Usage: eepromwrite <data> <addr> <count>",
+				.callback = eepromwrite_callb
+		},
+		{
+				.id = CMD_EEPROM_READ,
+				.str = "eepromread",
+				.instructions = "Read data from EEPROM.\n\r"
+						"Usage: eepromread <addr> <count>",
+				.callback = eepromread_callb
 		}
 };
 
@@ -132,18 +149,14 @@ void emcwrite_callb(void *me, unsigned int cmd, unsigned int args, ...) {
 	va_list l;
 	va_start(l, args);
 	uint32_t data = va_arg(l, int);
-	uint32_t* addr = (uint32_t*) (EMC_SDRAM_1 + va_arg(l, int));
-	uint16_t len = 1;
+	uint32_t* addr = (uint32_t*) (EMC_SDRAM_1 + va_arg(l, int) * sizeof(*addr));
+	uint32_t len = 1;
 	if (args == 3) {
 		len = va_arg(l, int);
 	}
-	int i;
-	for (i = 0; i < len; i++) {
-		*(addr + i) = data;
-	}
+	va_end(l);
+	memset(addr, data, len * 4);
 	printf("wrote %u bytes of 0x%x to address 0x%x\n\r", len, data, addr);
-	unsigned int t = LPC_EMC->Status;
-	printf("EMC status: 0x%x\n\r", t);
 }
 
 void emcread_callb(void *me, unsigned int cmd, unsigned int args, ...) {
@@ -153,21 +166,57 @@ void emcread_callb(void *me, unsigned int cmd, unsigned int args, ...) {
 	}
 	va_list l;
 	va_start(l, args);
-	uint32_t data;
-	uint32_t *addr = (uint32_t*) (EMC_SDRAM_1 + va_arg(l, int));
-	uint16_t len = 1;
+	volatile uint32_t data;
+	uint32_t *addr = (uint32_t*) (EMC_SDRAM_1 + va_arg(l, int) * sizeof(*addr));
+	int32_t len = 1;
 	if (args == 2) {
 		len = va_arg(l, int);
 	}
+	va_end(l);
 	int i;
+
+	printf("len: %u, args: %u\n\r", len, args);
 	printf("data: ");
 	for (i = 0; i < len; i++) {
 		data = *(addr + i);
 		printf("0x%x ", data);
 	}
 	printf("\n\r");
-	unsigned int t = LPC_EMC->Status;
-	printf("EMC status: 0x%x\n\r", t);
+}
+void eepromwrite_callb(void *me, unsigned int cmd, unsigned int args, ...) {
+	if (args < 2) {
+		printf("Give at least 2 arguments\n\r");
+		return;
+	}
+	va_list l;
+	va_start(l, args);
+	uint8_t data = va_arg(l, int);
+	uint16_t addr = va_arg(l, int);
+	uint16_t len = 1;
+	if (args >= 3) len = va_arg(l, int);
+	va_end(l);
+	uint8_t d[len];
+	memset(d, data, len);
+	uv_errors_e e = uv_eeprom_write(d, len, addr);
+	printf("Return: %u\n\r", UV_ERR_GET(e));
+}
+void eepromread_callb(void *me, unsigned int cmd, unsigned int args, ...) {
+	if (args < 2) {
+		printf("Give 2 arguments\n\r");
+	}
+	va_list l;
+	va_start(l, args);
+	uint16_t addr = va_arg(l, int);
+	uint16_t len = va_arg(l, int);
+	va_end(l);
+	uint8_t data[len];
+	uv_eeprom_read(data, len, addr);
+	printf("data: ");
+	uint16_t i;
+	for (i = 0; i < len; i++) {
+		printf("%x ", data[i]);
+	}
+	printf("\n\r");
 }
 
 

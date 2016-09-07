@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/usevolt/uw/display/hw/display.sch)
-    (date "Thu 01 Sep 2016 14:26:50 EEST")
+    (date "Thu 01 Sep 2016 16:19:34 EEST")
     (tool "Eeschema (2016-07-28 BZR 6996, Git e15ad93)-product")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -51,7 +51,7 @@
       (tstamp 57BA189F))
     (comp (ref U1)
       (value MCP2551_SOIC8)
-      (footprint usevolt:usevolt-SOIC8)
+      (footprint usevolt:SOIC8)
       (datasheet http://www.microchip.com/mymicrochip/filehandler.aspx?ddocname=en011797)
       (fields
         (field (name "2nd Source Part Number") 9758569)
@@ -149,7 +149,7 @@
       (tstamp 57C15B19))
     (comp (ref U3)
       (value WINDBOND_W25Q32FV_SOIC8_W)
-      (footprint usevolt:usevolt-SOIC8_W)
+      (footprint usevolt:SOIC8_W)
       (datasheet http://www.winbond.com/resource-files/w25q32fv%20revi%2010202015.pdf)
       (fields
         (field (name "1st Source") Digi-Key)
@@ -173,7 +173,7 @@
       (tstamp 57C59323))
     (comp (ref U2)
       (value ALLIANCE_AS4C4M16SA_TSOP_II)
-      (footprint usevolt:usevolt-TSOP_II_54_PIN)
+      (footprint usevolt:TSOP_II_54_PIN)
       (datasheet http://www.alliancememory.com/pdf/dram/64M-AS4C4M16SA-Automotive_v3.0_March%202015.pdf)
       (fields
         (field (name "1st Source Part Number") 1450-1258-ND)
@@ -269,7 +269,7 @@
       (tstamp 57C4D66A))
     (comp (ref X2)
       (value XTAL_ABS25-32.768KHZ-T)
-      (footprint usevolt:usevolt-XTAL_32.768KHZ-T)
+      (footprint usevolt:XTAL_32.768KHZ-T)
       (datasheet http://www.abracon.com/Resonators/abs25.pdf)
       (fields
         (field (name "2nd Source Part Number") 1611824)
@@ -297,7 +297,7 @@
       (tstamp 57C70FAB))
     (comp (ref U5)
       (value MOSFET-N_2N7002W)
-      (footprint usevolt:usevolt-SOT323)
+      (footprint usevolt:SOT323)
       (datasheet http://www.onsemi.com/pub_link/Collateral/2N7002W-D.PDF)
       (fields
         (field (name "2nd Source Part Number") 2533171)
@@ -311,7 +311,7 @@
       (tstamp 57C7C3E2))
     (comp (ref U6)
       (value MOSFET-N_2N7002W)
-      (footprint usevolt:usevolt-SOT323)
+      (footprint usevolt:SOT323)
       (datasheet http://www.onsemi.com/pub_link/Collateral/2N7002W-D.PDF)
       (fields
         (field (name "2nd Source Part Number") 2533171)
@@ -325,7 +325,7 @@
       (tstamp 57C8357D))
     (comp (ref F1)
       (value FUSE_MC36211_350MA)
-      (footprint usevolt:usevolt-FUSE_MC36211)
+      (footprint usevolt:FUSE_MC36211)
       (datasheet http://www.farnell.com/datasheets/1678471.pdf?_ga=1.218604761.1948984246.1460023966)
       (fields
         (field (name "1st Source") Farnell)
@@ -337,7 +337,7 @@
       (tstamp 57B8204F))
     (comp (ref D1)
       (value DIODE_TVS_SMBJ33A-TRDO-214AA)
-      (footprint usevolt:usevolt-DO-214AA)
+      (footprint usevolt:DO-214AA)
       (datasheet http://www.littelfuse.com/~/media/electronics/datasheets/tvs_diodes/littelfuse_tvs_diode_smbj_datasheet.pdf.pdf)
       (fields
         (field (name "1st Source") Digi-Key)
@@ -361,7 +361,7 @@
       (tstamp 57B8217A))
     (comp (ref C10)
       (value CAP_EEE-FK1H470P)
-      (footprint usevolt:usevolt-CAP_EEE-FK1H470P)
+      (footprint usevolt:CAP_EEE-FK1H470P)
       (datasheet http://industrial.panasonic.com/www-cgi/jvcr13pz.cgi?E+PZ+3+ABA0120+EEEFK1H470P+7+WW)
       (fields
         (field (name "2nd Source Part Number") 667-EEE-FK1H470P)
@@ -375,7 +375,7 @@
       (tstamp 57B821E6))
     (comp (ref VR1)
       (value LM2671SOIC8)
-      (footprint usevolt:usevolt-SOIC8)
+      (footprint usevolt:SOIC8)
       (datasheet http://www.farnell.com/datasheets/1902681.pdf?_ga=1.246738500.1948984246.1460023966)
       (fields
         (field (name "1st Source Part Number") 1469200)
@@ -401,7 +401,7 @@
       (tstamp 57B822C5))
     (comp (ref D2)
       (value DIODE_RS07J-GS18)
-      (footprint usevolt:usevolt-DO219AB)
+      (footprint usevolt:DO219AB)
       (datasheet http://www.vishay.com/docs/85742/rs07b.pdf)
       (fields
         (field (name "2nd Source Part Number") 1864882)
@@ -415,7 +415,7 @@
       (tstamp 57B82329))
     (comp (ref L1)
       (value INDUCTOR_SDR1005-101KL)
-      (footprint usevolt:usevolt-INDUCTOR_BOURNS_10X13X5MM)
+      (footprint usevolt:INDUCTOR_BOURNS_10X13X5MM)
       (datasheet http://www.farnell.com/datasheets/1695384.pdf?_ga=1.223340891.1948984246.1460023966)
       (fields
         (field (name "1st Source Part Number") 1828057)
@@ -429,7 +429,7 @@
       (tstamp 57B82455))
     (comp (ref C12)
       (value CAP_EEE-FK1H470P)
-      (footprint usevolt:usevolt-CAP_EEE-FK1H470P)
+      (footprint usevolt:CAP_EEE-FK1H470P)
       (datasheet http://industrial.panasonic.com/www-cgi/jvcr13pz.cgi?E+PZ+3+ABA0120+EEEFK1H470P+7+WW)
       (fields
         (field (name "2nd Source Part Number") 667-EEE-FK1H470P)
@@ -443,7 +443,7 @@
       (tstamp 57B827AB))
     (comp (ref VR2)
       (value REG_MCP1700)
-      (footprint usevolt:usevolt-SOT-23_3-PIN)
+      (footprint usevolt:SOT-23_3-PIN)
       (datasheet http://www.farnell.com/datasheets/1784514.pdf?_ga=1.221693144.1948984246.1460023966)
       (fields
         (field (name "1st Source Part Number") 1296592)
@@ -515,7 +515,7 @@
       (tstamp 57B83997))
     (comp (ref U4)
       (value LPC1785FBD208_551QFP50)
-      (footprint usevolt:usevolt-QFP208)
+      (footprint usevolt:QFP208)
       (datasheet http://www.nxp.com/documents/data_sheet/LPC178X_7X.pdf)
       (fields
         (field (name "1st Source Part Number") 568-7573-ND)
@@ -772,7 +772,7 @@
       (tstamp 57B6E8AC))
     (comp (ref X1)
       (value XTAL_7A-20.000MAAJ-T)
-      (footprint usevolt:usevolt-XTAL_7A-20.000MAJ)
+      (footprint usevolt:XTAL_7A-20.000MAJ)
       (datasheet http://www.farnell.com/datasheets/1041607.pdf?_ga=1.225290842.1948984246.1460023966)
       (fields
         (field (name "1st Source Part Number") 1841950)
@@ -808,7 +808,7 @@
       (tstamp 57B6F533))
     (comp (ref J3)
       (value HEADER_USART_2_SMD)
-      (footprint usevolt:usevolt-HEADER_4_2_SMD)
+      (footprint usevolt:HEADER_4_2_SMD)
       (libsource (lib usevolt) (part HEADER_USART_2_SMD))
       (sheetpath (names /lpc1785_sheet/) (tstamps /57B4853E/))
       (tstamp 57B75E67)))
@@ -922,7 +922,7 @@
       (fields
         (field (name Reference) U)
         (field (name Value) ALLIANCE_AS4C4M16SA_TSOP_II)
-        (field (name Footprint) usevolt:usevolt-TSOP_II_54_PIN)
+        (field (name Footprint) usevolt:TSOP_II_54_PIN)
         (field (name Datasheet) http://www.alliancememory.com/pdf/dram/64M-AS4C4M16SA-Automotive_v3.0_March%202015.pdf)
         (field (name "1st Source Part Number") 1450-1258-ND)
         (field (name Manufacturer) "Alliance Memory, Inc.")
@@ -989,7 +989,7 @@
       (fields
         (field (name Reference) J)
         (field (name Value) AMPSEAL_14_POS_776261-1_V)
-        (field (name Footprint) usevolt:usevolt-AMPSEAL_14_POS_776261-1)
+        (field (name Footprint) usevolt:AMPSEAL_14_POS_776261-1)
         (field (name Datasheet) http://www.mouser.com/ds/2/418/NG_CD_776261_A7-673206.pdf)
         (field (name "1st Source Part Number") 571-776261-1)
         (field (name "Manufacturer Part Number") 776261-1)
@@ -1016,7 +1016,7 @@
       (fields
         (field (name Reference) J)
         (field (name Value) ARM_JTAG_SWD_HEADER_10_PINSMD)
-        (field (name Footprint) usevolt:usevolt-ARM_10_PIN_JTAG_SWD_CONNECTOR))
+        (field (name Footprint) usevolt:ARM_10_PIN_JTAG_SWD_CONNECTOR))
       (pins
         (pin (num P$1) (name VREF) (type BiDi))
         (pin (num P$2) (name TMS/SWDIO) (type BiDi))
@@ -1033,7 +1033,7 @@
       (fields
         (field (name Reference) BT)
         (field (name Value) BATTERY_HOLDER_CH7410-2032LFSMD)
-        (field (name Footprint) usevolt:usevolt-BATTERY_HOLDER_CH7410-2032LF)
+        (field (name Footprint) usevolt:BATTERY_HOLDER_CH7410-2032LF)
         (field (name Datasheet) http://www.farnell.com/datasheets/1505862.pdf?_ga=1.251637318.1948984246.1460023966)
         (field (name "Manufacturer Part Number") 2064724)
         (field (name "1st Source Part Number") CH7410-2032LF)
@@ -1065,7 +1065,7 @@
       (fields
         (field (name Reference) C)
         (field (name Value) CAP_EEE-FK1H470P)
-        (field (name Footprint) usevolt:usevolt-CAP_EEE-FK1H470P)
+        (field (name Footprint) usevolt:CAP_EEE-FK1H470P)
         (field (name Datasheet) http://industrial.panasonic.com/www-cgi/jvcr13pz.cgi?E+PZ+3+ABA0120+EEEFK1H470P+7+WW)
         (field (name "2nd Source Part Number") 667-EEE-FK1H470P)
         (field (name "1st Source") Digi-Key)
@@ -1082,7 +1082,7 @@
       (fields
         (field (name Reference) D)
         (field (name Value) DIODE_RS07J-GS18)
-        (field (name Footprint) usevolt:usevolt-DO219AB)
+        (field (name Footprint) usevolt:DO219AB)
         (field (name Datasheet) http://www.vishay.com/docs/85742/rs07b.pdf)
         (field (name "2nd Source Part Number") 1864882)
         (field (name "1st Source") Digi-Key)
@@ -1099,7 +1099,7 @@
       (fields
         (field (name Reference) D)
         (field (name Value) DIODE_TVS_SMBJ33A-TRDO-214AA)
-        (field (name Footprint) usevolt:usevolt-DO-214AA)
+        (field (name Footprint) usevolt:DO-214AA)
         (field (name Datasheet) http://www.littelfuse.com/~/media/electronics/datasheets/tvs_diodes/littelfuse_tvs_diode_smbj_datasheet.pdf.pdf)
         (field (name "1st Source") Digi-Key)
         (field (name Manufacturer) Littlefuse)
@@ -1114,7 +1114,7 @@
       (fields
         (field (name Reference) F)
         (field (name Value) FUSE_MC36211_350MA)
-        (field (name Footprint) usevolt:usevolt-FUSE_MC36211)
+        (field (name Footprint) usevolt:FUSE_MC36211)
         (field (name Datasheet) http://www.farnell.com/datasheets/1678471.pdf?_ga=1.218604761.1948984246.1460023966)
         (field (name "1st Source") Farnell)
         (field (name "Manufacturer Part Number") MC36211)
@@ -1196,7 +1196,7 @@
       (fields
         (field (name Reference) J)
         (field (name Value) HEADER_USART_2_SMD)
-        (field (name Footprint) usevolt:usevolt-HEADER_4_2_SMD))
+        (field (name Footprint) usevolt:HEADER_4_2_SMD))
       (pins
         (pin (num P$1) (name RX) (type BiDi))
         (pin (num P$2) (name GND) (type BiDi))
@@ -1212,7 +1212,7 @@
       (fields
         (field (name Reference) L)
         (field (name Value) INDUCTOR_SDR1005-101KL)
-        (field (name Footprint) usevolt:usevolt-INDUCTOR_BOURNS_10X13X5MM)
+        (field (name Footprint) usevolt:INDUCTOR_BOURNS_10X13X5MM)
         (field (name Datasheet) http://www.farnell.com/datasheets/1695384.pdf?_ga=1.223340891.1948984246.1460023966)
         (field (name "1st Source Part Number") 1828057)
         (field (name Manufacturer) BOURNS)
@@ -1229,7 +1229,7 @@
       (fields
         (field (name Reference) VR)
         (field (name Value) LM2671SOIC8)
-        (field (name Footprint) usevolt:usevolt-SOIC8)
+        (field (name Footprint) usevolt:SOIC8)
         (field (name Datasheet) http://www.farnell.com/datasheets/1902681.pdf?_ga=1.246738500.1948984246.1460023966)
         (field (name "1st Source Part Number") 1469200)
         (field (name "2nd Source Part Number") 926-LM2671M-5.0/NOPB)
@@ -1252,7 +1252,7 @@
       (fields
         (field (name Reference) U)
         (field (name Value) LPC1785FBD208_551QFP50)
-        (field (name Footprint) usevolt:usevolt-QFP208)
+        (field (name Footprint) usevolt:QFP208)
         (field (name Datasheet) http://www.nxp.com/documents/data_sheet/LPC178X_7X.pdf)
         (field (name "1st Source Part Number") 568-7573-ND)
         (field (name "1st Source") Digi-Key)
@@ -1473,7 +1473,7 @@
       (fields
         (field (name Reference) U)
         (field (name Value) MCP2551_SOIC8)
-        (field (name Footprint) usevolt:usevolt-SOIC8)
+        (field (name Footprint) usevolt:SOIC8)
         (field (name Datasheet) http://www.microchip.com/mymicrochip/filehandler.aspx?ddocname=en011797)
         (field (name "2nd Source Part Number") 9758569)
         (field (name "1st Source") Digi-Key)
@@ -1494,7 +1494,7 @@
       (fields
         (field (name Reference) U)
         (field (name Value) MOSFET-N_2N7002W)
-        (field (name Footprint) usevolt:usevolt-SOT323)
+        (field (name Footprint) usevolt:SOT323)
         (field (name Datasheet) http://www.onsemi.com/pub_link/Collateral/2N7002W-D.PDF)
         (field (name "2nd Source Part Number") 2533171)
         (field (name "Manufacturer Part Number") 2N7002WT1G)
@@ -1512,7 +1512,7 @@
       (fields
         (field (name Reference) VR)
         (field (name Value) REG_MCP1700)
-        (field (name Footprint) usevolt:usevolt-SOT-23_3-PIN)
+        (field (name Footprint) usevolt:SOT-23_3-PIN)
         (field (name Datasheet) http://www.farnell.com/datasheets/1784514.pdf?_ga=1.221693144.1948984246.1460023966)
         (field (name "1st Source Part Number") 1296592)
         (field (name "2nd Source") Digi-Key)
@@ -1530,7 +1530,7 @@
       (fields
         (field (name Reference) U)
         (field (name Value) WINDBOND_W25Q32FV_SOIC8_W)
-        (field (name Footprint) usevolt:usevolt-SOIC8_W)
+        (field (name Footprint) usevolt:SOIC8_W)
         (field (name Datasheet) http://www.winbond.com/resource-files/w25q32fv%20revi%2010202015.pdf)
         (field (name "1st Source") Digi-Key)
         (field (name "Manufacturer Part Number") W25Q32FVSSIG)
@@ -1571,7 +1571,7 @@
       (fields
         (field (name Reference) X)
         (field (name Value) XTAL_7A-20.000MAAJ-T)
-        (field (name Footprint) usevolt:usevolt-XTAL_7A-20.000MAJ)
+        (field (name Footprint) usevolt:XTAL_7A-20.000MAJ)
         (field (name Datasheet) http://www.farnell.com/datasheets/1041607.pdf?_ga=1.225290842.1948984246.1460023966)
         (field (name "1st Source Part Number") 1841950)
         (field (name "Manufacturer Part Number") 7A-20.000MAAJ-T)
@@ -1586,7 +1586,7 @@
       (fields
         (field (name Reference) X)
         (field (name Value) XTAL_ABS25-32.768KHZ-T)
-        (field (name Footprint) usevolt:usevolt-XTAL_32.768KHZ-T)
+        (field (name Footprint) usevolt:XTAL_32.768KHZ-T)
         (field (name Datasheet) http://www.abracon.com/Resonators/abs25.pdf)
         (field (name "2nd Source Part Number") 1611824)
         (field (name "1st Source Part Number") 535-9166-1-ND)
@@ -1600,12 +1600,12 @@
   (libraries
     (library (logical kemet)
       (uri /home/usevolt/uv/kicad/libs/kemet.lib))
-    (library (logical multicomp)
-      (uri /home/usevolt/uv/kicad/libs/multicomp.lib))
     (library (logical usevolt)
       (uri /home/usevolt/uv/kicad/libs/usevolt.lib))
     (library (logical wurth_elektronik_LED)
-      (uri /home/usevolt/uv/kicad/libs/wurth_elektronik_LED.lib)))
+      (uri /home/usevolt/uv/kicad/libs/wurth_elektronik_LED.lib))
+    (library (logical multicomp)
+      (uri /home/usevolt/uv/kicad/libs/multicomp.lib)))
   (nets
     (net (code 1) (name "Net-(J5-Pad39)")
       (node (ref J5) (pin 39)))

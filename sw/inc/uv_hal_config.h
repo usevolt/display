@@ -27,6 +27,81 @@
 
 
 
+#define CONFIG_EEPROM					1
+
+
+#define CONFIG_SPI						1
+
+
+
+/* Possible font sizes for uv_hal_config configuration file fonts */
+#define  CONFIG_UI_FONT_4X6				0
+#define  CONFIG_UI_FONT_5X8				0
+#define  CONFIG_UI_FONT_5X12			1
+#define  CONFIG_UI_FONT_6X8				0
+#define  CONFIG_UI_FONT_6X10			0
+#define  CONFIG_UI_FONT_7X12			0
+#define  CONFIG_UI_FONT_8X8				0
+#define  CONFIG_UI_FONT_8X12			0
+#define  CONFIG_UI_FONT_8X14			1
+#define  CONFIG_UI_FONT_10X16			0
+#define  CONFIG_UI_FONT_12X16			0
+#define  CONFIG_UI_FONT_12X20			0
+#define  CONFIG_UI_FONT_16X26			1
+#define  CONFIG_UI_FONT_22X36			0
+#define  CONFIG_UI_FONT_24X40			0
+#define  CONFIG_UI_FONT_32X53			0
+
+
+#define CONFIG_LCD						1
+#define CONFIG_LCD_FREQ					45000000
+#define CONFIG_LCD_BUFFER_ADDRESS		EMC_SDRAM_1
+#define CONFIG_LCD_PIXELS_PER_LINE		800
+#define CONFIG_LCD_HSYNC_PULSE_WIDTH	48
+#define CONFIG_LCD_H_FRONT_PORCH		40
+#define CONFIG_LCD_H_BACK_PORCH			88
+#define CONFIG_LCD_LINES_PER_PANEL		480
+#define CONFIG_LCD_VSYNC_PULSE_WIDTH	3
+#define CONFIG_LCD_V_FRONT_PORCH		13
+#define CONFIG_LCD_V_BACK_PORCH			32
+#define CONFIG_LCD_INVERT_PANEL_CLOCK	1
+#define CONFIG_LCD_INVERT_HSYNC			1
+#define CONFIG_LCD_INVERT_VSYNC			1
+#define CONFIG_LCD_BITS_PER_PIXEL		LCD_24_BPP
+#define CONFIG_LCD_PWR_IOCON			LPC_IOCON->P2_0 = 0x7 | (1 << 9)
+#define CONFIG_LCD_DCLK_IOCON			LPC_IOCON->P2_2 = 0x7 | (1 << 9)
+#define CONFIG_LCD_ENAB_M_IOCON			LPC_IOCON->P2_4 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VSYNC_IOCON			LPC_IOCON->P2_3 = 0x7 | (1 << 9)
+#define CONFIG_LCD_HSYNC_IOCON			LPC_IOCON->P2_5 = 0x7 | (1 << 9)
+#define CONFIG_LCD_LE_IOCON
+#define CONFIG_LCD_CLKIN_IOCON
+#define CONFIG_LCD_VD0_IOCON			LPC_IOCON->P0_4 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD1_IOCON			LPC_IOCON->P0_5 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD2_IOCON			LPC_IOCON->P4_28 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD3_IOCON			LPC_IOCON->P4_29 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD4_IOCON			LPC_IOCON->P2_6 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD5_IOCON			LPC_IOCON->P2_7 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD6_IOCON			LPC_IOCON->P2_8 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD7_IOCON			LPC_IOCON->P2_9 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD8_IOCON			LPC_IOCON->P0_6 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD9_IOCON			LPC_IOCON->P0_7 = 0x7 | (0b111 << 7)
+#define CONFIG_LCD_VD10_IOCON			LPC_IOCON->P1_20 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD11_IOCON			LPC_IOCON->P1_21 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD12_IOCON			LPC_IOCON->P1_22 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD13_IOCON			LPC_IOCON->P1_23 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD14_IOCON			LPC_IOCON->P1_24 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD15_IOCON			LPC_IOCON->P1_25 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD16_IOCON			LPC_IOCON->P0_8 = 0x7 | (0b111 << 7)
+#define CONFIG_LCD_VD17_IOCON			LPC_IOCON->P0_9 = 0x7 | (0b111 << 7)
+#define CONFIG_LCD_VD18_IOCON			LPC_IOCON->P2_12 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD19_IOCON			LPC_IOCON->P2_13 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD20_IOCON			LPC_IOCON->P1_26 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD21_IOCON			LPC_IOCON->P1_27 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD22_IOCON			LPC_IOCON->P1_28 = 0x7 | (1 << 9)
+#define CONFIG_LCD_VD23_IOCON			LPC_IOCON->P1_29 = 0x7 | (1 << 9)
+
+
+
 #define CONFIG_EMC_DYNAMIC_RAM			1
 #define CONFIG_EMC_SDRAM_1				1
 #define CONFIG_EMC_SDRAM_2				0
@@ -41,6 +116,7 @@
 #define CONFIG_EMC_SDRAM_RAS			3
 #define CONFIG_EMC_SDRAM_CAS			3
 #define CONFIG_EMC_SDRAM_REFRESH		54
+
 
 
 
@@ -536,7 +612,7 @@
 #define CONFIG_PIO1_0					0
 #define CONFIG_PIO1_1					0
 #define CONFIG_PIO1_2					0
-#define CONFIG_PIO1_3					0
+#define CONFIG_PIO1_3					1
 #define CONFIG_PIO1_4					0
 #define CONFIG_PIO1_5					0
 #define CONFIG_PIO1_6					0

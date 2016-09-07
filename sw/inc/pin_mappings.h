@@ -13,5 +13,7 @@
 
 #define LED_PIN		PIO2_31
 
+#define LCD_PIN		PIO1_3
+
 
 #endif /* PIN_MAPPINGS_H_ */
