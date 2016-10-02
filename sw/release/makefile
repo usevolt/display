@@ -8,6 +8,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include src/ui/subdir.mk
 -include src/subdir.mk
 -include hal/uv_hal/src/ui/subdir.mk
 -include hal/uv_hal/src/subdir.mk
@@ -36,7 +37,7 @@ all: uw_display.axf
 uw_display.axf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU Linker'
-	arm-none-eabi-gcc -nostdlib -Xlinker -Map="uw_display.map" -Xlinker --gc-sections -mcpu=cortex-m3 -mthumb -T "uw_display_Debug.ld" -o "uw_display.axf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -nostdlib -Xlinker -Map="uw_display.map" -Xlinker --gc-sections -mcpu=cortex-m3 -mthumb -T "uw_display_release.ld" -o "uw_display.axf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build

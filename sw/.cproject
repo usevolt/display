@@ -21,8 +21,7 @@
 							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="com.crt.advproject.platform.exe.debug.737299323" name="ARM-based MCU (Debug)" superClass="com.crt.advproject.platform.exe.debug"/>
 							<builder buildPath="${workspace_loc:/uw_display}/Debug" id="com.crt.advproject.builder.exe.debug.1026529106" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="com.crt.advproject.builder.exe.debug">
 								<outputEntries>
-									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="Debug"/>
-									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="Release"/>
+									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="release"/>
 								</outputEntries>
 							</builder>
 							<tool id="com.crt.advproject.cpp.exe.debug.1030030900" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.exe.debug"/>
@@ -36,33 +35,44 @@
 									<listOptionValue builtIn="false" value="__USE_CMSIS=CMSIS_CORE_LPC177x_8x"/>
 									<listOptionValue builtIn="false" value="__USE_CMSIS_DSPLIB=CMSIS_DSPLIB_CM3"/>
 									<listOptionValue builtIn="false" value="__LPC177X_8X__"/>
-									<listOptionValue builtIn="false" value="__REDLIB__"/>
 									<listOptionValue builtIn="false" value="LPC1785=1"/>
 									<listOptionValue builtIn="false" value="UW_RTOS=1"/>
 									<listOptionValue builtIn="false" value="&quot;__UV_PROJECT_NAME=${ProjName}_${ConfigName}&quot;"/>
+									<listOptionValue builtIn="false" value="__NEWLIB__"/>
 								</option>
-								<option id="gnu.c.compiler.option.misc.other.1578299325" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections" valueType="string"/>
-								<option id="com.crt.advproject.gcc.hdrlib.1706546507" name="Library headers" superClass="com.crt.advproject.gcc.hdrlib" value="com.crt.advproject.gcc.hdrlib.codered" valueType="enumerated"/>
+								<option id="gnu.c.compiler.option.misc.other.1578299325" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -Wno-format" valueType="string"/>
+								<option id="com.crt.advproject.gcc.hdrlib.1706546507" name="Library headers" superClass="com.crt.advproject.gcc.hdrlib" value="com.crt.advproject.gcc.hdrlib.newlibnano" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.15071090" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/inc/ui}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_CORE_LPC177x_8x/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_DSPLIB_CM3/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/hal/uv_hal/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/hal/uv_hal/freertos/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/hal/uv_hal/freertos/portable/GCC/ARM_CM3}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_CORE_LPC177x_8x}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_DSPLIB_CM3}&quot;"/>
 								</option>
-								<option id="com.crt.advproject.gcc.exe.debug.option.optimization.level.1462015691" name="Optimization Level" superClass="com.crt.advproject.gcc.exe.debug.option.optimization.level" value="gnu.c.optimization.level.none" valueType="enumerated"/>
+								<option id="com.crt.advproject.gcc.exe.debug.option.optimization.level.1462015691" name="Optimization Level" superClass="com.crt.advproject.gcc.exe.debug.option.optimization.level" value="gnu.c.optimization.level.general" valueType="enumerated"/>
+								<option id="com.crt.advproject.gcc.lto.1777606234" name="Enable Link-time optimization (-flto)" superClass="com.crt.advproject.gcc.lto" value="false" valueType="boolean"/>
+								<option id="com.crt.advproject.gcc.exe.debug.option.debugging.level.1577789550" name="Debug Level" superClass="com.crt.advproject.gcc.exe.debug.option.debugging.level" value="gnu.c.debugging.level.default" valueType="enumerated"/>
 								<inputType id="com.crt.advproject.compiler.input.97094434" superClass="com.crt.advproject.compiler.input"/>
 							</tool>
 							<tool id="com.crt.advproject.gas.exe.debug.21213079" name="MCU Assembler" superClass="com.crt.advproject.gas.exe.debug">
 								<option id="com.crt.advproject.gas.arch.229291139" name="Architecture" superClass="com.crt.advproject.gas.arch" value="com.crt.advproject.gas.target.cm3" valueType="enumerated"/>
 								<option id="com.crt.advproject.gas.thumb.1782238324" name="Thumb mode" superClass="com.crt.advproject.gas.thumb" value="true" valueType="boolean"/>
-								<option id="gnu.both.asm.option.flags.crt.847477376" name="Assembler flags" superClass="gnu.both.asm.option.flags.crt" value="-c -x assembler-with-cpp -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSIS_CORE_LPC177x_8x -D__USE_CMSIS_DSPLIB=CMSIS_DSPLIB_CM3 -D__LPC177X_8X__ -D__REDLIB__" valueType="string"/>
-								<option id="com.crt.advproject.gas.hdrlib.470512966" name="Library headers" superClass="com.crt.advproject.gas.hdrlib" value="Redlib" valueType="enumerated"/>
+								<option id="gnu.both.asm.option.flags.crt.847477376" name="Assembler flags" superClass="gnu.both.asm.option.flags.crt" value="-c -x assembler-with-cpp -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSIS_CORE_LPC177x_8x -D__USE_CMSIS_DSPLIB=CMSIS_DSPLIB_CM3 -D__LPC177X_8X__ -D__NEWLIB__" valueType="string"/>
+								<option id="com.crt.advproject.gas.hdrlib.470512966" name="Library headers" superClass="com.crt.advproject.gas.hdrlib" value="com.crt.advproject.gas.hdrlib.newlibnano" valueType="enumerated"/>
 								<option id="gnu.both.asm.option.include.paths.1335252500" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_CORE_LPC177x_8x}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_DSPLIB_CM3}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/CMSIS_CORE_LPC177x_8x/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/CMSIS_DSPLIB_CM3/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/hal/uv_hal/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/hal/uv_hal/freertos/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/hal/uv_hal/freertos/portable/GCC/ARM_CM3}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/CMSIS_CORE_LPC177x_8x}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/CMSIS_DSPLIB_CM3}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/inc/ui}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1635983474" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 								<inputType id="com.crt.advproject.assembler.input.972454036" name="Additional Assembly Source Files" superClass="com.crt.advproject.assembler.input"/>
@@ -72,18 +82,20 @@
 								<option id="com.crt.advproject.link.gcc.multicore.master.userobjs.1951275002" name="Slave Objects (not visible)" superClass="com.crt.advproject.link.gcc.multicore.master.userobjs" valueType="userObjs"/>
 								<option id="com.crt.advproject.link.arch.347590112" name="Architecture" superClass="com.crt.advproject.link.arch" value="com.crt.advproject.link.target.cm3" valueType="enumerated"/>
 								<option id="com.crt.advproject.link.thumb.1131646555" name="Thumb mode" superClass="com.crt.advproject.link.thumb" value="true" valueType="boolean"/>
-								<option id="com.crt.advproject.link.script.1626807507" name="Linker script" superClass="com.crt.advproject.link.script" value="&quot;uw_display_Debug.ld&quot;" valueType="string"/>
+								<option id="com.crt.advproject.link.script.1626807507" name="Linker script" superClass="com.crt.advproject.link.script" value="&quot;uw_display_release.ld&quot;" valueType="string"/>
 								<option id="com.crt.advproject.link.manage.2138759414" name="Manage linker script" superClass="com.crt.advproject.link.manage" value="true" valueType="boolean"/>
 								<option id="gnu.c.link.option.nostdlibs.1025153026" name="No startup or default libs (-nostdlib)" superClass="gnu.c.link.option.nostdlibs" value="true" valueType="boolean"/>
 								<option id="gnu.c.link.option.other.1457976320" name="Other options (-Xlinker [option])" superClass="gnu.c.link.option.other" valueType="stringList">
 									<listOptionValue builtIn="false" value="-Map=&quot;${BuildArtifactFileBaseName}.map&quot;"/>
 									<listOptionValue builtIn="false" value="--gc-sections"/>
 								</option>
-								<option id="com.crt.advproject.link.gcc.hdrlib.2049148400" name="Library" superClass="com.crt.advproject.link.gcc.hdrlib" value="com.crt.advproject.gcc.link.hdrlib.codered.none" valueType="enumerated"/>
+								<option id="com.crt.advproject.link.gcc.hdrlib.2049148400" name="Library" superClass="com.crt.advproject.link.gcc.hdrlib" value="com.crt.advproject.gcc.link.hdrlib.newlibnano.none" valueType="enumerated"/>
 								<option id="gnu.c.link.option.libs.1170568509" name="Libraries (-l)" superClass="gnu.c.link.option.libs"/>
 								<option id="gnu.c.link.option.paths.1855053741" name="Library search path (-L)" superClass="gnu.c.link.option.paths"/>
-								<option id="com.crt.advproject.link.crpenable.1811327277" name="Enable Code Read Protect" superClass="com.crt.advproject.link.crpenable" value="true" valueType="boolean"/>
+								<option id="com.crt.advproject.link.crpenable.1811327277" name="Enable Code Read Protect" superClass="com.crt.advproject.link.crpenable" value="false" valueType="boolean"/>
 								<option id="com.crt.advproject.link.gcc.multicore.slave.409692489" name="Multicore configuration" superClass="com.crt.advproject.link.gcc.multicore.slave"/>
+								<option id="com.crt.advproject.link.stackOffset.15301723" name="Stack offset" superClass="com.crt.advproject.link.stackOffset" value="0" valueType="string"/>
+								<option id="gnu.c.link.option.ldflags.2052822148" name="Linker flags" superClass="gnu.c.link.option.ldflags" value="" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.79834197" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -91,12 +103,40 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<folderInfo id="com.crt.advproject.config.exe.debug.1018973033.1209771401" name="/" resourcePath="inc">
+						<toolChain id="com.crt.advproject.toolchain.exe.debug.1706305579" name="Code Red MCU Tools" superClass="com.crt.advproject.toolchain.exe.debug" unusedChildren="">
+							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="com.crt.advproject.platform.exe.debug" name="ARM-based MCU (Debug)" superClass="com.crt.advproject.platform.exe.debug"/>
+							<tool id="com.crt.advproject.cpp.exe.debug.542990443" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.exe.debug.1030030900"/>
+							<tool id="com.crt.advproject.gcc.exe.debug.589356403" name="MCU C Compiler" superClass="com.crt.advproject.gcc.exe.debug.1120205501">
+								<option id="gnu.c.compiler.option.include.paths.1111945746" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/inc/ui}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_CORE_LPC177x_8x}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_DSPLIB_CM3}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/hal/uv_hal/freertos/portable/GCC/ARM_CM3}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/hal/uv_hal/freertos/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/hal/uv_hal/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_DSPLIB_CM3/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_CORE_LPC177x_8x/inc}&quot;"/>
+								</option>
+								<inputType id="com.crt.advproject.compiler.input.2135165327" superClass="com.crt.advproject.compiler.input"/>
+							</tool>
+							<tool id="com.crt.advproject.gas.exe.debug.1231100919" name="MCU Assembler" superClass="com.crt.advproject.gas.exe.debug.21213079">
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1738611819" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+								<inputType id="com.crt.advproject.assembler.input.36269155" name="Additional Assembly Source Files" superClass="com.crt.advproject.assembler.input"/>
+							</tool>
+							<tool id="com.crt.advproject.link.cpp.exe.debug.478356825" name="MCU C++ Linker" superClass="com.crt.advproject.link.cpp.exe.debug.395689305"/>
+							<tool id="com.crt.advproject.link.exe.debug.1651377636" name="MCU Linker" superClass="com.crt.advproject.link.exe.debug.1780358796"/>
+						</toolChain>
+					</folderInfo>
 					<sourceEntries>
+						<entry excluding="release|release/hal/uv_hal/src/ui|CMSIS_CORE_LPC177x_8x|CMSIS_DSPLIB_CM3|hal|inc|src|src/ui" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CMSIS_CORE_LPC177x_8x"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CMSIS_DSPLIB_CM3"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="hal"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="hal"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="inc"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="release"/>
+						<entry excluding="ui" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src/ui"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -120,7 +160,7 @@
 &lt;memory id="RAM" type="RAM"/&gt;
 &lt;memory id="Periph" is_volatile="true" type="Peripheral"/&gt;
 &lt;memoryInstance derived_from="Flash" edited="true" id="MFlash256" location="0x2000" size="0x3e000"/&gt;
-&lt;memoryInstance derived_from="RAM" edited="true" id="RamLoc64" location="0x10000000" size="0xff60"/&gt;
+&lt;memoryInstance derived_from="RAM" edited="true" id="RamLoc64" location="0x10000080" size="0xfee0"/&gt;
 &lt;memoryInstance derived_from="RAM" id="RamPeriph16" location="0x20000000" size="0x4000"/&gt;
 &lt;prog_flash blocksz="0x1000" location="0x0" maxprgbuff="0x1000" progwithcode="TRUE" size="0x10000"/&gt;
 &lt;prog_flash blocksz="0x8000" location="0x10000" maxprgbuff="0x1000" progwithcode="TRUE" size="0x30000"/&gt;
@@ -183,6 +223,7 @@
 		<configuration configurationName="Debug">
 			<resource resourceType="PROJECT" workspacePath="/uw_display"/>
 		</configuration>
+		<configuration configurationName="release"/>
 	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>

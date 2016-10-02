@@ -91,31 +91,31 @@ uv_errors_e network_init(network_st *me);
 
 
 /// @brief: A terminal callback to configure MSB
-void network_msb_conf(void *me, unsigned int cmd, unsigned int args, ...);
+void network_msb_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 
 /// @brief: A terminal callback to configure CSB
-void network_csb_conf(void *me, unsigned int cmd, unsigned int args, ...);
+void network_csb_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 
 /// @brief: A terminal callback to configure Left keypad
-void network_lkeyp_conf(void *me, unsigned int cmd, unsigned int args, ...);
+void network_lkeyp_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 
 /// @brief: A terminal callback to configure Right keypad
-void network_rkeyp_conf(void *me, unsigned int cmd, unsigned int args, ...);
+void network_rkeyp_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 
 /// @brief: A terminal callback to configure ECU
-void network_ecu_conf(void *me, unsigned int cmd, unsigned int args, ...);
+void network_ecu_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 
 /// @brief: A terminal callback to configure pedal
-void network_pedal_conf(void *me, unsigned int cmd, unsigned int args, ...);
+void network_pedal_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 
 /// @brief: A terminal callback to configure UW181S
-void network_uw181s_conf(void *me, unsigned int cmd, unsigned int args, ...);
+void network_uw181s_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 
 /// @brief: A terminal callback to configure UW181S Measure device
-void network_uw181smb_conf(void *me, unsigned int cmd, unsigned int args, ...);
+void network_uw181smb_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 
 /// @brief: A terminal callback to configure GSM device
-void network_gsm_conf(void *me, unsigned int cmd, unsigned int args, ...);
+void network_gsm_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 
 
 

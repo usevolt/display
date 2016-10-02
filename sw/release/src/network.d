@@ -17,7 +17,21 @@ src/network.o src/network.d: ../src/network.c \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_memory.h \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_canopen.h \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_utilities.h \
- /home/usevolt/uw/display/sw/inc/network.h
+ /home/usevolt/uw/display/sw/inc/network.h \
+ /home/usevolt/uw/display/sw/inc/gui.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_ui.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_button.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_slider.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_window.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_object.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_ui_styles.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_lcd.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_display.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_window.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_ui_styles.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_label.h \
+ /home/usevolt/uw/display/sw/inc/ui/taskbar.h \
+ /home/usevolt/uw/display/sw/inc/ui/home_screen.h
 
 /home/usevolt/uw/display/sw/inc/network.h:
 
@@ -56,3 +70,31 @@ src/network.o src/network.d: ../src/network.c \
 /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_utilities.h:
 
 /home/usevolt/uw/display/sw/inc/network.h:
+
+/home/usevolt/uw/display/sw/inc/gui.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_ui.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_button.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_slider.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_window.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_object.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_ui_styles.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_lcd.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_display.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_window.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_ui_styles.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_label.h:
+
+/home/usevolt/uw/display/sw/inc/ui/taskbar.h:
+
+/home/usevolt/uw/display/sw/inc/ui/home_screen.h:

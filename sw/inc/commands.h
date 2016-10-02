@@ -15,7 +15,7 @@
 
 /// @brief: Enum describing all commands
 typedef enum {
-	CMD_MSB_CONF,
+	CMD_MSB_CONF = 0,
 	CMD_CSB_CONF,
 	CMD_LKEYP_CONF,
 	CMD_RKEYP_CONF,
@@ -28,12 +28,16 @@ typedef enum {
 	CMD_EMC_READ,
 	CMD_EEPROM_WRITE,
 	CMD_EEPROM_READ,
+	CMD_LCD_RECT,
+	CMD_LCD_FRAME,
+	CMD_BACKLIGHT,
+	CMD_REFRESH,
 	CMD_COUNT
 } dspl_commands_e;
 
 
-/// @brief: Returns the pointer to terminal commands array
-const uv_command_st * const commands(void);
+/// @brief: pointer to terminal commands array
+extern const uv_command_st terminal_commands[];
 
 
 /// @brief: Returns the count how many terminal commands are
@@ -41,11 +45,14 @@ unsigned int commands_count(void);
 
 
 
-void emcwrite_callb(void *me, unsigned int cmd, unsigned int args, ...);
-void emcread_callb(void *me, unsigned int cmd, unsigned int args, ...);
-void eepromwrite_callb(void *me, unsigned int cmd, unsigned int args, ...);
-void eepromread_callb(void *me, unsigned int cmd, unsigned int args, ...);
-
+void emcwrite_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void emcread_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void eepromwrite_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void eepromread_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void lcddrawrect_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void lcddrawframe_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void lcdbacklight_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void refresh_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 
 
 #endif /* COMMANDS_H_ */

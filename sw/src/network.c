@@ -21,7 +21,7 @@ uv_errors_e network_init(network_st *me) {
 
 
 /// @brief: Configures network node variables from the arguments
-static void network_node_conf(void *me, unsigned int args, va_list argv) {
+static void network_node_conf(void *me, unsigned int args, argument_st *argv) {
 	printf("Network node configuration\n\r");
 	// if no arguments were given, print the settings
 //	if (!strlen(args[0])) {
@@ -45,63 +45,45 @@ static void network_node_conf(void *me, unsigned int args, va_list argv) {
 #undef this
 #endif
 #define this (&(((dspl_st*)me)->network))
-void network_msb_conf(void *me, unsigned int cmd, unsigned int args, ...) {
-	va_list argv;
-	va_start(argv, args);
+void network_msb_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	network_node_conf(&this->msb, args, argv);
 }
 
-void network_csb_conf(void *me, unsigned int cmd, unsigned int args, ...) {
-	va_list argv;
-	va_start(argv, args);
+void network_csb_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	network_node_conf(&this->csb, args, argv);
 }
 
-void network_lkeyp_conf(void *me, unsigned int cmd, unsigned int args, ...) {
-	va_list argv;
-	va_start(argv, args);
+void network_lkeyp_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	network_node_conf(&this->lkeyp, args, argv);
 
 }
 
-void network_rkeyp_conf(void *me, unsigned int cmd, unsigned int args, ...) {
-	va_list argv;
-	va_start(argv, args);
+void network_rkeyp_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	network_node_conf(&this->rkeyp, args, argv);
 
 }
 
-void network_ecu_conf(void *me, unsigned int cmd, unsigned int args, ...) {
-	va_list argv;
-	va_start(argv, args);
+void network_ecu_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	network_node_conf(&this->ecu, args, argv);
 
 }
 
-void network_pedal_conf(void *me, unsigned int cmd, unsigned int args, ...) {
-	va_list argv;
-	va_start(argv, args);
+void network_pedal_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	network_node_conf(&this->pedal, args, argv);
 
 }
 
-void network_uw181s_conf(void *me, unsigned int cmd, unsigned int args, ...) {
-	va_list argv;
-	va_start(argv, args);
+void network_uw181s_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	network_node_conf(&this->uw181s, args, argv);
 
 }
 
-void network_uw181smb_conf(void *me, unsigned int cmd, unsigned int args, ...) {
-	va_list argv;
-	va_start(argv, args);
+void network_uw181smb_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	network_node_conf(&this->uw181s_mb, args, argv);
 
 }
 
-void network_gsm_conf(void *me, unsigned int cmd, unsigned int args, ...) {
-	va_list argv;
-	va_start(argv, args);
+void network_gsm_conf(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	network_node_conf(&this->gsm, args, argv);
 
 }

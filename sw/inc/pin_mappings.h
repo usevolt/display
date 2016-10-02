@@ -9,11 +9,14 @@
 #define PIN_MAPPINGS_H_
 
 #include <uv_gpio.h>
+#include <uv_pwm.h>
 
 
-#define LED_PIN		PIO2_31
+#define LED_PIN				PIO2_31
 
-#define LCD_PIN		PIO1_3
+#define LCD_BACKLIGHT		PWM0_2
+
+#define BUZZER				PWM0_1
 
 
 #endif /* PIN_MAPPINGS_H_ */

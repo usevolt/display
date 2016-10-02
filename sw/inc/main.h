@@ -12,6 +12,7 @@
 #include <uv_memory.h>
 #include <uv_canopen.h>
 #include "network.h"
+#include "gui.h"
 
 
 typedef struct {
@@ -24,13 +25,13 @@ typedef struct {
 
 	network_st network;
 
+	gui_st gui;
+
 	uv_data_end_t data_endl;
 
 } dspl_st;
 
 void dspl_init(dspl_st *me);
-//void dspl_step(void *me, unsigned int step_ms);
-void dspl_pin_callback(void *me, uv_gpios_e pin);
 
 void dspl_step(void *me);
 

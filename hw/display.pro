@@ -1,4 +1,4 @@
-update=Thu 01 Sep 2016 16:15:40 EEST
+update=Sun 02 Oct 2016 19:51:12 EEST
 version=1
 last_client=kicad
 [pcbnew]
@@ -29,8 +29,9 @@ version=1
 version=1
 LibDir=../../../uv/kicad/libs
 [eeschema/libraries]
-LibName1=/home/usevolt/uv/kicad/libs/kemet
-LibName2=/home/usevolt/uv/kicad/libs/multicomp
-LibName3=/home/usevolt/uv/kicad/libs/usevolt
-LibName4=/home/usevolt/uv/kicad/libs/wurth_elektronik_LED
-LibName5=/home/usevolt/uv/kicad/standard_libraries/power
+LibName1=display-rescue
+LibName2=/home/usevolt/uv/kicad/libs/kemet
+LibName3=/home/usevolt/uv/kicad/libs/multicomp
+LibName4=/home/usevolt/uv/kicad/libs/usevolt
+LibName5=/home/usevolt/uv/kicad/libs/wurth_elektronik_LED
+LibName6=/home/usevolt/uv/kicad/standard_libraries/power

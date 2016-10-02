@@ -1,0 +1,32 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#
+# MOSFET-N_2N7002W-RESCUE-display
+#
+DEF MOSFET-N_2N7002W-RESCUE-display U 0 40 N Y 1 F N
+F0 "U" -25 225 60 H V C CNN
+F1 "MOSFET-N_2N7002W-RESCUE-display" -75 150 60 H V C CNN
+F2 "usevolt:SOT323" 300 900 60 H I C CNN
+F3 "http://www.onsemi.com/pub_link/Collateral/2N7002W-D.PDF" 150 1000 60 H I C CNN
+F4 "2533171" 575 825 60 H I C CNN "2nd Source Part Number"
+F5 "2N7002WT1G" 175 425 60 H I C CNN "Manufacturer Part Number"
+F6 "2N7002WT1GOSCT-ND" 375 625 60 H I C CNN "1st Source Part Number"
+F7 "Digikey" 275 525 60 H I C CNN "1st Source"
+F8 "Farnell" 475 725 60 H I C CNN "2nd Source"
+F9 "ON Semiconductor" 75 325 60 H I C CNN "Manufacturer"
+DRAW
+P 2 0 1 0 -100 0 -50 0 N
+P 2 0 1 0 -100 25 100 25 N
+P 2 0 1 0 25 0 -25 0 N
+P 2 0 1 0 75 0 125 0 N
+P 3 0 1 0 -175 -50 -75 -50 -75 0 N
+P 3 0 1 0 100 -50 0 -50 0 0 N
+P 3 0 1 0 175 -50 100 -50 100 0 N
+P 4 0 1 0 0 0 -25 -25 25 -25 0 0 N
+X G L -100 100 75 D 40 40 1 1 B
+X D M -200 -50 50 R 40 40 1 1 B
+X S R 200 -50 50 L 40 40 1 1 B
+ENDDRAW
+ENDDEF
+#
+#End Library

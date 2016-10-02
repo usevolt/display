@@ -18,6 +18,20 @@ src/main.o src/main.d: ../src/main.c \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_utilities.h \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_terminal.h \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_stdout.h \
+ /home/usevolt/uw/display/sw/inc/gui.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_ui.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_button.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_slider.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_window.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_object.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_ui_styles.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_lcd.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_display.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_window.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_ui_styles.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_label.h \
+ /home/usevolt/uw/display/sw/inc/ui/taskbar.h \
+ /home/usevolt/uw/display/sw/inc/ui/home_screen.h \
  /home/usevolt/uw/display/sw/inc/commands.h \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_rtos.h \
  /home/usevolt/uw/display/sw/hal/uv_hal/freertos/include/FreeRTOS.h \
@@ -36,7 +50,7 @@ src/main.o src/main.d: ../src/main.c \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_uart.h \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_wdt.h \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_emc.h \
- /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_lcd.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_pwm.h \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_eeprom.h \
  /home/usevolt/uw/display/sw/inc/pin_mappings.h
 
@@ -78,6 +92,34 @@ src/main.o src/main.d: ../src/main.c \
 
 /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_stdout.h:
 
+/home/usevolt/uw/display/sw/inc/gui.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_ui.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_button.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_slider.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_window.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_object.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_ui_styles.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_lcd.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_display.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_window.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_ui_styles.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/ui/uv_label.h:
+
+/home/usevolt/uw/display/sw/inc/ui/taskbar.h:
+
+/home/usevolt/uw/display/sw/inc/ui/home_screen.h:
+
 /home/usevolt/uw/display/sw/inc/commands.h:
 
 /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_rtos.h:
@@ -114,7 +156,7 @@ src/main.o src/main.d: ../src/main.c \
 
 /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_emc.h:
 
-/home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_lcd.h:
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_pwm.h:
 
 /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_eeprom.h:
 

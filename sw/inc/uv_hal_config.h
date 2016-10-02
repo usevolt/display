@@ -33,6 +33,20 @@
 #define CONFIG_SPI						1
 
 
+#define CONFIG_PWM						1
+#define CONFIG_PWM_FREQ					10000
+#define CONFIG_PWM0_1					1
+#define CONFIG_PWM0_2					1
+
+
+#define CONFIG_UI_DRAW_BOUDING_BOXES				0
+#define WINDOW_STYLE_INDEX							0
+#define TASKBAR_STYLE_INDEX							1
+#define CONFIG_UI_WINDOW_STYLES_COUNT				2
+#define CONFIG_UI_WINDOW_COLOR_2 					0x444444
+#define CONFIG_UI_WINDOW_FRAME_COLOR_2				0x000000
+#define CONFIG_UI_WINDOW_FRAME_THICKNESS_2			3
+
 
 /* Possible font sizes for uv_hal_config configuration file fonts */
 #define  CONFIG_UI_FONT_4X6				0
@@ -67,6 +81,7 @@
 #define CONFIG_LCD_INVERT_PANEL_CLOCK	1
 #define CONFIG_LCD_INVERT_HSYNC			1
 #define CONFIG_LCD_INVERT_VSYNC			1
+#define CONFIG_LCD_RGB_TO_BGR			1
 #define CONFIG_LCD_BITS_PER_PIXEL		LCD_24_BPP
 #define CONFIG_LCD_PWR_IOCON			LPC_IOCON->P2_0 = 0x7 | (1 << 9)
 #define CONFIG_LCD_DCLK_IOCON			LPC_IOCON->P2_2 = 0x7 | (1 << 9)
@@ -148,16 +163,12 @@
  * alongside TIMER0 and TIMER1.
  */
 #define CONFIG_TIMER0					0
-#define CONFIG_PWM0						0
 #define CONFIG_COUNTER0					0
 #define CONFIG_TIMER1					0
-#define CONFIG_PWM1						0
 #define CONFIG_COUNTER1					0
 #define CONFIG_TIMER2					0
-#define CONFIG_PWM2						0
 #define CONFIG_COUNTER2					0
 #define CONFIG_TIMER3					0
-#define CONFIG_PWM3						0
 #define CONFIG_COUNTER3					0
 
 
@@ -303,7 +314,7 @@
 /*
  * The receive buffer size for each enabled UART module
  */
-#define CONFIG_UART0_RX_BUFFER_SIZE		8
+#define CONFIG_UART0_RX_BUFFER_SIZE		10
 
 /*
  * The baud rate for each enabled UART module
@@ -338,7 +349,7 @@
 
 
 #define CONFIG_TERMINAL_BUFFER_SIZE			200
-#define CONFIG_TERMINAL_ARG_COUNT			4
+#define CONFIG_TERMINAL_ARG_COUNT			9
 #define CONFIG_TERMINAL_INSTRUCTIONS		1
 #define CONFIG_TERMINAL_DEDICATED_CALLBACKS 1
 
@@ -567,190 +578,8 @@
 
 
 
-#define CONFIG_PORT0					0
-#define CONFIG_PORT1					0
-#define CONFIG_PORT2					0
-#define CONFIG_PORT3					0
-#define CONFIG_PORT4					0
-#define CONFIG_PORT5					0
-
-
-#define CONFIG_PIO0_0					0
-#define CONFIG_PIO0_1					0
-#define CONFIG_PIO0_2					0
-#define CONFIG_PIO0_3					0
-#define CONFIG_PIO0_4					0
-#define CONFIG_PIO0_5					0
-#define CONFIG_PIO0_6					0
-#define CONFIG_PIO0_7					0
-#define CONFIG_PIO0_8					0
-#define CONFIG_PIO0_9					0
-#define CONFIG_PIO0_10					0
-#define CONFIG_PIO0_11					0
-#define CONFIG_PIO0_12					0
-#define CONFIG_PIO0_13					0
-#define CONFIG_PIO0_14					0
-#define CONFIG_PIO0_15					0
-#define CONFIG_PIO0_16					0
-#define CONFIG_PIO0_17					0
-#define CONFIG_PIO0_18					0
-#define CONFIG_PIO0_19					0
-#define CONFIG_PIO0_20					0
-#define CONFIG_PIO0_21					0
-#define CONFIG_PIO0_22					0
-#define CONFIG_PIO0_23					0
-#define CONFIG_PIO0_24					0
-#define CONFIG_PIO0_25					0
-#define CONFIG_PIO0_26					0
-#define CONFIG_PIO0_27					0
-#define CONFIG_PIO0_28					0
-#define CONFIG_PIO0_29					0
-#define CONFIG_PIO0_30					0
-#define CONFIG_PIO0_31					0
-#define CONFIG_PIO0_32					0
-#define CONFIG_PIO0_33					0
-#define CONFIG_PIO1_0					0
-#define CONFIG_PIO1_1					0
-#define CONFIG_PIO1_2					0
 #define CONFIG_PIO1_3					1
-#define CONFIG_PIO1_4					0
-#define CONFIG_PIO1_5					0
-#define CONFIG_PIO1_6					0
-#define CONFIG_PIO1_7					0
-#define CONFIG_PIO1_8					0
-#define CONFIG_PIO1_9					0
-#define CONFIG_PIO1_10					0
-#define CONFIG_PIO1_11					0
-#define CONFIG_PIO1_12					0
-#define CONFIG_PIO1_13					0
-#define CONFIG_PIO1_14					0
-#define CONFIG_PIO1_15					0
-#define CONFIG_PIO1_16					0
-#define CONFIG_PIO1_17					0
-#define CONFIG_PIO1_18					0
-#define CONFIG_PIO1_19					0
-#define CONFIG_PIO1_20					0
-#define CONFIG_PIO1_21					0
-#define CONFIG_PIO1_22					0
-#define CONFIG_PIO1_23					0
-#define CONFIG_PIO1_24					0
-#define CONFIG_PIO1_25					0
-#define CONFIG_PIO1_26					0
-#define CONFIG_PIO1_27					0
-#define CONFIG_PIO1_28					0
-#define CONFIG_PIO1_29					0
-#define CONFIG_PIO1_30					0
-#define CONFIG_PIO1_31					0
-#define CONFIG_PIO1_32					0
-#define CONFIG_PIO1_33					0
-#define CONFIG_PIO2_0					0
-#define CONFIG_PIO2_1					0
-#define CONFIG_PIO2_2					0
-#define CONFIG_PIO2_3					0
-#define CONFIG_PIO2_4					0
-#define CONFIG_PIO2_5					0
-#define CONFIG_PIO2_6					0
-#define CONFIG_PIO2_7					0
-#define CONFIG_PIO2_8					0
-#define CONFIG_PIO2_9					0
-#define CONFIG_PIO2_10					0
-#define CONFIG_PIO2_11					0
-#define CONFIG_PIO2_12					0
-#define CONFIG_PIO2_13					0
-#define CONFIG_PIO2_14					0
-#define CONFIG_PIO2_15					0
-#define CONFIG_PIO2_16					0
-#define CONFIG_PIO2_17					0
-#define CONFIG_PIO2_18					0
-#define CONFIG_PIO2_19					0
-#define CONFIG_PIO2_20					0
-#define CONFIG_PIO2_21					0
-#define CONFIG_PIO2_22					0
-#define CONFIG_PIO2_23					0
-#define CONFIG_PIO2_24					0
-#define CONFIG_PIO2_25					0
-#define CONFIG_PIO2_26					0
-#define CONFIG_PIO2_27					0
-#define CONFIG_PIO2_28					0
-#define CONFIG_PIO2_29					0
-#define CONFIG_PIO2_30					0
 #define CONFIG_PIO2_31					1
-#define CONFIG_PIO2_32					0
-#define CONFIG_PIO2_33					0
-#define CONFIG_PIO3_0					0
-#define CONFIG_PIO3_1					0
-#define CONFIG_PIO3_2					0
-#define CONFIG_PIO3_3					0
-#define CONFIG_PIO3_4					0
-#define CONFIG_PIO3_5					0
-#define CONFIG_PIO3_6					0
-#define CONFIG_PIO3_7					0
-#define CONFIG_PIO3_8					0
-#define CONFIG_PIO3_9					0
-#define CONFIG_PIO3_10					0
-#define CONFIG_PIO3_11					0
-#define CONFIG_PIO3_12					0
-#define CONFIG_PIO3_13					0
-#define CONFIG_PIO3_14					0
-#define CONFIG_PIO3_15					0
-#define CONFIG_PIO3_16					0
-#define CONFIG_PIO3_17					0
-#define CONFIG_PIO3_18					0
-#define CONFIG_PIO3_19					0
-#define CONFIG_PIO3_20					0
-#define CONFIG_PIO3_21					0
-#define CONFIG_PIO3_22					0
-#define CONFIG_PIO3_23					0
-#define CONFIG_PIO3_24					0
-#define CONFIG_PIO3_25					0
-#define CONFIG_PIO3_26					0
-#define CONFIG_PIO3_27					0
-#define CONFIG_PIO3_28					0
-#define CONFIG_PIO3_29					0
-#define CONFIG_PIO3_30					0
-#define CONFIG_PIO3_31					0
-#define CONFIG_PIO3_32					0
-#define CONFIG_PIO3_33					0
-#define CONFIG_PIO4_0					0
-#define CONFIG_PIO4_1					0
-#define CONFIG_PIO4_2					0
-#define CONFIG_PIO4_3					0
-#define CONFIG_PIO4_4					0
-#define CONFIG_PIO4_5					0
-#define CONFIG_PIO4_6					0
-#define CONFIG_PIO4_7					0
-#define CONFIG_PIO4_8					0
-#define CONFIG_PIO4_9					0
-#define CONFIG_PIO4_10					0
-#define CONFIG_PIO4_11					0
-#define CONFIG_PIO4_12					0
-#define CONFIG_PIO4_13					0
-#define CONFIG_PIO4_14					0
-#define CONFIG_PIO4_15					0
-#define CONFIG_PIO4_16					0
-#define CONFIG_PIO4_17					0
-#define CONFIG_PIO4_18					0
-#define CONFIG_PIO4_19					0
-#define CONFIG_PIO4_20					0
-#define CONFIG_PIO4_21					0
-#define CONFIG_PIO4_22					0
-#define CONFIG_PIO4_23					0
-#define CONFIG_PIO4_24					0
-#define CONFIG_PIO4_25					0
-#define CONFIG_PIO4_26					0
-#define CONFIG_PIO4_27					0
-#define CONFIG_PIO4_28					0
-#define CONFIG_PIO4_29					0
-#define CONFIG_PIO4_30					0
-#define CONFIG_PIO4_31					0
-#define CONFIG_PIO4_32					0
-#define CONFIG_PIO4_33					0
-#define CONFIG_PIO5_0					0
-#define CONFIG_PIO5_1					0
-#define CONFIG_PIO5_2					0
-#define CONFIG_PIO5_3					0
-#define CONFIG_PIO5_4					0
-#define CONFIG_PIO5_5					0
 
 
 

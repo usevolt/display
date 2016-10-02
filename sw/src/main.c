@@ -23,8 +23,11 @@
 #include <uv_wdt.h>
 #include <uv_emc.h>
 #include <uv_lcd.h>
+#include <uv_pwm.h>
 #include <uv_eeprom.h>
 #include "pin_mappings.h"
+#include <stdlib.h>
+#include <string.h>
 
 #define this ((dspl_st*)me)
 
@@ -36,22 +39,24 @@ void dspl_init(dspl_st *me) {
 	uv_err_check(uv_memory_load(&this->data_start, &this->data_endl)) {
 		// non-volatile data load failed, initialize factory settings
 
+		gui_reset(this);
+
 		// save initialized values to memory
 		uv_memory_save(&this->data_start, &this->data_endl);
 	}
+
+	gui_init(this);
 
 	uv_delay_init(1000, &this->step_delay);
 
 }
 
 
-//void dspl_step(void *me, unsigned int step_ms) {
 void dspl_step(void *me) {
 	while (true) {
 		int step_ms = 20;
 
 //		uv_wdt_update();
-
 
 		uv_terminal_step();
 		uv_can_step(CAN1, step_ms);
@@ -67,11 +72,6 @@ void dspl_step(void *me) {
 	}
 }
 
-void dspl_pin_callback(void *me, uv_gpios_e pin) {
-
-}
-
-
 
 int main(void) {
 //	uv_wdt_init(1);
@@ -81,9 +81,11 @@ int main(void) {
 
 
 	// init GPIO's
-	uv_gpio_add_interrupt_callback(dspl_pin_callback);
 	uv_gpio_init_output(LED_PIN, false);
-	uv_gpio_init_output(LCD_PIN, true);
+
+	// init PWM and start with full duty cycle (LCD off)
+	uv_pwm_init();
+	uv_pwm_set(LCD_BACKLIGHT, DUTY_CYCLE(1));
 
 	// init EEPROM
 	uv_eeprom_init();
@@ -91,14 +93,15 @@ int main(void) {
 	// init UART0
 	uv_uart_init(UART0);
 
-	// init MEC
+	// init EMC
 	uv_emc_init();
 
 	// init TFT LCD
 	uv_lcd_tft_init();
 
 	// init terminal
-	uv_terminal_init(commands(), commands_count());
+	uv_terminal_init(terminal_commands, commands_count());
+
 
 	// set application pointer to HAL library
 	uv_set_application_ptr(&dspl);
@@ -110,8 +113,10 @@ int main(void) {
 	dspl_init(&dspl);
 
 
+	uv_rtos_task_create(dspl_step, "dspl_step", UV_RTOS_MIN_STACK_SIZE * 2,
+			&dspl, UV_RTOS_IDLE_PRIORITY + 2, NULL);
 
-	uv_rtos_task_create(dspl_step, "dspl_step", UV_RTOS_MIN_STACK_SIZE,
+	uv_rtos_task_create(gui_step, "gui", UV_RTOS_MIN_STACK_SIZE * 4,
 			&dspl, UV_RTOS_IDLE_PRIORITY + 1, NULL);
 
 	printf("ready\n\r>");

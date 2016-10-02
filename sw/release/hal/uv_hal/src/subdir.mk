@@ -18,6 +18,7 @@ C_SRCS += \
 ../hal/uv_hal/src/uv_json.c \
 ../hal/uv_hal/src/uv_lcd.c \
 ../hal/uv_hal/src/uv_memory.c \
+../hal/uv_hal/src/uv_pwm.c \
 ../hal/uv_hal/src/uv_reset.c \
 ../hal/uv_hal/src/uv_rtos.c \
 ../hal/uv_hal/src/uv_spi.c \
@@ -43,6 +44,7 @@ OBJS += \
 ./hal/uv_hal/src/uv_json.o \
 ./hal/uv_hal/src/uv_lcd.o \
 ./hal/uv_hal/src/uv_memory.o \
+./hal/uv_hal/src/uv_pwm.o \
 ./hal/uv_hal/src/uv_reset.o \
 ./hal/uv_hal/src/uv_rtos.o \
 ./hal/uv_hal/src/uv_spi.o \
@@ -68,6 +70,7 @@ C_DEPS += \
 ./hal/uv_hal/src/uv_json.d \
 ./hal/uv_hal/src/uv_lcd.d \
 ./hal/uv_hal/src/uv_memory.d \
+./hal/uv_hal/src/uv_pwm.d \
 ./hal/uv_hal/src/uv_reset.d \
 ./hal/uv_hal/src/uv_rtos.d \
 ./hal/uv_hal/src/uv_spi.d \
@@ -83,7 +86,7 @@ C_DEPS += \
 hal/uv_hal/src/%.o: ../hal/uv_hal/src/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU C Compiler'
-	arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSIS_CORE_LPC177x_8x -D__USE_CMSIS_DSPLIB=CMSIS_DSPLIB_CM3 -D__LPC177X_8X__ -D__REDLIB__ -DLPC1785=1 -DUW_RTOS=1 -D"__UV_PROJECT_NAME=uw_display_release" -I"/home/usevolt/uw/display/sw/inc" -I"/home/usevolt/uw/display/sw/CMSIS_CORE_LPC177x_8x/inc" -I"/home/usevolt/uw/display/sw/CMSIS_DSPLIB_CM3/inc" -I"/home/usevolt/uw/display/sw/hal/uv_hal/inc" -I"/home/usevolt/uw/display/sw/hal/uv_hal/freertos/include" -I"/home/usevolt/uw/display/sw/hal/uv_hal/freertos/portable/GCC/ARM_CM3" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=cortex-m3 -mthumb -D__REDLIB__ -specs=redlib.specs -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSIS_CORE_LPC177x_8x -D__USE_CMSIS_DSPLIB=CMSIS_DSPLIB_CM3 -D__LPC177X_8X__ -DLPC1785=1 -DUW_RTOS=1 -D"__UV_PROJECT_NAME=uw_display_release" -D__NEWLIB__ -I"/home/usevolt/uw/display/sw/inc/ui" -I"/home/usevolt/uw/display/sw/inc" -I"/home/usevolt/uw/display/sw/CMSIS_CORE_LPC177x_8x/inc" -I"/home/usevolt/uw/display/sw/CMSIS_DSPLIB_CM3/inc" -I"/home/usevolt/uw/display/sw/hal/uv_hal/inc" -I"/home/usevolt/uw/display/sw/hal/uv_hal/freertos/include" -I"/home/usevolt/uw/display/sw/hal/uv_hal/freertos/portable/GCC/ARM_CM3" -I"/home/usevolt/uw/display/sw/CMSIS_CORE_LPC177x_8x" -I"/home/usevolt/uw/display/sw/CMSIS_DSPLIB_CM3" -Og -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -Wno-format -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
