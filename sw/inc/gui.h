@@ -32,13 +32,13 @@ typedef struct {
 	/// @brief: Backlight current brightness as a 16-bit value
 	uint16_t backlight_curr;
 	/// @brief: Display is the main object of the UI
-	uv_display_st display;
-	/// @brief: The window buffer mandatory for uv_display_st
-	uv_ui_object_st *display_buffer[DISPLAY_BUF_LEN];
+	uv_uidisplay_st display;
+	/// @brief: The window buffer mandatory for uv_uidisplay_st
+	uv_uiobject_st *display_buffer[DISPLAY_BUF_LEN];
 
 	/// @brief: Main window is used as a container for main content of the screen
-	uv_window_st main_window;
-	uv_ui_object_st *main_window_buffer[DISPLAY_BUF_LEN];
+	uv_uiwindow_st main_window;
+	uv_uiobject_st *main_window_buffer[DISPLAY_BUF_LEN];
 
 	home_screen_st home;
 

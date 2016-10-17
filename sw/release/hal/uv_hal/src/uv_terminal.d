@@ -10,6 +10,7 @@ hal/uv_hal/src/uv_terminal.o hal/uv_hal/src/uv_terminal.d: \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_utilities.h \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_types.h \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_utilities.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_memory.h \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_uart.h \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_stdout.h \
  /home/usevolt/uw/display/sw/CMSIS_CORE_LPC177x_8x/inc/LPC177x_8x.h \
@@ -49,6 +50,8 @@ hal/uv_hal/src/uv_terminal.o hal/uv_hal/src/uv_terminal.d: \
 /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_types.h:
 
 /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_utilities.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_memory.h:
 
 /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_uart.h:
 

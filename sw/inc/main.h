@@ -13,6 +13,7 @@
 #include <uv_canopen.h>
 #include "network.h"
 #include "gui.h"
+#include "alert.h"
 
 
 typedef struct {
@@ -26,6 +27,8 @@ typedef struct {
 	network_st network;
 
 	gui_st gui;
+
+	alert_st alert;
 
 	uv_data_end_t data_endl;
 

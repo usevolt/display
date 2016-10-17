@@ -20,15 +20,20 @@
 
 void gui_init(void *me) {
 	this->backlight_curr = 0;
-	uv_display_init(&this->display, this->display_buffer, &uv_window_styles[WINDOW_STYLE_INDEX]);
+	uv_uidisplay_init(&this->display, this->display_buffer, &uv_uiwindow_styles[WINDOW_STYLE_INDEX]);
 
 	// add all different windows in the UI here
-	uv_window_init(&this->main_window, this->main_window_buffer, &uv_window_styles[WINDOW_STYLE_INDEX]);
-	uv_display_add(&this->display, &this->main_window, 0, 0, LCD_W(1.0f), LCD_H(0.9f), true, uv_window_step);
+	uv_uiwindow_init(&this->main_window, this->main_window_buffer, &uv_uiwindow_styles[WINDOW_STYLE_INDEX]);
+	uv_uidisplay_add(&this->display, &this->main_window, 0, 0, LCD_W(1.0f), LCD_H(0.9f), true, uv_uiwindow_step);
 
 	home_init(&this->home, &this->main_window);
 
 	taskbar_init(&this->taskbar, &this->display);
+
+
+	uv_rtos_task_create(gui_step, "gui", UV_RTOS_MIN_STACK_SIZE * 4,
+			me, UV_RTOS_IDLE_PRIORITY + 1, NULL);
+
 }
 
 
@@ -51,11 +56,7 @@ void gui_step(void *me) {
 		this->backlight_curr += delta * BACKLIGHT_KP;
 		uv_pwm_set(LCD_BACKLIGHT, PWM_MAX_VALUE - (float) this->backlight_curr / 0xFFFF * PWM_MAX_VALUE);
 
-		uv_display_step(&this->display, step_ms);
-
-		home_step(&this->home, step_ms);
-
-		taskbar_step(&this->taskbar, step_ms);
+		uv_uidisplay_step(&this->display, step_ms);
 
 		uv_rtos_task_delay(step_ms);
 	}

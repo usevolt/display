@@ -23,7 +23,16 @@ hal/uv_hal/src/uv_rtos.o hal/uv_hal/src/uv_rtos.d: \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_stdout.h \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_utilities.h \
  /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_types.h \
- /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_can.h
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_can.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_memory.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_lcd.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_utilities.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_spi.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_pwm.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_eeprom.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_emc.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_rtc.h \
+ /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_adc.h
 
 /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_rtos.h:
 
@@ -72,3 +81,21 @@ hal/uv_hal/src/uv_rtos.o hal/uv_hal/src/uv_rtos.d: \
 /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_types.h:
 
 /home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_can.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_memory.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_lcd.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_utilities.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_spi.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_pwm.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_eeprom.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_emc.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_rtc.h:
+
+/home/usevolt/uw/display/sw/hal/uv_hal/inc/uv_adc.h:

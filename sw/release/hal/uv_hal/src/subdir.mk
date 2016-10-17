@@ -20,6 +20,7 @@ C_SRCS += \
 ../hal/uv_hal/src/uv_memory.c \
 ../hal/uv_hal/src/uv_pwm.c \
 ../hal/uv_hal/src/uv_reset.c \
+../hal/uv_hal/src/uv_rtc.c \
 ../hal/uv_hal/src/uv_rtos.c \
 ../hal/uv_hal/src/uv_spi.c \
 ../hal/uv_hal/src/uv_stdout.c \
@@ -46,6 +47,7 @@ OBJS += \
 ./hal/uv_hal/src/uv_memory.o \
 ./hal/uv_hal/src/uv_pwm.o \
 ./hal/uv_hal/src/uv_reset.o \
+./hal/uv_hal/src/uv_rtc.o \
 ./hal/uv_hal/src/uv_rtos.o \
 ./hal/uv_hal/src/uv_spi.o \
 ./hal/uv_hal/src/uv_stdout.o \
@@ -72,6 +74,7 @@ C_DEPS += \
 ./hal/uv_hal/src/uv_memory.d \
 ./hal/uv_hal/src/uv_pwm.d \
 ./hal/uv_hal/src/uv_reset.d \
+./hal/uv_hal/src/uv_rtc.d \
 ./hal/uv_hal/src/uv_rtos.d \
 ./hal/uv_hal/src/uv_spi.d \
 ./hal/uv_hal/src/uv_stdout.d \

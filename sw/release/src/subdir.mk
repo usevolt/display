@@ -4,6 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../src/alert.c \
 ../src/canopen.c \
 ../src/commands.c \
 ../src/cr_startup_lpc177x_8x.c \
@@ -14,6 +15,7 @@ C_SRCS += \
 ../src/network.c 
 
 OBJS += \
+./src/alert.o \
 ./src/canopen.o \
 ./src/commands.o \
 ./src/cr_startup_lpc177x_8x.o \
@@ -24,6 +26,7 @@ OBJS += \
 ./src/network.o 
 
 C_DEPS += \
+./src/alert.d \
 ./src/canopen.d \
 ./src/commands.d \
 ./src/cr_startup_lpc177x_8x.d \

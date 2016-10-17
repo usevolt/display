@@ -27,10 +27,17 @@
 
 
 
+#define CONFIG_RTC						1
+
+
 #define CONFIG_EEPROM					1
 
 
-#define CONFIG_SPI						1
+#define CONFIG_SPI0						1
+
+
+#define CONFIG_WDT						0
+#define CONFIG_WDT_CYCLE_S				2
 
 
 #define CONFIG_PWM						1
@@ -46,6 +53,13 @@
 #define CONFIG_UI_WINDOW_COLOR_2 					0x444444
 #define CONFIG_UI_WINDOW_FRAME_COLOR_2				0x000000
 #define CONFIG_UI_WINDOW_FRAME_THICKNESS_2			3
+
+#define CONFIG_UI_BUTTON_STYLES_COUNT				2
+#define CONFIG_UI_BUTTON_COLOR_2					0x000000
+#define CONFIG_UI_BUTTON_FRAME_COLOR_2				0x444444
+#define CONFIG_UI_BUTTON_FRAME_THICKNESS_2			3
+#define CONFIG_UI_BUTTON_TEXT_COLOR_2				0xaaaaaa
+#define CONFIG_UI_BUTTON_TEXT_FONT_2				font_5X12
 
 
 /* Possible font sizes for uv_hal_config configuration file fonts */
@@ -82,6 +96,16 @@
 #define CONFIG_LCD_INVERT_HSYNC			1
 #define CONFIG_LCD_INVERT_VSYNC			1
 #define CONFIG_LCD_RGB_TO_BGR			1
+#define CONFIG_LCD_TOUCHSCREEN			1
+#define CONFIG_LCD_Y_B_ADC				ADC_2
+#define CONFIG_LCD_Y_B_GPIO				PIO0_25
+#define CONFIG_LCD_Y_T_ADC				ADC_0
+#define CONFIG_LCD_Y_T_GPIO				PIO0_23
+#define CONFIG_LCD_X_R_ADC				ADC_3
+#define CONFIG_LCD_X_R_GPIO				PIO0_26
+#define CONFIG_LCD_X_L_ADC				ADC_1
+#define CONFIG_LCD_X_L_GPIO				PIO0_24
+#define CONFIG_LCD_TOUCH_THRESHOLD		200
 #define CONFIG_LCD_BITS_PER_PIXEL		LCD_24_BPP
 #define CONFIG_LCD_PWR_IOCON			LPC_IOCON->P2_0 = 0x7 | (1 << 9)
 #define CONFIG_LCD_DCLK_IOCON			LPC_IOCON->P2_2 = 0x7 | (1 << 9)
@@ -117,6 +141,7 @@
 
 
 
+#define CONFIG_EMC						1
 #define CONFIG_EMC_DYNAMIC_RAM			1
 #define CONFIG_EMC_SDRAM_1				1
 #define CONFIG_EMC_SDRAM_2				0
@@ -124,7 +149,7 @@
 #define CONFIG_EMC_SDRAM_4				0
 #define CONFIG_EMC_STATIC_RAM			0
 #define CONFIG_EMC_CHIP_COUNT			1
-#define CONFIG_EMC_CLOCK_DIV_HALF		0
+#define CONFIG_EMC_CLOCK_DIV_HALF		1
 #define CONFIG_EMC_SDRAM_MODE_REGISTER	(0x33 << (2 + 8 + 1))
 #define CONFIG_EMC_SDRAM_AM0			0b000101
 #define CONFIG_EMC_SDRAM_AM1			0
@@ -347,7 +372,8 @@
 
 
 
-
+#define CONFIG_TERMINAL_UART				1
+#define CONFIG_TERMINAL_CAN					0
 #define CONFIG_TERMINAL_BUFFER_SIZE			200
 #define CONFIG_TERMINAL_ARG_COUNT			9
 #define CONFIG_TERMINAL_INSTRUCTIONS		1
@@ -355,9 +381,7 @@
 
 
 
-/* Enables or disables the CAN modules.
- * Refer to the MCU manual for available channels.
- */
+#define CONFIG_CAN							1
 #define CONFIG_CAN1							1
 #define CONFIG_CAN2							0
 
@@ -556,6 +580,7 @@
 
 
 
+#define CONFIG_ADC						1
 #define CONFIG_ADC_MODE_STANDARD		1
 #define CONFIG_ADC_MODE_CONTINOUS		0
 
@@ -575,11 +600,6 @@
 
 #define I2C								0
 
-
-
-
-#define CONFIG_PIO1_3					1
-#define CONFIG_PIO2_31					1
 
 
 

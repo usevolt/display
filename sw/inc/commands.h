@@ -32,7 +32,13 @@ typedef enum {
 	CMD_LCD_FRAME,
 	CMD_BACKLIGHT,
 	CMD_REFRESH,
-	CMD_COUNT
+	CMD_LOG_CLEAR,
+	CMD_LOG_ADD,
+	CMD_LOG_SHOW,
+	CMD_COUNT,
+	CMD_ALERT,
+	CMD_VOLUME,
+	CMD_TIME
 } dspl_commands_e;
 
 
@@ -53,6 +59,12 @@ void lcddrawrect_callb(void *me, unsigned int cmd, unsigned int args, argument_s
 void lcddrawframe_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 void lcdbacklight_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 void refresh_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void logclear_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void logadd_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void logshow_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void alert_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void volume_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void time_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 
 
 #endif /* COMMANDS_H_ */

@@ -18,17 +18,16 @@
 
 
 typedef struct {
-	uv_window_st home;
-	/// @brief: The window buffer mandatory for uv_display_st
-	uv_ui_object_st *home_buffer[HOME_BUF_LEN];
+	uv_uiwindow_st home;
+	/// @brief: The window buffer mandatory for uv_uidisplay_st
+	uv_uiobject_st *home_buffer[HOME_BUF_LEN];
 
-	uv_label_st test;
+	uv_uilabel_st test;
 
 } home_screen_st;
 
 
-void home_init(home_screen_st *this, uv_window_st *window);
+void home_init(home_screen_st *this, uv_uiwindow_st *window);
 
-void home_step(home_screen_st *this, uint32_t step_ms);
 
 #endif /* UI_HOME_SCREEN_H_ */

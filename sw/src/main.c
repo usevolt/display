@@ -13,8 +13,6 @@
 #include "LPC177x_8x.h"
 #include <cr_section_macros.h>
 #include <main.h>
-#include <stdint.h>
-#include <stdio.h>
 #include <uv_rtos.h>
 #include <uv_terminal.h>
 #include <uv_timer.h>
@@ -25,9 +23,15 @@
 #include <uv_lcd.h>
 #include <uv_pwm.h>
 #include <uv_eeprom.h>
-#include "pin_mappings.h"
+#include <uv_reset.h>
+#include <uv_rtc.h>
+#include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "pin_mappings.h"
+#include "log.h"
+#include "alert.h"
 
 #define this ((dspl_st*)me)
 
@@ -36,10 +40,32 @@ dspl_st dspl;
 
 
 void dspl_init(dspl_st *me) {
+
+	uv_set_int_priority(INT_SYSTICK, 31);
+	uv_set_int_priority(INT_UART0, 30);
+
+	// init GPIO's
+	uv_gpio_init_output(LED_PIN, false);
+	uv_gpio_init_output(FLASH_CS, false);
+	uv_gpio_init_output(FLASH_RESET, true);
+
+	uv_canopen_init(&this->canopen, obj_dict, object_dictionary_size(), CAN1, NULL, NULL);
+
+	// init terminal
+	uv_terminal_init(terminal_commands, commands_count());
+
+	// init PWM and start with full duty cycle (LCD off)
+	uv_pwm_set(LCD_BACKLIGHT, DUTY_CYCLE(1));
+	uv_pwm_set(BUZZER, DUTY_CYCLE(1));
+
+	uv_eeprom_init_circular_buffer(sizeof(log_entry_st));
+
 	uv_err_check(uv_memory_load(&this->data_start, &this->data_endl)) {
 		// non-volatile data load failed, initialize factory settings
 
 		gui_reset(this);
+
+		alert_reset(&this->alert);
 
 		// save initialized values to memory
 		uv_memory_save(&this->data_start, &this->data_endl);
@@ -47,7 +73,14 @@ void dspl_init(dspl_st *me) {
 
 	gui_init(this);
 
+	alert_init(&this->alert);
+
 	uv_delay_init(1000, &this->step_delay);
+
+	log_add(LOG_BOOT_UP, uv_reset_get_source());
+
+
+
 
 }
 
@@ -61,6 +94,7 @@ void dspl_step(void *me) {
 		uv_terminal_step();
 		uv_can_step(CAN1, step_ms);
 		uv_canopen_step(&this->canopen, step_ms);
+		alert_step(&this->alert, step_ms);
 
 		if (uv_delay(step_ms, &this->step_delay)) {
 			uv_gpio_toggle(LED_PIN);
@@ -76,48 +110,13 @@ void dspl_step(void *me) {
 int main(void) {
 //	uv_wdt_init(1);
 
-	uv_set_int_priority(INT_SYSTICK, 31);
-	uv_set_int_priority(INT_UART0, 30);
-
-
-	// init GPIO's
-	uv_gpio_init_output(LED_PIN, false);
-
-	// init PWM and start with full duty cycle (LCD off)
-	uv_pwm_init();
-	uv_pwm_set(LCD_BACKLIGHT, DUTY_CYCLE(1));
-
-	// init EEPROM
-	uv_eeprom_init();
-
-	// init UART0
-	uv_uart_init(UART0);
-
-	// init EMC
-	uv_emc_init();
-
-	// init TFT LCD
-	uv_lcd_tft_init();
-
-	// init terminal
-	uv_terminal_init(terminal_commands, commands_count());
-
-
-	// set application pointer to HAL library
-	uv_set_application_ptr(&dspl);
-
-	uv_can_init(CAN1);
-
-	uv_canopen_init(&dspl.canopen, obj_dict, object_dictionary_size(), CAN1, NULL, NULL);
+	uv_init(&dspl);
 
 	dspl_init(&dspl);
 
 
 	uv_rtos_task_create(dspl_step, "dspl_step", UV_RTOS_MIN_STACK_SIZE * 2,
 			&dspl, UV_RTOS_IDLE_PRIORITY + 2, NULL);
-
-	uv_rtos_task_create(gui_step, "gui", UV_RTOS_MIN_STACK_SIZE * 4,
-			&dspl, UV_RTOS_IDLE_PRIORITY + 1, NULL);
 
 	printf("ready\n\r>");
 

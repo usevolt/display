@@ -32,216 +32,6 @@ F5 "+3V3" I R 3100 1150 60
 F6 "VDD" I R 3100 1300 60 
 F7 "GND" I L 1750 1400 60 
 $EndSheet
-$Comp
-L AMPSEAL_14_POS_776261-1_V J1
-U 1 1 57BA189F
-P 750 2700
-F 0 "J1" H 718 2783 45  0000 C CNN
-F 1 "AMPSEAL_14_POS_776261-1_V" H 750 2700 45  0001 L BNN
-F 2 "usevolt:usevolt-AMPSEAL_14_POS_776261-1" H 780 2850 20  0001 C CNN
-F 3 "http://www.mouser.com/ds/2/418/NG_CD_776261_A7-673206.pdf" H 1050 3350 60  0001 C CNN
-F 4 "571-776261-1" H 950 3050 60  0001 C CNN "1st Source Part Number"
-F 5 "776261-1" H 800 3150 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Mouser" H 750 2950 60  0001 C CNN "1st Source"
-F 7 "TE Connectivity" H 900 3250 60  0001 C CNN "Manufacturer"
-	1    750  2700
-	-1   0    0    -1  
-$EndComp
-$Comp
-L AMPSEAL_14_POS_776261-1_V J1
-U 2 1 57BA1B77
-P 750 2800
-F 0 "J1" H 718 2883 45  0000 C CNN
-F 1 "AMPSEAL_14_POS_776261-1_V" H 750 2800 45  0001 L BNN
-F 2 "usevolt:usevolt-AMPSEAL_14_POS_776261-1" H 780 2950 20  0001 C CNN
-F 3 "http://www.mouser.com/ds/2/418/NG_CD_776261_A7-673206.pdf" H 1050 3450 60  0001 C CNN
-F 4 "571-776261-1" H 950 3150 60  0001 C CNN "1st Source Part Number"
-F 5 "776261-1" H 800 3250 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Mouser" H 750 3050 60  0001 C CNN "1st Source"
-F 7 "TE Connectivity" H 900 3350 60  0001 C CNN "Manufacturer"
-	2    750  2800
-	-1   0    0    -1  
-$EndComp
-$Comp
-L AMPSEAL_14_POS_776261-1_V J1
-U 3 1 57BA243F
-P 750 2900
-F 0 "J1" H 718 2983 45  0000 C CNN
-F 1 "AMPSEAL_14_POS_776261-1_V" H 750 2900 45  0001 L BNN
-F 2 "usevolt:usevolt-AMPSEAL_14_POS_776261-1" H 780 3050 20  0001 C CNN
-F 3 "http://www.mouser.com/ds/2/418/NG_CD_776261_A7-673206.pdf" H 1050 3550 60  0001 C CNN
-F 4 "571-776261-1" H 950 3250 60  0001 C CNN "1st Source Part Number"
-F 5 "776261-1" H 800 3350 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Mouser" H 750 3150 60  0001 C CNN "1st Source"
-F 7 "TE Connectivity" H 900 3450 60  0001 C CNN "Manufacturer"
-	3    750  2900
-	-1   0    0    -1  
-$EndComp
-$Comp
-L AMPSEAL_14_POS_776261-1_V J1
-U 4 1 57BA2697
-P 750 3000
-F 0 "J1" H 718 3083 45  0000 C CNN
-F 1 "AMPSEAL_14_POS_776261-1_V" H 750 3000 45  0001 L BNN
-F 2 "usevolt:usevolt-AMPSEAL_14_POS_776261-1" H 780 3150 20  0001 C CNN
-F 3 "http://www.mouser.com/ds/2/418/NG_CD_776261_A7-673206.pdf" H 1050 3650 60  0001 C CNN
-F 4 "571-776261-1" H 950 3350 60  0001 C CNN "1st Source Part Number"
-F 5 "776261-1" H 800 3450 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Mouser" H 750 3250 60  0001 C CNN "1st Source"
-F 7 "TE Connectivity" H 900 3550 60  0001 C CNN "Manufacturer"
-	4    750  3000
-	-1   0    0    -1  
-$EndComp
-$Comp
-L AMPSEAL_14_POS_776261-1_V J1
-U 5 1 57BA28ED
-P 750 3100
-F 0 "J1" H 718 3183 45  0000 C CNN
-F 1 "AMPSEAL_14_POS_776261-1_V" H 750 3100 45  0001 L BNN
-F 2 "usevolt:usevolt-AMPSEAL_14_POS_776261-1" H 780 3250 20  0001 C CNN
-F 3 "http://www.mouser.com/ds/2/418/NG_CD_776261_A7-673206.pdf" H 1050 3750 60  0001 C CNN
-F 4 "571-776261-1" H 950 3450 60  0001 C CNN "1st Source Part Number"
-F 5 "776261-1" H 800 3550 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Mouser" H 750 3350 60  0001 C CNN "1st Source"
-F 7 "TE Connectivity" H 900 3650 60  0001 C CNN "Manufacturer"
-	5    750  3100
-	-1   0    0    -1  
-$EndComp
-$Comp
-L AMPSEAL_14_POS_776261-1_V J1
-U 6 1 57BA2B45
-P 750 3200
-F 0 "J1" H 718 3283 45  0000 C CNN
-F 1 "AMPSEAL_14_POS_776261-1_V" H 750 3200 45  0001 L BNN
-F 2 "usevolt:usevolt-AMPSEAL_14_POS_776261-1" H 780 3350 20  0001 C CNN
-F 3 "http://www.mouser.com/ds/2/418/NG_CD_776261_A7-673206.pdf" H 1050 3850 60  0001 C CNN
-F 4 "571-776261-1" H 950 3550 60  0001 C CNN "1st Source Part Number"
-F 5 "776261-1" H 800 3650 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Mouser" H 750 3450 60  0001 C CNN "1st Source"
-F 7 "TE Connectivity" H 900 3750 60  0001 C CNN "Manufacturer"
-	6    750  3200
-	-1   0    0    -1  
-$EndComp
-$Comp
-L AMPSEAL_14_POS_776261-1_V J1
-U 7 1 57BA2D9F
-P 750 3300
-F 0 "J1" H 718 3383 45  0000 C CNN
-F 1 "AMPSEAL_14_POS_776261-1_V" H 750 3300 45  0001 L BNN
-F 2 "usevolt:usevolt-AMPSEAL_14_POS_776261-1" H 780 3450 20  0001 C CNN
-F 3 "http://www.mouser.com/ds/2/418/NG_CD_776261_A7-673206.pdf" H 1050 3950 60  0001 C CNN
-F 4 "571-776261-1" H 950 3650 60  0001 C CNN "1st Source Part Number"
-F 5 "776261-1" H 800 3750 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Mouser" H 750 3550 60  0001 C CNN "1st Source"
-F 7 "TE Connectivity" H 900 3850 60  0001 C CNN "Manufacturer"
-	7    750  3300
-	-1   0    0    -1  
-$EndComp
-$Comp
-L AMPSEAL_14_POS_776261-1_V J1
-U 8 1 57BA2FFB
-P 750 3400
-F 0 "J1" H 718 3483 45  0000 C CNN
-F 1 "AMPSEAL_14_POS_776261-1_V" H 750 3400 45  0001 L BNN
-F 2 "usevolt:usevolt-AMPSEAL_14_POS_776261-1" H 780 3550 20  0001 C CNN
-F 3 "http://www.mouser.com/ds/2/418/NG_CD_776261_A7-673206.pdf" H 1050 4050 60  0001 C CNN
-F 4 "571-776261-1" H 950 3750 60  0001 C CNN "1st Source Part Number"
-F 5 "776261-1" H 800 3850 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Mouser" H 750 3650 60  0001 C CNN "1st Source"
-F 7 "TE Connectivity" H 900 3950 60  0001 C CNN "Manufacturer"
-	8    750  3400
-	-1   0    0    -1  
-$EndComp
-$Comp
-L AMPSEAL_14_POS_776261-1_V J1
-U 9 1 57BA3259
-P 750 3500
-F 0 "J1" H 718 3583 45  0000 C CNN
-F 1 "AMPSEAL_14_POS_776261-1_V" H 750 3500 45  0001 L BNN
-F 2 "usevolt:usevolt-AMPSEAL_14_POS_776261-1" H 780 3650 20  0001 C CNN
-F 3 "http://www.mouser.com/ds/2/418/NG_CD_776261_A7-673206.pdf" H 1050 4150 60  0001 C CNN
-F 4 "571-776261-1" H 950 3850 60  0001 C CNN "1st Source Part Number"
-F 5 "776261-1" H 800 3950 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Mouser" H 750 3750 60  0001 C CNN "1st Source"
-F 7 "TE Connectivity" H 900 4050 60  0001 C CNN "Manufacturer"
-	9    750  3500
-	-1   0    0    -1  
-$EndComp
-$Comp
-L AMPSEAL_14_POS_776261-1_V J1
-U 10 1 57BA34B9
-P 750 3600
-F 0 "J1" H 718 3683 45  0000 C CNN
-F 1 "AMPSEAL_14_POS_776261-1_V" H 750 3600 45  0001 L BNN
-F 2 "usevolt:usevolt-AMPSEAL_14_POS_776261-1" H 780 3750 20  0001 C CNN
-F 3 "http://www.mouser.com/ds/2/418/NG_CD_776261_A7-673206.pdf" H 1050 4250 60  0001 C CNN
-F 4 "571-776261-1" H 950 3950 60  0001 C CNN "1st Source Part Number"
-F 5 "776261-1" H 800 4050 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Mouser" H 750 3850 60  0001 C CNN "1st Source"
-F 7 "TE Connectivity" H 900 4150 60  0001 C CNN "Manufacturer"
-	10   750  3600
-	-1   0    0    -1  
-$EndComp
-$Comp
-L AMPSEAL_14_POS_776261-1_V J1
-U 11 1 57BA371B
-P 750 3700
-F 0 "J1" H 718 3783 45  0000 C CNN
-F 1 "AMPSEAL_14_POS_776261-1_V" H 750 3700 45  0001 L BNN
-F 2 "usevolt:usevolt-AMPSEAL_14_POS_776261-1" H 780 3850 20  0001 C CNN
-F 3 "http://www.mouser.com/ds/2/418/NG_CD_776261_A7-673206.pdf" H 1050 4350 60  0001 C CNN
-F 4 "571-776261-1" H 950 4050 60  0001 C CNN "1st Source Part Number"
-F 5 "776261-1" H 800 4150 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Mouser" H 750 3950 60  0001 C CNN "1st Source"
-F 7 "TE Connectivity" H 900 4250 60  0001 C CNN "Manufacturer"
-	11   750  3700
-	-1   0    0    -1  
-$EndComp
-$Comp
-L AMPSEAL_14_POS_776261-1_V J1
-U 12 1 57BA397F
-P 750 3800
-F 0 "J1" H 718 3883 45  0000 C CNN
-F 1 "AMPSEAL_14_POS_776261-1_V" H 750 3800 45  0001 L BNN
-F 2 "usevolt:usevolt-AMPSEAL_14_POS_776261-1" H 780 3950 20  0001 C CNN
-F 3 "http://www.mouser.com/ds/2/418/NG_CD_776261_A7-673206.pdf" H 1050 4450 60  0001 C CNN
-F 4 "571-776261-1" H 950 4150 60  0001 C CNN "1st Source Part Number"
-F 5 "776261-1" H 800 4250 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Mouser" H 750 4050 60  0001 C CNN "1st Source"
-F 7 "TE Connectivity" H 900 4350 60  0001 C CNN "Manufacturer"
-	12   750  3800
-	-1   0    0    -1  
-$EndComp
-$Comp
-L AMPSEAL_14_POS_776261-1_V J1
-U 13 1 57BA3BE5
-P 750 3900
-F 0 "J1" H 718 3983 45  0000 C CNN
-F 1 "AMPSEAL_14_POS_776261-1_V" H 750 3900 45  0001 L BNN
-F 2 "usevolt:usevolt-AMPSEAL_14_POS_776261-1" H 780 4050 20  0001 C CNN
-F 3 "http://www.mouser.com/ds/2/418/NG_CD_776261_A7-673206.pdf" H 1050 4550 60  0001 C CNN
-F 4 "571-776261-1" H 950 4250 60  0001 C CNN "1st Source Part Number"
-F 5 "776261-1" H 800 4350 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Mouser" H 750 4150 60  0001 C CNN "1st Source"
-F 7 "TE Connectivity" H 900 4450 60  0001 C CNN "Manufacturer"
-	13   750  3900
-	-1   0    0    -1  
-$EndComp
-$Comp
-L AMPSEAL_14_POS_776261-1_V J1
-U 14 1 57BA3E4D
-P 750 4000
-F 0 "J1" H 718 4083 45  0000 C CNN
-F 1 "AMPSEAL_14_POS_776261-1_V" H 750 4000 45  0001 L BNN
-F 2 "usevolt:usevolt-AMPSEAL_14_POS_776261-1" H 780 4150 20  0001 C CNN
-F 3 "http://www.mouser.com/ds/2/418/NG_CD_776261_A7-673206.pdf" H 1050 4650 60  0001 C CNN
-F 4 "571-776261-1" H 950 4350 60  0001 C CNN "1st Source Part Number"
-F 5 "776261-1" H 800 4450 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Mouser" H 750 4250 60  0001 C CNN "1st Source"
-F 7 "TE Connectivity" H 900 4550 60  0001 C CNN "Manufacturer"
-	14   750  4000
-	-1   0    0    -1  
-$EndComp
 Text Label 1000 3200 0    60   ~ 0
 CANH
 Text Label 1000 3300 0    60   ~ 0
@@ -602,14 +392,6 @@ Text Label 7700 5300 0    60   ~ 0
 DQ14
 Text Label 7700 5400 0    60   ~ 0
 DQ15
-NoConn ~ 850  3100
-NoConn ~ 850  3400
-NoConn ~ 850  3500
-NoConn ~ 850  3600
-NoConn ~ 850  3700
-NoConn ~ 850  3800
-NoConn ~ 850  3900
-NoConn ~ 850  4000
 NoConn ~ 2100 3100
 NoConn ~ 4800 4400
 $Comp
@@ -700,19 +482,19 @@ Entry Wire Line
 Entry Wire Line
 	6450 5500 6550 5600
 Text Label 6400 4900 0    60   ~ 0
-A11
+BA0
 Text Label 6400 5000 0    60   ~ 0
-A9
+BA1
 Text Label 6400 5100 0    60   ~ 0
-A8
+A10
 Text Label 6400 5200 0    60   ~ 0
-A7
+A0
 Text Label 6400 5300 0    60   ~ 0
-A6
+A1
 Text Label 6400 5400 0    60   ~ 0
-A5
+A2
 Text Label 6400 5500 0    60   ~ 0
-A4
+A3
 Entry Wire Line
 	4450 5600 4550 5500
 Entry Wire Line
@@ -728,19 +510,19 @@ Entry Wire Line
 Entry Wire Line
 	4450 5000 4550 4900
 Text Label 4550 4900 0    60   ~ 0
-BA0
+A11
 Text Label 4550 5000 0    60   ~ 0
-BA1
+A9
 Text Label 4550 5100 0    60   ~ 0
-A10
+A8
 Text Label 4550 5200 0    60   ~ 0
-A0
+A7
 Text Label 4550 5300 0    60   ~ 0
-A1
+A6
 Text Label 4550 5400 0    60   ~ 0
-A2
+A5
 Text Label 4550 5500 0    60   ~ 0
-A3
+A4
 $Bitmap
 Pos 15800 10400
 Scale 1.000000
@@ -770,7 +552,7 @@ B3 22 71 A7 2F 14 F6 36 B7 1A A7 4C 3C 04 07 A0 F0 0A F5 43 F6 7B 87 66 5F 28 EC
 70 8F 28 92 21 F1 28 29 29 F4 49 BD E4 8A B8 E5 DC AA F3 68 54 F0 94 2B E2 21 78 8A 9E E0 B8 24 
 1E 82 4B F4 04 C7 80 B8 DE 65 7C 45 4F 70 5C 12 8F 43 61 8A D2 A1 50 F2 4E 3C 2A B8 44 B5 A4 E0 
 1F F1 10 1C 80 BE E0 48 C4 43 70 89 B6 E0 78 27 1E 82 03 50 F8 EB 7F 36 8F 71 44 91 18 08 0E E0 
-03 4C 8A 97 8B A8 1E 0A 25 7F 00 6A 16 D4 B2 CF F0 DF 1C 00 00 00 00 49 45 4E 44 AE 42 60 82 05 
+03 4C 8A 97 8B A8 1E 0A 25 7F 00 6A 16 D4 B2 CF F0 DF 1C 00 00 00 00 49 45 4E 44 AE 42 60 82 00 
 EndData
 $EndBitmap
 Text Label 4400 3100 0    60   ~ 0
@@ -1272,34 +1054,6 @@ F 9 "MURATA" H 11020 8170 60  0001 C CNN "Manufacturer"
 	1    0    0    -1  
 $EndComp
 $Comp
-L VDD #PWR017
-U 1 1 57C782FA
-P 9900 7950
-F 0 "#PWR017" H 9900 7800 50  0001 C CNN
-F 1 "VDD" H 9917 8123 50  0000 C CNN
-F 2 "" H 9900 7950 50  0000 C CNN
-F 3 "" H 9900 7950 50  0000 C CNN
-	1    9900 7950
-	1    0    0    -1  
-$EndComp
-$Comp
-L MOSFET-N_2N7002W-RESCUE-display U5
-U 1 1 57C7C3E2
-P 10400 8000
-F 0 "U5" H 10400 7844 60  0000 C CNN
-F 1 "MOSFET-N_2N7002W" H 10400 7738 60  0000 C CNN
-F 2 "usevolt:SOT323" H 10700 8900 60  0001 C CNN
-F 3 "http://www.onsemi.com/pub_link/Collateral/2N7002W-D.PDF" H 10550 9000 60  0001 C CNN
-F 4 "2533171" H 10975 8825 60  0001 C CNN "2nd Source Part Number"
-F 5 "2N7002WT1G" H 10575 8425 60  0001 C CNN "Manufacturer Part Number"
-F 6 "2N7002WT1GOSCT-ND" H 10775 8625 60  0001 C CNN "1st Source Part Number"
-F 7 "Digikey" H 10675 8525 60  0001 C CNN "1st Source"
-F 8 "Farnell" H 10875 8725 60  0001 C CNN "2nd Source"
-F 9 "ON Semiconductor" H 10475 8325 60  0001 C CNN "Manufacturer"
-	1    10400 8000
-	1    0    0    -1  
-$EndComp
-$Comp
 L GND #PWR018
 U 1 1 57C7D7AA
 P 11100 8150
@@ -1353,15 +1107,9 @@ Wire Wire Line
 Wire Wire Line
 	10100 7600 9700 7600
 Wire Wire Line
-	10100 7900 10100 7600
+	10100 8050 10100 7600
 Wire Wire Line
-	10300 7900 10100 7900
-Wire Wire Line
-	10600 8050 10700 8050
-Wire Wire Line
-	9900 8050 10200 8050
-Wire Wire Line
-	9900 7950 9900 8050
+	10100 8050 10700 8050
 Connection ~ 6900 7550
 Wire Wire Line
 	6800 7550 6900 7550
@@ -1424,11 +1172,11 @@ Wire Wire Line
 	10500 3650 10500 3400
 Wire Wire Line
 	9700 3300 10700 3300
-Connection ~ 3200 3500
+Connection ~ 3200 3550
 Wire Wire Line
-	3550 3500 3200 3500
+	2100 3550 3550 3550
 Wire Wire Line
-	3550 3400 3550 3500
+	3550 3550 3550 3400
 Connection ~ 3200 3050
 Wire Wire Line
 	3550 3050 3200 3050
@@ -1901,9 +1649,6 @@ Wire Wire Line
 	1900 3200 1800 3300
 Wire Wire Line
 	2100 3200 1900 3200
-Connection ~ 3200 3550
-Wire Wire Line
-	3200 3550 2100 3550
 Wire Wire Line
 	2100 3550 2100 3400
 Wire Wire Line
@@ -1923,29 +1668,9 @@ Wire Wire Line
 Wire Wire Line
 	850  3200 1800 3200
 Wire Wire Line
-	1300 7950 8050 7950
-Wire Wire Line
-	1300 3000 1300 7950
-Wire Wire Line
-	850  3000 1300 3000
-Wire Wire Line
-	1450 2900 850  2900
-Wire Wire Line
-	1450 7850 1450 2900
-Wire Wire Line
-	8050 7850 1450 7850
-Wire Wire Line
-	1450 2800 850  2800
-Wire Wire Line
-	1450 1400 1450 2800
-Wire Wire Line
 	1750 1400 1450 1400
 Wire Wire Line
 	1300 1000 1750 1000
-Wire Wire Line
-	1300 2700 1300 1000
-Wire Wire Line
-	850  2700 1300 2700
 Wire Wire Line
 	12600 1450 3100 1450
 Wire Wire Line
@@ -2020,4 +1745,156 @@ Text Label 13800 5700 0    60   ~ 0
 B4
 Text Label 13800 5600 0    60   ~ 0
 B4
+$Comp
+L AMPSEAL_8_POS_776275-1 J1
+U 3 1 5803E1CB
+P 750 3100
+F 0 "J1" H 719 3017 45  0000 C CNN
+F 1 "AMPSEAL_8_POS_776275-1" H 750 3100 45  0001 L BNN
+F 2 "usevolt:AMPSEAL_8_POS_776275-1" H 780 3250 20  0001 C CNN
+F 3 "http://www.mouser.com/ds/2/418/NG_CD_776275_B7-692111.pdf" H 850 3070 60  0001 C CNN
+F 4 "571-1-776275-1 " H 1450 3670 60  0001 C CNN "2nd Source Part Number"
+F 5 "571-776275-1 " H 1250 3470 60  0001 C CNN "1st Source Part Number"
+F 6 "776275-1" H 1050 3270 60  0001 C CNN "Manufacturer Part Number"
+F 7 "Mouser" H 1150 3370 60  0001 C CNN "1st Source"
+F 8 "Mouser" H 1350 3570 60  0001 C CNN "2nd Source"
+F 9 "TE Connectivity" H 950 3170 60  0001 C CNN "Manufacturer"
+	3    750  3100
+	-1   0    0    1   
+$EndComp
+$Comp
+L AMPSEAL_8_POS_776275-1 J1
+U 4 1 5803E6CD
+P 750 3200
+F 0 "J1" H 719 3117 45  0000 C CNN
+F 1 "AMPSEAL_8_POS_776275-1" H 750 3200 45  0001 L BNN
+F 2 "usevolt:AMPSEAL_8_POS_776275-1" H 780 3350 20  0001 C CNN
+F 3 "http://www.mouser.com/ds/2/418/NG_CD_776275_B7-692111.pdf" H 850 3170 60  0001 C CNN
+F 4 "571-1-776275-1 " H 1450 3770 60  0001 C CNN "2nd Source Part Number"
+F 5 "571-776275-1 " H 1250 3570 60  0001 C CNN "1st Source Part Number"
+F 6 "776275-1" H 1050 3370 60  0001 C CNN "Manufacturer Part Number"
+F 7 "Mouser" H 1150 3470 60  0001 C CNN "1st Source"
+F 8 "Mouser" H 1350 3670 60  0001 C CNN "2nd Source"
+F 9 "TE Connectivity" H 950 3270 60  0001 C CNN "Manufacturer"
+	4    750  3200
+	-1   0    0    1   
+$EndComp
+$Comp
+L AMPSEAL_8_POS_776275-1 J1
+U 5 1 5803EBD7
+P 750 3300
+F 0 "J1" H 719 3217 45  0000 C CNN
+F 1 "AMPSEAL_8_POS_776275-1" H 750 3300 45  0001 L BNN
+F 2 "usevolt:AMPSEAL_8_POS_776275-1" H 780 3450 20  0001 C CNN
+F 3 "http://www.mouser.com/ds/2/418/NG_CD_776275_B7-692111.pdf" H 850 3270 60  0001 C CNN
+F 4 "571-1-776275-1 " H 1450 3870 60  0001 C CNN "2nd Source Part Number"
+F 5 "571-776275-1 " H 1250 3670 60  0001 C CNN "1st Source Part Number"
+F 6 "776275-1" H 1050 3470 60  0001 C CNN "Manufacturer Part Number"
+F 7 "Mouser" H 1150 3570 60  0001 C CNN "1st Source"
+F 8 "Mouser" H 1350 3770 60  0001 C CNN "2nd Source"
+F 9 "TE Connectivity" H 950 3370 60  0001 C CNN "Manufacturer"
+	5    750  3300
+	-1   0    0    1   
+$EndComp
+$Comp
+L AMPSEAL_8_POS_776275-1 J1
+U 6 1 58040793
+P 750 3400
+F 0 "J1" H 719 3317 45  0000 C CNN
+F 1 "AMPSEAL_8_POS_776275-1" H 750 3400 45  0001 L BNN
+F 2 "usevolt:AMPSEAL_8_POS_776275-1" H 780 3550 20  0001 C CNN
+F 3 "http://www.mouser.com/ds/2/418/NG_CD_776275_B7-692111.pdf" H 850 3370 60  0001 C CNN
+F 4 "571-1-776275-1 " H 1450 3970 60  0001 C CNN "2nd Source Part Number"
+F 5 "571-776275-1 " H 1250 3770 60  0001 C CNN "1st Source Part Number"
+F 6 "776275-1" H 1050 3570 60  0001 C CNN "Manufacturer Part Number"
+F 7 "Mouser" H 1150 3670 60  0001 C CNN "1st Source"
+F 8 "Mouser" H 1350 3870 60  0001 C CNN "2nd Source"
+F 9 "TE Connectivity" H 950 3470 60  0001 C CNN "Manufacturer"
+	6    750  3400
+	-1   0    0    1   
+$EndComp
+$Comp
+L AMPSEAL_8_POS_776275-1 J1
+U 7 1 58040CB9
+P 750 3500
+F 0 "J1" H 719 3417 45  0000 C CNN
+F 1 "AMPSEAL_8_POS_776275-1" H 750 3500 45  0001 L BNN
+F 2 "usevolt:AMPSEAL_8_POS_776275-1" H 780 3650 20  0001 C CNN
+F 3 "http://www.mouser.com/ds/2/418/NG_CD_776275_B7-692111.pdf" H 850 3470 60  0001 C CNN
+F 4 "571-1-776275-1 " H 1450 4070 60  0001 C CNN "2nd Source Part Number"
+F 5 "571-776275-1 " H 1250 3870 60  0001 C CNN "1st Source Part Number"
+F 6 "776275-1" H 1050 3670 60  0001 C CNN "Manufacturer Part Number"
+F 7 "Mouser" H 1150 3770 60  0001 C CNN "1st Source"
+F 8 "Mouser" H 1350 3970 60  0001 C CNN "2nd Source"
+F 9 "TE Connectivity" H 950 3570 60  0001 C CNN "Manufacturer"
+	7    750  3500
+	-1   0    0    1   
+$EndComp
+$Comp
+L AMPSEAL_8_POS_776275-1 J1
+U 8 1 580411CF
+P 750 3600
+F 0 "J1" H 719 3517 45  0000 C CNN
+F 1 "AMPSEAL_8_POS_776275-1" H 750 3600 45  0001 L BNN
+F 2 "usevolt:AMPSEAL_8_POS_776275-1" H 780 3750 20  0001 C CNN
+F 3 "http://www.mouser.com/ds/2/418/NG_CD_776275_B7-692111.pdf" H 850 3570 60  0001 C CNN
+F 4 "571-1-776275-1 " H 1450 4170 60  0001 C CNN "2nd Source Part Number"
+F 5 "571-776275-1 " H 1250 3970 60  0001 C CNN "1st Source Part Number"
+F 6 "776275-1" H 1050 3770 60  0001 C CNN "Manufacturer Part Number"
+F 7 "Mouser" H 1150 3870 60  0001 C CNN "1st Source"
+F 8 "Mouser" H 1350 4070 60  0001 C CNN "2nd Source"
+F 9 "TE Connectivity" H 950 3670 60  0001 C CNN "Manufacturer"
+	8    750  3600
+	-1   0    0    1   
+$EndComp
+$Comp
+L AMPSEAL_8_POS_776275-1 J1
+U 2 1 5803D561
+P 750 3000
+F 0 "J1" H 719 2917 45  0000 C CNN
+F 1 "AMPSEAL_8_POS_776275-1" H 750 3000 45  0001 L BNN
+F 2 "usevolt:AMPSEAL_8_POS_776275-1" H 780 3150 20  0001 C CNN
+F 3 "http://www.mouser.com/ds/2/418/NG_CD_776275_B7-692111.pdf" H 850 2970 60  0001 C CNN
+F 4 "571-1-776275-1 " H 1450 3570 60  0001 C CNN "2nd Source Part Number"
+F 5 "571-776275-1 " H 1250 3370 60  0001 C CNN "1st Source Part Number"
+F 6 "776275-1" H 1050 3170 60  0001 C CNN "Manufacturer Part Number"
+F 7 "Mouser" H 1150 3270 60  0001 C CNN "1st Source"
+F 8 "Mouser" H 1350 3470 60  0001 C CNN "2nd Source"
+F 9 "TE Connectivity" H 950 3070 60  0001 C CNN "Manufacturer"
+	2    750  3000
+	-1   0    0    1   
+$EndComp
+$Comp
+L AMPSEAL_8_POS_776275-1 J1
+U 1 1 5803D045
+P 750 2900
+F 0 "J1" H 719 2817 45  0000 C CNN
+F 1 "AMPSEAL_8_POS_776275-1" H 750 2900 45  0001 L BNN
+F 2 "usevolt:AMPSEAL_8_POS_776275-1" H 780 3050 20  0001 C CNN
+F 3 "http://www.mouser.com/ds/2/418/NG_CD_776275_B7-692111.pdf" H 850 2870 60  0001 C CNN
+F 4 "571-1-776275-1 " H 1450 3470 60  0001 C CNN "2nd Source Part Number"
+F 5 "571-776275-1 " H 1250 3270 60  0001 C CNN "1st Source Part Number"
+F 6 "776275-1" H 1050 3070 60  0001 C CNN "Manufacturer Part Number"
+F 7 "Mouser" H 1150 3170 60  0001 C CNN "1st Source"
+F 8 "Mouser" H 1350 3370 60  0001 C CNN "2nd Source"
+F 9 "TE Connectivity" H 950 2970 60  0001 C CNN "Manufacturer"
+	1    750  2900
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	850  2900 1300 2900
+Wire Wire Line
+	1300 2900 1300 1000
+Wire Wire Line
+	1450 1400 1450 3000
+Wire Wire Line
+	1450 3000 850  3000
+Wire Wire Line
+	8050 7850 7650 7850
+Wire Wire Line
+	7650 7950 8050 7950
+Text Label 7650 7950 0    60   ~ 0
+RXD
+Text Label 7650 7850 0    60   ~ 0
+TXD
 $EndSCHEMATC

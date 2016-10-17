@@ -11,23 +11,35 @@
 
 #include <uv_utilities.h>
 #include <time.h>
+#include <uv_rtc.h>
+
+
+/// @file: Manages the device specific LOG, which is common for all
+/// users (singleton). The log is saved in EEPROM, allowing any kind of
+/// action to be easily saved or removed from it.
+
+
 
 
 /// @brief: Different log entries are specified here
 enum {
 	// The device has just been booted up
-	LOG_BOOT_UP = 0
+	// param: Device reset source (uv_reset_get_source())
+	LOG_BOOT_UP = 0,
+	// RTC time set.
+	// Param: True if the time was set from the command line, false otherwise
+	LOG_TIME_SET
 };
-typedef uint8_t log_entry_e;
+typedef uint32_t log_entry_e;
 
 
 
 /// @brief: A log entry data structure
 typedef struct {
 	/// @brief: Timestamp of the entry
-	time_t		time;
+	uv_time_st time;
 	/// @brief: Custom data depending on the log type
-	uint32_t	data;
+	int32_t	data;
 	/// @brief: The type of this entry
 	log_entry_e type;
 } log_entry_st;
@@ -37,18 +49,37 @@ typedef struct {
 /// Used to display human understandable definitions of the log entry types
 typedef struct {
 	log_entry_e type;
-	const char *str;
+	const char *def;
+	const char *param_def;
 } log_entry_def_st;
 
 
 extern const log_entry_def_st log_entry_defs[];
 
 
-/// @brief: Returns the definition string of the log entry type
-const char *log__entry_get_definition(log_entry_e type);
+/// @brief: Returns the definition structure of the log entry.
+/// If no match was found, returns NULL
+const log_entry_def_st *log_entry_get_definition(log_entry_e type);
 
-/// @brief: Returns the length of the log in entries
-uint32_t log_size(void);
+
+
+/// @brief: Save a log entry to the log. The time and index are
+/// calculated automatically
+void log_add(log_entry_e type, int32_t data);
+
+
+
+/// @brief: Returns a log entry. Index determines which entry is returned.
+/// 0 means the most latest entry, 1 means second latest entry, etc...
+///
+/// @return true if entry was found, false if *index* was bigger than the entry count
+bool log_get(log_entry_st *dest, uint16_t index);
+
+
+
+/// @brief: Clears the whole log. The use of this should be prevented, since
+/// the intention of log is to see what happened in the past!
+void log_clear(void);
 
 
 #endif /* LOG_H_ */

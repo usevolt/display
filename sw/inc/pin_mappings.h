@@ -18,5 +18,8 @@
 
 #define BUZZER				PWM0_1
 
+#define FLASH_CS			PIO0_19
+#define FLASH_RESET			PIO0_16
+
 
 #endif /* PIN_MAPPINGS_H_ */

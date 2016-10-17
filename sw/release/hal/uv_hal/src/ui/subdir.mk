@@ -5,33 +5,33 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../hal/uv_hal/src/ui/ugui.c \
-../hal/uv_hal/src/ui/uv_button.c \
-../hal/uv_hal/src/ui/uv_display.c \
-../hal/uv_hal/src/ui/uv_fonts.c \
-../hal/uv_hal/src/ui/uv_label.c \
-../hal/uv_hal/src/ui/uv_slider.c \
 ../hal/uv_hal/src/ui/uv_ui_styles.c \
-../hal/uv_hal/src/ui/uv_window.c 
+../hal/uv_hal/src/ui/uv_uibutton.c \
+../hal/uv_hal/src/ui/uv_uidisplay.c \
+../hal/uv_hal/src/ui/uv_uifonts.c \
+../hal/uv_hal/src/ui/uv_uilabel.c \
+../hal/uv_hal/src/ui/uv_uislider.c \
+../hal/uv_hal/src/ui/uv_uiwindow.c 
 
 OBJS += \
 ./hal/uv_hal/src/ui/ugui.o \
-./hal/uv_hal/src/ui/uv_button.o \
-./hal/uv_hal/src/ui/uv_display.o \
-./hal/uv_hal/src/ui/uv_fonts.o \
-./hal/uv_hal/src/ui/uv_label.o \
-./hal/uv_hal/src/ui/uv_slider.o \
 ./hal/uv_hal/src/ui/uv_ui_styles.o \
-./hal/uv_hal/src/ui/uv_window.o 
+./hal/uv_hal/src/ui/uv_uibutton.o \
+./hal/uv_hal/src/ui/uv_uidisplay.o \
+./hal/uv_hal/src/ui/uv_uifonts.o \
+./hal/uv_hal/src/ui/uv_uilabel.o \
+./hal/uv_hal/src/ui/uv_uislider.o \
+./hal/uv_hal/src/ui/uv_uiwindow.o 
 
 C_DEPS += \
 ./hal/uv_hal/src/ui/ugui.d \
-./hal/uv_hal/src/ui/uv_button.d \
-./hal/uv_hal/src/ui/uv_display.d \
-./hal/uv_hal/src/ui/uv_fonts.d \
-./hal/uv_hal/src/ui/uv_label.d \
-./hal/uv_hal/src/ui/uv_slider.d \
 ./hal/uv_hal/src/ui/uv_ui_styles.d \
-./hal/uv_hal/src/ui/uv_window.d 
+./hal/uv_hal/src/ui/uv_uibutton.d \
+./hal/uv_hal/src/ui/uv_uidisplay.d \
+./hal/uv_hal/src/ui/uv_uifonts.d \
+./hal/uv_hal/src/ui/uv_uilabel.d \
+./hal/uv_hal/src/ui/uv_uislider.d \
+./hal/uv_hal/src/ui/uv_uiwindow.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
