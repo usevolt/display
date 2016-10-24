@@ -38,7 +38,6 @@ void gui_init(void *me) {
 
 
 void gui_reset(void *me) {
-	gui_init(this);
 	this->backlight_trg = 100;
 }
 

@@ -968,11 +968,11 @@ Discarded input sections
                 0x00000000        0x8 release/./hal/uv_hal/src/uv_filters.o
  .text.Average_Step
                 0x00000000       0x2c release/./hal/uv_hal/src/uv_filters.o
- .text.MovingAver_Init
+ .text.uv_moving_aver_init
                 0x00000000        0xc release/./hal/uv_hal/src/uv_filters.o
- .text.MovingAver_Reset
+ .text.uv_moving_aver_reset
                 0x00000000        0x8 release/./hal/uv_hal/src/uv_filters.o
- .text.MovingAver_Step
+ .text.uv_moving_aver_step
                 0x00000000       0x24 release/./hal/uv_hal/src/uv_filters.o
  .text.Bounds_Init
                 0x00000000        0xc release/./hal/uv_hal/src/uv_filters.o
@@ -1028,7 +1028,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x189 release/./hal/uv_hal/src/uv_filters.o
  .debug_macro   0x00000000       0x16 release/./hal/uv_hal/src/uv_filters.o
  .debug_line    0x00000000      0x478 release/./hal/uv_hal/src/uv_filters.o
- .debug_str     0x00000000     0xa792 release/./hal/uv_hal/src/uv_filters.o
+ .debug_str     0x00000000     0xa7a3 release/./hal/uv_hal/src/uv_filters.o
  .comment       0x00000000       0x6f release/./hal/uv_hal/src/uv_filters.o
  .debug_frame   0x00000000      0x118 release/./hal/uv_hal/src/uv_filters.o
  .ARM.attributes
@@ -2065,19 +2065,11 @@ Discarded input sections
  .group         0x00000000        0x8 release/./hal/uv_hal/src/uv_lcd.o
  .group         0x00000000        0x8 release/./hal/uv_hal/src/uv_lcd.o
  .group         0x00000000        0x8 release/./hal/uv_hal/src/uv_lcd.o
- .group         0x00000000        0x8 release/./hal/uv_hal/src/uv_lcd.o
- .group         0x00000000        0x8 release/./hal/uv_hal/src/uv_lcd.o
- .group         0x00000000        0x8 release/./hal/uv_hal/src/uv_lcd.o
  .text          0x00000000        0x0 release/./hal/uv_hal/src/uv_lcd.o
  .data          0x00000000        0x0 release/./hal/uv_hal/src/uv_lcd.o
  .bss           0x00000000        0x0 release/./hal/uv_hal/src/uv_lcd.o
  .text.uv_cmult
                 0x00000000       0x78 release/./hal/uv_hal/src/uv_lcd.o
- .text.uv_lcd_touch_calib
-                0x00000000       0x1c release/./hal/uv_hal/src/uv_lcd.o
- .text.uv_lcd_touch_calib_clear
-                0x00000000        0xc release/./hal/uv_hal/src/uv_lcd.o
- .bss.ts        0x00000000        0xa release/./hal/uv_hal/src/uv_lcd.o
  .debug_macro   0x00000000      0x88c release/./hal/uv_hal/src/uv_lcd.o
  .debug_macro   0x00000000      0xac0 release/./hal/uv_hal/src/uv_lcd.o
  .debug_macro   0x00000000       0x52 release/./hal/uv_hal/src/uv_lcd.o
@@ -2121,8 +2113,6 @@ Discarded input sections
  .debug_macro   0x00000000      0x330 release/./hal/uv_hal/src/uv_lcd.o
  .debug_macro   0x00000000       0x16 release/./hal/uv_hal/src/uv_lcd.o
  .debug_macro   0x00000000       0x35 release/./hal/uv_hal/src/uv_lcd.o
- .debug_macro   0x00000000      0xdb2 release/./hal/uv_hal/src/uv_lcd.o
- .debug_macro   0x00000000       0x34 release/./hal/uv_hal/src/uv_lcd.o
  .group         0x00000000        0x8 release/./hal/uv_hal/src/uv_reset.o
  .group         0x00000000        0x8 release/./hal/uv_hal/src/uv_reset.o
  .group         0x00000000        0x8 release/./hal/uv_hal/src/uv_reset.o
@@ -2198,6 +2188,10 @@ Discarded input sections
  .text          0x00000000        0x0 release/./hal/uv_hal/src/uv_adc.o
  .data          0x00000000        0x0 release/./hal/uv_hal/src/uv_adc.o
  .bss           0x00000000        0x0 release/./hal/uv_hal/src/uv_adc.o
+ .text.uv_adc_read
+                0x00000000       0x5c release/./hal/uv_hal/src/uv_adc.o
+ .text.uv_adc_read_average
+                0x00000000       0x20 release/./hal/uv_hal/src/uv_adc.o
  .debug_macro   0x00000000      0x88c release/./hal/uv_hal/src/uv_adc.o
  .debug_macro   0x00000000      0xac0 release/./hal/uv_hal/src/uv_adc.o
  .debug_macro   0x00000000       0x50 release/./hal/uv_hal/src/uv_adc.o
@@ -2606,13 +2600,13 @@ Discarded input sections
  .text.uv_vector_push_front
                 0x00000000       0x44 release/./hal/uv_hal/src/uv_utilities.o
  .text.uv_vector_insert
-                0x00000000       0x5c release/./hal/uv_hal/src/uv_utilities.o
+                0x00000000       0x68 release/./hal/uv_hal/src/uv_utilities.o
  .text.uv_vector_pop_back
                 0x00000000       0x3c release/./hal/uv_hal/src/uv_utilities.o
  .text.uv_vector_pop_front
                 0x00000000       0x40 release/./hal/uv_hal/src/uv_utilities.o
  .text.uv_vector_remove
-                0x00000000       0x3c release/./hal/uv_hal/src/uv_utilities.o
+                0x00000000       0x40 release/./hal/uv_hal/src/uv_utilities.o
  .debug_macro   0x00000000      0x88c release/./hal/uv_hal/src/uv_utilities.o
  .debug_macro   0x00000000      0xac0 release/./hal/uv_hal/src/uv_utilities.o
  .debug_macro   0x00000000       0x22 release/./hal/uv_hal/src/uv_utilities.o
@@ -2719,6 +2713,8 @@ Discarded input sections
                 0x00000000       0x1c release/./hal/uv_hal/src/uv_memory.o
  .text.uv_get_device_serial
                 0x00000000       0x30 release/./hal/uv_hal/src/uv_memory.o
+ .text.__uv_load_previous_non_volatile_data
+                0x00000000       0x34 release/./hal/uv_hal/src/uv_memory.o
  .debug_macro   0x00000000      0x88c release/./hal/uv_hal/src/uv_memory.o
  .debug_macro   0x00000000      0xac0 release/./hal/uv_hal/src/uv_memory.o
  .debug_macro   0x00000000       0x22 release/./hal/uv_hal/src/uv_memory.o
@@ -2956,7 +2952,6 @@ Discarded input sections
  .debug_macro   0x00000000      0x273 release/./hal/uv_hal/src/uv_rtos.o
  .debug_macro   0x00000000       0x16 release/./hal/uv_hal/src/uv_rtos.o
  .debug_macro   0x00000000       0x66 release/./hal/uv_hal/src/uv_rtos.o
- .debug_macro   0x00000000       0x76 release/./hal/uv_hal/src/uv_rtos.o
  .group         0x00000000        0x8 release/./hal/uv_hal/src/ui/ugui.o
  .group         0x00000000        0x8 release/./hal/uv_hal/src/ui/ugui.o
  .group         0x00000000        0x8 release/./hal/uv_hal/src/ui/ugui.o
@@ -5171,7 +5166,7 @@ END GROUP
                 0x1000ff60                __top_RamLoc64 = 0x1000ff60
                 0x20004000                __top_RamPeriph16 = 0x20004000
 
-.text           0x00002000     0xb57c
+.text           0x00002000     0xb2cc
  FILL mask 0xff
                 0x00002000                __vectors_start__ = ABSOLUTE (.)
  *(.isr_vector)
@@ -5180,10 +5175,10 @@ END GROUP
                 0x000020e4                . = ALIGN (0x4)
                 0x000020e4                __section_table_start = .
                 0x000020e4                __data_section_table = .
-                0x000020e4        0x4 LONG 0xd57c LOADADDR (.data)
+                0x000020e4        0x4 LONG 0xd2cc LOADADDR (.data)
                 0x000020e8        0x4 LONG 0x10000080 ADDR (.data)
                 0x000020ec        0x4 LONG 0x454 SIZEOF (.data)
-                0x000020f0        0x4 LONG 0xd57c LOADADDR (.data_RAM2)
+                0x000020f0        0x4 LONG 0xd2cc LOADADDR (.data_RAM2)
                 0x000020f4        0x4 LONG 0x20000000 ADDR (.data_RAM2)
                 0x000020f8        0x4 LONG 0x0 SIZEOF (.data_RAM2)
                 0x000020fc                __data_section_table_end = .
@@ -5551,452 +5546,440 @@ END GROUP
                 0x00005004       0x38 release/./hal/uv_hal/src/uv_lcd.o
                 0x00005004                uv_lcd_draw_rect
  .text._uv_lcd_init
-                0x0000503c      0x134 release/./hal/uv_hal/src/uv_lcd.o
+                0x0000503c      0x130 release/./hal/uv_hal/src/uv_lcd.o
                 0x0000503c                _uv_lcd_init
  .text.uv_lcd_draw_frame
-                0x00005170       0x5c release/./hal/uv_hal/src/uv_lcd.o
-                0x00005170                uv_lcd_draw_frame
- .text.uv_lcd_touch_get
-                0x000051cc      0x1a4 release/./hal/uv_hal/src/uv_lcd.o
-                0x000051cc                uv_lcd_touch_get
+                0x0000516c       0x5c release/./hal/uv_hal/src/uv_lcd.o
+                0x0000516c                uv_lcd_draw_frame
  .text.uv_system_reset
-                0x00005370       0x24 release/./hal/uv_hal/src/uv_reset.o
-                0x00005370                uv_system_reset
+                0x000051c8       0x24 release/./hal/uv_hal/src/uv_reset.o
+                0x000051c8                uv_system_reset
  .text.uv_reset_get_source
-                0x00005394       0x10 release/./hal/uv_hal/src/uv_reset.o
-                0x00005394                uv_reset_get_source
+                0x000051ec       0x10 release/./hal/uv_hal/src/uv_reset.o
+                0x000051ec                uv_reset_get_source
  .text._uv_adc_init
-                0x000053a4       0xfc release/./hal/uv_hal/src/uv_adc.o
-                0x000053a4                _uv_adc_init
- .text.uv_adc_read
-                0x000054a0       0x5c release/./hal/uv_hal/src/uv_adc.o
-                0x000054a0                uv_adc_read
- .text.uv_adc_read_average
-                0x000054fc       0x20 release/./hal/uv_hal/src/uv_adc.o
-                0x000054fc                uv_adc_read_average
+                0x000051fc       0xfc release/./hal/uv_hal/src/uv_adc.o
+                0x000051fc                _uv_adc_init
  .text.uv_terminal_dev_callb
-                0x0000551c       0x20 release/./hal/uv_hal/src/uv_terminal.o
-                0x0000551c                uv_terminal_dev_callb
+                0x000052f8       0x20 release/./hal/uv_hal/src/uv_terminal.o
+                0x000052f8                uv_terminal_dev_callb
  .text.uv_terminal_man_callb
-                0x0000553c       0x7c release/./hal/uv_hal/src/uv_terminal.o
-                0x0000553c                uv_terminal_man_callb
+                0x00005318       0x7c release/./hal/uv_hal/src/uv_terminal.o
+                0x00005318                uv_terminal_man_callb
  .text.uv_terminal_reset_callb
-                0x000055b8       0x20 release/./hal/uv_hal/src/uv_terminal.o
-                0x000055b8                uv_terminal_reset_callb
+                0x00005394       0x20 release/./hal/uv_hal/src/uv_terminal.o
+                0x00005394                uv_terminal_reset_callb
  .text.uv_terminal_save_callb
-                0x000055d8       0x14 release/./hal/uv_hal/src/uv_terminal.o
-                0x000055d8                uv_terminal_save_callb
+                0x000053b4       0x14 release/./hal/uv_hal/src/uv_terminal.o
+                0x000053b4                uv_terminal_save_callb
  .text.uv_terminal_revert_callb
-                0x000055ec       0x14 release/./hal/uv_hal/src/uv_terminal.o
-                0x000055ec                uv_terminal_revert_callb
+                0x000053c8       0x14 release/./hal/uv_hal/src/uv_terminal.o
+                0x000053c8                uv_terminal_revert_callb
  .text.uv_terminal_crc_callb
-                0x00005600       0x28 release/./hal/uv_hal/src/uv_terminal.o
-                0x00005600                uv_terminal_crc_callb
+                0x000053dc       0x28 release/./hal/uv_hal/src/uv_terminal.o
+                0x000053dc                uv_terminal_crc_callb
  .text.uv_terminal_init
-                0x00005628       0x30 release/./hal/uv_hal/src/uv_terminal.o
-                0x00005628                uv_terminal_init
+                0x00005404       0x30 release/./hal/uv_hal/src/uv_terminal.o
+                0x00005404                uv_terminal_init
  .text.uv_terminal_get_commands_count
-                0x00005658        0xc release/./hal/uv_hal/src/uv_terminal.o
-                0x00005658                uv_terminal_get_commands_count
+                0x00005434        0xc release/./hal/uv_hal/src/uv_terminal.o
+                0x00005434                uv_terminal_get_commands_count
  .text.uv_terminal_help_callb
-                0x00005664       0x50 release/./hal/uv_hal/src/uv_terminal.o
-                0x00005664                uv_terminal_help_callb
+                0x00005440       0x50 release/./hal/uv_hal/src/uv_terminal.o
+                0x00005440                uv_terminal_help_callb
  .text.uv_terminal_step
-                0x000056b4      0x204 release/./hal/uv_hal/src/uv_terminal.o
-                0x000056b4                uv_terminal_step
+                0x00005490      0x204 release/./hal/uv_hal/src/uv_terminal.o
+                0x00005490                uv_terminal_step
  .text.uv_set_application_ptr
-                0x000058b8        0xc release/./hal/uv_hal/src/uv_utilities.o
-                0x000058b8                uv_set_application_ptr
+                0x00005694        0xc release/./hal/uv_hal/src/uv_utilities.o
+                0x00005694                uv_set_application_ptr
  .text.uv_ring_buffer_init
-                0x000058c4       0x1c release/./hal/uv_hal/src/uv_utilities.o
-                0x000058c4                uv_ring_buffer_init
+                0x000056a0       0x1c release/./hal/uv_hal/src/uv_utilities.o
+                0x000056a0                uv_ring_buffer_init
  .text.uv_ring_buffer_push
-                0x000058e0       0x54 release/./hal/uv_hal/src/uv_utilities.o
-                0x000058e0                uv_ring_buffer_push
+                0x000056bc       0x54 release/./hal/uv_hal/src/uv_utilities.o
+                0x000056bc                uv_ring_buffer_push
  .text.uv_ring_buffer_pop
-                0x00005934       0x58 release/./hal/uv_hal/src/uv_utilities.o
-                0x00005934                uv_ring_buffer_pop
+                0x00005710       0x58 release/./hal/uv_hal/src/uv_utilities.o
+                0x00005710                uv_ring_buffer_pop
  .text._delay_ms
-                0x0000598c       0x4c release/./hal/uv_hal/src/uv_utilities.o
-                0x0000598c                _delay_ms
+                0x00005768       0x4c release/./hal/uv_hal/src/uv_utilities.o
+                0x00005768                _delay_ms
  .text.uv_set_int_priority
-                0x000059d8       0x4c release/./hal/uv_hal/src/uv_utilities.o
-                0x000059d8                uv_set_int_priority
+                0x000057b4       0x4c release/./hal/uv_hal/src/uv_utilities.o
+                0x000057b4                uv_set_int_priority
  .text.__uv_get_user_ptr
-                0x00005a24        0xc release/./hal/uv_hal/src/uv_utilities.o
-                0x00005a24                __uv_get_user_ptr
+                0x00005800        0xc release/./hal/uv_hal/src/uv_utilities.o
+                0x00005800                __uv_get_user_ptr
  .text.NMI_Handler
-                0x00005a30       0x14 release/./hal/uv_hal/src/uv_utilities.o
-                0x00005a30                NMI_Handler
+                0x0000580c       0x14 release/./hal/uv_hal/src/uv_utilities.o
+                0x0000580c                NMI_Handler
  .text.HardFault_Handler
-                0x00005a44       0x14 release/./hal/uv_hal/src/uv_utilities.o
-                0x00005a44                HardFault_Handler
+                0x00005820       0x14 release/./hal/uv_hal/src/uv_utilities.o
+                0x00005820                HardFault_Handler
  .text.MemManage_Handler
-                0x00005a58       0x14 release/./hal/uv_hal/src/uv_utilities.o
-                0x00005a58                MemManage_Handler
+                0x00005834       0x14 release/./hal/uv_hal/src/uv_utilities.o
+                0x00005834                MemManage_Handler
  .text.BusFault_Handler
-                0x00005a6c       0x14 release/./hal/uv_hal/src/uv_utilities.o
-                0x00005a6c                BusFault_Handler
+                0x00005848       0x14 release/./hal/uv_hal/src/uv_utilities.o
+                0x00005848                BusFault_Handler
  .text.UsageFault_Handler
-                0x00005a80       0x14 release/./hal/uv_hal/src/uv_utilities.o
-                0x00005a80                UsageFault_Handler
+                0x0000585c       0x14 release/./hal/uv_hal/src/uv_utilities.o
+                0x0000585c                UsageFault_Handler
  .text.IntDefaultHandler
-                0x00005a94       0x14 release/./hal/uv_hal/src/uv_utilities.o
-                0x00005a94                IntDefaultHandler
+                0x00005870       0x14 release/./hal/uv_hal/src/uv_utilities.o
+                0x00005870                IntDefaultHandler
  .text.calc_crc
-                0x00005aa8       0x3c release/./hal/uv_hal/src/uv_memory.o
+                0x00005884       0x3c release/./hal/uv_hal/src/uv_memory.o
  .text.uv_memory_load
-                0x00005ae4       0x74 release/./hal/uv_hal/src/uv_memory.o
-                0x00005ae4                uv_memory_load
+                0x000058c0       0x74 release/./hal/uv_hal/src/uv_memory.o
+                0x000058c0                uv_memory_load
  .text.uv_erase_and_write_to_flash
-                0x00005b58       0xf8 release/./hal/uv_hal/src/uv_memory.o
-                0x00005b58                uv_erase_and_write_to_flash
+                0x00005934       0xf8 release/./hal/uv_hal/src/uv_memory.o
+                0x00005934                uv_erase_and_write_to_flash
  .text.uv_memory_save
-                0x00005c50       0xe0 release/./hal/uv_hal/src/uv_memory.o
-                0x00005c50                uv_memory_save
+                0x00005a2c       0xe8 release/./hal/uv_hal/src/uv_memory.o
+                0x00005a2c                uv_memory_save
  .text.__uv_save_previous_non_volatile_data
-                0x00005d30       0x34 release/./hal/uv_hal/src/uv_memory.o
-                0x00005d30                __uv_save_previous_non_volatile_data
- .text.__uv_load_previous_non_volatile_data
-                0x00005d64       0x34 release/./hal/uv_hal/src/uv_memory.o
-                0x00005d64                __uv_load_previous_non_volatile_data
+                0x00005b14       0x34 release/./hal/uv_hal/src/uv_memory.o
+                0x00005b14                __uv_save_previous_non_volatile_data
  .text.__uv_clear_previous_non_volatile_data
-                0x00005d98       0xb0 release/./hal/uv_hal/src/uv_memory.o
-                0x00005d98                __uv_clear_previous_non_volatile_data
+                0x00005b48       0xb0 release/./hal/uv_hal/src/uv_memory.o
+                0x00005b48                __uv_clear_previous_non_volatile_data
  .text.uv_set_crc
-                0x00005e48       0x10 release/./hal/uv_hal/src/uv_memory.o
-                0x00005e48                uv_set_crc
+                0x00005bf8       0x10 release/./hal/uv_hal/src/uv_memory.o
+                0x00005bf8                uv_set_crc
  .text.uv_get_crc
-                0x00005e58        0x8 release/./hal/uv_hal/src/uv_memory.o
-                0x00005e58                uv_get_crc
+                0x00005c08        0x8 release/./hal/uv_hal/src/uv_memory.o
+                0x00005c08                uv_get_crc
  .text.__uv_log_error
-                0x00005e60       0x28 release/./hal/uv_hal/src/uv_errors.o
-                0x00005e60                __uv_log_error
+                0x00005c10       0x28 release/./hal/uv_hal/src/uv_errors.o
+                0x00005c10                __uv_log_error
  .text.uv_rtos_task_delay
-                0x00005e88       0x1c release/./hal/uv_hal/src/uv_rtos.o
-                0x00005e88                uv_rtos_task_delay
+                0x00005c38       0x1c release/./hal/uv_hal/src/uv_rtos.o
+                0x00005c38                uv_rtos_task_delay
  .text.hal_task
-                0x00005ea4       0x1c release/./hal/uv_hal/src/uv_rtos.o
-                0x00005ea4                hal_task
+                0x00005c54       0x1c release/./hal/uv_hal/src/uv_rtos.o
+                0x00005c54                hal_task
  .text.vApplicationStackOverflowHook
-                0x00005ec0       0x34 release/./hal/uv_hal/src/uv_rtos.o
-                0x00005ec0                vApplicationStackOverflowHook
- .text.uv_init  0x00005ef4       0x54 release/./hal/uv_hal/src/uv_rtos.o
-                0x00005ef4                uv_init
+                0x00005c70       0x34 release/./hal/uv_hal/src/uv_rtos.o
+                0x00005c70                vApplicationStackOverflowHook
+ .text.uv_init  0x00005ca4       0x54 release/./hal/uv_hal/src/uv_rtos.o
+                0x00005ca4                uv_init
  .text.uv_uidisplay_init
-                0x00005f48       0x28 release/./hal/uv_hal/src/ui/uv_uidisplay.o
-                0x00005f48                uv_uidisplay_init
+                0x00005cf8       0x28 release/./hal/uv_hal/src/ui/uv_uidisplay.o
+                0x00005cf8                uv_uidisplay_init
  .text.uv_uidisplay_step
-                0x00005f70       0x20 release/./hal/uv_hal/src/ui/uv_uidisplay.o
-                0x00005f70                uv_uidisplay_step
+                0x00005d20       0x14 release/./hal/uv_hal/src/ui/uv_uidisplay.o
+                0x00005d20                uv_uidisplay_step
  .text.uv_ui_get_yglobal
-                0x00005f90       0x88 release/./hal/uv_hal/src/ui/uv_uiwindow.o
+                0x00005d34       0x88 release/./hal/uv_hal/src/ui/uv_uiwindow.o
  .text.uv_ui_get_xglobal
-                0x00006018       0x88 release/./hal/uv_hal/src/ui/uv_uiwindow.o
- .text.redraw   0x000060a0      0x150 release/./hal/uv_hal/src/ui/uv_uiwindow.o
+                0x00005dbc       0x88 release/./hal/uv_hal/src/ui/uv_uiwindow.o
+ .text.redraw   0x00005e44      0x150 release/./hal/uv_hal/src/ui/uv_uiwindow.o
  .text.uv_uiwindow_step
-                0x000061f0       0x68 release/./hal/uv_hal/src/ui/uv_uiwindow.o
-                0x000061f0                uv_uiwindow_step
+                0x00005f94       0x68 release/./hal/uv_hal/src/ui/uv_uiwindow.o
+                0x00005f94                uv_uiwindow_step
  .text.uv_ui_get_xglobal
-                0x00006258       0x88 release/./hal/uv_hal/src/ui/uv_uilabel.o
+                0x00005ffc       0x88 release/./hal/uv_hal/src/ui/uv_uilabel.o
  .text.uv_ui_get_yglobal
-                0x000062e0       0x88 release/./hal/uv_hal/src/ui/uv_uilabel.o
+                0x00006084       0x88 release/./hal/uv_hal/src/ui/uv_uilabel.o
  .text._uv_ui_draw_text
-                0x00006368      0x1f4 release/./hal/uv_hal/src/ui/uv_uilabel.o
-                0x00006368                _uv_ui_draw_text
+                0x0000610c      0x1f4 release/./hal/uv_hal/src/ui/uv_uilabel.o
+                0x0000610c                _uv_ui_draw_text
  .text.uv_uilabel_step
-                0x0000655c       0xe8 release/./hal/uv_hal/src/ui/uv_uilabel.o
-                0x0000655c                uv_uilabel_step
+                0x00006300       0xe8 release/./hal/uv_hal/src/ui/uv_uilabel.o
+                0x00006300                uv_uilabel_step
  .text.network_node_conf
-                0x00006644       0x10 release/./src/network.o
+                0x000063e8       0x10 release/./src/network.o
  .text.network_msb_conf
-                0x00006654       0x10 release/./src/network.o
-                0x00006654                network_msb_conf
+                0x000063f8       0x10 release/./src/network.o
+                0x000063f8                network_msb_conf
  .text.network_csb_conf
-                0x00006664       0x10 release/./src/network.o
-                0x00006664                network_csb_conf
+                0x00006408       0x10 release/./src/network.o
+                0x00006408                network_csb_conf
  .text.network_lkeyp_conf
-                0x00006674       0x10 release/./src/network.o
-                0x00006674                network_lkeyp_conf
+                0x00006418       0x10 release/./src/network.o
+                0x00006418                network_lkeyp_conf
  .text.network_rkeyp_conf
-                0x00006684       0x10 release/./src/network.o
-                0x00006684                network_rkeyp_conf
+                0x00006428       0x10 release/./src/network.o
+                0x00006428                network_rkeyp_conf
  .text.network_ecu_conf
-                0x00006694       0x10 release/./src/network.o
-                0x00006694                network_ecu_conf
+                0x00006438       0x10 release/./src/network.o
+                0x00006438                network_ecu_conf
  .text.network_pedal_conf
-                0x000066a4       0x10 release/./src/network.o
-                0x000066a4                network_pedal_conf
+                0x00006448       0x10 release/./src/network.o
+                0x00006448                network_pedal_conf
  .text.network_uw181s_conf
-                0x000066b4       0x10 release/./src/network.o
-                0x000066b4                network_uw181s_conf
+                0x00006458       0x10 release/./src/network.o
+                0x00006458                network_uw181s_conf
  .text.network_uw181smb_conf
-                0x000066c4       0x10 release/./src/network.o
-                0x000066c4                network_uw181smb_conf
+                0x00006468       0x10 release/./src/network.o
+                0x00006468                network_uw181smb_conf
  .text.network_gsm_conf
-                0x000066d4       0x10 release/./src/network.o
-                0x000066d4                network_gsm_conf
+                0x00006478       0x10 release/./src/network.o
+                0x00006478                network_gsm_conf
  .text.object_dictionary_size
-                0x000066e4        0x4 release/./src/canopen.o
-                0x000066e4                object_dictionary_size
+                0x00006488        0x4 release/./src/canopen.o
+                0x00006488                object_dictionary_size
  .text.log_entry_get_definition
-                0x000066e8       0x34 release/./src/log.o
-                0x000066e8                log_entry_get_definition
- .text.log_add  0x0000671c       0x30 release/./src/log.o
-                0x0000671c                log_add
- .text.log_get  0x0000674c       0x10 release/./src/log.o
-                0x0000674c                log_get
+                0x0000648c       0x34 release/./src/log.o
+                0x0000648c                log_entry_get_definition
+ .text.log_add  0x000064c0       0x30 release/./src/log.o
+                0x000064c0                log_add
+ .text.log_get  0x000064f0       0x10 release/./src/log.o
+                0x000064f0                log_get
  .text.log_clear
-                0x0000675c        0x8 release/./src/log.o
-                0x0000675c                log_clear
+                0x00006500        0x8 release/./src/log.o
+                0x00006500                log_clear
  .text.emcread_callb
-                0x00006764       0x60 release/./src/commands.o
-                0x00006764                emcread_callb
+                0x00006508       0x60 release/./src/commands.o
+                0x00006508                emcread_callb
  .text.refresh_callb
-                0x000067c4       0x20 release/./src/commands.o
-                0x000067c4                refresh_callb
+                0x00006568       0x20 release/./src/commands.o
+                0x00006568                refresh_callb
  .text.emcwrite_callb
-                0x000067e4       0x38 release/./src/commands.o
-                0x000067e4                emcwrite_callb
+                0x00006588       0x38 release/./src/commands.o
+                0x00006588                emcwrite_callb
  .text.eepromwrite_callb
-                0x0000681c       0x4c release/./src/commands.o
-                0x0000681c                eepromwrite_callb
+                0x000065c0       0x4c release/./src/commands.o
+                0x000065c0                eepromwrite_callb
  .text.eepromread_callb
-                0x00006868       0x64 release/./src/commands.o
-                0x00006868                eepromread_callb
+                0x0000660c       0x64 release/./src/commands.o
+                0x0000660c                eepromread_callb
  .text.lcddrawrect_callb
-                0x000068cc       0xc8 release/./src/commands.o
-                0x000068cc                lcddrawrect_callb
+                0x00006670       0xc8 release/./src/commands.o
+                0x00006670                lcddrawrect_callb
  .text.lcddrawframe_callb
-                0x00006994       0xf4 release/./src/commands.o
-                0x00006994                lcddrawframe_callb
+                0x00006738       0xf4 release/./src/commands.o
+                0x00006738                lcddrawframe_callb
  .text.lcdbacklight_callb
-                0x00006a88       0x38 release/./src/commands.o
-                0x00006a88                lcdbacklight_callb
+                0x0000682c       0x28 release/./src/commands.o
+                0x0000682c                lcdbacklight_callb
  .text.logclear_callb
-                0x00006ac0       0x14 release/./src/commands.o
-                0x00006ac0                logclear_callb
+                0x00006854       0x14 release/./src/commands.o
+                0x00006854                logclear_callb
  .text.logadd_callb
-                0x00006ad4       0x44 release/./src/commands.o
-                0x00006ad4                logadd_callb
+                0x00006868       0x44 release/./src/commands.o
+                0x00006868                logadd_callb
  .text.logshow_callb
-                0x00006b18       0x78 release/./src/commands.o
-                0x00006b18                logshow_callb
+                0x000068ac       0x78 release/./src/commands.o
+                0x000068ac                logshow_callb
  .text.alert_callb
-                0x00006b90       0x24 release/./src/commands.o
-                0x00006b90                alert_callb
+                0x00006924       0x24 release/./src/commands.o
+                0x00006924                alert_callb
  .text.volume_callb
-                0x00006bb4       0x30 release/./src/commands.o
-                0x00006bb4                volume_callb
+                0x00006948       0x30 release/./src/commands.o
+                0x00006948                volume_callb
  .text.time_callb
-                0x00006be4       0x7c release/./src/commands.o
-                0x00006be4                time_callb
+                0x00006978       0x7c release/./src/commands.o
+                0x00006978                time_callb
  .text.commands_count
-                0x00006c60        0x4 release/./src/commands.o
-                0x00006c60                commands_count
+                0x000069f4        0x4 release/./src/commands.o
+                0x000069f4                commands_count
  .text.dspl_step
-                0x00006c64       0x58 release/./src/main.o
-                0x00006c64                dspl_step
+                0x000069f8       0x58 release/./src/main.o
+                0x000069f8                dspl_step
  .text.dspl_init
-                0x00006cbc       0xfc release/./src/main.o
-                0x00006cbc                dspl_init
- .text.main     0x00006db8       0x50 release/./src/main.o
-                0x00006db8                main
+                0x00006a50       0xfc release/./src/main.o
+                0x00006a50                dspl_init
+ .text.main     0x00006b4c       0x50 release/./src/main.o
+                0x00006b4c                main
  .text.gui_step
-                0x00006e08       0xc4 release/./src/gui.o
-                0x00006e08                gui_step
+                0x00006b9c       0xc4 release/./src/gui.o
+                0x00006b9c                gui_step
  .text.gui_init
-                0x00006ecc       0xbc release/./src/gui.o
-                0x00006ecc                gui_init
+                0x00006c60       0xbc release/./src/gui.o
+                0x00006c60                gui_init
  .text.gui_reset
-                0x00006f88       0x14 release/./src/gui.o
-                0x00006f88                gui_reset
+                0x00006d1c        0x8 release/./src/gui.o
+                0x00006d1c                gui_reset
  .text.gui_set_backlight
-                0x00006f9c       0x30 release/./src/gui.o
-                0x00006f9c                gui_set_backlight
+                0x00006d24       0x30 release/./src/gui.o
+                0x00006d24                gui_set_backlight
  .text.alert_init
-                0x00006fcc        0x8 release/./src/alert.o
-                0x00006fcc                alert_init
+                0x00006d54        0x8 release/./src/alert.o
+                0x00006d54                alert_init
  .text.alert_reset
-                0x00006fd4       0x10 release/./src/alert.o
-                0x00006fd4                alert_reset
+                0x00006d5c       0x10 release/./src/alert.o
+                0x00006d5c                alert_reset
  .text.alert_stop
-                0x00006fe4       0x20 release/./src/alert.o
-                0x00006fe4                alert_stop
+                0x00006d6c       0x20 release/./src/alert.o
+                0x00006d6c                alert_stop
  .text.alert_step
-                0x00007004      0x1d4 release/./src/alert.o
-                0x00007004                alert_step
+                0x00006d8c      0x1d4 release/./src/alert.o
+                0x00006d8c                alert_step
  .text.alert_play
-                0x000071d8      0x130 release/./src/alert.o
-                0x000071d8                alert_play
+                0x00006f60      0x130 release/./src/alert.o
+                0x00006f60                alert_play
  .text.alert_set_volume
-                0x00007308        0xc release/./src/alert.o
-                0x00007308                alert_set_volume
+                0x00007090        0xc release/./src/alert.o
+                0x00007090                alert_set_volume
  .text.alert_get_volume
-                0x00007314        0x4 release/./src/alert.o
-                0x00007314                alert_get_volume
+                0x0000709c        0x4 release/./src/alert.o
+                0x0000709c                alert_get_volume
  .text.home_init
-                0x00007318       0xb4 release/./src/ui/home_screen.o
-                0x00007318                home_init
+                0x000070a0       0xb4 release/./src/ui/home_screen.o
+                0x000070a0                home_init
  .text.taskbar_init
-                0x000073cc       0xac release/./src/ui/taskbar.o
-                0x000073cc                taskbar_init
- .text          0x00007478      0x21c /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/libgcc.a(_arm_addsubsf3.o)
-                0x00007478                __aeabi_frsub
-                0x00007480                __subsf3
-                0x00007480                __aeabi_fsub
-                0x00007484                __aeabi_fadd
-                0x00007484                __addsf3
-                0x000075e4                __aeabi_ui2f
-                0x000075e4                __floatunsisf
-                0x000075ec                __aeabi_i2f
-                0x000075ec                __floatsisf
-                0x00007608                __floatundisf
-                0x00007608                __aeabi_ul2f
-                0x00007618                __floatdisf
-                0x00007618                __aeabi_l2f
- .text          0x00007694      0x2a0 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/libgcc.a(_arm_muldivsf3.o)
-                0x00007694                __mulsf3
-                0x00007694                __aeabi_fmul
-                0x000077fc                __divsf3
-                0x000077fc                __aeabi_fdiv
- .text          0x00007934       0xec /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/libgcc.a(_arm_cmpsf2.o)
-                0x00007934                __gtsf2
-                0x00007934                __gesf2
-                0x0000793c                __lesf2
-                0x0000793c                __ltsf2
-                0x00007944                __nesf2
-                0x00007944                __eqsf2
-                0x00007944                __cmpsf2
-                0x000079a4                __aeabi_cfrcmple
-                0x000079ac                __aeabi_cfcmple
-                0x000079ac                __aeabi_cfcmpeq
-                0x000079bc                __aeabi_fcmpeq
-                0x000079d0                __aeabi_fcmplt
-                0x000079e4                __aeabi_fcmple
-                0x000079f8                __aeabi_fcmpge
-                0x00007a0c                __aeabi_fcmpgt
- .text          0x00007a20       0x40 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/libgcc.a(_arm_fixunssfsi.o)
-                0x00007a20                __aeabi_f2uiz
-                0x00007a20                __fixunssfsi
- .text          0x00007a60       0xec /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-memcpy.o)
-                0x00007a60                memcpy
- .text.memset   0x00007b4c       0x9c /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-memset.o)
-                0x00007b4c                memset
- .text          0x00007be8      0x1bc /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strcmp.o)
-                0x00007be8                strcmp
- .text.strlen   0x00007da4       0x5c /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strlen-stub.o)
-                0x00007da4                strlen
+                0x00007154       0xac release/./src/ui/taskbar.o
+                0x00007154                taskbar_init
+ .text          0x00007200      0x21c /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/libgcc.a(_arm_addsubsf3.o)
+                0x00007200                __aeabi_frsub
+                0x00007208                __subsf3
+                0x00007208                __aeabi_fsub
+                0x0000720c                __aeabi_fadd
+                0x0000720c                __addsf3
+                0x0000736c                __aeabi_ui2f
+                0x0000736c                __floatunsisf
+                0x00007374                __aeabi_i2f
+                0x00007374                __floatsisf
+                0x00007390                __floatundisf
+                0x00007390                __aeabi_ul2f
+                0x000073a0                __floatdisf
+                0x000073a0                __aeabi_l2f
+ .text          0x0000741c      0x2a0 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/libgcc.a(_arm_muldivsf3.o)
+                0x0000741c                __mulsf3
+                0x0000741c                __aeabi_fmul
+                0x00007584                __divsf3
+                0x00007584                __aeabi_fdiv
+ .text          0x000076bc       0xec /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/libgcc.a(_arm_cmpsf2.o)
+                0x000076bc                __gtsf2
+                0x000076bc                __gesf2
+                0x000076c4                __lesf2
+                0x000076c4                __ltsf2
+                0x000076cc                __nesf2
+                0x000076cc                __eqsf2
+                0x000076cc                __cmpsf2
+                0x0000772c                __aeabi_cfrcmple
+                0x00007734                __aeabi_cfcmple
+                0x00007734                __aeabi_cfcmpeq
+                0x00007744                __aeabi_fcmpeq
+                0x00007758                __aeabi_fcmplt
+                0x0000776c                __aeabi_fcmple
+                0x00007780                __aeabi_fcmpge
+                0x00007794                __aeabi_fcmpgt
+ .text          0x000077a8       0x40 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/libgcc.a(_arm_fixunssfsi.o)
+                0x000077a8                __aeabi_f2uiz
+                0x000077a8                __fixunssfsi
+ .text          0x000077e8       0xec /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-memcpy.o)
+                0x000077e8                memcpy
+ .text.memset   0x000078d4       0x9c /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-memset.o)
+                0x000078d4                memset
+ .text          0x00007970      0x1bc /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strcmp.o)
+                0x00007970                strcmp
+ .text.strlen   0x00007b2c       0x5c /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strlen-stub.o)
+                0x00007b2c                strlen
  .text._strtol_r
-                0x00007e00      0x128 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtol.o)
-                0x00007e00                _strtol_r
- .text.strtol   0x00007f28       0x18 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtol.o)
-                0x00007f28                strtol
+                0x00007b88      0x128 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtol.o)
+                0x00007b88                _strtol_r
+ .text.strtol   0x00007cb0       0x18 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtol.o)
+                0x00007cb0                strtol
  *(.rodata .rodata.* .constdata .constdata.*)
  .rodata.str1.4
-                0x00007f40        0x5 release/./hal/uv_hal/freertos/tasks.o
- *fill*         0x00007f45        0x3 ff
+                0x00007cc8        0x5 release/./hal/uv_hal/freertos/tasks.o
+ *fill*         0x00007ccd        0x3 ff
  .rodata.str1.4
-                0x00007f48       0x10 release/./hal/uv_hal/freertos/timers.o
+                0x00007cd0       0x10 release/./hal/uv_hal/freertos/timers.o
  .rodata.str1.4
-                0x00007f58        0xb release/./hal/uv_hal/src/uv_eeprom.o
- *fill*         0x00007f63        0x1 ff
+                0x00007ce0        0xb release/./hal/uv_hal/src/uv_eeprom.o
+ *fill*         0x00007ceb        0x1 ff
  .rodata.str1.4
-                0x00007f64        0x7 release/./hal/uv_hal/src/printf.o
- *fill*         0x00007f6b        0x1 ff
+                0x00007cec        0x7 release/./hal/uv_hal/src/printf.o
+ *fill*         0x00007cf3        0x1 ff
  .rodata.str1.4
-                0x00007f6c      0x436 release/./hal/uv_hal/src/uv_terminal.o
+                0x00007cf4      0x436 release/./hal/uv_hal/src/uv_terminal.o
                                 0x446 (size before relaxing)
- *fill*         0x000083a2        0x2 ff
+ *fill*         0x0000812a        0x2 ff
  .rodata.common_cmds
-                0x000083a4       0x70 release/./hal/uv_hal/src/uv_terminal.o
-                0x000083a4                common_cmds
+                0x0000812c       0x70 release/./hal/uv_hal/src/uv_terminal.o
+                0x0000812c                common_cmds
  .rodata.str1.4
-                0x00008414       0x6c release/./hal/uv_hal/src/uv_utilities.o
+                0x0000819c       0x6c release/./hal/uv_hal/src/uv_utilities.o
  .rodata.str1.4
-                0x00008480       0x3f release/./hal/uv_hal/src/uv_memory.o
- *fill*         0x000084bf        0x1 ff
+                0x00008208       0x3f release/./hal/uv_hal/src/uv_memory.o
+ *fill*         0x00008247        0x1 ff
  .rodata.str1.4
-                0x000084c0      0xa67 release/./hal/uv_hal/src/uv_errors.o
- *fill*         0x00008f27        0x1 ff
+                0x00008248      0xa67 release/./hal/uv_hal/src/uv_errors.o
+ *fill*         0x00008caf        0x1 ff
  .rodata.str1.4
-                0x00008f28       0x13 release/./hal/uv_hal/src/uv_rtos.o
- *fill*         0x00008f3b        0x1 ff
+                0x00008cb0       0x13 release/./hal/uv_hal/src/uv_rtos.o
+ *fill*         0x00008cc3        0x1 ff
  .rodata.uv_uiwindow_styles
-                0x00008f3c       0x18 release/./hal/uv_hal/src/ui/uv_ui_styles.o
-                0x00008f3c                uv_uiwindow_styles
+                0x00008cc4       0x18 release/./hal/uv_hal/src/ui/uv_ui_styles.o
+                0x00008cc4                uv_uiwindow_styles
  .rodata.font_16X26
-                0x00008f54        0x8 release/./hal/uv_hal/src/ui/uv_uifonts.o
-                0x00008f54                font_16X26
+                0x00008cdc        0x8 release/./hal/uv_hal/src/ui/uv_uifonts.o
+                0x00008cdc                font_16X26
  .rodata.font_16x26
-                0x00008f5c     0x3400 release/./hal/uv_hal/src/ui/uv_uifonts.o
-                0x00008f5c                font_16x26
+                0x00008ce4     0x3400 release/./hal/uv_hal/src/ui/uv_uifonts.o
+                0x00008ce4                font_16x26
  .rodata.str1.4
-                0x0000c35c       0x1d release/./src/network.o
- *fill*         0x0000c379        0x3 ff
+                0x0000c0e4       0x1d release/./src/network.o
+ *fill*         0x0000c101        0x3 ff
  .rodata.obj_dict
-                0x0000c37c        0x0 release/./src/canopen.o
-                0x0000c37c                obj_dict
+                0x0000c104        0x0 release/./src/canopen.o
+                0x0000c104                obj_dict
  .rodata.str1.4
-                0x0000c37c       0x3b release/./src/log.o
- *fill*         0x0000c3b7        0x1 ff
+                0x0000c104       0x3b release/./src/log.o
+ *fill*         0x0000c13f        0x1 ff
  .rodata.log_entry_defs
-                0x0000c3b8       0x18 release/./src/log.o
-                0x0000c3b8                log_entry_defs
+                0x0000c140       0x18 release/./src/log.o
+                0x0000c140                log_entry_defs
  .rodata.terminal_commands
-                0x0000c3d0      0x170 release/./src/commands.o
-                0x0000c3d0                terminal_commands
+                0x0000c158      0x170 release/./src/commands.o
+                0x0000c158                terminal_commands
  .rodata.str1.4
-                0x0000c540      0xe0d release/./src/commands.o
-                                0xe11 (size before relaxing)
- *fill*         0x0000d34d        0x3 ff
+                0x0000c2c8      0xdd5 release/./src/commands.o
+                                0xdd9 (size before relaxing)
+ *fill*         0x0000d09d        0x3 ff
  .rodata.str1.4
-                0x0000d350       0x15 release/./src/main.o
- *fill*         0x0000d365        0x3 ff
+                0x0000d0a0       0x15 release/./src/main.o
+ *fill*         0x0000d0b5        0x3 ff
  .rodata.str1.4
-                0x0000d368        0x4 release/./src/gui.o
+                0x0000d0b8        0x4 release/./src/gui.o
  .rodata.str1.4
-                0x0000d36c      0x100 release/./src/ui/home_screen.o
+                0x0000d0bc      0x100 release/./src/ui/home_screen.o
  .rodata.str1.4
-                0x0000d46c        0x6 release/./src/ui/taskbar.o
- *fill*         0x0000d472        0x2 ff
+                0x0000d1bc        0x6 release/./src/ui/taskbar.o
+ *fill*         0x0000d1c2        0x2 ff
  .rodata._ctype_
-                0x0000d474      0x101 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-ctype_.o)
-                0x0000d474                _ctype_
- *fill*         0x0000d575        0x3 ff
+                0x0000d1c4      0x101 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-ctype_.o)
+                0x0000d1c4                _ctype_
+ *fill*         0x0000d2c5        0x3 ff
  .rodata.str1.4
-                0x0000d578        0x4 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-impure.o)
+                0x0000d2c8        0x4 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-impure.o)
                                   0x2 (size before relaxing)
-                0x0000d57c                . = ALIGN (0x4)
+                0x0000d2cc                . = ALIGN (0x4)
 
-.glue_7         0x0000d57c        0x0
- .glue_7        0x0000d57c        0x0 linker stubs
+.glue_7         0x0000d2cc        0x0
+ .glue_7        0x0000d2cc        0x0 linker stubs
 
-.glue_7t        0x0000d57c        0x0
- .glue_7t       0x0000d57c        0x0 linker stubs
+.glue_7t        0x0000d2cc        0x0
+ .glue_7t       0x0000d2cc        0x0 linker stubs
 
-.vfp11_veneer   0x0000d57c        0x0
- .vfp11_veneer  0x0000d57c        0x0 linker stubs
+.vfp11_veneer   0x0000d2cc        0x0
+ .vfp11_veneer  0x0000d2cc        0x0 linker stubs
 
-.v4_bx          0x0000d57c        0x0
- .v4_bx         0x0000d57c        0x0 linker stubs
+.v4_bx          0x0000d2cc        0x0
+ .v4_bx         0x0000d2cc        0x0 linker stubs
 
-.iplt           0x0000d57c        0x0
- .iplt          0x0000d57c        0x0 release/./CMSIS_CORE_LPC177x_8x/src/system_LPC177x_8x.o
+.iplt           0x0000d2cc        0x0
+ .iplt          0x0000d2cc        0x0 release/./CMSIS_CORE_LPC177x_8x/src/system_LPC177x_8x.o
 
-.rel.dyn        0x0000d57c        0x0
- .rel.iplt      0x0000d57c        0x0 release/./CMSIS_CORE_LPC177x_8x/src/system_LPC177x_8x.o
+.rel.dyn        0x0000d2cc        0x0
+ .rel.iplt      0x0000d2cc        0x0 release/./CMSIS_CORE_LPC177x_8x/src/system_LPC177x_8x.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0000d57c                __exidx_start = .
+                0x0000d2cc                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x0000d57c                __exidx_end = .
-                0x0000d57c                _etext = .
+                0x0000d2cc                __exidx_end = .
+                0x0000d2cc                _etext = .
 
-.data_RAM2      0x20000000        0x0 load address 0x0000d57c
+.data_RAM2      0x20000000        0x0 load address 0x0000d2cc
  FILL mask 0xff
                 [!provide]                PROVIDE (__start_data_RAM2, .)
  *(.ramfunc.$RAM2)
@@ -6012,7 +5995,7 @@ END GROUP
                 0x10000080                . = ALIGN (0x4)
                 0x10000080                _end_uninit_RESERVED = .
 
-.data           0x10000080      0x454 load address 0x0000d57c
+.data           0x10000080      0x454 load address 0x0000d2cc
  FILL mask 0xff
                 0x10000080                _data = .
  *(vtable)
@@ -6053,7 +6036,7 @@ END GROUP
                 0x100004d4                . = ALIGN (0x4)
                 0x100004d4                _edata = .
 
-.igot.plt       0x100004d4        0x0 load address 0x0000d9d0
+.igot.plt       0x100004d4        0x0 load address 0x0000d720
  .igot.plt      0x100004d4        0x0 release/./CMSIS_CORE_LPC177x_8x/src/system_LPC177x_8x.o
 
 .bss_RAM2       0x20000000        0x0
@@ -6170,7 +6153,7 @@ END GROUP
                 0x1000ff60                PROVIDE (_vStackTop, DEFINED (__user_stack_top)?__user_stack_top:(__top_RamLoc64 - 0x0))
 OUTPUT(release/display.axf elf32-littlearm)
 
-.debug_info     0x00000000    0x1dc52
+.debug_info     0x00000000    0x1d969
  .debug_info    0x00000000      0x3ef release/./CMSIS_CORE_LPC177x_8x/src/system_LPC177x_8x.o
  .debug_info    0x000003ef      0x360 release/./hal/uv_hal/freertos/heap_2.o
  .debug_info    0x0000074f     0x24f9 release/./hal/uv_hal/freertos/tasks.o
@@ -6188,31 +6171,31 @@ OUTPUT(release/display.axf elf32-littlearm)
  .debug_info    0x0000bc7f      0x924 release/./hal/uv_hal/src/uv_gpio.o
  .debug_info    0x0000c5a3      0xea3 release/./hal/uv_hal/src/uv_pwm.o
  .debug_info    0x0000d446      0x1ca release/./hal/uv_hal/src/uv_stdout.o
- .debug_info    0x0000d610     0x147a release/./hal/uv_hal/src/uv_lcd.o
- .debug_info    0x0000ea8a      0x60b release/./hal/uv_hal/src/uv_reset.o
- .debug_info    0x0000f095     0x1041 release/./hal/uv_hal/src/uv_adc.o
- .debug_info    0x000100d6      0xd16 release/./hal/uv_hal/src/uv_terminal.o
- .debug_info    0x00010dec      0xf49 release/./hal/uv_hal/src/uv_utilities.o
- .debug_info    0x00011d35      0xc15 release/./hal/uv_hal/src/uv_memory.o
- .debug_info    0x0001294a      0x136 release/./hal/uv_hal/src/uv_errors.o
- .debug_info    0x00012a80      0x831 release/./hal/uv_hal/src/uv_rtos.o
- .debug_info    0x000132b1      0x250 release/./hal/uv_hal/src/ui/uv_ui_styles.o
- .debug_info    0x00013501      0x521 release/./hal/uv_hal/src/ui/uv_uidisplay.o
- .debug_info    0x00013a22      0xb1c release/./hal/uv_hal/src/ui/uv_uiwindow.o
- .debug_info    0x0001453e      0x209 release/./hal/uv_hal/src/ui/uv_uifonts.o
- .debug_info    0x00014747      0xc62 release/./hal/uv_hal/src/ui/uv_uilabel.o
- .debug_info    0x000153a9     0x11a9 release/./src/network.o
- .debug_info    0x00016552      0x218 release/./src/canopen.o
- .debug_info    0x0001676a      0x3ba release/./src/log.o
- .debug_info    0x00016b24     0x1c68 release/./src/commands.o
- .debug_info    0x0001878c      0x297 release/./src/cr_startup_lpc177x_8x.o
- .debug_info    0x00018a23     0x2055 release/./src/main.o
- .debug_info    0x0001aa78     0x1605 release/./src/gui.o
- .debug_info    0x0001c07d      0x81d release/./src/alert.o
- .debug_info    0x0001c89a      0x96f release/./src/ui/home_screen.o
- .debug_info    0x0001d209      0xa49 release/./src/ui/taskbar.o
+ .debug_info    0x0000d610     0x1214 release/./hal/uv_hal/src/uv_lcd.o
+ .debug_info    0x0000e824      0x60b release/./hal/uv_hal/src/uv_reset.o
+ .debug_info    0x0000ee2f     0x1041 release/./hal/uv_hal/src/uv_adc.o
+ .debug_info    0x0000fe70      0xd16 release/./hal/uv_hal/src/uv_terminal.o
+ .debug_info    0x00010b86      0xf53 release/./hal/uv_hal/src/uv_utilities.o
+ .debug_info    0x00011ad9      0xc15 release/./hal/uv_hal/src/uv_memory.o
+ .debug_info    0x000126ee      0x136 release/./hal/uv_hal/src/uv_errors.o
+ .debug_info    0x00012824      0x831 release/./hal/uv_hal/src/uv_rtos.o
+ .debug_info    0x00013055      0x250 release/./hal/uv_hal/src/ui/uv_ui_styles.o
+ .debug_info    0x000132a5      0x4c4 release/./hal/uv_hal/src/ui/uv_uidisplay.o
+ .debug_info    0x00013769      0xb1c release/./hal/uv_hal/src/ui/uv_uiwindow.o
+ .debug_info    0x00014285      0x209 release/./hal/uv_hal/src/ui/uv_uifonts.o
+ .debug_info    0x0001448e      0xc62 release/./hal/uv_hal/src/ui/uv_uilabel.o
+ .debug_info    0x000150f0     0x11a9 release/./src/network.o
+ .debug_info    0x00016299      0x218 release/./src/canopen.o
+ .debug_info    0x000164b1      0x3ba release/./src/log.o
+ .debug_info    0x0001686b     0x1c4b release/./src/commands.o
+ .debug_info    0x000184b6      0x297 release/./src/cr_startup_lpc177x_8x.o
+ .debug_info    0x0001874d     0x2055 release/./src/main.o
+ .debug_info    0x0001a7a2     0x15f2 release/./src/gui.o
+ .debug_info    0x0001bd94      0x81d release/./src/alert.o
+ .debug_info    0x0001c5b1      0x96f release/./src/ui/home_screen.o
+ .debug_info    0x0001cf20      0xa49 release/./src/ui/taskbar.o
 
-.debug_abbrev   0x00000000     0x51e9
+.debug_abbrev   0x00000000     0x5170
  .debug_abbrev  0x00000000       0xce release/./CMSIS_CORE_LPC177x_8x/src/system_LPC177x_8x.o
  .debug_abbrev  0x000000ce      0x1b8 release/./hal/uv_hal/freertos/heap_2.o
  .debug_abbrev  0x00000286      0x332 release/./hal/uv_hal/freertos/tasks.o
@@ -6230,31 +6213,31 @@ OUTPUT(release/display.axf elf32-littlearm)
  .debug_abbrev  0x00001e36      0x1f7 release/./hal/uv_hal/src/uv_gpio.o
  .debug_abbrev  0x0000202d      0x12d release/./hal/uv_hal/src/uv_pwm.o
  .debug_abbrev  0x0000215a      0x154 release/./hal/uv_hal/src/uv_stdout.o
- .debug_abbrev  0x000022ae      0x295 release/./hal/uv_hal/src/uv_lcd.o
- .debug_abbrev  0x00002543      0x186 release/./hal/uv_hal/src/uv_reset.o
- .debug_abbrev  0x000026c9      0x1b4 release/./hal/uv_hal/src/uv_adc.o
- .debug_abbrev  0x0000287d      0x2d4 release/./hal/uv_hal/src/uv_terminal.o
- .debug_abbrev  0x00002b51      0x2e9 release/./hal/uv_hal/src/uv_utilities.o
- .debug_abbrev  0x00002e3a      0x2ec release/./hal/uv_hal/src/uv_memory.o
- .debug_abbrev  0x00003126       0xcb release/./hal/uv_hal/src/uv_errors.o
- .debug_abbrev  0x000031f1      0x24e release/./hal/uv_hal/src/uv_rtos.o
- .debug_abbrev  0x0000343f       0xe4 release/./hal/uv_hal/src/ui/uv_ui_styles.o
- .debug_abbrev  0x00003523      0x1f1 release/./hal/uv_hal/src/ui/uv_uidisplay.o
- .debug_abbrev  0x00003714      0x221 release/./hal/uv_hal/src/ui/uv_uiwindow.o
- .debug_abbrev  0x00003935       0xd3 release/./hal/uv_hal/src/ui/uv_uifonts.o
- .debug_abbrev  0x00003a08      0x27c release/./hal/uv_hal/src/ui/uv_uilabel.o
- .debug_abbrev  0x00003c84      0x245 release/./src/network.o
- .debug_abbrev  0x00003ec9      0x11d release/./src/canopen.o
- .debug_abbrev  0x00003fe6      0x17c release/./src/log.o
- .debug_abbrev  0x00004162      0x380 release/./src/commands.o
- .debug_abbrev  0x000044e2      0x114 release/./src/cr_startup_lpc177x_8x.o
- .debug_abbrev  0x000045f6      0x34f release/./src/main.o
- .debug_abbrev  0x00004945      0x312 release/./src/gui.o
- .debug_abbrev  0x00004c57      0x213 release/./src/alert.o
- .debug_abbrev  0x00004e6a      0x1bb release/./src/ui/home_screen.o
- .debug_abbrev  0x00005025      0x1c4 release/./src/ui/taskbar.o
+ .debug_abbrev  0x000022ae      0x238 release/./hal/uv_hal/src/uv_lcd.o
+ .debug_abbrev  0x000024e6      0x186 release/./hal/uv_hal/src/uv_reset.o
+ .debug_abbrev  0x0000266c      0x1b4 release/./hal/uv_hal/src/uv_adc.o
+ .debug_abbrev  0x00002820      0x2d4 release/./hal/uv_hal/src/uv_terminal.o
+ .debug_abbrev  0x00002af4      0x2e9 release/./hal/uv_hal/src/uv_utilities.o
+ .debug_abbrev  0x00002ddd      0x2ec release/./hal/uv_hal/src/uv_memory.o
+ .debug_abbrev  0x000030c9       0xcb release/./hal/uv_hal/src/uv_errors.o
+ .debug_abbrev  0x00003194      0x24e release/./hal/uv_hal/src/uv_rtos.o
+ .debug_abbrev  0x000033e2       0xe4 release/./hal/uv_hal/src/ui/uv_ui_styles.o
+ .debug_abbrev  0x000034c6      0x1c6 release/./hal/uv_hal/src/ui/uv_uidisplay.o
+ .debug_abbrev  0x0000368c      0x221 release/./hal/uv_hal/src/ui/uv_uiwindow.o
+ .debug_abbrev  0x000038ad       0xd3 release/./hal/uv_hal/src/ui/uv_uifonts.o
+ .debug_abbrev  0x00003980      0x27c release/./hal/uv_hal/src/ui/uv_uilabel.o
+ .debug_abbrev  0x00003bfc      0x245 release/./src/network.o
+ .debug_abbrev  0x00003e41      0x11d release/./src/canopen.o
+ .debug_abbrev  0x00003f5e      0x17c release/./src/log.o
+ .debug_abbrev  0x000040da      0x380 release/./src/commands.o
+ .debug_abbrev  0x0000445a      0x114 release/./src/cr_startup_lpc177x_8x.o
+ .debug_abbrev  0x0000456e      0x34f release/./src/main.o
+ .debug_abbrev  0x000048bd      0x321 release/./src/gui.o
+ .debug_abbrev  0x00004bde      0x213 release/./src/alert.o
+ .debug_abbrev  0x00004df1      0x1bb release/./src/ui/home_screen.o
+ .debug_abbrev  0x00004fac      0x1c4 release/./src/ui/taskbar.o
 
-.debug_aranges  0x00000000      0xda8
+.debug_aranges  0x00000000      0xd90
  .debug_aranges
                 0x00000000       0x28 release/./CMSIS_CORE_LPC177x_8x/src/system_LPC177x_8x.o
  .debug_aranges
@@ -6290,53 +6273,53 @@ OUTPUT(release/display.axf elf32-littlearm)
  .debug_aranges
                 0x00000730       0x30 release/./hal/uv_hal/src/uv_stdout.o
  .debug_aranges
-                0x00000760       0x50 release/./hal/uv_hal/src/uv_lcd.o
+                0x00000760       0x38 release/./hal/uv_hal/src/uv_lcd.o
  .debug_aranges
-                0x000007b0       0x28 release/./hal/uv_hal/src/uv_reset.o
+                0x00000798       0x28 release/./hal/uv_hal/src/uv_reset.o
  .debug_aranges
-                0x000007d8       0x30 release/./hal/uv_hal/src/uv_adc.o
+                0x000007c0       0x30 release/./hal/uv_hal/src/uv_adc.o
  .debug_aranges
-                0x00000808       0x70 release/./hal/uv_hal/src/uv_terminal.o
+                0x000007f0       0x70 release/./hal/uv_hal/src/uv_terminal.o
  .debug_aranges
-                0x00000878       0xb8 release/./hal/uv_hal/src/uv_utilities.o
+                0x00000860       0xb8 release/./hal/uv_hal/src/uv_utilities.o
  .debug_aranges
-                0x00000930       0x70 release/./hal/uv_hal/src/uv_memory.o
+                0x00000918       0x70 release/./hal/uv_hal/src/uv_memory.o
  .debug_aranges
-                0x000009a0       0x20 release/./hal/uv_hal/src/uv_errors.o
+                0x00000988       0x20 release/./hal/uv_hal/src/uv_errors.o
  .debug_aranges
-                0x000009c0       0x50 release/./hal/uv_hal/src/uv_rtos.o
+                0x000009a8       0x50 release/./hal/uv_hal/src/uv_rtos.o
  .debug_aranges
-                0x00000a10       0x18 release/./hal/uv_hal/src/ui/uv_ui_styles.o
+                0x000009f8       0x18 release/./hal/uv_hal/src/ui/uv_ui_styles.o
  .debug_aranges
-                0x00000a28       0x28 release/./hal/uv_hal/src/ui/uv_uidisplay.o
+                0x00000a10       0x28 release/./hal/uv_hal/src/ui/uv_uidisplay.o
  .debug_aranges
-                0x00000a50       0x38 release/./hal/uv_hal/src/ui/uv_uiwindow.o
+                0x00000a38       0x38 release/./hal/uv_hal/src/ui/uv_uiwindow.o
  .debug_aranges
-                0x00000a88       0x18 release/./hal/uv_hal/src/ui/uv_uifonts.o
+                0x00000a70       0x18 release/./hal/uv_hal/src/ui/uv_uifonts.o
  .debug_aranges
-                0x00000aa0       0x38 release/./hal/uv_hal/src/ui/uv_uilabel.o
+                0x00000a88       0x38 release/./hal/uv_hal/src/ui/uv_uilabel.o
  .debug_aranges
-                0x00000ad8       0x70 release/./src/network.o
+                0x00000ac0       0x70 release/./src/network.o
  .debug_aranges
-                0x00000b48       0x20 release/./src/canopen.o
+                0x00000b30       0x20 release/./src/canopen.o
  .debug_aranges
-                0x00000b68       0x38 release/./src/log.o
+                0x00000b50       0x38 release/./src/log.o
  .debug_aranges
-                0x00000ba0       0x90 release/./src/commands.o
+                0x00000b88       0x90 release/./src/commands.o
  .debug_aranges
-                0x00000c30       0x80 release/./src/cr_startup_lpc177x_8x.o
+                0x00000c18       0x80 release/./src/cr_startup_lpc177x_8x.o
  .debug_aranges
-                0x00000cb0       0x30 release/./src/main.o
+                0x00000c98       0x30 release/./src/main.o
  .debug_aranges
-                0x00000ce0       0x38 release/./src/gui.o
+                0x00000cc8       0x38 release/./src/gui.o
  .debug_aranges
-                0x00000d18       0x50 release/./src/alert.o
+                0x00000d00       0x50 release/./src/alert.o
  .debug_aranges
-                0x00000d68       0x20 release/./src/ui/home_screen.o
+                0x00000d50       0x20 release/./src/ui/home_screen.o
  .debug_aranges
-                0x00000d88       0x20 release/./src/ui/taskbar.o
+                0x00000d70       0x20 release/./src/ui/taskbar.o
 
-.debug_ranges   0x00000000      0xc38
+.debug_ranges   0x00000000      0xc20
  .debug_ranges  0x00000000       0x18 release/./CMSIS_CORE_LPC177x_8x/src/system_LPC177x_8x.o
  .debug_ranges  0x00000018       0x30 release/./hal/uv_hal/freertos/heap_2.o
  .debug_ranges  0x00000048      0x200 release/./hal/uv_hal/freertos/tasks.o
@@ -6354,29 +6337,29 @@ OUTPUT(release/display.axf elf32-littlearm)
  .debug_ranges  0x000006f0       0x18 release/./hal/uv_hal/src/uv_gpio.o
  .debug_ranges  0x00000708       0x10 release/./hal/uv_hal/src/uv_pwm.o
  .debug_ranges  0x00000718       0x20 release/./hal/uv_hal/src/uv_stdout.o
- .debug_ranges  0x00000738       0x40 release/./hal/uv_hal/src/uv_lcd.o
- .debug_ranges  0x00000778       0x18 release/./hal/uv_hal/src/uv_reset.o
- .debug_ranges  0x00000790       0x20 release/./hal/uv_hal/src/uv_adc.o
- .debug_ranges  0x000007b0       0x60 release/./hal/uv_hal/src/uv_terminal.o
- .debug_ranges  0x00000810       0xa8 release/./hal/uv_hal/src/uv_utilities.o
- .debug_ranges  0x000008b8       0x60 release/./hal/uv_hal/src/uv_memory.o
- .debug_ranges  0x00000918       0x10 release/./hal/uv_hal/src/uv_errors.o
- .debug_ranges  0x00000928       0x40 release/./hal/uv_hal/src/uv_rtos.o
- .debug_ranges  0x00000968       0x18 release/./hal/uv_hal/src/ui/uv_uidisplay.o
- .debug_ranges  0x00000980       0x28 release/./hal/uv_hal/src/ui/uv_uiwindow.o
- .debug_ranges  0x000009a8       0x60 release/./hal/uv_hal/src/ui/uv_uilabel.o
- .debug_ranges  0x00000a08       0x60 release/./src/network.o
- .debug_ranges  0x00000a68       0x10 release/./src/canopen.o
- .debug_ranges  0x00000a78       0x28 release/./src/log.o
- .debug_ranges  0x00000aa0       0x80 release/./src/commands.o
- .debug_ranges  0x00000b20       0x70 release/./src/cr_startup_lpc177x_8x.o
- .debug_ranges  0x00000b90       0x20 release/./src/main.o
- .debug_ranges  0x00000bb0       0x28 release/./src/gui.o
- .debug_ranges  0x00000bd8       0x40 release/./src/alert.o
- .debug_ranges  0x00000c18       0x10 release/./src/ui/home_screen.o
- .debug_ranges  0x00000c28       0x10 release/./src/ui/taskbar.o
+ .debug_ranges  0x00000738       0x28 release/./hal/uv_hal/src/uv_lcd.o
+ .debug_ranges  0x00000760       0x18 release/./hal/uv_hal/src/uv_reset.o
+ .debug_ranges  0x00000778       0x20 release/./hal/uv_hal/src/uv_adc.o
+ .debug_ranges  0x00000798       0x60 release/./hal/uv_hal/src/uv_terminal.o
+ .debug_ranges  0x000007f8       0xa8 release/./hal/uv_hal/src/uv_utilities.o
+ .debug_ranges  0x000008a0       0x60 release/./hal/uv_hal/src/uv_memory.o
+ .debug_ranges  0x00000900       0x10 release/./hal/uv_hal/src/uv_errors.o
+ .debug_ranges  0x00000910       0x40 release/./hal/uv_hal/src/uv_rtos.o
+ .debug_ranges  0x00000950       0x18 release/./hal/uv_hal/src/ui/uv_uidisplay.o
+ .debug_ranges  0x00000968       0x28 release/./hal/uv_hal/src/ui/uv_uiwindow.o
+ .debug_ranges  0x00000990       0x60 release/./hal/uv_hal/src/ui/uv_uilabel.o
+ .debug_ranges  0x000009f0       0x60 release/./src/network.o
+ .debug_ranges  0x00000a50       0x10 release/./src/canopen.o
+ .debug_ranges  0x00000a60       0x28 release/./src/log.o
+ .debug_ranges  0x00000a88       0x80 release/./src/commands.o
+ .debug_ranges  0x00000b08       0x70 release/./src/cr_startup_lpc177x_8x.o
+ .debug_ranges  0x00000b78       0x20 release/./src/main.o
+ .debug_ranges  0x00000b98       0x28 release/./src/gui.o
+ .debug_ranges  0x00000bc0       0x40 release/./src/alert.o
+ .debug_ranges  0x00000c00       0x10 release/./src/ui/home_screen.o
+ .debug_ranges  0x00000c10       0x10 release/./src/ui/taskbar.o
 
-.debug_macro    0x00000000     0xd08f
+.debug_macro    0x00000000     0xd054
  .debug_macro   0x00000000      0x157 release/./CMSIS_CORE_LPC177x_8x/src/system_LPC177x_8x.o
  .debug_macro   0x00000157      0x88c release/./CMSIS_CORE_LPC177x_8x/src/system_LPC177x_8x.o
  .debug_macro   0x000009e3       0x22 release/./CMSIS_CORE_LPC177x_8x/src/system_LPC177x_8x.o
@@ -6467,58 +6450,58 @@ OUTPUT(release/display.axf elf32-littlearm)
  .debug_macro   0x000081e4      0x22b release/./hal/uv_hal/src/uv_pwm.o
  .debug_macro   0x0000840f       0x24 release/./hal/uv_hal/src/uv_pwm.o
  .debug_macro   0x00008433      0x171 release/./hal/uv_hal/src/uv_stdout.o
- .debug_macro   0x000085a4      0x28e release/./hal/uv_hal/src/uv_lcd.o
- .debug_macro   0x00008832       0x66 release/./hal/uv_hal/src/uv_lcd.o
- .debug_macro   0x00008898       0x76 release/./hal/uv_hal/src/uv_lcd.o
- .debug_macro   0x0000890e       0xc4 release/./hal/uv_hal/src/uv_reset.o
- .debug_macro   0x000089d2      0x218 release/./hal/uv_hal/src/uv_adc.o
- .debug_macro   0x00008bea       0x70 release/./hal/uv_hal/src/uv_adc.o
- .debug_macro   0x00008c5a      0x349 release/./hal/uv_hal/src/uv_terminal.o
- .debug_macro   0x00008fa3       0x10 release/./hal/uv_hal/src/uv_terminal.o
- .debug_macro   0x00008fb3      0x25b release/./hal/uv_hal/src/uv_utilities.o
- .debug_macro   0x0000920e       0x4c release/./hal/uv_hal/src/uv_utilities.o
- .debug_macro   0x0000925a      0x344 release/./hal/uv_hal/src/uv_memory.o
- .debug_macro   0x0000959e       0x10 release/./hal/uv_hal/src/uv_memory.o
- .debug_macro   0x000095ae      0x190 release/./hal/uv_hal/src/uv_errors.o
- .debug_macro   0x0000973e       0x4a release/./hal/uv_hal/src/uv_errors.o
- .debug_macro   0x00009788      0x327 release/./hal/uv_hal/src/uv_rtos.o
- .debug_macro   0x00009aaf       0x2a release/./hal/uv_hal/src/uv_rtos.o
- .debug_macro   0x00009ad9       0x16 release/./hal/uv_hal/src/uv_rtos.o
- .debug_macro   0x00009aef      0x259 release/./hal/uv_hal/src/ui/uv_ui_styles.o
- .debug_macro   0x00009d48       0x1c release/./hal/uv_hal/src/ui/uv_ui_styles.o
- .debug_macro   0x00009d64       0x34 release/./hal/uv_hal/src/ui/uv_ui_styles.o
- .debug_macro   0x00009d98      0x276 release/./hal/uv_hal/src/ui/uv_uidisplay.o
- .debug_macro   0x0000a00e      0x26c release/./hal/uv_hal/src/ui/uv_uiwindow.o
- .debug_macro   0x0000a27a      0x274 release/./hal/uv_hal/src/ui/uv_uifonts.o
- .debug_macro   0x0000a4ee       0x10 release/./hal/uv_hal/src/ui/uv_uifonts.o
- .debug_macro   0x0000a4fe      0x844 release/./hal/uv_hal/src/ui/uv_uifonts.o
- .debug_macro   0x0000ad42      0x2bd release/./hal/uv_hal/src/ui/uv_uilabel.o
- .debug_macro   0x0000afff      0x38f release/./src/network.o
- .debug_macro   0x0000b38e       0x6c release/./src/network.o
- .debug_macro   0x0000b3fa       0x22 release/./src/network.o
- .debug_macro   0x0000b41c       0x10 release/./src/network.o
- .debug_macro   0x0000b42c       0x10 release/./src/network.o
- .debug_macro   0x0000b43c       0x1c release/./src/network.o
- .debug_macro   0x0000b458       0x16 release/./src/network.o
- .debug_macro   0x0000b46e      0x344 release/./src/canopen.o
- .debug_macro   0x0000b7b2      0x269 release/./src/log.o
- .debug_macro   0x0000ba1b       0x16 release/./src/log.o
- .debug_macro   0x0000ba31       0x10 release/./src/log.o
- .debug_macro   0x0000ba41       0x41 release/./src/log.o
- .debug_macro   0x0000ba82      0x3f0 release/./src/commands.o
- .debug_macro   0x0000be72       0x10 release/./src/commands.o
- .debug_macro   0x0000be82       0x22 release/./src/commands.o
- .debug_macro   0x0000bea4       0xa4 release/./src/commands.o
- .debug_macro   0x0000bf48       0x1d release/./src/cr_startup_lpc177x_8x.o
- .debug_macro   0x0000bf65      0x4c0 release/./src/main.o
- .debug_macro   0x0000c425       0x82 release/./src/main.o
- .debug_macro   0x0000c4a7       0x28 release/./src/main.o
- .debug_macro   0x0000c4cf      0x3eb release/./src/gui.o
- .debug_macro   0x0000c8ba      0x275 release/./src/alert.o
- .debug_macro   0x0000cb2f      0x2b0 release/./src/ui/home_screen.o
- .debug_macro   0x0000cddf      0x2b0 release/./src/ui/taskbar.o
+ .debug_macro   0x000085a4      0x253 release/./hal/uv_hal/src/uv_lcd.o
+ .debug_macro   0x000087f7       0x66 release/./hal/uv_hal/src/uv_lcd.o
+ .debug_macro   0x0000885d       0xc4 release/./hal/uv_hal/src/uv_reset.o
+ .debug_macro   0x00008921      0x218 release/./hal/uv_hal/src/uv_adc.o
+ .debug_macro   0x00008b39       0x70 release/./hal/uv_hal/src/uv_adc.o
+ .debug_macro   0x00008ba9      0x349 release/./hal/uv_hal/src/uv_terminal.o
+ .debug_macro   0x00008ef2       0x10 release/./hal/uv_hal/src/uv_terminal.o
+ .debug_macro   0x00008f02      0x25b release/./hal/uv_hal/src/uv_utilities.o
+ .debug_macro   0x0000915d       0x4c release/./hal/uv_hal/src/uv_utilities.o
+ .debug_macro   0x000091a9      0x344 release/./hal/uv_hal/src/uv_memory.o
+ .debug_macro   0x000094ed       0x10 release/./hal/uv_hal/src/uv_memory.o
+ .debug_macro   0x000094fd      0x190 release/./hal/uv_hal/src/uv_errors.o
+ .debug_macro   0x0000968d       0x4a release/./hal/uv_hal/src/uv_errors.o
+ .debug_macro   0x000096d7      0x327 release/./hal/uv_hal/src/uv_rtos.o
+ .debug_macro   0x000099fe       0x2a release/./hal/uv_hal/src/uv_rtos.o
+ .debug_macro   0x00009a28       0x16 release/./hal/uv_hal/src/uv_rtos.o
+ .debug_macro   0x00009a3e       0x76 release/./hal/uv_hal/src/uv_rtos.o
+ .debug_macro   0x00009ab4      0x259 release/./hal/uv_hal/src/ui/uv_ui_styles.o
+ .debug_macro   0x00009d0d       0x1c release/./hal/uv_hal/src/ui/uv_ui_styles.o
+ .debug_macro   0x00009d29       0x34 release/./hal/uv_hal/src/ui/uv_ui_styles.o
+ .debug_macro   0x00009d5d      0x276 release/./hal/uv_hal/src/ui/uv_uidisplay.o
+ .debug_macro   0x00009fd3      0x26c release/./hal/uv_hal/src/ui/uv_uiwindow.o
+ .debug_macro   0x0000a23f      0x274 release/./hal/uv_hal/src/ui/uv_uifonts.o
+ .debug_macro   0x0000a4b3       0x10 release/./hal/uv_hal/src/ui/uv_uifonts.o
+ .debug_macro   0x0000a4c3      0x844 release/./hal/uv_hal/src/ui/uv_uifonts.o
+ .debug_macro   0x0000ad07      0x2bd release/./hal/uv_hal/src/ui/uv_uilabel.o
+ .debug_macro   0x0000afc4      0x38f release/./src/network.o
+ .debug_macro   0x0000b353       0x6c release/./src/network.o
+ .debug_macro   0x0000b3bf       0x22 release/./src/network.o
+ .debug_macro   0x0000b3e1       0x10 release/./src/network.o
+ .debug_macro   0x0000b3f1       0x10 release/./src/network.o
+ .debug_macro   0x0000b401       0x1c release/./src/network.o
+ .debug_macro   0x0000b41d       0x16 release/./src/network.o
+ .debug_macro   0x0000b433      0x344 release/./src/canopen.o
+ .debug_macro   0x0000b777      0x269 release/./src/log.o
+ .debug_macro   0x0000b9e0       0x16 release/./src/log.o
+ .debug_macro   0x0000b9f6       0x10 release/./src/log.o
+ .debug_macro   0x0000ba06       0x41 release/./src/log.o
+ .debug_macro   0x0000ba47      0x3f0 release/./src/commands.o
+ .debug_macro   0x0000be37       0x10 release/./src/commands.o
+ .debug_macro   0x0000be47       0x22 release/./src/commands.o
+ .debug_macro   0x0000be69       0xa4 release/./src/commands.o
+ .debug_macro   0x0000bf0d       0x1d release/./src/cr_startup_lpc177x_8x.o
+ .debug_macro   0x0000bf2a      0x4c0 release/./src/main.o
+ .debug_macro   0x0000c3ea       0x82 release/./src/main.o
+ .debug_macro   0x0000c46c       0x28 release/./src/main.o
+ .debug_macro   0x0000c494      0x3eb release/./src/gui.o
+ .debug_macro   0x0000c87f      0x275 release/./src/alert.o
+ .debug_macro   0x0000caf4      0x2b0 release/./src/ui/home_screen.o
+ .debug_macro   0x0000cda4      0x2b0 release/./src/ui/taskbar.o
 
-.debug_line     0x00000000     0xd256
+.debug_line     0x00000000     0xd1c4
  .debug_line    0x00000000      0x2c2 release/./CMSIS_CORE_LPC177x_8x/src/system_LPC177x_8x.o
  .debug_line    0x000002c2      0x487 release/./hal/uv_hal/freertos/heap_2.o
  .debug_line    0x00000749      0xcda release/./hal/uv_hal/freertos/tasks.o
@@ -6536,31 +6519,31 @@ OUTPUT(release/display.axf elf32-littlearm)
  .debug_line    0x00005008      0x43f release/./hal/uv_hal/src/uv_gpio.o
  .debug_line    0x00005447      0x3f0 release/./hal/uv_hal/src/uv_pwm.o
  .debug_line    0x00005837      0x400 release/./hal/uv_hal/src/uv_stdout.o
- .debug_line    0x00005c37      0x530 release/./hal/uv_hal/src/uv_lcd.o
- .debug_line    0x00006167      0x2cc release/./hal/uv_hal/src/uv_reset.o
- .debug_line    0x00006433      0x41f release/./hal/uv_hal/src/uv_adc.o
- .debug_line    0x00006852      0x6fb release/./hal/uv_hal/src/uv_terminal.o
- .debug_line    0x00006f4d      0x601 release/./hal/uv_hal/src/uv_utilities.o
- .debug_line    0x0000754e      0x725 release/./hal/uv_hal/src/uv_memory.o
- .debug_line    0x00007c73      0x307 release/./hal/uv_hal/src/uv_errors.o
- .debug_line    0x00007f7a      0x5e2 release/./hal/uv_hal/src/uv_rtos.o
- .debug_line    0x0000855c      0x407 release/./hal/uv_hal/src/ui/uv_ui_styles.o
- .debug_line    0x00008963      0x478 release/./hal/uv_hal/src/ui/uv_uidisplay.o
- .debug_line    0x00008ddb      0x535 release/./hal/uv_hal/src/ui/uv_uiwindow.o
- .debug_line    0x00009310      0x430 release/./hal/uv_hal/src/ui/uv_uifonts.o
- .debug_line    0x00009740      0x5a3 release/./hal/uv_hal/src/ui/uv_uilabel.o
- .debug_line    0x00009ce3      0x607 release/./src/network.o
- .debug_line    0x0000a2ea      0x533 release/./src/canopen.o
- .debug_line    0x0000a81d      0x441 release/./src/log.o
- .debug_line    0x0000ac5e      0x794 release/./src/commands.o
- .debug_line    0x0000b3f2       0xa0 release/./src/cr_startup_lpc177x_8x.o
- .debug_line    0x0000b492      0x7ac release/./src/main.o
- .debug_line    0x0000bc3e      0x6c5 release/./src/gui.o
- .debug_line    0x0000c303      0x57a release/./src/alert.o
- .debug_line    0x0000c87d      0x4f6 release/./src/ui/home_screen.o
- .debug_line    0x0000cd73      0x4e3 release/./src/ui/taskbar.o
+ .debug_line    0x00005c37      0x49b release/./hal/uv_hal/src/uv_lcd.o
+ .debug_line    0x000060d2      0x2cc release/./hal/uv_hal/src/uv_reset.o
+ .debug_line    0x0000639e      0x41f release/./hal/uv_hal/src/uv_adc.o
+ .debug_line    0x000067bd      0x6fd release/./hal/uv_hal/src/uv_terminal.o
+ .debug_line    0x00006eba      0x605 release/./hal/uv_hal/src/uv_utilities.o
+ .debug_line    0x000074bf      0x724 release/./hal/uv_hal/src/uv_memory.o
+ .debug_line    0x00007be3      0x307 release/./hal/uv_hal/src/uv_errors.o
+ .debug_line    0x00007eea      0x5e2 release/./hal/uv_hal/src/uv_rtos.o
+ .debug_line    0x000084cc      0x407 release/./hal/uv_hal/src/ui/uv_ui_styles.o
+ .debug_line    0x000088d3      0x479 release/./hal/uv_hal/src/ui/uv_uidisplay.o
+ .debug_line    0x00008d4c      0x535 release/./hal/uv_hal/src/ui/uv_uiwindow.o
+ .debug_line    0x00009281      0x430 release/./hal/uv_hal/src/ui/uv_uifonts.o
+ .debug_line    0x000096b1      0x5a3 release/./hal/uv_hal/src/ui/uv_uilabel.o
+ .debug_line    0x00009c54      0x607 release/./src/network.o
+ .debug_line    0x0000a25b      0x533 release/./src/canopen.o
+ .debug_line    0x0000a78e      0x441 release/./src/log.o
+ .debug_line    0x0000abcf      0x792 release/./src/commands.o
+ .debug_line    0x0000b361       0xa0 release/./src/cr_startup_lpc177x_8x.o
+ .debug_line    0x0000b401      0x7ac release/./src/main.o
+ .debug_line    0x0000bbad      0x6c4 release/./src/gui.o
+ .debug_line    0x0000c271      0x57a release/./src/alert.o
+ .debug_line    0x0000c7eb      0x4f6 release/./src/ui/home_screen.o
+ .debug_line    0x0000cce1      0x4e3 release/./src/ui/taskbar.o
 
-.debug_str      0x00000000    0x25f8e
+.debug_str      0x00000000    0x25ee0
  .debug_str     0x00000000     0x9328 release/./CMSIS_CORE_LPC177x_8x/src/system_LPC177x_8x.o
                                0x94b0 (size before relaxing)
  .debug_str     0x00009328     0x9c46 release/./hal/uv_hal/freertos/heap_2.o
@@ -6595,51 +6578,51 @@ OUTPUT(release/display.axf elf32-littlearm)
                               0x11bf8 (size before relaxing)
  .debug_str     0x0002169a       0x52 release/./hal/uv_hal/src/uv_stdout.o
                               0x114ea (size before relaxing)
- .debug_str     0x000216ec      0x844 release/./hal/uv_hal/src/uv_lcd.o
-                              0x160e0 (size before relaxing)
- .debug_str     0x00021f30      0x137 release/./hal/uv_hal/src/uv_reset.o
+ .debug_str     0x000216ec      0x2fd release/./hal/uv_hal/src/uv_lcd.o
+                              0x11ead (size before relaxing)
+ .debug_str     0x000219e9      0x137 release/./hal/uv_hal/src/uv_reset.o
                                0xc997 (size before relaxing)
- .debug_str     0x00022067       0x63 release/./hal/uv_hal/src/uv_adc.o
+ .debug_str     0x00021b20      0x4e6 release/./hal/uv_hal/src/uv_adc.o
                               0x114c7 (size before relaxing)
- .debug_str     0x000220ca      0x24b release/./hal/uv_hal/src/uv_terminal.o
-                              0x17379 (size before relaxing)
- .debug_str     0x00022315      0x37b release/./hal/uv_hal/src/uv_utilities.o
+ .debug_str     0x00022006      0x226 release/./hal/uv_hal/src/uv_terminal.o
+                              0x1737a (size before relaxing)
+ .debug_str     0x0002222c      0x37b release/./hal/uv_hal/src/uv_utilities.o
                               0x1211a (size before relaxing)
- .debug_str     0x00022690      0x4a2 release/./hal/uv_hal/src/uv_memory.o
+ .debug_str     0x000225a7      0x4c7 release/./hal/uv_hal/src/uv_memory.o
                               0x16682 (size before relaxing)
- .debug_str     0x00022b32       0x2c release/./hal/uv_hal/src/uv_errors.o
+ .debug_str     0x00022a6e       0x2c release/./hal/uv_hal/src/uv_errors.o
                                0x9de7 (size before relaxing)
- .debug_str     0x00022b5e      0x136 release/./hal/uv_hal/src/uv_rtos.o
+ .debug_str     0x00022a9a      0x136 release/./hal/uv_hal/src/uv_rtos.o
                               0x169fa (size before relaxing)
- .debug_str     0x00022c94      0x49c release/./hal/uv_hal/src/ui/uv_ui_styles.o
+ .debug_str     0x00022bd0      0x49c release/./hal/uv_hal/src/ui/uv_ui_styles.o
                               0x117d6 (size before relaxing)
- .debug_str     0x00023130      0x1eb release/./hal/uv_hal/src/ui/uv_uidisplay.o
-                              0x11752 (size before relaxing)
- .debug_str     0x0002331b       0x67 release/./hal/uv_hal/src/ui/uv_uiwindow.o
+ .debug_str     0x0002306c      0x1e5 release/./hal/uv_hal/src/ui/uv_uidisplay.o
+                              0x11729 (size before relaxing)
+ .debug_str     0x00023251       0x6d release/./hal/uv_hal/src/ui/uv_uiwindow.o
                               0x116e4 (size before relaxing)
- .debug_str     0x00023382     0x1a5e release/./hal/uv_hal/src/ui/uv_uifonts.o
+ .debug_str     0x000232be     0x1a5e release/./hal/uv_hal/src/ui/uv_uifonts.o
                               0x12f8d (size before relaxing)
- .debug_str     0x00024de0      0x1f2 release/./hal/uv_hal/src/ui/uv_uilabel.o
+ .debug_str     0x00024d1c      0x1f2 release/./hal/uv_hal/src/ui/uv_uilabel.o
                               0x1189c (size before relaxing)
- .debug_str     0x00024fd2      0x3e0 release/./src/network.o
+ .debug_str     0x00024f0e      0x3e0 release/./src/network.o
                               0x16c77 (size before relaxing)
- .debug_str     0x000253b2       0x2f release/./src/canopen.o
+ .debug_str     0x000252ee       0x2f release/./src/canopen.o
                               0x16371 (size before relaxing)
- .debug_str     0x000253e1      0x199 release/./src/log.o
+ .debug_str     0x0002531d      0x199 release/./src/log.o
                               0x11486 (size before relaxing)
- .debug_str     0x0002557a      0x30a release/./src/commands.o
+ .debug_str     0x000254b6      0x30a release/./src/commands.o
                               0x1724b (size before relaxing)
- .debug_str     0x00025884      0x133 release/./src/cr_startup_lpc177x_8x.o
+ .debug_str     0x000257c0      0x133 release/./src/cr_startup_lpc177x_8x.o
                                0x26ab (size before relaxing)
- .debug_str     0x000259b7      0x4e3 release/./src/main.o
+ .debug_str     0x000258f3      0x4f9 release/./src/main.o
                               0x1c75d (size before relaxing)
- .debug_str     0x00025e9a       0x93 release/./src/gui.o
+ .debug_str     0x00025dec       0x93 release/./src/gui.o
                               0x1b9f9 (size before relaxing)
- .debug_str     0x00025f2d       0x21 release/./src/alert.o
+ .debug_str     0x00025e7f       0x21 release/./src/alert.o
                               0x1555c (size before relaxing)
- .debug_str     0x00025f4e       0x2f release/./src/ui/home_screen.o
+ .debug_str     0x00025ea0       0x2f release/./src/ui/home_screen.o
                               0x11950 (size before relaxing)
- .debug_str     0x00025f7d       0x11 release/./src/ui/taskbar.o
+ .debug_str     0x00025ecf       0x11 release/./src/ui/taskbar.o
                               0x11978 (size before relaxing)
 
 .comment        0x00000000       0x6e
@@ -6790,7 +6773,7 @@ OUTPUT(release/display.axf elf32-littlearm)
  .ARM.attributes
                 0x00000956       0x2d /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-impure.o)
 
-.debug_frame    0x00000000     0x2384
+.debug_frame    0x00000000     0x2338
  .debug_frame   0x00000000       0x30 release/./CMSIS_CORE_LPC177x_8x/src/system_LPC177x_8x.o
  .debug_frame   0x00000030       0x80 release/./hal/uv_hal/freertos/heap_2.o
  .debug_frame   0x000000b0      0x5ac release/./hal/uv_hal/freertos/tasks.o
@@ -6808,33 +6791,33 @@ OUTPUT(release/display.axf elf32-littlearm)
  .debug_frame   0x00001308       0x3c release/./hal/uv_hal/src/uv_gpio.o
  .debug_frame   0x00001344       0x2c release/./hal/uv_hal/src/uv_pwm.o
  .debug_frame   0x00001370       0x58 release/./hal/uv_hal/src/uv_stdout.o
- .debug_frame   0x000013c8       0xe0 release/./hal/uv_hal/src/uv_lcd.o
- .debug_frame   0x000014a8       0x30 release/./hal/uv_hal/src/uv_reset.o
- .debug_frame   0x000014d8       0x60 release/./hal/uv_hal/src/uv_adc.o
- .debug_frame   0x00001538      0x124 release/./hal/uv_hal/src/uv_terminal.o
- .debug_frame   0x0000165c      0x1f0 release/./hal/uv_hal/src/uv_utilities.o
- .debug_frame   0x0000184c      0x138 release/./hal/uv_hal/src/uv_memory.o
- .debug_frame   0x00001984       0x2c release/./hal/uv_hal/src/uv_errors.o
- .debug_frame   0x000019b0       0xcc release/./hal/uv_hal/src/uv_rtos.o
- .debug_frame   0x00001a7c       0x4c release/./hal/uv_hal/src/ui/uv_uidisplay.o
- .debug_frame   0x00001ac8       0xb4 release/./hal/uv_hal/src/ui/uv_uiwindow.o
- .debug_frame   0x00001b7c       0xcc release/./hal/uv_hal/src/ui/uv_uilabel.o
- .debug_frame   0x00001c48      0x110 release/./src/network.o
- .debug_frame   0x00001d58       0x20 release/./src/canopen.o
- .debug_frame   0x00001d78       0x78 release/./src/log.o
- .debug_frame   0x00001df0      0x1dc release/./src/commands.o
- .debug_frame   0x00001fcc       0xf4 release/./src/cr_startup_lpc177x_8x.o
- .debug_frame   0x000020c0       0x6c release/./src/main.o
- .debug_frame   0x0000212c       0x80 release/./src/gui.o
- .debug_frame   0x000021ac       0x9c release/./src/alert.o
- .debug_frame   0x00002248       0x30 release/./src/ui/home_screen.o
- .debug_frame   0x00002278       0x30 release/./src/ui/taskbar.o
- .debug_frame   0x000022a8       0x34 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-memset.o)
- .debug_frame   0x000022dc       0x34 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strcmp.o)
- .debug_frame   0x00002310       0x20 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strlen-stub.o)
- .debug_frame   0x00002330       0x54 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtol.o)
+ .debug_frame   0x000013c8       0x9c release/./hal/uv_hal/src/uv_lcd.o
+ .debug_frame   0x00001464       0x30 release/./hal/uv_hal/src/uv_reset.o
+ .debug_frame   0x00001494       0x60 release/./hal/uv_hal/src/uv_adc.o
+ .debug_frame   0x000014f4      0x124 release/./hal/uv_hal/src/uv_terminal.o
+ .debug_frame   0x00001618      0x1f8 release/./hal/uv_hal/src/uv_utilities.o
+ .debug_frame   0x00001810      0x138 release/./hal/uv_hal/src/uv_memory.o
+ .debug_frame   0x00001948       0x2c release/./hal/uv_hal/src/uv_errors.o
+ .debug_frame   0x00001974       0xcc release/./hal/uv_hal/src/uv_rtos.o
+ .debug_frame   0x00001a40       0x48 release/./hal/uv_hal/src/ui/uv_uidisplay.o
+ .debug_frame   0x00001a88       0xb4 release/./hal/uv_hal/src/ui/uv_uiwindow.o
+ .debug_frame   0x00001b3c       0xcc release/./hal/uv_hal/src/ui/uv_uilabel.o
+ .debug_frame   0x00001c08      0x110 release/./src/network.o
+ .debug_frame   0x00001d18       0x20 release/./src/canopen.o
+ .debug_frame   0x00001d38       0x78 release/./src/log.o
+ .debug_frame   0x00001db0      0x1d8 release/./src/commands.o
+ .debug_frame   0x00001f88       0xf4 release/./src/cr_startup_lpc177x_8x.o
+ .debug_frame   0x0000207c       0x6c release/./src/main.o
+ .debug_frame   0x000020e8       0x78 release/./src/gui.o
+ .debug_frame   0x00002160       0x9c release/./src/alert.o
+ .debug_frame   0x000021fc       0x30 release/./src/ui/home_screen.o
+ .debug_frame   0x0000222c       0x30 release/./src/ui/taskbar.o
+ .debug_frame   0x0000225c       0x34 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-memset.o)
+ .debug_frame   0x00002290       0x34 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strcmp.o)
+ .debug_frame   0x000022c4       0x20 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strlen-stub.o)
+ .debug_frame   0x000022e4       0x54 /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-strtol.o)
 
-.debug_loc      0x00000000     0xa8c4
+.debug_loc      0x00000000     0xa78f
  .debug_loc     0x00000000      0x1cc release/./hal/uv_hal/freertos/heap_2.o
  .debug_loc     0x000001cc     0x18ca release/./hal/uv_hal/freertos/tasks.o
  .debug_loc     0x00001a96      0x8b6 release/./hal/uv_hal/freertos/timers.o
@@ -6848,25 +6831,25 @@ OUTPUT(release/display.axf elf32-littlearm)
  .debug_loc     0x0000447c      0xa46 release/./hal/uv_hal/src/uv_canopen.o
  .debug_loc     0x00004ec2       0x3f release/./hal/uv_hal/src/uv_gpio.o
  .debug_loc     0x00004f01       0x92 release/./hal/uv_hal/src/uv_stdout.o
- .debug_loc     0x00004f93      0x295 release/./hal/uv_hal/src/uv_lcd.o
- .debug_loc     0x00005228       0xec release/./hal/uv_hal/src/uv_adc.o
- .debug_loc     0x00005314      0x630 release/./hal/uv_hal/src/uv_terminal.o
- .debug_loc     0x00005944      0x581 release/./hal/uv_hal/src/uv_utilities.o
- .debug_loc     0x00005ec5      0x669 release/./hal/uv_hal/src/uv_memory.o
- .debug_loc     0x0000652e       0x2c release/./hal/uv_hal/src/uv_errors.o
- .debug_loc     0x0000655a      0x10e release/./hal/uv_hal/src/uv_rtos.o
- .debug_loc     0x00006668       0xaf release/./hal/uv_hal/src/ui/uv_uidisplay.o
- .debug_loc     0x00006717      0x966 release/./hal/uv_hal/src/ui/uv_uiwindow.o
- .debug_loc     0x0000707d      0xc65 release/./hal/uv_hal/src/ui/uv_uilabel.o
- .debug_loc     0x00007ce2      0x609 release/./src/network.o
- .debug_loc     0x000082eb      0x125 release/./src/log.o
- .debug_loc     0x00008410      0xf79 release/./src/commands.o
- .debug_loc     0x00009389      0x1d1 release/./src/cr_startup_lpc177x_8x.o
- .debug_loc     0x0000955a      0x1a5 release/./src/main.o
- .debug_loc     0x000096ff      0x375 release/./src/gui.o
- .debug_loc     0x00009a74      0x53a release/./src/alert.o
- .debug_loc     0x00009fae      0x44d release/./src/ui/home_screen.o
- .debug_loc     0x0000a3fb      0x4c9 release/./src/ui/taskbar.o
+ .debug_loc     0x00004f93      0x1ce release/./hal/uv_hal/src/uv_lcd.o
+ .debug_loc     0x00005161       0xec release/./hal/uv_hal/src/uv_adc.o
+ .debug_loc     0x0000524d      0x630 release/./hal/uv_hal/src/uv_terminal.o
+ .debug_loc     0x0000587d      0x581 release/./hal/uv_hal/src/uv_utilities.o
+ .debug_loc     0x00005dfe      0x669 release/./hal/uv_hal/src/uv_memory.o
+ .debug_loc     0x00006467       0x2c release/./hal/uv_hal/src/uv_errors.o
+ .debug_loc     0x00006493      0x10e release/./hal/uv_hal/src/uv_rtos.o
+ .debug_loc     0x000065a1       0xb5 release/./hal/uv_hal/src/ui/uv_uidisplay.o
+ .debug_loc     0x00006656      0x966 release/./hal/uv_hal/src/ui/uv_uiwindow.o
+ .debug_loc     0x00006fbc      0xc65 release/./hal/uv_hal/src/ui/uv_uilabel.o
+ .debug_loc     0x00007c21      0x609 release/./src/network.o
+ .debug_loc     0x0000822a      0x125 release/./src/log.o
+ .debug_loc     0x0000834f      0xf23 release/./src/commands.o
+ .debug_loc     0x00009272      0x1d1 release/./src/cr_startup_lpc177x_8x.o
+ .debug_loc     0x00009443      0x1a5 release/./src/main.o
+ .debug_loc     0x000095e8      0x357 release/./src/gui.o
+ .debug_loc     0x0000993f      0x53a release/./src/alert.o
+ .debug_loc     0x00009e79      0x44d release/./src/ui/home_screen.o
+ .debug_loc     0x0000a2c6      0x4c9 release/./src/ui/taskbar.o
 
 Cross Reference Table
 
@@ -6907,9 +6890,6 @@ LCD_IRQHandler                                    release/./src/cr_startup_lpc17
 MCI_IRQHandler                                    release/./src/cr_startup_lpc177x_8x.o
 MCPWM_IRQHandler                                  release/./src/cr_startup_lpc177x_8x.o
 MemManage_Handler                                 release/./hal/uv_hal/src/uv_utilities.o
-MovingAver_Init                                   release/./hal/uv_hal/src/uv_filters.o
-MovingAver_Reset                                  release/./hal/uv_hal/src/uv_filters.o
-MovingAver_Step                                   release/./hal/uv_hal/src/uv_filters.o
 NMI_Handler                                       release/./hal/uv_hal/src/uv_utilities.o
 PLL0_IRQHandler                                   release/./src/cr_startup_lpc177x_8x.o
 PLL1_IRQHandler                                   release/./src/cr_startup_lpc177x_8x.o
@@ -7082,6 +7062,7 @@ __subsf3                                          /usr/local/lpcxpresso_7.7.2_37
 __utoa                                            /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-utoa.o)
                                                   /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-itoa.o)
 __uv_clear_previous_non_volatile_data             release/./hal/uv_hal/src/uv_memory.o
+                                                  release/./hal/uv_hal/src/uv_terminal.o
                                                   release/./hal/uv_hal/src/uv_canopen.o
 __uv_error                                        release/./hal/uv_hal/src/uv_errors.o
                                                   release/./src/alert.o
@@ -7108,7 +7089,6 @@ __uv_get_user_ptr                                 release/./hal/uv_hal/src/uv_ut
                                                   release/./hal/uv_hal/src/uv_canopen.o
                                                   release/./hal/uv_hal/src/uv_uart.o
 __uv_load_previous_non_volatile_data              release/./hal/uv_hal/src/uv_memory.o
-                                                  release/./hal/uv_hal/src/uv_terminal.o
 __uv_log_error                                    release/./hal/uv_hal/src/uv_errors.o
                                                   release/./hal/uv_hal/src/uv_rtos.o
                                                   release/./hal/uv_hal/src/uv_memory.o
@@ -7135,7 +7115,6 @@ _terminal                                         release/./hal/uv_hal/src/uv_te
 _this                                             release/./hal/uv_hal/src/uv_timer.o
 _uv_adc_init                                      release/./hal/uv_hal/src/uv_adc.o
                                                   release/./hal/uv_hal/src/uv_rtos.o
-                                                  release/./hal/uv_hal/src/uv_lcd.o
 _uv_can_hal_step                                  release/./hal/uv_hal/src/uv_can.o
                                                   release/./hal/uv_hal/src/uv_rtos.o
 _uv_can_init                                      release/./hal/uv_hal/src/uv_can.o
@@ -7444,7 +7423,6 @@ user_ptr                                          release/./hal/uv_hal/src/uv_ut
 utoa                                              /usr/local/lpcxpresso_7.7.2_379/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m/libc.a(lib_a-utoa.o)
 uv_adc_read                                       release/./hal/uv_hal/src/uv_adc.o
 uv_adc_read_average                               release/./hal/uv_hal/src/uv_adc.o
-                                                  release/./hal/uv_hal/src/uv_lcd.o
 uv_can_add_rx_callback                            release/./hal/uv_hal/src/uv_can.o
 uv_can_config_rx_message                          release/./hal/uv_hal/src/uv_can.o
                                                   release/./hal/uv_hal/src/uv_canopen.o
@@ -7527,14 +7505,13 @@ uv_lcd_draw_rect                                  release/./hal/uv_hal/src/uv_lc
                                                   release/./src/commands.o
                                                   release/./hal/uv_hal/src/ui/uv_uiwindow.o
                                                   release/./hal/uv_hal/src/ui/uv_uibutton.o
-uv_lcd_touch_calib                                release/./hal/uv_hal/src/uv_lcd.o
-uv_lcd_touch_calib_clear                          release/./hal/uv_hal/src/uv_lcd.o
-uv_lcd_touch_get                                  release/./hal/uv_hal/src/uv_lcd.o
-                                                  release/./hal/uv_hal/src/ui/uv_uidisplay.o
 uv_memory_load                                    release/./hal/uv_hal/src/uv_memory.o
                                                   release/./src/main.o
 uv_memory_save                                    release/./hal/uv_hal/src/uv_memory.o
                                                   release/./src/main.o
+uv_moving_aver_init                               release/./hal/uv_hal/src/uv_filters.o
+uv_moving_aver_reset                              release/./hal/uv_hal/src/uv_filters.o
+uv_moving_aver_step                               release/./hal/uv_hal/src/uv_filters.o
 uv_projname                                       release/./hal/uv_hal/src/uv_memory.o
                                                   release/./hal/uv_hal/src/uv_terminal.o
 uv_reset_get_source                               release/./hal/uv_hal/src/uv_reset.o

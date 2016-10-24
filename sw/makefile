@@ -60,6 +60,11 @@ LDFLAGS := -nostdlib -Xlinker -Map="$(BUILDDIR)/$(APP_NAME).map" -Xlinker --cref
 
 # Get list of object files, with paths
 OBJECTS := $(addprefix $(BUILDDIR)/,$(SOURCES:%.c=%.o))
+# List of object dependencies
+DEPS := $(OBJECTS:.o=.d)
+
+
+
 
 all: $(BINARY)
 	$(MAKE) post-build
@@ -72,7 +77,7 @@ $(BINARY): $(OBJECTS)
 
 $(BUILDDIR)/%.o: %.c
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -I$(HEADERDIR) -I$(dir $<) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(HEADERDIR) -I$(dir $<) -MMD -MT $@ -c $< -o $@
 
 
 post-build:
@@ -87,4 +92,7 @@ post-build:
 
 clean:
 	@rm -rf $(BUILDDIR)
+
+	
+-include $(DEPS)
 

@@ -1,1 +1,1 @@
-src/crp.o src/crp.d: ../src/crp.c
+release/./src/crp.o: src/crp.c

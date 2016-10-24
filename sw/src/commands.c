@@ -332,17 +332,15 @@ void lcddrawframe_callb(void *me, unsigned int cmd, unsigned int args, argument_
 
 
 void lcdbacklight_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
-	if (!args || argv[0].type != INTEGER) {
-		printf("Give argument between 0...100\n\r");
-		return;
-	}
 	uint16_t b = argv[0].number;
-	if (b > 100) {
-		b = 100;
+	if (args && argv[0].type == INTEGER) {
+		if (b > 100) {
+			b = 100;
+		}
+		gui_set_backlight(this, b);
 	}
-	printf("Setting backlight PWM to %u percent\n\r", b);
 
-	gui_set_backlight(this, b);
+	printf("Backlight %u\n\r", b);
 }
 
 void refresh_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {

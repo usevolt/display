@@ -92,15 +92,17 @@ void dspl_step(void *me) {
 //		uv_wdt_update();
 
 		uv_terminal_step();
+
 		uv_can_step(CAN1, step_ms);
+
 		uv_canopen_step(&this->canopen, step_ms);
+
 		alert_step(&this->alert, step_ms);
 
 		if (uv_delay(step_ms, &this->step_delay)) {
 			uv_gpio_toggle(LED_PIN);
 			uv_delay_init(1000, &this->step_delay);
 		}
-
 
 		uv_rtos_task_delay(step_ms);
 	}

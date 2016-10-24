@@ -1,48 +1,14 @@
-hal/uv_hal/freertos/portable/GCC/ARM_CM3/port.o \
- hal/uv_hal/freertos/portable/GCC/ARM_CM3/port.d: \
- ../hal/uv_hal/freertos/portable/GCC/ARM_CM3/port.c \
- /home/usevolt/uw/display/sw/inc/uv_hal_config.h \
- /home/usevolt/uw/display/sw/hal/uv_hal/freertos/include/FreeRTOS.h \
- /home/usevolt/uw/display/sw/hal/uv_hal/inc/FreeRTOSConfig.h \
- /home/usevolt/uw/display/sw/CMSIS_CORE_LPC177x_8x/inc/LPC177x_8x.h \
- /home/usevolt/uw/display/sw/CMSIS_CORE_LPC177x_8x/inc/core_cm3.h \
- /home/usevolt/uw/display/sw/CMSIS_CORE_LPC177x_8x/inc/core_cmInstr.h \
- /home/usevolt/uw/display/sw/CMSIS_CORE_LPC177x_8x/inc/core_cmFunc.h \
- /home/usevolt/uw/display/sw/CMSIS_CORE_LPC177x_8x/inc/system_LPC177x_8x.h \
- /home/usevolt/uw/display/sw/hal/uv_hal/freertos/include/projdefs.h \
- /home/usevolt/uw/display/sw/hal/uv_hal/freertos/include/portable.h \
- /home/usevolt/uw/display/sw/hal/uv_hal/freertos/include/deprecated_definitions.h \
- /home/usevolt/uw/display/sw/hal/uv_hal/freertos/portable/GCC/ARM_CM3/portmacro.h \
- /home/usevolt/uw/display/sw/hal/uv_hal/freertos/include/mpu_wrappers.h \
- /home/usevolt/uw/display/sw/hal/uv_hal/freertos/include/task.h \
- /home/usevolt/uw/display/sw/hal/uv_hal/freertos/include/list.h
-
-/home/usevolt/uw/display/sw/inc/uv_hal_config.h:
-
-/home/usevolt/uw/display/sw/hal/uv_hal/freertos/include/FreeRTOS.h:
-
-/home/usevolt/uw/display/sw/hal/uv_hal/inc/FreeRTOSConfig.h:
-
-/home/usevolt/uw/display/sw/CMSIS_CORE_LPC177x_8x/inc/LPC177x_8x.h:
-
-/home/usevolt/uw/display/sw/CMSIS_CORE_LPC177x_8x/inc/core_cm3.h:
-
-/home/usevolt/uw/display/sw/CMSIS_CORE_LPC177x_8x/inc/core_cmInstr.h:
-
-/home/usevolt/uw/display/sw/CMSIS_CORE_LPC177x_8x/inc/core_cmFunc.h:
-
-/home/usevolt/uw/display/sw/CMSIS_CORE_LPC177x_8x/inc/system_LPC177x_8x.h:
-
-/home/usevolt/uw/display/sw/hal/uv_hal/freertos/include/projdefs.h:
-
-/home/usevolt/uw/display/sw/hal/uv_hal/freertos/include/portable.h:
-
-/home/usevolt/uw/display/sw/hal/uv_hal/freertos/include/deprecated_definitions.h:
-
-/home/usevolt/uw/display/sw/hal/uv_hal/freertos/portable/GCC/ARM_CM3/portmacro.h:
-
-/home/usevolt/uw/display/sw/hal/uv_hal/freertos/include/mpu_wrappers.h:
-
-/home/usevolt/uw/display/sw/hal/uv_hal/freertos/include/task.h:
-
-/home/usevolt/uw/display/sw/hal/uv_hal/freertos/include/list.h:
+release/./hal/uv_hal/freertos/portable/GCC/ARM_CM3/port.o: \
+ hal/uv_hal/freertos/portable/GCC/ARM_CM3/port.c inc/uv_hal_config.h \
+ hal/uv_hal/freertos/include/FreeRTOS.h hal/uv_hal/inc/FreeRTOSConfig.h \
+ CMSIS_CORE_LPC177x_8x/inc/LPC177x_8x.h \
+ CMSIS_CORE_LPC177x_8x/inc/core_cm3.h \
+ CMSIS_CORE_LPC177x_8x/inc/core_cmInstr.h \
+ CMSIS_CORE_LPC177x_8x/inc/core_cmFunc.h \
+ CMSIS_CORE_LPC177x_8x/inc/system_LPC177x_8x.h \
+ hal/uv_hal/freertos/include/projdefs.h \
+ hal/uv_hal/freertos/include/portable.h \
+ hal/uv_hal/freertos/include/deprecated_definitions.h \
+ hal/uv_hal/freertos/portable/GCC/ARM_CM3/portmacro.h \
+ hal/uv_hal/freertos/include/mpu_wrappers.h \
+ hal/uv_hal/freertos/include/task.h hal/uv_hal/freertos/include/list.h
