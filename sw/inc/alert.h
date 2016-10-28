@@ -60,7 +60,7 @@ void alert_stop(alert_st*);
 void alert_play(alert_st *, alerts_e);
 
 
-/// @brief: Sets the volume in ppt
+/// @brief: Sets the volume in percents
 void alert_set_volume(alert_st*, uint16_t volume);
 
 

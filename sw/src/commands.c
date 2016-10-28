@@ -17,10 +17,11 @@
 #include <uv_rtc.h>
 #include <time.h>
 #include "commands.h"
-#include "network.h"
 #include "pin_mappings.h"
 #include "main.h"
+#include "users.h"
 #include "log.h"
+#include "gui.h"
 #include "alert.h"
 
 
@@ -33,78 +34,6 @@ char arg_str[CONFIG_TERMINAL_BUFFER_SIZE] = "";
 
 
 const uv_command_st terminal_commands[] = {
-		{
-				.id = CMD_MSB_CONF,
-				.str = "msbconf",
-				.instructions= "Configures Usewood MSB settings. Give without any arguments\n\r"
-						"to display the settings without modifying them. Usage:\n\r"
-						"msbconf <enable on/off> <node_id>",
-				.callback = network_msb_conf
-		},
-		{
-				.id = CMD_CSB_CONF,
-				.str = "csbconf",
-				.instructions= "Configures Usewood CSB settings. Give without any arguments\n\r"
-						"to display the settings without modifying them. Usage:\n\r"
-						"csbconf <enable on/off> <node_id>",
-				.callback = network_csb_conf
-		},
-		{
-				.id = CMD_LKEYP_CONF,
-				.str = "lkeypconf",
-				.instructions= "Configures Usevolt Left keypad settings. Give without any arguments\n\r"
-						"to display the settings without modifying them. Usage:\n\r"
-						"lkeypconf <enable on/off> <node_id>",
-						.callback = network_lkeyp_conf
-		},
-		{
-				.id = CMD_RKEYP_CONF,
-				.str = "rkeypconf",
-				.instructions= "Configures Usevolt Right keypad settings. Give without any arguments\n\r"
-						"to display the settings without modifying them. Usage:\n\r"
-						"rkeypconf <enable on/off> <node_id>",
-						.callback = network_rkeyp_conf
-		},
-		{
-				.id = CMD_ECU_CONF,
-				.str = "ecuconf",
-				.instructions= "Configures Rexroth ECU settings. Give without any arguments\n\r"
-						"to display the settings without modifying them. Usage:\n\r"
-						"ecuconf <enable on/off> <node_id>",
-						.callback = network_ecu_conf
-		},
-		{
-				.id = CMD_PEDAL_CONF,
-				.str = "pedalconf",
-				.instructions= "Configures the drive pedal settings. Give without any arguments\n\r"
-						"to display the settings without modifying them. Usage:\n\r"
-						"pedalconf <enable on/off> <node_id>",
-						.callback = network_pedal_conf
-		},
-		{
-				.id = CMD_UW181S_CONF,
-				.str = "uw181sconf",
-				.instructions= "Configures Usewood UW181S ecu settings. Give without any arguments\n\r"
-						"to display the settings without modifying them. Usage:\n\r"
-						"uw181sconf <enable on/off> <node_id>",
-						.callback = network_uw181s_conf
-		},
-		{
-				.id = CMD_UW181S_MB_CONF,
-				.str = "uw181smbconf",
-				.instructions= "Configures Usewood UW181S measurement device settings. Give without any arguments\n\r"
-						"to display the settings without modifying them. Usage:\n\r"
-						"uw181smbconf <enable on/off> <node_id>",
-						.callback = network_uw181smb_conf
-		},
-		{
-				.id = CMD_GSM_CONF,
-				.str = "gsmconf",
-				.instructions= "Configures Usevolt GSM board settings. Give without any arguments\n\r"
-						"to display the settings without modifying them. Usage:\n\r"
-						"gsmconf <enable on/off> <node_id>",
-						.callback = network_gsm_conf
-		},
 		{
 				.id = CMD_EMC_WRITE,
 				.str = "emcwrite",
@@ -198,8 +127,8 @@ const uv_command_st terminal_commands[] = {
 		{
 				.id = CMD_VOLUME,
 				.str = "volume",
-				.instructions = "Sets the buzzer volume in ppt\n\r"
-						"Usage: volume <0...1000>",
+				.instructions = "Sets the buzzer volume in percents\n\r"
+						"Usage: volume <0...100>",
 				.callback = volume_callb
 		},
 		{
@@ -208,6 +137,27 @@ const uv_command_st terminal_commands[] = {
 				.instructions = "Sets or gets the time from the RTC.\n\r"
 						"Usage: time (year) (month) (day) (hour) (min) (sec)",
 				.callback = time_callb
+		},
+		{
+				.id = CMD_USER,
+				.str = "user",
+				.instructions = "Adds or deletes users, or sets the current user.\n\r"
+						"Usage: user (\"add\"/\"remove\"/\"set\"/\"clear\") (username)",
+				.callback = user_callb
+		},
+		{
+				.id = CMD_HOURS,
+				.str = "hours",
+				.instructions = "Displays or sets the usage calculator hours.\n\r"
+						"Usage: hours (set_hours) (password)",
+				.callback = hours_callb
+		},
+		{
+				.id = CMD_SHOW,
+				.str = "show",
+				.instructions = "Shows the given UI window on the display.\n\r"
+						"Usage: show <\"login\"/\"home\"/...>",
+				.callback = show_callb
 		}
 };
 
@@ -231,7 +181,8 @@ void emcwrite_callb(void *me, unsigned int cmd, unsigned int args, argument_st *
 	uint32_t len = (uint32_t) argv[1].value;
 
 	memset(addr, data, len);
-	printf("wrote %u bytes of 0x%x to address 0x%x\n\r", len, data, addr);
+	printf("wrote %u bytes of 0x%x to address 0x%x\n\r", (unsigned int) len,
+			(unsigned int) data, (unsigned int) addr);
 }
 
 void emcread_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
@@ -244,7 +195,7 @@ void emcread_callb(void *me, unsigned int cmd, unsigned int args, argument_st *a
 	uint32_t len = (uint32_t) argv[1].value;
 	int i;
 
-	printf("len: %u, args: %u\n\r", len, args);
+	printf("len: %u, args: %u\n\r", (unsigned int) len, (unsigned int) args);
 	printf("data: ");
 	for (i = 0; i < len; i++) {
 		data = *(addr + i);
@@ -302,7 +253,8 @@ void lcddrawrect_callb(void *me, unsigned int cmd, unsigned int args, argument_s
 		height = (uint32_t) argv[3].value;
 	}
 	printf("drawing rectangle from (%u, %u) to (%u, %u) with color %x\n\r",
-			x, y, width, height, (uint32_t) argv[4].value);
+			(unsigned int) x, (unsigned int) y, (unsigned int) width, (unsigned int) height,
+			(unsigned int) argv[4].value);
 	uv_lcd_draw_rect(x, y, width, height, (uint32_t) argv[4].value);
 }
 
@@ -326,7 +278,8 @@ void lcddrawframe_callb(void *me, unsigned int cmd, unsigned int args, argument_
 		height = (uint32_t) argv[3].value;
 	}
 	printf("drawing frame from (%u, %u) to (%u, %u) with color %x and border of %u\n\r",
-			x, y, width, height, (uint32_t) argv[5].value, (uint32_t) argv[4].value);
+			(unsigned int) x, (unsigned int) y, (unsigned int) width, (unsigned int) height,
+			(unsigned int) argv[5].value, (unsigned int) argv[4].value);
 	uv_lcd_draw_frame(x, y, width, height, (uint32_t) argv[4].value, (color_t) argv[5].value);
 }
 
@@ -337,7 +290,7 @@ void lcdbacklight_callb(void *me, unsigned int cmd, unsigned int args, argument_
 		if (b > 100) {
 			b = 100;
 		}
-		gui_set_backlight(this, b);
+		gui_set_backlight(b);
 	}
 
 	printf("Backlight %u\n\r", b);
@@ -345,7 +298,7 @@ void lcdbacklight_callb(void *me, unsigned int cmd, unsigned int args, argument_
 
 void refresh_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	printf("Refreshing the display\n\r");
-	uv_ui_refresh(&this->gui.display.super.super);
+	uv_ui_refresh_parent(&gui.display);
 }
 
 
@@ -363,7 +316,7 @@ void logadd_callb(void *me, unsigned int cmd, unsigned int args, argument_st *ar
 	for (i = 0; i < count; i++) {
 		log_add(argv[0].number, argv[1].number);
 	}
-	printf("%u %u added to log %u times.\n\r", argv[0].number, argv[1].number, count);
+	printf("%u %u added to log %u times.\n\r", (unsigned int) argv[0].number, (unsigned int) argv[1].number, count);
 }
 void logshow_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	uint16_t i = 0;
@@ -379,7 +332,7 @@ void logshow_callb(void *me, unsigned int cmd, unsigned int args, argument_st *a
 				i, tim->year, tim->month, tim->day,
 				tim->hour, tim->min, tim->sec, def->def);
 		if (strlen(def->param_def)) {
-			printf(": %s %i\n\r", def->param_def, entry.data);
+			printf(": %s %i\n\r", def->param_def, (int) entry.data);
 		}
 		else {
 			printf("\n\r");
@@ -399,7 +352,7 @@ void alert_callb(void *me, unsigned int cmd, unsigned int args, argument_st *arg
 }
 
 void volume_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
-	if (args && argv[0].number <= 1000) {
+	if (args && argv[0].number <= 100) {
 		alert_set_volume(&this->alert, argv[0].number);
 	}
 	printf("Volume: %u\n\r", alert_get_volume(&this->alert));
@@ -428,6 +381,78 @@ void time_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv
 	printf("%i-%i-%i %i:%i:%i\n\r", time.year, time.month, time.day,
 			time.hour, time.min, time.sec);
 }
+
+
+void user_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
+	if (!args) {
+		printf("User count: %u/%u\n\r", uv_vector_size(&this->users), uv_vector_max_size(&this->users));
+		printf("Users:\n\r");
+		user_e i;
+		for (i = 0; i < uv_vector_size(&this->users); i++) {
+			if (strlen(((userdata_st*) uv_vector_at(&this->users, i))->username)) {
+				printf("'%s'\n\r", ((userdata_st*) uv_vector_at(&this->users, i))->username);
+			}
+		}
+		if (users_count()) {
+			printf("Active user: %s\n\r", this->user->username);
+		}
+
+	}
+	else if (strcmp(argv[0].str, "add") == 0 && args >= 2) {
+		if (!users_add(argv[1].str)) {
+			printf("Too many users\n\r");
+			return;
+		}
+		printf("Added %s\n\r", argv[1].str);
+	}
+	else if (strcmp(argv[0].str, "remove") == 0 && args >= 2) {
+		if (users_delete(argv[1].str)) {
+			printf("Removed %s\n\r", argv[1].str);
+		}
+	}
+	else if (strcmp(argv[0].str, "set") == 0 && args >= 2) {
+		if (users_set(argv[1].str)) {
+			printf("Current user: %s\n\r", this->user->username);
+		}
+	}
+	else if (strcmp(argv[0].str, "clear") == 0) {
+		users_clear();
+	}
+}
+
+void hours_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
+	if (args >= 2) {
+		if (strcmp(argv[1].str, "usewoodfi") == 0) {
+			this->hour_counter = argv[0].number;
+			uv_eeprom_write((unsigned char*) &this->hour_counter,
+					sizeof(this->hour_counter), CONFIG_EEPROM_RING_BUFFER_END_ADDR);
+		}
+		else {
+			printf("Wrong password\n\r");
+		}
+	}
+	printf("Hours: %u\n\r", this->hour_counter);
+}
+
+void show_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
+	if (!args) {
+		printf("Give 1 argument\n\r");
+		return;
+	}
+	else if (strcmp(argv[0].str, "login") == 0) {
+		login_show();
+	}
+	else if (strcmp(argv[0].str, "home") == 0 || strcmp(argv[0].str, "menu") == 0) {
+		home_show();
+	}
+	else if (strcmp(argv[0].str, "system") == 0) {
+		system_show();
+	}
+	else if (strcmp(argv[0].str, "settings") == 0) {
+		settings_show();
+	}
+}
+
 
 
 

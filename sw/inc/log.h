@@ -28,7 +28,18 @@ enum {
 	LOG_BOOT_UP = 0,
 	// RTC time set.
 	// Param: True if the time was set from the command line, false otherwise
-	LOG_TIME_SET
+	LOG_TIME_SET,
+	// The driver was selected
+	// Param: the driver ID
+	LOG_DRIVER_SET,
+	// Driver was deleted
+	// Param: the driver ID
+	LOG_DRIVER_DELETED,
+	// A new driver was added
+	// Param: The driver ID
+	LOG_DRIVER_ADDED,
+	// Clears all logs
+	LOG_DRIVER_CLEAR
 };
 typedef uint32_t log_entry_e;
 

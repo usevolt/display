@@ -22,6 +22,26 @@ const log_entry_def_st log_entry_defs[] = {
 				.type = LOG_TIME_SET,
 				.def = "Local time set",
 				.param_def = "From command line:"
+		},
+		{
+				.type = LOG_DRIVER_SET,
+				.def = "Driver selected",
+				.param_def = "Driver ID:"
+		},
+		{
+				.type = LOG_DRIVER_DELETED,
+				.def = "Driver deleted",
+				.param_def = "Driver ID:"
+		},
+		{
+				.type = LOG_DRIVER_ADDED,
+				.def = "New driver added",
+				.param_def = "Driver ID:"
+		},
+		{
+				.type = LOG_DRIVER_CLEAR,
+				.def = "All divers cleared",
+				.param_def = ""
 		}
 };
 
@@ -68,5 +88,8 @@ bool log_get(log_entry_st *dest, uint16_t index) {
 
 
 void log_clear(void) {
-	uv_eeprom_clear();
+	unsigned char p = 0;
+	for (int i = 0; i < CONFIG_EEPROM_RING_BUFFER_END_ADDR; i++) {
+		uv_eeprom_write(&p, sizeof(unsigned char), i);
+	}
 }

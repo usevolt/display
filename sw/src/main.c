@@ -31,7 +31,9 @@
 #include <string.h>
 #include "pin_mappings.h"
 #include "log.h"
+#include "gui.h"
 #include "alert.h"
+#include "users.h"
 
 #define this ((dspl_st*)me)
 
@@ -60,18 +62,35 @@ void dspl_init(dspl_st *me) {
 
 	uv_eeprom_init_circular_buffer(sizeof(log_entry_st));
 
+
+
+
+	// read hour counter value from EEPROM
+	uv_eeprom_read((unsigned char*) &this->hour_counter,
+			sizeof(this->hour_counter), CONFIG_EEPROM_RING_BUFFER_END_ADDR);
+
 	uv_err_check(uv_memory_load(&this->data_start, &this->data_endl)) {
 		// non-volatile data load failed, initialize factory settings
 
-		gui_reset(this);
-
 		alert_reset(&this->alert);
+
+		uv_vector_init(&this->users, this->userdata,
+				sizeof(this->userdata) / sizeof(userdata_st), sizeof(userdata_st));
+		users_add("Usewood");
+		users_set("Usewood");
+
 
 		// save initialized values to memory
 		uv_memory_save(&this->data_start, &this->data_endl);
 	}
 
-	gui_init(this);
+
+
+	uv_time_st time;
+	uv_rtc_get_time(&time);
+	this->last_hour = time.hour;
+
+	gui_init();
 
 	alert_init(&this->alert);
 
@@ -99,6 +118,15 @@ void dspl_step(void *me) {
 
 		alert_step(&this->alert, step_ms);
 
+		uv_time_st time;
+		uv_rtc_get_time(&time);
+		if (this->last_hour != time.hour) {
+			this->hour_counter++;
+			uv_eeprom_write((unsigned char*) &this->hour_counter,
+					sizeof(this->hour_counter), CONFIG_EEPROM_RING_BUFFER_END_ADDR);
+		}
+		this->last_hour = time.hour;
+
 		if (uv_delay(step_ms, &this->step_delay)) {
 			uv_gpio_toggle(LED_PIN);
 			uv_delay_init(1000, &this->step_delay);
@@ -117,7 +145,7 @@ int main(void) {
 	dspl_init(&dspl);
 
 
-	uv_rtos_task_create(dspl_step, "dspl_step", UV_RTOS_MIN_STACK_SIZE * 2,
+	uv_rtos_task_create(dspl_step, "dspl_step", UV_RTOS_MIN_STACK_SIZE * 3,
 			&dspl, UV_RTOS_IDLE_PRIORITY + 2, NULL);
 
 	printf("ready\n\r>");

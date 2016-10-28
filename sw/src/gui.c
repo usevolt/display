@@ -14,36 +14,36 @@
 #include <uv_rtos.h>
 
 
-#define this (&((dspl_st*)me)->gui)
+#define this (&gui)
 
-#define model ((dspl_st *)me)
+gui_st gui;
 
-void gui_init(void *me) {
+uv_mutex_ptr gui_mutex;
+
+void gui_init() {
+	uv_rtos_mutex_init(&gui_mutex);
+
 	this->backlight_curr = 0;
+	gui_set_backlight(100);
 	uv_uidisplay_init(&this->display, this->display_buffer, &uv_uiwindow_styles[WINDOW_STYLE_INDEX]);
 
-	// add all different windows in the UI here
-	uv_uiwindow_init(&this->main_window, this->main_window_buffer, &uv_uiwindow_styles[WINDOW_STYLE_INDEX]);
-	uv_uidisplay_add(&this->display, &this->main_window, 0, 0, LCD_W(1.0f), LCD_H(0.9f), true, uv_uiwindow_step);
 
-	home_init(&this->home, &this->main_window);
+	uv_uiwindow_init(&this->main_window, this->main_buffer, &uv_uiwindow_styles[WINDOW_STYLE_INDEX]);
+	uv_uidisplay_add(&this->display, &this->main_window, 0, 0, LCD_W(1), LCD_H(0.9), uv_uiwindow_step);
 
-	taskbar_init(&this->taskbar, &this->display);
-
+	taskbar_init(&this->display);
 
 	uv_rtos_task_create(gui_step, "gui", UV_RTOS_MIN_STACK_SIZE * 4,
-			me, UV_RTOS_IDLE_PRIORITY + 1, NULL);
+			NULL, UV_RTOS_IDLE_PRIORITY + 1, NULL);
 
+
+	// by default the log in screen
+	login_show();
 }
 
 
-void gui_reset(void *me) {
-	this->backlight_trg = 100;
-}
 
-
-
-void gui_step(void *me) {
+void gui_step(void *nullptr) {
 	uint16_t step_ms = GUI_STEP_MS;
 
 	while (true) {
@@ -55,14 +55,27 @@ void gui_step(void *me) {
 		this->backlight_curr += delta * BACKLIGHT_KP;
 		uv_pwm_set(LCD_BACKLIGHT, PWM_MAX_VALUE - (float) this->backlight_curr / 0xFFFF * PWM_MAX_VALUE);
 
+		// lock GUI mutex
+		uv_rtos_mutex_lock(&gui_mutex);
+
+		// display step function
 		uv_uidisplay_step(&this->display, step_ms);
+
+		// unlock GUI mutex
+		uv_rtos_mutex_unlock(&gui_mutex);
+
 
 		uv_rtos_task_delay(step_ms);
 	}
 }
 
 
-void gui_set_backlight(void *me, uint8_t value) {
+void gui_set_backlight(uint8_t value) {
 	if (value > 100) value = 100;
 	this->backlight_trg = (value / 100.0f) * 0xFFFF;
+}
+
+
+int16_t gui_get_backlight() {
+	return this->backlight_trg * (100.0f / 0xFFFF);
 }

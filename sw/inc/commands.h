@@ -15,16 +15,7 @@
 
 /// @brief: Enum describing all commands
 typedef enum {
-	CMD_MSB_CONF = 0,
-	CMD_CSB_CONF,
-	CMD_LKEYP_CONF,
-	CMD_RKEYP_CONF,
-	CMD_ECU_CONF,
-	CMD_PEDAL_CONF,
-	CMD_UW181S_CONF,
-	CMD_UW181S_MB_CONF,
-	CMD_GSM_CONF,
-	CMD_EMC_WRITE,
+	CMD_EMC_WRITE = 0,
 	CMD_EMC_READ,
 	CMD_EEPROM_WRITE,
 	CMD_EEPROM_READ,
@@ -38,7 +29,10 @@ typedef enum {
 	CMD_COUNT,
 	CMD_ALERT,
 	CMD_VOLUME,
-	CMD_TIME
+	CMD_TIME,
+	CMD_USER,
+	CMD_HOURS,
+	CMD_SHOW
 } dspl_commands_e;
 
 
@@ -65,6 +59,9 @@ void logshow_callb(void *me, unsigned int cmd, unsigned int args, argument_st *a
 void alert_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 void volume_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 void time_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void user_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void hours_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void show_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 
 
 #endif /* COMMANDS_H_ */

@@ -25,7 +25,7 @@ typedef struct {
 } taskbar_st;
 
 
-void taskbar_init(taskbar_st *this, uv_uidisplay_st *display);
+void taskbar_init(uv_uidisplay_st *display);
 
 
 #endif /* TASKBAR_H_ */

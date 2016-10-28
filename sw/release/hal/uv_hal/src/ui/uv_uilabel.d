@@ -12,4 +12,5 @@ release/./hal/uv_hal/src/ui/uv_uilabel.o: hal/uv_hal/src/ui/uv_uilabel.c \
  hal/uv_hal/inc/ui/uv_uifont.h hal/uv_hal/inc/uv_utilities.h \
  hal/uv_hal/inc/ui/uv_uilabel.h hal/uv_hal/inc/ui/uv_uidisplay.h \
  hal/uv_hal/inc/ui/uv_uiwindow.h hal/uv_hal/inc/ui/uv_uislider.h \
- hal/uv_hal/inc/ui/uv_ui_styles.h
+ hal/uv_hal/inc/ui/uv_ui_styles.h hal/uv_hal/inc/ui/uv_uilist.h \
+ hal/uv_hal/inc/ui/uv_uikeyboard.h
