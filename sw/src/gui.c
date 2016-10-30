@@ -25,16 +25,18 @@ void gui_init() {
 
 	this->backlight_curr = 0;
 	gui_set_backlight(100);
-	uv_uidisplay_init(&this->display, this->display_buffer, &uv_uiwindow_styles[WINDOW_STYLE_INDEX]);
+	uv_uidisplay_init(&this->display, this->display_buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
 
 
-	uv_uiwindow_init(&this->main_window, this->main_buffer, &uv_uiwindow_styles[WINDOW_STYLE_INDEX]);
-	uv_uidisplay_add(&this->display, &this->main_window, 0, 0, LCD_W(1), LCD_H(0.9), uv_uiwindow_step);
+	uv_uiwindow_init(&this->main_window, this->main_buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
+	uv_uidisplay_add(&this->display, &this->main_window, 0, 0, LCD_W(1), LCD_H(0.88), uv_uiwindow_step);
 
 	taskbar_init(&this->display);
 
-	uv_rtos_task_create(gui_step, "gui", UV_RTOS_MIN_STACK_SIZE * 4,
+	uv_rtos_task_create(gui_step, "gui", UV_RTOS_MIN_STACK_SIZE * 8,
 			NULL, UV_RTOS_IDLE_PRIORITY + 1, NULL);
+
+	this->step_callb = NULL;
 
 
 	// by default the log in screen
@@ -57,6 +59,13 @@ void gui_step(void *nullptr) {
 
 		// lock GUI mutex
 		uv_rtos_mutex_lock(&gui_mutex);
+
+		// active window step function
+		if (this->step_callb)
+			this->step_callb(step_ms);
+
+		// taskbar step function
+		taskbar_step(step_ms);
 
 		// display step function
 		uv_uidisplay_step(&this->display, step_ms);

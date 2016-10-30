@@ -31,4 +31,6 @@ typedef struct {
 
 void system_show();
 
+void system_step(uint16_t step_ms);
+
 #endif /* UI_SYSTEM_H_ */

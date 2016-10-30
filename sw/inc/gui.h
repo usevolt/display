@@ -34,7 +34,7 @@
 
 #define TOPIC_INIT(parent_ptr, this_ptr, text) \
 	uv_uilabel_init(this_ptr, &UI_FONT_BIG, ALIGN_CENTER, \
-		C(0xFFFFFF), uv_uiwindow_styles[WINDOW_STYLE_INDEX].main_color, text); \
+		C(0xFFFFFF), C(0xFFFFFFFF), text); \
 	uv_uiwindow_add(parent_ptr, this_ptr, \
 			uv_uibb(parent_ptr)->width / 2, 0, 0, TOPIC_HEIGHT, uv_uilabel_step)
 
@@ -42,13 +42,13 @@
 /// @brief: Initializes the cancel button. Macro for quick and same kind
 /// initialization for all windows
 #define CANCEL_INIT(parent_ptr, this_ptr, callb)		\
-	uv_uibutton_init((this_ptr), "Cancel", &uv_uibutton_styles[CANCEL_OK_BUTTON_STYLE_INDEX], callb); \
+	uv_uibutton_init((this_ptr), "Cancel", &uv_uistyles[CANCEL_OK_BUTTON_STYLE_INDEX], callb); \
 	uv_uiwindow_add((parent_ptr), (this_ptr), 0, 0, 200, TOPIC_HEIGHT, uv_uibutton_step)
 
 /// @brief: Initializes the OK button. Macro for quick and same kind
 /// initialization for all windows
 #define OK_INIT(parent_ptr, this_ptr, callb)		\
-	uv_uibutton_init((this_ptr), "OK", &uv_uibutton_styles[CANCEL_OK_BUTTON_STYLE_INDEX], callb); \
+	uv_uibutton_init((this_ptr), "OK", &uv_uistyles[CANCEL_OK_BUTTON_STYLE_INDEX], callb); \
 	uv_uiwindow_add((parent_ptr), (this_ptr), \
 	uv_uibb(parent_ptr)->width - 200, 0, \
 	200, TOPIC_HEIGHT, uv_uibutton_step)
@@ -71,6 +71,10 @@ typedef struct {
 	uv_uiwindow_st main_window;
 	uv_uiobject_st *main_buffer[1];
 
+	/// @brief: Window step function. The windows below can register
+	/// their own step functions here which will get called every step cycle
+	void (*step_callb)(uint16_t step_ms);
+
 	/// @brief: Union which holds all the other windows
 	union {
 		// todo: Add new windows here...
@@ -78,7 +82,7 @@ typedef struct {
 		login_st login;
 		system_st system;
 		settings_st settings;
-	};
+	} windows;
 
 
 	taskbar_st taskbar;

@@ -32,5 +32,7 @@ typedef struct {
 /// @brief: Shows the home window
 void home_show();
 
+void home_step(uint16_t step_ms);
+
 
 #endif /* UI_HOME_H_ */

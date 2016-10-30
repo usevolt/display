@@ -449,7 +449,9 @@ void show_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv
 		system_show();
 	}
 	else if (strcmp(argv[0].str, "settings") == 0) {
-		settings_show();
+		int16_t i = 0;
+		if (args >= 2) i = argv[1].number;
+		settings_show(i);
 	}
 }
 
