@@ -30,7 +30,7 @@ void taskbar_init(uv_uidisplay_st *display) {
 
 	// Motor temp
 	uv_uilabel_init(&this->mtemp, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER, C(0xFFFFFF),
-			C(0xFFFFFFFF), "M temp");
+			C(0xFFFFFFFF), "Motor T");
 	uv_uiwindow_add(&this->taskbar, &this->mtemp,
 			uv_uibb(&this->clock)->x - uv_uibb(&this->clock)->width - LEVEL_PB_WIDTH - 30,
 			uv_uibb(&this->taskbar)->height - UI_FONT_SMALL.char_height,
@@ -48,7 +48,7 @@ void taskbar_init(uv_uidisplay_st *display) {
 
 	// Oil temp
 	uv_uilabel_init(&this->otemp, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER, C(0xFFFFFF),
-			C(0xFFFFFFFF), "O temp");
+			C(0xFFFFFFFF), "Oil T");
 	uv_uiwindow_add(&this->taskbar, &this->otemp,
 			uv_uibb(&this->mtemp)->x - LEVEL_PB_WIDTH - 30,
 			uv_uibb(&this->taskbar)->height - UI_FONT_SMALL.char_height,

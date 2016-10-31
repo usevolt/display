@@ -13,10 +13,14 @@
 #include <uv_rtc.h>
 
 #define DATE_STR_LEN				40
+#define SETTINGS_GENERAL_BUFFER_LEN	18
 
 
 
 typedef struct {
+
+	uv_uiwindow_st window;
+	uv_uiobject_st *buffer[SETTINGS_GENERAL_BUFFER_LEN];
 
 	uv_uilabel_st brightness_label;
 	uv_uislider_st brightness;
@@ -46,7 +50,7 @@ typedef struct {
 
 
 /// @brief: Shows this window
-void settings_general_show(settings_general_st *this, uv_uitabwindow_st *window);
+void settings_general_show();
 
 void settings_general_step(uint16_t step_ms);
 
