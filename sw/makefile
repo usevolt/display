@@ -73,7 +73,7 @@ $(BINARY): $(OBJECTS)
 	@echo ""
 	@echo "Linking target"
 	@echo ""
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJECTS) -o "$(BUILDDIR)/$(BINARY).axf"
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJECTS) -o "$(BINARY).axf"
 
 $(BUILDDIR)/%.o: %.c
 	@mkdir -p $(@D)
@@ -84,14 +84,17 @@ post-build:
 	-@echo ""
 	-@echo 'Performing post-build steps'
 	-@echo ""
-	-arm-none-eabi-size "$(BUILDDIR)/$(APP_NAME).axf" 
-	-arm-none-eabi-objcopy -O ihex "$(BUILDDIR)/$(APP_NAME).axf" "$(BUILDDIR)/$(APP_NAME).hex"
-	-arm-none-eabi-objcopy -v -O binary "$(BUILDDIR)/$(APP_NAME).axf" "$(BUILDDIR)/$(APP_NAME).bin"
-	@chmod +x $(BUILDDIR)/$(APP_NAME).hex
+	-arm-none-eabi-size "$(APP_NAME).axf" 
+	-arm-none-eabi-objcopy -O ihex "$(APP_NAME).axf" "$(APP_NAME).hex"
+	-arm-none-eabi-objcopy -v -O binary "$(APP_NAME).axf" "$(APP_NAME).bin"
+	@chmod +x $(APP_NAME).hex
 	-@echo ' '
 
 clean:
 	@rm -rf $(BUILDDIR)
+	@rm -rf $(APP_NAME).axf
+	@rm -rf $(APP_NAME).hex
+	@rm -rf $(APP_NAME).bin
 
 	
 -include $(DEPS)

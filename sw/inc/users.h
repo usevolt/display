@@ -50,4 +50,8 @@ static inline uint16_t usertoi(userdata_st *user) {
 	return 0;
 }
 
+
+/// @brief: Resets the userdata to system defaults
+void user_reset(userdata_st *user);
+
 #endif /* USERS_H_ */

@@ -14,6 +14,7 @@
 #include <uv_rtc.h>
 #include "settings_general.h"
 #include "settings_valves.h"
+#include "settings_implements.h"
 
 #define SETTINGS_BUFFER_LEN	5
 #define SETTINGS_TABS_BUFFER_LEN	1
@@ -37,6 +38,7 @@ typedef struct {
 	union {
 		settings_general_st general;
 		settings_valves_st valves;
+		settings_implements_st implements;
 	};
 
 } settings_st;

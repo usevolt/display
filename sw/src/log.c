@@ -42,6 +42,21 @@ const log_entry_def_st log_entry_defs[] = {
 				.type = LOG_DRIVER_CLEAR,
 				.def = "All divers cleared",
 				.param_def = ""
+		},
+		{
+				.type = LOG_IMPLEMENT_ADDED,
+				.def = "Implement added",
+				.param_def = "implement ID:"
+		},
+		{
+				.type = LOG_IMPLEMENT_DELETED,
+				.def = "Implement deleted",
+				.param_def = "implement ID:"
+		},
+		{
+				.type = LOG_IMPLEMENT_SET,
+				.def = "Implement set",
+				.param_def = "implmenet ID:"
 		}
 };
 

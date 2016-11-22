@@ -14,11 +14,14 @@
 #include <uv_utilities.h>
 #include <uv_rtos.h>
 #include "alert.h"
+#include "vehicle.h"
+#include "implement.h"
 
 /// @brief: Defines the maximum count of the users
 #define USER_COUNT		4
 /// @brief: Maximum length of the username field
 #define USERNAME_MAX_LEN	32
+
 
 
 
@@ -32,7 +35,16 @@ typedef uint8_t user_e;
 	/// @brief: User dependant system settings and data
 typedef struct {
 		char username[USERNAME_MAX_LEN];
+		valve_st base_valves[BASE_VALVE_COUNT];
+		uw180s_st uw180s;
+		uw40_st uw40;
+		generic_implement_st generic_impl_data[GENERIC_IMPLEMENT_COUNT];
+		uv_vector_st generic_implements;
+		/// @brief: Pointer to the currently active implement. Requires to be casted
+		/// to the implement type.
+		implement_st *implement;
 } userdata_st;
+
 
 typedef struct {
 
@@ -40,6 +52,10 @@ typedef struct {
 
 	uint16_t hour_counter;
 	uint8_t last_hour;
+	int8_t oil_level;
+	int8_t fuel_level;
+	int8_t motor_temp;
+	int8_t oil_temp;
 
 	uv_data_start_t data_start;
 

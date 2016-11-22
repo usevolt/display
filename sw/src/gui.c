@@ -33,7 +33,7 @@ void gui_init() {
 
 	taskbar_init(&this->display);
 
-	uv_rtos_task_create(gui_step, "gui", UV_RTOS_MIN_STACK_SIZE * 8,
+	uv_rtos_task_create(gui_step, "gui", UV_RTOS_MIN_STACK_SIZE * 12,
 			NULL, UV_RTOS_IDLE_PRIORITY + 1, NULL);
 
 	this->step_callb = NULL;

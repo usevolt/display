@@ -10,21 +10,19 @@
 
 
 #include <uv_ui.h>
+#include "vehicle.h"
 
-#define SETTINGS_VALVES_BUFFER_LEN	14
+#define SETTINGS_VALVES_BUFFER_LEN	15
 
 /// @brief: Valve configuration screen
 typedef struct {
 	uv_uiwindow_st window;
 	uv_uiobject_st *buffer[SETTINGS_VALVES_BUFFER_LEN];
 
-	uv_uibutton_st boom_lift;
-	uv_uibutton_st boom_fold;
-	uv_uibutton_st boom_rotate;
-	uv_uibutton_st left_leg;
-	uv_uibutton_st right_leg;
-	uv_uibutton_st drive;
-	uv_uibutton_st steer;
+	uv_uibutton_st valves[BASE_VALVE_COUNT];
+
+	/// @brief: Reference to the currently active valve
+	valve_st *valve;
 
 	uv_uilabel_st topic;
 	uv_uibutton_st back;
@@ -40,6 +38,7 @@ typedef struct {
 	uv_uislider_st max_speed_n;
 	uv_uilabel_st dec_label;
 	uv_uislider_st dec;
+	uv_uitogglebutton_st invert;
 } settings_valves_st;
 
 

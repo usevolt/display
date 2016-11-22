@@ -158,5 +158,6 @@ static void volume_callb(void *me, int16_t value) {
 }
 
 void settings_general_step(uint16_t step_ms) {
-
+	uv_uislider_set_value(&this->volume, alert_get_volume(&dspl.alert));
+	uv_uislider_set_value(&this->brightness, gui_get_backlight());
 }

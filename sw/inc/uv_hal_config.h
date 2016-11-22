@@ -426,6 +426,8 @@
 
 #define CONFIG_CAN							1
 #define CONFIG_CAN1							1
+#define CONFIG_CAN1_TX_PIN					PIO0_1
+#define CONFIG_CAN1_RX_PIN					PIO0_0
 #define CONFIG_CAN2							0
 
 #define CONFIG_CAN_LOG						0

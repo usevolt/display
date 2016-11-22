@@ -40,8 +40,9 @@ void taskbar_init(uv_uidisplay_st *display) {
 
 	uv_uiprogressbar_init(&this->mtemp_bar, &uv_uistyles[0], 0, 100);
 	uv_uiprogressbar_set_vertical(&this->mtemp_bar);
-	uv_uiprogressbar_value(&this->mtemp_bar, 0);
-	uv_uiprogressbar_set_limit(&this->mtemp_bar, UI_PROGRESSBAR_LIMIT_OVER, 75, WARNING_COLOR);
+	uv_uiprogressbar_set_value(&this->mtemp_bar, dspl.motor_temp);
+	uv_uiprogressbar_set_limit(&this->mtemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
+			MOTOR_TEMP_WARNING_LIMIT, WARNING_COLOR);
 	uv_uiwindow_add(&this->taskbar, &this->mtemp_bar,
 			uv_uibb(&this->mtemp)->x, 0,
 			LEVEL_PB_WIDTH, uv_uibb(&this->mtemp)->y - 4, uv_uiprogressbar_step);
@@ -56,10 +57,11 @@ void taskbar_init(uv_uidisplay_st *display) {
 			UI_FONT_SMALL.char_height,
 			uv_uilabel_step);
 
-	uv_uiprogressbar_init(&this->otemp_bar, &uv_uistyles[0], 0, 80);
-	uv_uiprogressbar_value(&this->otemp_bar, 40);
+	uv_uiprogressbar_init(&this->otemp_bar, &uv_uistyles[0], 0, 100);
+	uv_uiprogressbar_set_value(&this->otemp_bar, dspl.oil_temp);
 	uv_uiprogressbar_set_vertical(&this->otemp_bar);
-	uv_uiprogressbar_set_limit(&this->otemp_bar, UI_PROGRESSBAR_LIMIT_OVER, 60, WARNING_COLOR);
+	uv_uiprogressbar_set_limit(&this->otemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
+			OIL_TEMP_WARNING_LIMIT, WARNING_COLOR);
 	uv_uiwindow_add(&this->taskbar, &this->otemp_bar,
 			uv_uibb(&this->otemp)->x, 0,
 			LEVEL_PB_WIDTH, uv_uibb(&this->otemp)->y - 4, uv_uiprogressbar_step);
@@ -75,9 +77,10 @@ void taskbar_init(uv_uidisplay_st *display) {
 			uv_uilabel_step);
 
 	uv_uiprogressbar_init(&this->oil_level, &uv_uistyles[0], 0, 100);
-	uv_uiprogressbar_value(&this->oil_level, 20);
+	uv_uiprogressbar_set_value(&this->oil_level, dspl.oil_level);
 	uv_uiprogressbar_set_vertical(&this->oil_level);
-	uv_uiprogressbar_set_limit(&this->oil_level, UI_PROGRESSBAR_LIMIT_UNDER, 40, WARNING_COLOR);
+	uv_uiprogressbar_set_limit(&this->oil_level, UI_PROGRESSBAR_LIMIT_UNDER,
+			OIL_LEVEL_WARNING_LIMIT, WARNING_COLOR);
 	uv_uiwindow_add(&this->taskbar, &this->oil_level,
 			uv_uibb(&this->oil)->x, 0,
 			LEVEL_PB_WIDTH, uv_uibb(&this->oil)->y - 4, uv_uiprogressbar_step);
@@ -93,9 +96,10 @@ void taskbar_init(uv_uidisplay_st *display) {
 			uv_uilabel_step);
 
 	uv_uiprogressbar_init(&this->fuel_level, &uv_uistyles[0], 0, 100);
-	uv_uiprogressbar_value(&this->fuel_level, 80);
+	uv_uiprogressbar_set_value(&this->fuel_level, dspl.fuel_level);
 	uv_uiprogressbar_set_vertical(&this->fuel_level);
-	uv_uiprogressbar_set_limit(&this->fuel_level, UI_PROGRESSBAR_LIMIT_UNDER, 30, WARNING_COLOR);
+	uv_uiprogressbar_set_limit(&this->fuel_level, UI_PROGRESSBAR_LIMIT_UNDER,
+			FUEL_LEVEL_WARNING_LIMIT, WARNING_COLOR);
 	uv_uiwindow_add(&this->taskbar, &this->fuel_level,
 			uv_uibb(&this->fuel)->x, 0,
 			LEVEL_PB_WIDTH, uv_uibb(&this->fuel)->y - 4, uv_uiprogressbar_step);
@@ -104,5 +108,12 @@ void taskbar_init(uv_uidisplay_st *display) {
 }
 
 void taskbar_step(uint16_t step_ms) {
-
+	uv_uiprogressbar_set_value(&this->oil_level, dspl.oil_level);
+	uv_uiprogressbar_set_value(&this->otemp_bar, dspl.oil_temp);
+	uv_uiprogressbar_set_value(&this->fuel_level, dspl.fuel_level);
+	uv_uiprogressbar_set_value(&this->mtemp_bar, dspl.motor_temp);
 }
+
+
+
+

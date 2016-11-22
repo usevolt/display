@@ -23,6 +23,7 @@
 #include "log.h"
 #include "gui.h"
 #include "alert.h"
+#include "vehicle.h"
 
 
 #define this ((dspl_st*)me)
@@ -158,6 +159,23 @@ const uv_command_st terminal_commands[] = {
 				.instructions = "Shows the given UI window on the display.\n\r"
 						"Usage: show <\"login\"/\"home\"/...>",
 				.callback = show_callb
+		},
+		{
+				.id = CMD_VALVECFG,
+				.str = "valve",
+				.instructions = "Configures the valve. First parameter specifies\n\r"
+						"the valve according to its name and second parameter\n\r"
+						"specifies the parameter to be configured.\n\r"
+						"Usage: valve <\"name\"> <\"pmin/pmax/nmin/nmax/acc/dec/invert\"> (value)",
+				.callback = valvecfg_callb
+		},
+		{
+				.id = CMD_SENSORS,
+				.str = "sensors",
+				.instructions = "Shows the values of oil level, fuel level,\n\r"
+						"oil temp and motor temp sensors.\n\r"
+						"Usage: sensors",
+				.callback = sensors_callb
 		}
 };
 
@@ -285,8 +303,9 @@ void lcddrawframe_callb(void *me, unsigned int cmd, unsigned int args, argument_
 
 
 void lcdbacklight_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
-	uint16_t b = argv[0].number;
+	uint16_t b = gui_get_backlight();
 	if (args && argv[0].type == INTEGER) {
+		b = argv[0].number;
 		if (b > 100) {
 			b = 100;
 		}
@@ -455,6 +474,59 @@ void show_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv
 	}
 }
 
+void valvecfg_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
+	if (args < 2) {
+		printf("Give at least 2 arguments\n\r");
+		return;
+	}
+	valve_st *valve = NULL;
+	for (int16_t i = 0; i < BASE_VALVE_COUNT; i++) {
+		if (strcmp(this->user->base_valves[i].name, argv[0].str) == 0) {
+			valve = &this->user->base_valves[i];
+			break;
+		}
+	}
+	if (!valve) {
+		printf("No valve %s found\n\r", argv[0].str);
+		return;
+	}
+	int16_t *value;
+	if (strcmp(argv[1].str, "pmax") == 0) {
+		value = &valve->max_speed_p;
+	}
+	else if (strcmp(argv[1].str, "pmin") == 0) {
+		value = &valve->min_speed_p;
+	}
+	else if (strcmp(argv[1].str, "nmax") == 0) {
+		value = &valve->max_speed_n;
+	}
+	else if (strcmp(argv[1].str, "nmin") == 0) {
+		value = &valve->min_speed_n;
+	}
+	else if (strcmp(argv[1].str, "acc") == 0) {
+		value = &valve->acc;
+	}
+	else if (strcmp(argv[1].str, "dec") == 0) {
+		value = &valve->dec;
+	}
+	else if (strcmp(argv[1].str, "invert") == 0) {
+		value = &valve->invert;
+	}
+	else {
+		printf("Invalid valve parameter '%s'\n\r", argv[1].str);
+		return;
+	}
+	if (args >= 3) {
+		*value = argv[2].number;
+	}
+	printf("%u\n\r", *value);
+
+}
+
+void sensors_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
+	printf("Oil level: %i\n\rFuel level: %i\n\rOil temp: %i\n\rMotor temp: %i\n\r",
+			this->oil_level, this->fuel_level, this->oil_temp, this->motor_temp);
+}
 
 
 

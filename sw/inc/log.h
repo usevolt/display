@@ -39,7 +39,16 @@ enum {
 	// Param: The driver ID
 	LOG_DRIVER_ADDED,
 	// Clears all logs
-	LOG_DRIVER_CLEAR
+	LOG_DRIVER_CLEAR,
+	// New generic implement added
+	// Param: Implement ID
+	LOG_IMPLEMENT_ADDED,
+	// Generic implement deleted
+	// Param: Implement ID
+	LOG_IMPLEMENT_DELETED,
+	// Active implement set
+	// Param: Implement ID
+	LOG_IMPLEMENT_SET
 };
 typedef uint32_t log_entry_e;
 

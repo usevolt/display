@@ -32,7 +32,9 @@ typedef enum {
 	CMD_TIME,
 	CMD_USER,
 	CMD_HOURS,
-	CMD_SHOW
+	CMD_SHOW,
+	CMD_VALVECFG,
+	CMD_SENSORS
 } dspl_commands_e;
 
 
@@ -62,6 +64,8 @@ void time_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv
 void user_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 void hours_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 void show_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void valvecfg_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void sensors_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 
 
 #endif /* COMMANDS_H_ */

@@ -20,7 +20,7 @@
 static const char* tab_names[] = {
 		"General",
 		"Valve\n\rconfigurations",
-		"Implement valve\n\rconfigurations",
+		"Implement\n\rsettings",
 		"Control\n\rmappings",
 		"Joystick\n\rcalibration"
 };
@@ -72,6 +72,10 @@ static void tabs_callb(void *me, uint16_t tab) {
 	else if (tab == 1) {
 		gui.step_callb = settings_valves_step;
 		settings_valves_show();
+	}
+	else if (tab == 2) {
+		gui.step_callb = settings_implements_step;
+		settings_implements_show();
 	}
 }
 
