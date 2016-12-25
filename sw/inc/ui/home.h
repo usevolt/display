@@ -12,6 +12,7 @@
 #include <uv_utilities.h>
 #include <uv_ui.h>
 #include "uv_hal_config.h"
+#include "main.h"
 
 #define HOME_BUFFER_LEN	4
 
@@ -23,7 +24,7 @@ typedef struct {
 
 	uv_uibutton_st dashboard;
 	uv_uibutton_st settings;
-	uv_uibutton_st ioconfig;
+	uv_uibutton_st system;
 	uv_uibutton_st logout;
 
 } home_st;

@@ -6,14 +6,11 @@
  */
 
 
+#include <ui/uv_uilayout.h>
 #include "settings_general.h"
 #include "gui.h"
 
 #define this (&gui.windows.settings.general)
-
-static void time_callb(void *me, uibutton_state_e state);
-static void brightness_callb(void *me, int16_t value);
-static void volume_callb(void *me, int16_t value);
 
 
 
@@ -32,7 +29,7 @@ void settings_general_show() {
 			uv_uibb(&this->window)->width / 6, uv_uibb(&this->window)->height/2 + 100,
 			0, UI_FONT_SMALL.char_height, uv_uilabel_step);
 
-	uv_uislider_init(&this->brightness, 0, 100, gui_get_backlight(), &uv_uistyles[0], brightness_callb);
+	uv_uislider_init(&this->brightness, 1, 100, gui_get_backlight(), &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->brightness);
 	uv_uiwindow_add(&this->window, &this->brightness,
 			UI_ALIGN_CENTER(
@@ -49,7 +46,7 @@ void settings_general_show() {
 			uv_uibb(&this->window)->width / 8 * 3, uv_uibb(&this->window)->height/2 + 100,
 			0, UI_FONT_SMALL.char_height, uv_uilabel_step);
 
-	uv_uislider_init(&this->volume, 0, 100, alert_get_volume(&dspl.alert), &uv_uistyles[0], volume_callb);
+	uv_uislider_init(&this->volume, 0, 100, alert_get_volume(&dspl.alert), &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->volume);
 	uv_uiwindow_add(&this->window, &this->volume,
 			UI_ALIGN_CENTER(
@@ -59,105 +56,90 @@ void settings_general_show() {
 					200),
 			uv_uislider_step);
 
-	// set time
-	uv_rtc_get_time(&this->date);
-	snprintf(this->datestr, DATE_STR_LEN, "%04u-%02u-%02u %02u:%02u:%02u",
-			this->date.year, this->date.month, this->date.day, this->date.hour, this->date.min, this->date.sec);
+	uv_uigridlayout_st grid;
+	uv_uigridlayout_init(&grid, uv_uibb(&this->volume)->x + uv_uibb(&this->volume)->width + 10, 0,
+			uv_uibb(&this->window)->width - uv_uibb(&this->volume)->x - uv_uibb(&this->volume)->width - 10,
+			uv_uibb(&this->window)->height, 3, 1);
+	uv_uigridlayout_set_padding(&grid, 10, 40);
+	uv_bounding_box_st bb;
 
-	uv_uilabel_init(&this->time, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF),
-			C(0xFFFFFFFF), "Date and time");
-	uv_uiwindow_add(&this->window, &this->time,
-			uv_uibb(&this->window)->width / 4 * 3, uv_uibb(&this->window)->height / 2 + 100,
-			0, UI_FONT_SMALL.char_height, uv_uilabel_step);
+	// drive lights
+	bb = uv_uigridlayout_next(&grid);
+	uv_uitogglebutton_init(&this->drive_lights, csb_get_drive_light(&dspl.network.csb),
+			"Drive Lights", &uv_uistyles[0]);
+	uv_uiwindow_add(&this->window, &this->drive_lights, bb.x, bb.y,
+			bb.width, bb.height / 2 - 5, uv_uitogglebutton_step);
 
-	uv_uilabel_init(&this->date_label, &UI_FONT_BIG, ALIGN_CENTER_LEFT, C(0xFFFFFF),
-			C(0xFFFFFFFF), this->datestr);
-	uv_uiwindow_add(&this->window, &this->date_label,
-			uv_uibb(&this->window)->width / 4 * 3 - UI_FONT_BIG.char_width * 10,
-			uv_uibb(&this->window)->height / 2,
-			0, 0, uv_uilabel_step);
+	// work lights
+	uv_uitogglebutton_init(&this->work_lights, csb_get_work_light(&dspl.network.csb),
+			"Work Lights", &uv_uistyles[0]);
+	uv_uiwindow_add(&this->window, &this->work_lights, bb.x, bb.y + bb.height / 2 + 5,
+			bb.width, bb.height / 2 - 5, uv_uitogglebutton_step);
 
-	int16_t datex = uv_uibb(&this->date_label)->x;
-	int16_t datey = uv_uibb(&this->date_label)->y;
-	int16_t fw = UI_FONT_BIG.char_width;
-	int16_t fh = UI_FONT_BIG.char_height;
+	// wiper
+	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->wiper, 0, CSB_WIPER_SPEED_COUNT - 1,
+			csb_get_wiper(&dspl.network.csb), &uv_uistyles[0]);
+	uv_uislider_set_vertical(&this->wiper);
+	uv_uiwindow_add(&this->window, &this->wiper, bb.x, bb.y, bb.width, 200, uv_uislider_step);
 
-	uv_uibutton_init(&this->sec_inc, "+", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX], time_callb);
-	uv_uiwindow_add(&this->window, &this->sec_inc,
-			datex + fw * 17, datey - fh * 2 - 8,
-			fw * 2, fh * 1.5, uv_uibutton_step);
-	uv_uibutton_init(&this->sec_dec, "-", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX], time_callb);
-	uv_uiwindow_add(&this->window, &this->sec_dec,
-			datex + fw * 17, datey + fh / 2 + 8,
-			fw * 2, fh * 1.5,
-			uv_uibutton_step);
+	uv_uilabel_init(&this->wiper_label, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF), C(0xFFFFFFFF), "Wiper");
+	uv_uiwindow_add(&this->window, &this->wiper_label,
+			uv_uibb(&this->wiper)->x,
+			uv_uibb(&this->wiper)->y + uv_uibb(&this->wiper)->height + 10,
+			bb.width, UI_FONT_SMALL.char_height, uv_uilabel_step);
 
-	uv_uibutton_init(&this->min_inc, "+", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX], time_callb);
-	uv_uiwindow_add(&this->window, &this->min_inc,
-			datex + fw * 14, datey - fh * 2 - 8,
-			fw * 2, fh * 1.5, uv_uibutton_step);
-	uv_uibutton_init(&this->min_dec, "-", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX], time_callb);
-	uv_uiwindow_add(&this->window, &this->min_dec,
-			datex + fw * 14, datey + fh / 2 + 8,
-			fw * 2, fh * 1.5,
-			uv_uibutton_step);
+	// heater
+	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->heater, 0, MSB_HEATER_SPEED_COUNT - 1,
+			msb_get_heater(&dspl.network.msb), &uv_uistyles[0]);
+	uv_uislider_set_vertical(&this->heater);
+	uv_uiwindow_add(&this->window, &this->heater, bb.x, bb.y, bb.width, 200, uv_uislider_step);
 
-	uv_uibutton_init(&this->hour_inc, "+", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX], time_callb);
-	uv_uiwindow_add(&this->window, &this->hour_inc,
-			datex + fw * 11, datey - fh * 2 - 8,
-			fw * 2, fh * 1.5, uv_uibutton_step);
-	uv_uibutton_init(&this->hour_dec, "-", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX], time_callb);
-	uv_uiwindow_add(&this->window, &this->hour_dec,
-			datex + fw * 11, datey + fh / 2 + 8,
-			fw * 2, fh * 1.5,
-			uv_uibutton_step);
-
-	uv_uibutton_init(&this->day_inc, "+", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX], time_callb);
-	uv_uiwindow_add(&this->window, &this->day_inc,
-			datex + fw * 8, datey - fh * 2 - 8,
-			fw * 2, fh * 1.5, uv_uibutton_step);
-	uv_uibutton_init(&this->day_dec, "-", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX], time_callb);
-	uv_uiwindow_add(&this->window, &this->day_dec,
-			datex + fw * 8, datey + fh / 2 + 8,
-			fw * 2, fh * 1.5,
-			uv_uibutton_step);
-
-	uv_uibutton_init(&this->month_inc, "+", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX], time_callb);
-	uv_uiwindow_add(&this->window, &this->month_inc,
-			datex + fw * 5, datey - fh * 2 - 8,
-			fw * 2, fh * 1.5, uv_uibutton_step);
-	uv_uibutton_init(&this->month_dec, "-", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX], time_callb);
-	uv_uiwindow_add(&this->window, &this->month_dec,
-			datex + fw * 5, datey + fh / 2 + 8,
-			fw * 2, fh * 1.5,
-			uv_uibutton_step);
-
-	uv_uibutton_init(&this->year_inc, "+", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX], time_callb);
-	uv_uiwindow_add(&this->window, &this->year_inc,
-			datex, datey - fh * 2 - 8,
-			fw * 4, fh * 1.5, uv_uibutton_step);
-	uv_uibutton_init(&this->year_dec, "-", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX], time_callb);
-	uv_uiwindow_add(&this->window, &this->year_dec,
-			datex, datey + fh / 2 + 8,
-			fw * 4, fh * 1.5,
-			uv_uibutton_step);
+	uv_uilabel_init(&this->heater_label, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF), C(0xFFFFFFFF), "Heater");
+	uv_uiwindow_add(&this->window, &this->heater_label,
+			uv_uibb(&this->heater)->x,
+			uv_uibb(&this->heater)->y + uv_uibb(&this->heater)->height + 10,
+			bb.width, UI_FONT_SMALL.char_height, uv_uilabel_step);
 
 }
 
 
-static void time_callb(void *me, uibutton_state_e state) {
-
-}
-
-static void brightness_callb(void *me, int16_t value) {
-
-}
-
-static void volume_callb(void *me, int16_t value) {
-
-}
 
 void settings_general_step(uint16_t step_ms) {
-	uv_uislider_set_value(&this->volume, alert_get_volume(&dspl.alert));
-	uv_uislider_set_value(&this->brightness, gui_get_backlight());
+	// volume
+	if (uv_uislider_value_changed(&this->volume)) {
+		alert_set_volume(&dspl.alert, uv_uislider_get_value(&this->volume));
+	}
+	else {
+		uv_uislider_set_value(&this->volume, alert_get_volume(&dspl.alert));
+	}
+
+	// brightness
+	if (uv_uislider_value_changed(&this->brightness)) {
+		gui_set_backlight(uv_uislider_get_value(&this->brightness));
+	}
+	else {
+		uv_uislider_set_value(&this->brightness, gui_get_backlight());
+	}
+
+	// drive lights
+	if (uv_uitogglebutton_clicked(&this->drive_lights)) {
+		csb_set_drive_light(&dspl.network.csb, uv_uitogglebutton_get_state(&this->drive_lights));
+	}
+	else {
+		uv_uitogglebutton_set_state(&this->drive_lights, csb_get_drive_light(&dspl.network.csb));
+	}
+
+	// work lights
+	if (uv_uitogglebutton_clicked(&this->work_lights)) {
+		csb_set_work_light(&dspl.network.csb, uv_uitogglebutton_get_state(&this->work_lights));
+	}
+	else {
+		uv_uitogglebutton_set_state(&this->work_lights, csb_get_work_light(&dspl.network.csb));
+	}
 }
+
+
+
+

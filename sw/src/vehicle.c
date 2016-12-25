@@ -7,11 +7,14 @@
 
 
 #include "vehicle.h"
+#include "network.h"
+
 
 
 const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 		{
 				.name = "Boom Lift",
+				.setter = ecu_set_boom_lift_params,
 				.min_speed_p = 250,
 				.max_speed_p = 800,
 				.min_speed_n = 230,
@@ -22,6 +25,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 		},
 		{
 				.name = "Boom Fold",
+				.setter = ecu_set_boom_fold_params,
 				.min_speed_p = 250,
 				.max_speed_p = 800,
 				.min_speed_n = 250,
@@ -32,6 +36,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 		},
 		{
 				.name = "Boom Turn",
+				.setter = ecu_set_boom_rotate_params,
 				.min_speed_p = 230,
 				.max_speed_p = 600,
 				.min_speed_n = 230,
@@ -42,6 +47,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 		},
 		{
 				.name = "Drive",
+				.setter = ecu_set_drive_params,
 				.min_speed_p = 230,
 				.max_speed_p = 800,
 				.min_speed_n = 230,
@@ -52,6 +58,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 		},
 		{
 				.name = "Steer",
+				.setter = ecu_set_steer_params,
 				.min_speed_p = 230,
 				.max_speed_p = 600,
 				.min_speed_n = 230,
@@ -62,6 +69,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 		},
 		{
 				.name = "Left Leg",
+				.setter = ecu_set_left_leg_params,
 				.min_speed_p = 230,
 				.max_speed_p = 600,
 				.min_speed_n = 230,
@@ -72,6 +80,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 		},
 		{
 				.name = "Right Leg",
+				.setter = ecu_set_right_leg_params,
 				.min_speed_p = 230,
 				.max_speed_p = 600,
 				.min_speed_n = 230,

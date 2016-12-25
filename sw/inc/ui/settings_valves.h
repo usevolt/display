@@ -12,7 +12,7 @@
 #include <uv_ui.h>
 #include "vehicle.h"
 
-#define SETTINGS_VALVES_BUFFER_LEN	15
+#define SETTINGS_VALVES_BUFFER_LEN	17
 
 /// @brief: Valve configuration screen
 typedef struct {

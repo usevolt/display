@@ -35,7 +35,8 @@ INCLUDEDIRS := 	-I"inc/" \
 				-I"hal/uv_hal/inc" \
 				-I"hal/uv_hal/freertos/include" \
 				-I"hal/uv_hal/freertos/portable/GCC/ARM_CM3" \
-				-I"inc/ui"
+				-I"inc/ui" \
+				-I "inc/network"
 
 
 ### END OF APP CONFIG ###

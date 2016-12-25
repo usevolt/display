@@ -10,9 +10,11 @@
 
 #include <uv_utilities.h>
 #include <uv_ui.h>
+#include <uv_rtc.h>
+#include "main.h"
 
-
-#define SYSTEM_BUFFER_LEN	4
+#define DATE_STR_LEN				40
+#define SYSTEM_BUFFER_LEN	16
 #define ABOUT_STR_LEN		70
 
 typedef struct {
@@ -25,6 +27,26 @@ typedef struct {
 	uv_uilabel_st topic;
 	uv_uilabel_st about;
 	char about_str[ABOUT_STR_LEN];
+
+	// contains the time when settings window was opened
+	uv_time_st date;
+	char datestr[DATE_STR_LEN];
+	uv_uilabel_st date_label;
+
+	uv_uilabel_st time;
+	uv_uibutton_st sec_inc;
+	uv_uibutton_st sec_dec;
+	uv_uibutton_st min_inc;
+	uv_uibutton_st min_dec;
+	uv_uibutton_st hour_inc;
+	uv_uibutton_st hour_dec;
+	uv_uibutton_st day_inc;
+	uv_uibutton_st day_dec;
+	uv_uibutton_st month_inc;
+	uv_uibutton_st month_dec;
+	uv_uibutton_st year_inc;
+	uv_uibutton_st year_dec;
+
 
 } system_st;
 

@@ -10,17 +10,21 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <uv_canopen.h>
 
 
-/// @brief: Defiens the datatype for individual hydraulic valves
-
+/// @brief: Defines the datatype for individual hydraulic valves
 
 
 
 
 /// @brief: Struct for hydraulic valve settings
-typedef struct {
+typedef struct valve_st {
+	/// @brief: valve name
 	const char *name;
+	/// @brief: Pointer to a function which will apply the valve settings
+	/// over the can bus
+	void (*setter)(struct valve_st *this);
 	int16_t min_speed_p;
 	int16_t min_speed_n;
 	int16_t max_speed_p;
@@ -37,6 +41,13 @@ static inline void valve_reset(valve_st *this, const valve_st *defaults) {
 	*this = *defaults;
 }
 
-
+/// @brief: Initializes the valve.
+///
+/// @param initializer: Pointer to the valve_st structure
+/// which is used to copy the initialization values
+static inline void valve_init(valve_st *this, const valve_st *initializer) {
+	this->name = initializer->name;
+	this->setter = initializer->setter;
+}
 
 #endif /* VALVE_H_ */

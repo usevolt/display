@@ -168,14 +168,6 @@ const uv_command_st terminal_commands[] = {
 						"specifies the parameter to be configured.\n\r"
 						"Usage: valve <\"name\"> <\"pmin/pmax/nmin/nmax/acc/dec/invert\"> (value)",
 				.callback = valvecfg_callb
-		},
-		{
-				.id = CMD_SENSORS,
-				.str = "sensors",
-				.instructions = "Shows the values of oil level, fuel level,\n\r"
-						"oil temp and motor temp sensors.\n\r"
-						"Usage: sensors",
-				.callback = sensors_callb
 		}
 };
 
@@ -468,9 +460,7 @@ void show_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv
 		system_show();
 	}
 	else if (strcmp(argv[0].str, "settings") == 0) {
-		int16_t i = 0;
-		if (args >= 2) i = argv[1].number;
-		settings_show(i);
+		settings_show();
 	}
 }
 
@@ -521,11 +511,6 @@ void valvecfg_callb(void *me, unsigned int cmd, unsigned int args, argument_st *
 	}
 	printf("%u\n\r", *value);
 
-}
-
-void sensors_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
-	printf("Oil level: %i\n\rFuel level: %i\n\rOil temp: %i\n\rMotor temp: %i\n\r",
-			this->oil_level, this->fuel_level, this->oil_temp, this->motor_temp);
 }
 
 

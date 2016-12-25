@@ -64,17 +64,13 @@ void dspl_init(dspl_st *me) {
 
 		uv_canopen_restore_defaults(&this->canopen);
 
-		uv_vector_init(&this->users, this->userdata,
-				sizeof(this->userdata) / sizeof(userdata_st), sizeof(userdata_st));
-		users_add("Usewood");
-		users_set("Usewood");
+		users_reset();
 
 		gui_set_backlight(100);
 
 		// save initialized values to memory
 		uv_memory_save(&this->data_start, &this->data_endl);
 	}
-
 
 	// init terminal
 	uv_terminal_init(terminal_commands, commands_count());
@@ -85,16 +81,16 @@ void dspl_init(dspl_st *me) {
 
 	uv_eeprom_init_circular_buffer(sizeof(log_entry_st));
 
+	uv_canopen_init(&this->canopen, obj_dict, object_dictionary_size(), CAN1,
+			&this->canopen_heartbeat, NULL, NULL);
 
-	uv_canopen_init(&this->canopen, obj_dict, object_dictionary_size(), CAN1, NULL, NULL);
+	network_init(&this->network);
 
 	uv_time_st time;
 	uv_rtc_get_time(&time);
 	this->last_hour = time.hour;
-	this->oil_level = 0;
-	this->fuel_level = 0;
-	this->motor_temp = 0;
-	this->oil_temp = 0;
+
+	users_init();
 
 	gui_init();
 
@@ -102,15 +98,16 @@ void dspl_init(dspl_st *me) {
 
 	uv_delay_init(1000, &this->step_delay);
 
-	log_add(LOG_BOOT_UP, uv_reset_get_source());
-
-
-
+	// the display lives it's own life. It is allowed to boot itself up into operational mode
+	uv_canopen_set_state(&this->canopen, CANOPEN_OPERATIONAL);
 
 }
 
 
 void dspl_step(void *me) {
+
+	dspl_init(&dspl);
+
 	while (true) {
 		int step_ms = 20;
 
@@ -130,7 +127,7 @@ void dspl_step(void *me) {
 		if (this->last_hour != time.hour) {
 			this->hour_counter++;
 			uv_eeprom_write((unsigned char*) &this->hour_counter,
-					sizeof(this->hour_counter), CONFIG_EEPROM_RING_BUFFER_END_ADDR);
+					sizeof(this->hour_counter), HOUR_COUNTER_EEPROM_ADDR);
 		}
 		this->last_hour = time.hour;
 
@@ -150,10 +147,7 @@ int main(void) {
 
 	uv_init(&dspl);
 
-	dspl_init(&dspl);
-
-
-	uv_rtos_task_create(dspl_step, "dspl_step", UV_RTOS_MIN_STACK_SIZE * 4,
+	uv_rtos_task_create(dspl_step, "dspl_step", UV_RTOS_MIN_STACK_SIZE * 8,
 			&dspl, UV_RTOS_IDLE_PRIORITY + 2, NULL);
 
 	uv_rtos_start_scheduler();

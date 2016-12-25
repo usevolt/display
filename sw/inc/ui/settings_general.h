@@ -10,10 +10,8 @@
 
 
 #include <uv_ui.h>
-#include <uv_rtc.h>
 
-#define DATE_STR_LEN				40
-#define SETTINGS_GENERAL_BUFFER_LEN	18
+#define SETTINGS_GENERAL_BUFFER_LEN	10
 
 
 
@@ -27,24 +25,12 @@ typedef struct {
 	uv_uilabel_st volume_label;
 	uv_uislider_st volume;
 
-	// contains the time when settings window was opened
-	uv_time_st date;
-	char datestr[DATE_STR_LEN];
-	uv_uilabel_st date_label;
-
-	uv_uilabel_st time;
-	uv_uibutton_st sec_inc;
-	uv_uibutton_st sec_dec;
-	uv_uibutton_st min_inc;
-	uv_uibutton_st min_dec;
-	uv_uibutton_st hour_inc;
-	uv_uibutton_st hour_dec;
-	uv_uibutton_st day_inc;
-	uv_uibutton_st day_dec;
-	uv_uibutton_st month_inc;
-	uv_uibutton_st month_dec;
-	uv_uibutton_st year_inc;
-	uv_uibutton_st year_dec;
+	uv_uitogglebutton_st drive_lights;
+	uv_uitogglebutton_st work_lights;
+	uv_uislider_st wiper;
+	uv_uilabel_st wiper_label;
+	uv_uislider_st heater;
+	uv_uilabel_st heater_label;
 
 } settings_general_st;
 

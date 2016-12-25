@@ -12,18 +12,25 @@
 #include <uv_utilities.h>
 #include <uv_terminal.h>
 #include <uv_ui.h>
+#include <uv_filters.h>
 #include "taskbar.h"
 #include "home.h"
 #include "login.h"
 #include "system.h"
 #include "settings.h"
+#include "dashboard.h"
 
 /// @file: Graphical user interface module. Takes care of everything showing on the LCD display
 
 #define GUI_STEP_MS		20
 /// @brief: P-factor for backlight control
-#define BACKLIGHT_KP		0.1f
-#define BACKLIGHT_KP_MAX	10000
+#define BACKLIGHT_KP				0.1f
+#define BACKLIGHT_KP_MAX			10000
+/// @brief: The values which the ADC output values has to be multiplied to get the
+/// VDD supply voltage. Depends on the used resistors in the voltage divider.
+#define VDD_VOLTAGE_DIV_VAL 		11
+/// @brief: Supply voltage running average count
+#define VDD_MOVING_AVER_COUNT		4
 
 /// @brief: Main display buffer length
 #define DISPLAY_BUF_LEN			2
@@ -41,14 +48,14 @@
 
 /// @brief: Initializes the cancel button. Macro for quick and same kind
 /// initialization for all windows
-#define CANCEL_INIT(parent_ptr, this_ptr, callb)		\
-	uv_uibutton_init((this_ptr), "Cancel", &uv_uistyles[CANCEL_OK_BUTTON_STYLE_INDEX], callb); \
+#define CANCEL_INIT(parent_ptr, this_ptr)		\
+	uv_uibutton_init((this_ptr), "Cancel", &uv_uistyles[CANCEL_OK_BUTTON_STYLE_INDEX]); \
 	uv_uiwindow_add((parent_ptr), (this_ptr), 0, 0, 200, TOPIC_HEIGHT, uv_uibutton_step)
 
 /// @brief: Initializes the OK button. Macro for quick and same kind
 /// initialization for all windows
-#define OK_INIT(parent_ptr, this_ptr, callb)		\
-	uv_uibutton_init((this_ptr), "OK", &uv_uistyles[CANCEL_OK_BUTTON_STYLE_INDEX], callb); \
+#define OK_INIT(parent_ptr, this_ptr)		\
+	uv_uibutton_init((this_ptr), "OK", &uv_uistyles[CANCEL_OK_BUTTON_STYLE_INDEX]); \
 	uv_uiwindow_add((parent_ptr), (this_ptr), \
 	uv_uibb(parent_ptr)->width - 200, 0, \
 	200, TOPIC_HEIGHT, uv_uibutton_step)
@@ -63,6 +70,9 @@ typedef struct {
 	uint16_t backlight_trg;
 	/// @brief: Backlight current brightness as a 16-bit value
 	uint16_t backlight_curr;
+	/// @brief: Running average of the supply voltage as millivolts
+	uv_moving_aver_st vdd_mv;
+
 	/// @brief: Display is the main object of the UI
 	uv_uidisplay_st display;
 	/// @brief: The window buffer mandatory for uv_uidisplay_st
@@ -82,6 +92,7 @@ typedef struct {
 		login_st login;
 		system_st system;
 		settings_st settings;
+		dashboard_st dashboard;
 	} windows;
 
 

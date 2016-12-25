@@ -15,8 +15,6 @@
 #define this (&gui.windows.settings.implements)
 
 
-static void new_impl_callb(void *me, uibutton_state_e state);
-static void del_impl_callb(void *me, uibutton_state_e state);
 
 
 #define BW	100
@@ -47,7 +45,7 @@ void settings_implements_show(void) {
 
 	// todo: Add all default implements here
 	uv_uilist_push_back(&this->impls_list, dspl.user->uw180s.super.name);
-	uv_uilist_push_back(&this->impls_list, dspl.user->uw40.super.name);
+	uv_uilist_push_back(&this->impls_list, dspl.user->uw50.super.name);
 
 
 	int16_t i;
@@ -59,7 +57,7 @@ void settings_implements_show(void) {
 	if (dspl.user->implement == (void *) &dspl.user->uw180s) {
 		uv_uilist_select(&this->impls_list, 0);
 	}
-	else if (dspl.user->implement == (void *) &dspl.user->uw40) {
+	else if (dspl.user->implement == (void *) &dspl.user->uw50) {
 		uv_uilist_select(&this->impls_list, 1);
 	}
 	else {
@@ -70,67 +68,95 @@ void settings_implements_show(void) {
 			}
 		}
 	}
-
 	uv_uiwindow_add(&this->window, &this->impls_list, bb.x, bb.y +
 			uv_uibb(&this->impls_label)->height + uv_uibb(&this->impls_label)->y,
 			bb.width * 2 - BW - 10, bb.height - uv_uibb(&this->impls_label)->x - uv_uibb(&this->impls_label)->height,
 			uv_uilist_step);
 
 	// new implement button
-	uv_uibutton_init(&this->new_impl, "New\n\rimplement", &uv_uistyles[0], new_impl_callb);
+	uv_uibutton_init(&this->new_impl, "New\n\rimplement", &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->new_impl, bb.x + bb.width * 2 - BW,
 			bb.y + uv_uibb(&this->impls_label)->y + uv_uibb(&this->impls_label)->height,
 			BW, BH, uv_uibutton_step);
 
 	// delete implement button
-	uv_uibutton_init(&this->del_impl, "Delete\n\rimplement", &uv_uistyles[0], del_impl_callb);
+	uv_uibutton_init(&this->del_impl, "Delete\n\rimplement", &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->del_impl, bb.x + bb.width * 2 - BW,
 			bb.y + BH + 10 + uv_uibb(&this->impls_label)->y + uv_uibb(&this->impls_label)->height,
 			BW, BH, uv_uibutton_step);
 
+	// implement specific settings
+	uv_uibutton_init(&this->impl_settings, "Implement settings", &uv_uistyles[0]);
+	uv_uiwindow_add(&this->window, &this->impl_settings,
+			uv_uibb(&this->new_impl)->x + uv_uibb(&this->new_impl)->width + 10,
+			uv_uibb(&this->window)->height / 2 - BH,
+			BW * 2, BH * 2, uv_uibutton_step);
+	uv_ui_set_enabled(&this->impl_settings, (uv_uilist_get_selected(&this->impls_list) != -1));
+	this->implement_dialog = false;
 }
 
 
 void settings_implements_step(uint16_t step_ms) {
 
-}
-
-
-
-static void new_impl_callb(void *me, uibutton_state_e state) {
-	char str[GENERIC_IMPLEMENT_NAME_LEN];
-	if (uv_vector_size(&dspl.user->generic_implements) ==
-			uv_vector_max_size(&dspl.user->generic_implements)) {
-		printf("Too many implements\n\r");
+	// if active implement settings dialog is visible, call it's step function.
+	// otherwise continue with this module's step function.
+	if (this->implement_dialog) {
+		dspl.user->implement->callbacks->settings_step(step_ms);
 		return;
 	}
-	if (uv_uikeyboard_show("Implement name", str,
-			GENERIC_IMPLEMENT_NAME_LEN, &uv_uikeyboard_styles[0])) {
-		generic_implement_st temp_impl = generic_implement;
-		uv_vector_push_back(&dspl.user->generic_implements, &temp_impl);
-		generic_implement_st *impl = uv_vector_at(&dspl.user->generic_implements,
-				uv_vector_size(&dspl.user->generic_implements) - 1);
-		strcpy(impl->name, str);
-		impl->super.name = impl->name;
-		log_add(LOG_IMPLEMENT_ADDED, uv_uilist_get_count(&this->impls_list) - 1);
-		uv_ui_refresh(&this->impls_list);
+
+	int16_t select = uv_uilist_get_selected(&this->impls_list);
+	if (select == 0) {
+		dspl.user->implement = (void*) &dspl.user->uw180s;
+	}
+	else if (select == 1) {
+		dspl.user->implement = (void*) &dspl.user->uw50;
+	}
+	else if (select >= UW_IMPLEMENT_COUNT) {
+		dspl.user->implement = uv_vector_at(&dspl.user->generic_implements,
+				select - UW_IMPLEMENT_COUNT);
 	}
 
-}
-
-static void del_impl_callb(void *me, uibutton_state_e state) {
-	int16_t i = uv_uislider_get_value(&this->impls_list);
-	if (i < DEF_IMPL_COUNT) {
-		printf("Default implements cannot be deleted\n\r");
-	}
-	else if (i >= uv_vector_size(&dspl.user->generic_implements)) {
-		printf("Cannot delete generic implement n.o. %i\n\r", i);
-	}
-	else {
-		uv_vector_remove(&dspl.user->generic_implements, i - DEF_IMPL_COUNT);
-		if (i - DEF_IMPL_COUNT >= uv_vector_size(&dspl.user->generic_implements)) {
-			dspl.user->implement = (void *) &dspl.user->uw180s;
+	if (uv_uibutton_clicked(&this->new_impl)) {
+		char str[GENERIC_IMPLEMENT_NAME_LEN];
+		if (uv_vector_size(&dspl.user->generic_implements) ==
+				uv_vector_max_size(&dspl.user->generic_implements)) {
+			printf("Too many implements\n\r");
+			return;
 		}
-		log_add(LOG_IMPLEMENT_DELETED, i);
+		if (uv_uikeyboard_show("Implement name", str,
+				GENERIC_IMPLEMENT_NAME_LEN, &uv_uikeyboard_styles[0])) {
+			generic_implement_st temp_impl = generic_implement;
+			uv_vector_push_back(&dspl.user->generic_implements, &temp_impl);
+			generic_implement_st *impl = uv_vector_at(&dspl.user->generic_implements,
+					uv_vector_size(&dspl.user->generic_implements) - 1);
+			strcpy(impl->name, str);
+			impl->super.name = impl->name;
+			log_add(LOG_IMPLEMENT_ADDED, uv_uilist_get_count(&this->impls_list) - 1);
+			uv_ui_refresh(&this->impls_list);
+		}
+	}
+	else if (uv_uibutton_clicked(&this->del_impl)) {
+		int16_t i = uv_uilist_get_selected(&this->impls_list);
+		if (i < DEF_IMPL_COUNT) {
+			printf("Default implements cannot be deleted\n\r");
+		}
+		else if (i >= uv_vector_size(&dspl.user->generic_implements)) {
+			printf("Cannot delete generic implement n.o. %i\n\r", i);
+		}
+		else {
+			uv_vector_remove(&dspl.user->generic_implements, i - DEF_IMPL_COUNT);
+			if (i - DEF_IMPL_COUNT >= uv_vector_size(&dspl.user->generic_implements)) {
+				dspl.user->implement = (void *) &dspl.user->uw180s;
+			}
+			log_add(LOG_IMPLEMENT_DELETED, i);
+		}
+	}
+
+	uv_ui_set_enabled(&this->impl_settings, dspl.user->implement ? true : false);
+	if (uv_uibutton_clicked(&this->impl_settings)) {
+		this->implement_dialog = true;
+		dspl.user->implement->callbacks->settings_show();
 	}
 }
+

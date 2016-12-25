@@ -10,6 +10,7 @@
 #include "gui.h"
 #include "alert.h"
 #include "home.h"
+#include "network.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -20,22 +21,15 @@
 static const char* tab_names[] = {
 		"General",
 		"Valve\n\rconfigurations",
-		"Implement\n\rsettings",
-		"Control\n\rmappings",
-		"Joystick\n\rcalibration"
+		"Implement\n\rsettings"
 };
 
 
-static void cancel_callb(void *me, uibutton_state_e state);
-static void ok_callb(void *me, uibutton_state_e state);
-static void tabs_callb(void *me, uint16_t tab);
-
-void settings_show(int16_t tab_index) {
-	uv_rtos_mutex_lock(&gui_mutex);
+void settings_show() {
 
 	uv_uiwindow_clear(&gui.main_window);
 
-	gui.step_callb = NULL;
+	gui.step_callb = settings_step;
 
 	this->tab_names = tab_names;
 
@@ -46,49 +40,64 @@ void settings_show(int16_t tab_index) {
 
 	TOPIC_INIT(&this->window, &this->topic, "Settings");
 
-	CANCEL_INIT(&this->window, &this->cancel, cancel_callb);
+	CANCEL_INIT(&this->window, &this->cancel);
 
-	OK_INIT(&this->window, &this->ok, ok_callb);
+	OK_INIT(&this->window, &this->ok);
 
-	uv_uitabwindow_init(&this->tabs, SETTINGS_TAB_COUNT,&uv_uistyles[WINDOW_STYLE_INDEX],
-			this->tabs_buffer, this->tab_names, tabs_callb);
+	uv_uitabwindow_init(&this->tabs, SETTINGS_TAB_COUNT, &uv_uistyles[WINDOW_STYLE_INDEX],
+			this->tabs_buffer, this->tab_names);
 	uv_uiwindow_add(&this->window, &this->tabs, 0, TOPIC_HEIGHT + 10,
 			uv_uibb(&this->window)->width, uv_uibb(&this->window)->height - TOPIC_HEIGHT - 10,
 			uv_uitabwindow_step);
 
 	// set the requested tab
-	uv_uitabwindow_set_tab(&this->tabs, tab_index);
+	uv_uitabwindow_set_tab(&this->tabs, 0);
+	settings_general_show();
 
-	uv_rtos_mutex_unlock(&gui_mutex);
-}
-
-static void tabs_callb(void *me, uint16_t tab) {
-	uv_uiwindow_clear(&this->tabs);
-
-	if (tab == 0) {
-		gui.step_callb = settings_general_step;
-		settings_general_show();
-	}
-	else if (tab == 1) {
-		gui.step_callb = settings_valves_step;
-		settings_valves_show();
-	}
-	else if (tab == 2) {
-		gui.step_callb = settings_implements_step;
-		settings_implements_show();
-	}
 }
 
 
-static void cancel_callb(void *me, uibutton_state_e state) {
-	if (state == UIBUTTON_CLICKED) {
+void settings_step(uint16_t step_ms) {
+
+	if (uv_uitabwindow_tab_changed(&this->tabs)) {
+
+		uv_uiwindow_clear(&this->tabs);
+
+		if (uv_uitabwindow_tab(&this->tabs) == 0) {
+			settings_general_show();
+		}
+		else if (uv_uitabwindow_tab(&this->tabs) == 1) {
+			settings_valves_show();
+		}
+		else if (uv_uitabwindow_tab(&this->tabs) == 2) {
+			settings_implements_show();
+		}
+	}
+
+	switch (uv_uitabwindow_tab(&this->tabs)) {
+	case 0:
+		settings_general_step(step_ms);
+		break;
+	case 1:
+		settings_valves_step(step_ms);
+		break;
+	case 2:
+		settings_implements_step(step_ms);
+		break;
+	default:
+		break;
+	}
+
+	if (uv_uibutton_clicked(&this->ok)) {
+		uv_memory_save(&dspl.data_start, &dspl.data_endl);
 		home_show();
 	}
+	else if (uv_uibutton_clicked(&this->cancel)) {
+		uv_memory_load(&dspl.data_start, &dspl.data_endl);
+		network_update(&dspl.network);
+
+		home_show();
+	}
+
 }
-
-
-static void ok_callb(void *me, uibutton_state_e state) {
-
-}
-
 

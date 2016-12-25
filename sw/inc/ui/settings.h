@@ -12,13 +12,14 @@
 #include <uv_utilities.h>
 #include <uv_ui.h>
 #include <uv_rtc.h>
+#include "main.h"
 #include "settings_general.h"
 #include "settings_valves.h"
 #include "settings_implements.h"
 
 #define SETTINGS_BUFFER_LEN	5
 #define SETTINGS_TABS_BUFFER_LEN	1
-#define SETTINGS_TAB_COUNT			5
+#define SETTINGS_TAB_COUNT			3
 
 /// @brief: Main settings window
 typedef struct {
@@ -44,8 +45,8 @@ typedef struct {
 } settings_st;
 
 
-void settings_show(int16_t tab_index);
+void settings_show(void);
 
-
+void settings_step(uint16_t step_ms);
 
 #endif /* UI_SETTINGS_H_ */

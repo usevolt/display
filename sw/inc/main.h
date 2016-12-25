@@ -16,6 +16,7 @@
 #include "alert.h"
 #include "vehicle.h"
 #include "implement.h"
+#include "network.h"
 
 /// @brief: Defines the maximum count of the users
 #define USER_COUNT		4
@@ -23,12 +24,9 @@
 #define USERNAME_MAX_LEN	32
 
 
+#define HOUR_COUNTER_EEPROM_ADDR	(CONFIG_EEPROM_RING_BUFFER_END_ADDR + 1)
+#define CURRENT_USER_EEPROM_ADDR	(CONFIG_EEPROM_RING_BUFFER_END_ADDR)
 
-
-/// @brief: Mutex which should be used when calling to UI functions
-///
-/// @note: All UI windows should lock this mutex in their _show()-functions
-extern uv_mutex_ptr gui_mutex;
 
 
 typedef uint8_t user_e;
@@ -37,7 +35,7 @@ typedef struct {
 		char username[USERNAME_MAX_LEN];
 		valve_st base_valves[BASE_VALVE_COUNT];
 		uw180s_st uw180s;
-		uw40_st uw40;
+		uw50_st uw50;
 		generic_implement_st generic_impl_data[GENERIC_IMPLEMENT_COUNT];
 		uv_vector_st generic_implements;
 		/// @brief: Pointer to the currently active implement. Requires to be casted
@@ -52,10 +50,18 @@ typedef struct {
 
 	uint16_t hour_counter;
 	uint8_t last_hour;
-	int8_t oil_level;
-	int8_t fuel_level;
-	int8_t motor_temp;
-	int8_t oil_temp;
+
+	int canopen_heartbeat;
+
+	/// @brief: Index telling the current user. This value
+	/// is stored in EEPROM
+	uint8_t user_index;
+	/// @brief: Pointer to the current user data structure.
+	userdata_st *user;
+
+	/// @brief: Network module takes care of the data communication between
+	/// other CAN network devices
+	network_st network;
 
 	uv_data_start_t data_start;
 
@@ -65,8 +71,6 @@ typedef struct {
 
 	userdata_st userdata[USER_COUNT];
 	uv_vector_st users;
-	/// @brief: Pointer to the current user data structure.
-	userdata_st *user;
 
 	uv_data_end_t data_endl;
 
