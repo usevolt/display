@@ -13,9 +13,9 @@
 
 
 enum {
-	UW40_STATE_NONE = 0,
-	UW40_STATE_SAW,
-	UW40_STATE_TILT
+	UW50_STATE_NONE = 0,
+	UW50_STATE_SAW,
+	UW50_STATE_TILT
 };
 typedef uint8_t uw50_states_e;
 

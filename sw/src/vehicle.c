@@ -18,7 +18,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.min_speed_p = 250,
 				.max_speed_p = 800,
 				.min_speed_n = 230,
-				.min_speed_n = 760,
+				.max_speed_n = 760,
 				.acc = 40,
 				.dec = 30,
 				.invert = false
@@ -71,22 +71,22 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.name = "Left Leg",
 				.setter = ecu_set_left_leg_params,
 				.min_speed_p = 230,
-				.max_speed_p = 600,
+				.max_speed_p = 700,
 				.min_speed_n = 230,
-				.max_speed_n = 600,
+				.max_speed_n = 700,
 				.acc = 40,
-				.dec = 30,
+				.dec = 100,
 				.invert = false
 		},
 		{
 				.name = "Right Leg",
 				.setter = ecu_set_right_leg_params,
 				.min_speed_p = 230,
-				.max_speed_p = 600,
+				.max_speed_p = 700,
 				.min_speed_n = 230,
-				.max_speed_n = 600,
+				.max_speed_n = 700,
 				.acc = 40,
-				.dec = 30,
+				.dec = 100,
 				.invert = false
 		}
 };

@@ -19,10 +19,34 @@ static void user_init(userdata_st *this) {
 		valve_init(&this->base_valves[i],
 				&vehicle_valves[i]);
 	}
-	implement_init(&this->uw180s, &uw180s);
-	implement_init(&this->uw50, &uw50);
+	if (this->engine_power_usage > 100) {
+		this->engine_power_usage = 100;
+	}
+	uw180s_init(&this->uw180s);
+	uw100_init(&this->uw100);
+	uw50_init(&this->uw50);
+	if (uv_vector_size(&this->generic_implements) > GENERIC_IMPLEMENT_COUNT) {
+		uv_vector_init(&this->generic_implements, this->generic_impl_data,
+				GENERIC_IMPLEMENT_COUNT, sizeof(generic_implement_st));
+	}
 	for (int16_t i = 0; i < uv_vector_size(&this->generic_implements); i++) {
-		implement_init(uv_vector_at(&this->generic_implements, i), &generic_implement);
+		generic_implement_init(uv_vector_at(&this->generic_implements, i));
+	}
+	if (this->active_implement >= IMPL_COUNT ||
+			this->active_implement >= uv_vector_size(&this->generic_implements) + UW_IMPLEMENT_COUNT) {
+		this->active_implement = IMPL_UW180S;
+	}
+	switch (this->active_implement) {
+	case IMPL_UW180S:
+		this->implement = (implement_st*) &this->uw180s;
+		break;
+	case IMPL_UW50:
+		this->implement = (implement_st*) &this->uw50;
+		break;
+	default:
+		this->implement = uv_vector_at(&this->generic_implements,
+				this->active_implement - UW_IMPLEMENT_COUNT);
+		break;
 	}
 
 }
@@ -34,6 +58,7 @@ static void user_reset(userdata_st *user) {
 
 	strcpy(user->username, "Usewood");
 
+	user->engine_power_usage = ENGINE_POWER_USAGE;
 
 	// base valves
 	for (uint16_t i = 0; i < BASE_VALVE_COUNT; i++) {
@@ -41,11 +66,13 @@ static void user_reset(userdata_st *user) {
 	}
 
 	// implement valves
-	user->uw50 = uw50;
 	user->uw180s = uw180s;
+	user->uw100 = uw100;
+	user->uw50 = uw50;
 	uv_vector_init(&user->generic_implements, user->generic_impl_data,
 			GENERIC_IMPLEMENT_COUNT, sizeof(generic_implement_st));
 	user->implement = (void *) &user->uw180s;
+	user->active_implement = IMPL_UW180S;
 
 }
 
@@ -78,14 +105,15 @@ bool users_add(char *username) {
 	if (users_count() >= users_max_count()) {
 		return false;
 	}
-	userdata_st d;
-	user_reset(&d);
+	userdata_st data;
+	uv_vector_push_back(&dspl.users, &data);
 
+	userdata_st *d = uv_vector_at(&dspl.users, uv_vector_size(&dspl.users)- 1);
+	user_reset(d);
 	// username
-	strncpy(d.username, username, USERNAME_MAX_LEN);
-	d.username[USERNAME_MAX_LEN - 1] = '\0';
+	strncpy(d->username, username, USERNAME_MAX_LEN);
+	d->username[USERNAME_MAX_LEN - 1] = '\0';
 
-	uv_vector_push_back(&dspl.users, &d);
 
 	uv_memory_save(&dspl.data_start, &dspl.data_endl);
 

@@ -12,14 +12,20 @@
 #include <uv_ui.h>
 #include <uv_rtc.h>
 #include "main.h"
+#include "system_settings.h"
+#include "system_restore.h"
+#include "system_network.h"
 
-#define DATE_STR_LEN				40
-#define SYSTEM_BUFFER_LEN	16
-#define ABOUT_STR_LEN		70
+#define SYSTEM_BUFFER_LEN		5
+#define SYSTEM_TAB_BUFFER_LEN	1
+#define ABOUT_STR_LEN			70
 
 typedef struct {
 	uv_uiwindow_st window;
 	uv_uiobject_st *buffer[SYSTEM_BUFFER_LEN];
+
+	uv_uitabwindow_st tabs;
+	uv_uiobject_st *tabs_buffer[SYSTEM_TAB_BUFFER_LEN];
 
 	uv_uibutton_st cancel;
 	uv_uibutton_st ok;
@@ -28,24 +34,12 @@ typedef struct {
 	uv_uilabel_st about;
 	char about_str[ABOUT_STR_LEN];
 
-	// contains the time when settings window was opened
-	uv_time_st date;
-	char datestr[DATE_STR_LEN];
-	uv_uilabel_st date_label;
+	union {
+		system_settings_st sys_settings;
+		system_network_st sys_network;
+		system_restore_st sys_restore;
+	} windows;
 
-	uv_uilabel_st time;
-	uv_uibutton_st sec_inc;
-	uv_uibutton_st sec_dec;
-	uv_uibutton_st min_inc;
-	uv_uibutton_st min_dec;
-	uv_uibutton_st hour_inc;
-	uv_uibutton_st hour_dec;
-	uv_uibutton_st day_inc;
-	uv_uibutton_st day_dec;
-	uv_uibutton_st month_inc;
-	uv_uibutton_st month_dec;
-	uv_uibutton_st year_inc;
-	uv_uibutton_st year_dec;
 
 
 } system_st;

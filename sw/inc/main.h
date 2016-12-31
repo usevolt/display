@@ -33,14 +33,18 @@ typedef uint8_t user_e;
 	/// @brief: User dependant system settings and data
 typedef struct {
 		char username[USERNAME_MAX_LEN];
+		uint16_t engine_power_usage;
 		valve_st base_valves[BASE_VALVE_COUNT];
 		uw180s_st uw180s;
 		uw50_st uw50;
+		uw100_st uw100;
 		generic_implement_st generic_impl_data[GENERIC_IMPLEMENT_COUNT];
 		uv_vector_st generic_implements;
 		/// @brief: Pointer to the currently active implement. Requires to be casted
 		/// to the implement type.
 		implement_st *implement;
+		/// @brief: Tells the currently selected implement
+		impl_type_e active_implement;
 } userdata_st;
 
 
@@ -65,12 +69,14 @@ typedef struct {
 
 	uv_data_start_t data_start;
 
-	uv_canopen_st canopen;
 
 	alert_st alert;
 
 	userdata_st userdata[USER_COUNT];
+
 	uv_vector_st users;
+
+	uv_canopen_st canopen;
 
 	uv_data_end_t data_endl;
 

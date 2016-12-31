@@ -48,8 +48,6 @@ typedef struct {
 /// @brief: Defines the basic structure for implements. Pure virtual structure!
 typedef struct {
 	char *name;
-	/// @brief: Base machine's implement valve settings
-	valve_st valves[IMPLEMENT_VALVE_COUNT];
 	/// UI callback functions. With these no special implement related
 	/// if-statements need to be put into UI side of the software
 	const implement_callbs_st *callbacks;
@@ -69,14 +67,15 @@ typedef struct {
 	EXTENDS(implement_st);
 
 	char name[GENERIC_IMPLEMENT_NAME_LEN];
+
+	/// @brief: Base machine's implement valve settings
+	valve_st valves[IMPLEMENT_VALVE_COUNT];
 } generic_implement_st;
 /// @brief: Generic implement factory settings. Same for all generic valves.
 extern const generic_implement_st generic_implement;
 
+void generic_implement_init(void *me);
 
-
-
-#define UW_IMPLEMENT_COUNT		2
 
 
 
@@ -95,9 +94,25 @@ typedef struct {
 /// @brief: Uw180s factory settings
 extern const uw180s_st uw180s;
 
+static inline void uw180s_init(void *me) {
+	implement_init(me, &uw180s);
+}
 
 
-/// @brief: defines the structure for UW40 implement
+typedef struct {
+	EXTENDS(implement_st);
+
+	impl_valve_ext_st rotator;
+	impl_valve_ext_st open;
+} uw100_st;
+extern const uw100_st uw100;
+
+static inline void uw100_init(void *me) {
+	implement_init(me, &uw100);
+}
+
+
+/// @brief: defines the structure for UW50 implement
 typedef struct {
 	EXTENDS(implement_st);
 
@@ -105,10 +120,15 @@ typedef struct {
 	impl_valve_ext_st tilt;
 
 } uw50_st;
-/// @brief: UW40 factory settings
+/// @brief: UW50 factory settings
 extern const uw50_st uw50;
 
+static inline void uw50_init(void *me) {
+	implement_init(me, &uw50);
+}
 
+
+void implement_set(impl_type_e implement);
 
 
 #endif /* IMPLEMENT_H_ */

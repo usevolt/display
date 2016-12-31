@@ -14,49 +14,14 @@
 
 const log_entry_def_st log_entry_defs[] = {
 		{
-				.type = LOG_BOOT_UP,
-				.def = "Boot up",
-				.param_def = "Reset source"
+				.type = LOG_MEMORY_SAVE_FAILED,
+				.def = "Saving data to flash memory failed",
+				.param_def = "uv_memory_save return: "
 		},
 		{
-				.type = LOG_TIME_SET,
-				.def = "Local time set",
-				.param_def = "From command line:"
-		},
-		{
-				.type = LOG_DRIVER_SET,
-				.def = "Driver selected",
-				.param_def = "Driver ID:"
-		},
-		{
-				.type = LOG_DRIVER_DELETED,
-				.def = "Driver deleted",
-				.param_def = "Driver ID:"
-		},
-		{
-				.type = LOG_DRIVER_ADDED,
-				.def = "New driver added",
-				.param_def = "Driver ID:"
-		},
-		{
-				.type = LOG_DRIVER_CLEAR,
-				.def = "All divers cleared",
-				.param_def = ""
-		},
-		{
-				.type = LOG_IMPLEMENT_ADDED,
-				.def = "Implement added",
-				.param_def = "implement ID:"
-		},
-		{
-				.type = LOG_IMPLEMENT_DELETED,
-				.def = "Implement deleted",
-				.param_def = "implement ID:"
-		},
-		{
-				.type = LOG_IMPLEMENT_SET,
-				.def = "Implement set",
-				.param_def = "implmenet ID:"
+				.type = LOG_NETDEV_DISCONNECTED,
+				.def = "Netdev disconnected",
+				.param_def = "node ID: "
 		}
 };
 

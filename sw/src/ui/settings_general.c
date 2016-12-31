@@ -16,52 +16,34 @@
 
 void settings_general_show() {
 	uv_uiwindow_st *window = (uv_uiwindow_st *) &gui.windows.settings.tabs;
+	uv_uiwindow_clear(window);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
 	uv_uiwindow_add(window, &this->window, 0, CONFIG_UI_TABWINDOW_HEADER_HEIGHT,
 			uv_uibb(window)->width, uv_uibb(window)->height - CONFIG_UI_TABWINDOW_HEADER_HEIGHT,
 			uv_uiwindow_step);
 
-	// brightness
-	uv_uilabel_init(&this->brightness_label, &UI_FONT_SMALL, ALIGN_CENTER,
-			C(0xFFFFFF), C(0xFFFFFFFF), "Screen\n\rbrightness");
-	uv_uiwindow_add(&this->window, &this->brightness_label,
-			uv_uibb(&this->window)->width / 6, uv_uibb(&this->window)->height/2 + 100,
-			0, UI_FONT_SMALL.char_height, uv_uilabel_step);
+	uv_uigridlayout_st grid;
+	uv_uigridlayout_init(&grid, 0, 0,
+			uv_uibb(&this->window)->width,
+			uv_uibb(&this->window)->height, 5, 1);
+	uv_uigridlayout_set_padding(&grid, 10, 40);
+	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
+	// brightness
 	uv_uislider_init(&this->brightness, 1, 100, gui_get_backlight(), &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->brightness);
+	uv_uislider_set_title(&this->brightness, "Screen\nbrightness");
 	uv_uiwindow_add(&this->window, &this->brightness,
-			UI_ALIGN_CENTER(
-					uv_uibb(&this->brightness_label)->x,
-					uv_uibb(&this->brightness_label)->y - 110,
-					50,
-					200),
-			uv_uislider_step);
+			bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
 
 	// volume
-	uv_uilabel_init(&this->volume_label, &UI_FONT_SMALL, ALIGN_CENTER,
-			C(0xFFFFFF), C(0xFFFFFFFF), "Volume");
-	uv_uiwindow_add(&this->window, &this->volume_label,
-			uv_uibb(&this->window)->width / 8 * 3, uv_uibb(&this->window)->height/2 + 100,
-			0, UI_FONT_SMALL.char_height, uv_uilabel_step);
-
+	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->volume, 0, 100, alert_get_volume(&dspl.alert), &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->volume);
+	uv_uislider_set_title(&this->volume, "Volume");
 	uv_uiwindow_add(&this->window, &this->volume,
-			UI_ALIGN_CENTER(
-					uv_uibb(&this->volume_label)->x,
-					uv_uibb(&this->volume_label)->y - 110,
-					50,
-					200),
-			uv_uislider_step);
-
-	uv_uigridlayout_st grid;
-	uv_uigridlayout_init(&grid, uv_uibb(&this->volume)->x + uv_uibb(&this->volume)->width + 10, 0,
-			uv_uibb(&this->window)->width - uv_uibb(&this->volume)->x - uv_uibb(&this->volume)->width - 10,
-			uv_uibb(&this->window)->height, 3, 1);
-	uv_uigridlayout_set_padding(&grid, 10, 40);
-	uv_bounding_box_st bb;
+			bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
 
 	// drive lights
 	bb = uv_uigridlayout_next(&grid);
@@ -81,26 +63,16 @@ void settings_general_show() {
 	uv_uislider_init(&this->wiper, 0, CSB_WIPER_SPEED_COUNT - 1,
 			csb_get_wiper(&dspl.network.csb), &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->wiper);
-	uv_uiwindow_add(&this->window, &this->wiper, bb.x, bb.y, bb.width, 200, uv_uislider_step);
-
-	uv_uilabel_init(&this->wiper_label, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF), C(0xFFFFFFFF), "Wiper");
-	uv_uiwindow_add(&this->window, &this->wiper_label,
-			uv_uibb(&this->wiper)->x,
-			uv_uibb(&this->wiper)->y + uv_uibb(&this->wiper)->height + 10,
-			bb.width, UI_FONT_SMALL.char_height, uv_uilabel_step);
+	uv_uislider_set_title(&this->wiper, "Wiper");
+	uv_uiwindow_add(&this->window, &this->wiper, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
 
 	// heater
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->heater, 0, MSB_HEATER_SPEED_COUNT - 1,
 			msb_get_heater(&dspl.network.msb), &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->heater);
-	uv_uiwindow_add(&this->window, &this->heater, bb.x, bb.y, bb.width, 200, uv_uislider_step);
-
-	uv_uilabel_init(&this->heater_label, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF), C(0xFFFFFFFF), "Heater");
-	uv_uiwindow_add(&this->window, &this->heater_label,
-			uv_uibb(&this->heater)->x,
-			uv_uibb(&this->heater)->y + uv_uibb(&this->heater)->height + 10,
-			bb.width, UI_FONT_SMALL.char_height, uv_uilabel_step);
+	uv_uislider_set_title(&this->heater, "Heater");
+	uv_uiwindow_add(&this->window, &this->heater, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
 
 }
 

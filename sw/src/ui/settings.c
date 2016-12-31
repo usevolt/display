@@ -11,6 +11,7 @@
 #include "alert.h"
 #include "home.h"
 #include "network.h"
+#include "log.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -61,8 +62,6 @@ void settings_step(uint16_t step_ms) {
 
 	if (uv_uitabwindow_tab_changed(&this->tabs)) {
 
-		uv_uiwindow_clear(&this->tabs);
-
 		if (uv_uitabwindow_tab(&this->tabs) == 0) {
 			settings_general_show();
 		}
@@ -89,7 +88,10 @@ void settings_step(uint16_t step_ms) {
 	}
 
 	if (uv_uibutton_clicked(&this->ok)) {
-		uv_memory_save(&dspl.data_start, &dspl.data_endl);
+		uv_errors_e e = uv_memory_save(&dspl.data_start, &dspl.data_endl);
+		if (e) {
+			log_add(LOG_MEMORY_SAVE_FAILED, (int32_t) e);
+		}
 		home_show();
 	}
 	else if (uv_uibutton_clicked(&this->cancel)) {

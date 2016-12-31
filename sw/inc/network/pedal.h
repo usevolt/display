@@ -12,21 +12,26 @@
 
 #include <uv_utilities.h>
 #include "netdev.h"
+#include "vehicle.h"
 
 
 
-#define PEDAL_NODE_ID		13
 
 typedef struct {
 	EXTENDS(netdev_st);
 
+	int16_t value;
 } pedal_st;
 
 
 static inline void pedal_init(pedal_st *this) {
 	netdev_init(this);
 	netdev_set_node_id(this, PEDAL_NODE_ID);
+	this->value = 0;
+}
 
+static inline int16_t pedal_get_value(pedal_st *this) {
+	return this->value;
 }
 
 void pedal_step(pedal_st *this, unsigned int step_ms);

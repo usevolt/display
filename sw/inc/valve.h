@@ -10,7 +10,6 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <uv_canopen.h>
 
 
 /// @brief: Defines the datatype for individual hydraulic valves

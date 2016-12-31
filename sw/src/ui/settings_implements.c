@@ -22,10 +22,13 @@
 
 
 void settings_implements_show(void) {
+	uv_uiwindow_st *window = (uv_uiwindow_st*) &gui.windows.settings.tabs;
+	uv_uiwindow_clear(window);
+
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
-	uv_uiwindow_add(&gui.windows.settings.tabs, &this->window, 0, CONFIG_UI_TABWINDOW_HEADER_HEIGHT,
-			uv_uibb(&gui.windows.settings.tabs)->width,
-			uv_uibb(&gui.windows.settings.tabs)->height - CONFIG_UI_TABWINDOW_HEADER_HEIGHT,
+	uv_uiwindow_add(window, &this->window, 0, CONFIG_UI_TABWINDOW_HEADER_HEIGHT,
+			uv_uibb(window)->width,
+			uv_uibb(window)->height - CONFIG_UI_TABWINDOW_HEADER_HEIGHT,
 			uv_uiwindow_step);
 
 	uv_uigridlayout_st grid;
@@ -41,33 +44,21 @@ void settings_implements_show(void) {
 			bb.width * 2 - BW - 10, UI_FONT_SMALL.char_height * 2, uv_uilabel_step);
 
 	uv_uilist_init(&this->impls_list, this->impl_names,
-			DEF_IMPL_COUNT + GENERIC_IMPLEMENT_COUNT, &uv_uistyles[0]);
+			UW_IMPLEMENT_COUNT + GENERIC_IMPLEMENT_COUNT, &uv_uistyles[0]);
 
 	// todo: Add all default implements here
 	uv_uilist_push_back(&this->impls_list, dspl.user->uw180s.super.name);
+	uv_uilist_push_back(&this->impls_list, dspl.user->uw100.super.name);
 	uv_uilist_push_back(&this->impls_list, dspl.user->uw50.super.name);
 
 
 	int16_t i;
 	for (i = 0; i < uv_vector_size(&dspl.user->generic_implements); i++) {
 		uv_uilist_push_back(&this->impls_list,
-			((generic_implement_st*) uv_vector_at(&dspl.user->generic_implements, i))->name);
+			((implement_st*) uv_vector_at(&dspl.user->generic_implements, i))->name);
 	}
+	uv_uilist_select(&this->impls_list, dspl.user->active_implement);
 
-	if (dspl.user->implement == (void *) &dspl.user->uw180s) {
-		uv_uilist_select(&this->impls_list, 0);
-	}
-	else if (dspl.user->implement == (void *) &dspl.user->uw50) {
-		uv_uilist_select(&this->impls_list, 1);
-	}
-	else {
-		for (int16_t i = 0; i < uv_vector_size(&dspl.user->generic_implements); i++) {
-			if (dspl.user->implement == uv_vector_at(&dspl.user->generic_implements, i)) {
-				uv_uilist_select(&this->impls_list, i);
-				break;
-			}
-		}
-	}
 	uv_uiwindow_add(&this->window, &this->impls_list, bb.x, bb.y +
 			uv_uibb(&this->impls_label)->height + uv_uibb(&this->impls_label)->y,
 			bb.width * 2 - BW - 10, bb.height - uv_uibb(&this->impls_label)->x - uv_uibb(&this->impls_label)->height,
@@ -106,15 +97,9 @@ void settings_implements_step(uint16_t step_ms) {
 	}
 
 	int16_t select = uv_uilist_get_selected(&this->impls_list);
-	if (select == 0) {
-		dspl.user->implement = (void*) &dspl.user->uw180s;
-	}
-	else if (select == 1) {
-		dspl.user->implement = (void*) &dspl.user->uw50;
-	}
-	else if (select >= UW_IMPLEMENT_COUNT) {
-		dspl.user->implement = uv_vector_at(&dspl.user->generic_implements,
-				select - UW_IMPLEMENT_COUNT);
+	if (select >= 0) {
+		implement_set(select);
+		ecu_set_implement(select);
 	}
 
 	if (uv_uibutton_clicked(&this->new_impl)) {
@@ -125,31 +110,33 @@ void settings_implements_step(uint16_t step_ms) {
 			return;
 		}
 		if (uv_uikeyboard_show("Implement name", str,
-				GENERIC_IMPLEMENT_NAME_LEN, &uv_uikeyboard_styles[0])) {
-			generic_implement_st temp_impl = generic_implement;
-			uv_vector_push_back(&dspl.user->generic_implements, &temp_impl);
-			generic_implement_st *impl = uv_vector_at(&dspl.user->generic_implements,
-					uv_vector_size(&dspl.user->generic_implements) - 1);
-			strcpy(impl->name, str);
-			impl->super.name = impl->name;
-			log_add(LOG_IMPLEMENT_ADDED, uv_uilist_get_count(&this->impls_list) - 1);
-			uv_ui_refresh(&this->impls_list);
+				GENERIC_IMPLEMENT_NAME_LEN, &uv_uistyles[0])) {
+
+			generic_implement_st impl = generic_implement;
+			strcpy(impl.name, str);
+			uv_vector_push_back(&dspl.user->generic_implements, &impl);
+			generic_implement_init(uv_vector_at(&dspl.user->generic_implements,
+					uv_vector_size(&dspl.user->generic_implements) - 1));
+			uv_ui_refresh(&gui.display);
+			settings_implements_show();
+			return;
 		}
 	}
 	else if (uv_uibutton_clicked(&this->del_impl)) {
 		int16_t i = uv_uilist_get_selected(&this->impls_list);
-		if (i < DEF_IMPL_COUNT) {
+		if (i < UW_IMPLEMENT_COUNT) {
 			printf("Default implements cannot be deleted\n\r");
 		}
-		else if (i >= uv_vector_size(&dspl.user->generic_implements)) {
-			printf("Cannot delete generic implement n.o. %i\n\r", i);
+		else if (i - UW_IMPLEMENT_COUNT >= uv_vector_size(&dspl.user->generic_implements)) {
+			printf("Cannot delete generic implement n.o. %i\n\r", i - UW_IMPLEMENT_COUNT);
 		}
 		else {
-			uv_vector_remove(&dspl.user->generic_implements, i - DEF_IMPL_COUNT);
-			if (i - DEF_IMPL_COUNT >= uv_vector_size(&dspl.user->generic_implements)) {
+			uv_vector_remove(&dspl.user->generic_implements, i - UW_IMPLEMENT_COUNT);
+			if (i - UW_IMPLEMENT_COUNT >= uv_vector_size(&dspl.user->generic_implements)) {
 				dspl.user->implement = (void *) &dspl.user->uw180s;
 			}
-			log_add(LOG_IMPLEMENT_DELETED, i);
+			settings_implements_show();
+			return;
 		}
 	}
 

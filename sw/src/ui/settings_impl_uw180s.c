@@ -144,7 +144,7 @@ void settings_impl_uw180s_step(uint16_t step_ms) {
 			show_sliders(UW180S_STATE_WHEELS_FEED, uv_uibutton_get_text(&this->wheels_feed));
 		}
 		else if (uv_uibutton_clicked(&this->delimbers)) {
-			show_sliders(UW180S_STATE_DELIMBERS, uv_uibutton_get_text(&this->wheels_feed));
+			show_sliders(UW180S_STATE_DELIMBERS, uv_uibutton_get_text(&this->delimbers));
 		}
 		else if (uv_uibutton_clicked(&this->saw)) {
 			show_sliders(UW180S_STATE_SAW, uv_uibutton_get_text(&this->saw));

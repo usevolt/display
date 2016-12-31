@@ -18,12 +18,16 @@
 #define WARNING_COLOR C(0xFF0000)
 
 void taskbar_init(uv_uidisplay_st *display) {
-	uv_uiwindow_init(&this->taskbar, this->taskbar_buffer, &uv_uistyles[TASKBAR_STYLE_INDEX]);
+	uv_uiwindow_init(&this->taskbar, this->taskbar_buffer, &uv_uistyles[1]);
 	uv_uidisplay_add(display, &this->taskbar,
-			0, LCD_H(0.88f), LCD_W(1.0f), LCD_H(0.12f), uv_uiwindow_step);
+			0, LCD_H(0.86f), LCD_W(1.0f), LCD_H(0.14f), uv_uiwindow_step);
 
+	uv_time_st t;
+	uv_rtc_get_time(&t);
+	snprintf(this->time, TASKBAR_TIME_LEN, "%02u:%02u", t.hour, t.min);
+	uv_delay_init(100, &this->delay);
 	uv_uilabel_init(&this->clock, &UI_FONT_BIG, ALIGN_CENTER_RIGHT,
-			C(0xFFFFFF), C(0xFFFFFFFF), "12:00");
+			C(0xFFFFFF), uv_uistyles[1].window_c, this->time);
 	uv_uiwindow_add(&this->taskbar, &this->clock,
 			uv_ui_get_bb(&this->taskbar)->width - UI_FONT_SMALL.char_width * 5, 0,
 			UI_FONT_SMALL.char_width * 5,
@@ -39,7 +43,7 @@ void taskbar_init(uv_uidisplay_st *display) {
 			UI_FONT_SMALL.char_height,
 			uv_uilabel_step);
 
-	uv_uiprogressbar_init(&this->mtemp_bar, &uv_uistyles[0], 0, 100);
+	uv_uiprogressbar_init(&this->mtemp_bar, 0, 100, &uv_uistyles[0]);
 	uv_uiprogressbar_set_vertical(&this->mtemp_bar);
 	uv_uiprogressbar_set_value(&this->mtemp_bar, msb_get_motor_temp(&dspl.network.msb));
 	uv_uiprogressbar_set_limit(&this->mtemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
@@ -58,7 +62,7 @@ void taskbar_init(uv_uidisplay_st *display) {
 			UI_FONT_SMALL.char_height,
 			uv_uilabel_step);
 
-	uv_uiprogressbar_init(&this->otemp_bar, &uv_uistyles[0], 0, 100);
+	uv_uiprogressbar_init(&this->otemp_bar, 0, 100, &uv_uistyles[0]);
 	uv_uiprogressbar_set_value(&this->otemp_bar, msb_get_oil_temp(&dspl.network.msb));
 	uv_uiprogressbar_set_vertical(&this->otemp_bar);
 	uv_uiprogressbar_set_limit(&this->otemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
@@ -77,7 +81,7 @@ void taskbar_init(uv_uidisplay_st *display) {
 			UI_FONT_SMALL.char_height,
 			uv_uilabel_step);
 
-	uv_uiprogressbar_init(&this->oil_level, &uv_uistyles[0], 0, 100);
+	uv_uiprogressbar_init(&this->oil_level, 0, 100, &uv_uistyles[0]);
 	uv_uiprogressbar_set_value(&this->oil_level, msb_get_oil_level(&dspl.network.msb));
 	uv_uiprogressbar_set_vertical(&this->oil_level);
 	uv_uiprogressbar_set_limit(&this->oil_level, UI_PROGRESSBAR_LIMIT_UNDER,
@@ -96,7 +100,7 @@ void taskbar_init(uv_uidisplay_st *display) {
 			UI_FONT_SMALL.char_height,
 			uv_uilabel_step);
 
-	uv_uiprogressbar_init(&this->fuel_level, &uv_uistyles[0], 0, 100);
+	uv_uiprogressbar_init(&this->fuel_level, 0, 100, &uv_uistyles[0]);
 	uv_uiprogressbar_set_value(&this->fuel_level, msb_get_fuel_level(&dspl.network.msb));
 	uv_uiprogressbar_set_vertical(&this->fuel_level);
 	uv_uiprogressbar_set_limit(&this->fuel_level, UI_PROGRESSBAR_LIMIT_UNDER,
@@ -113,6 +117,15 @@ void taskbar_step(uint16_t step_ms) {
 	uv_uiprogressbar_set_value(&this->otemp_bar, msb_get_oil_temp(&dspl.network.msb));
 	uv_uiprogressbar_set_value(&this->fuel_level, msb_get_fuel_level(&dspl.network.msb));
 	uv_uiprogressbar_set_value(&this->mtemp_bar, msb_get_motor_temp(&dspl.network.msb));
+
+	if (uv_delay(step_ms, &this->delay)) {
+		uv_time_st t;
+		uv_rtc_get_time(&t);
+		snprintf(this->time, TASKBAR_TIME_LEN,
+				"%02u:%02u", t.hour, t.min);
+		uv_ui_refresh(&this->clock);
+		uv_delay_init(100, &this->delay);
+	}
 
 }
 

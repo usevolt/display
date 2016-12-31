@@ -387,7 +387,6 @@ void time_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv
 		time.min = argv[4].number;
 		time.sec = argv[5].number;
 		uv_rtc_set_time(&time);
-		log_add(LOG_TIME_SET, true);
 	}
 	printf("%i-%i-%i %i:%i:%i\n\r", time.year, time.month, time.day,
 			time.hour, time.min, time.sec);

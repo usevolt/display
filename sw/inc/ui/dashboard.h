@@ -15,7 +15,8 @@
 #include "dashboard_uw50.h"
 #include "dashboard_generic.h"
 
-#define DASHBOARD_BUFFER_LEN	4
+#define DASHBOARD_BUFFER_LEN	12
+#define IMPL_BUFFER_LEN			12
 
 typedef struct {
 	uv_uiwindow_st window;
@@ -25,10 +26,21 @@ typedef struct {
 	uv_uibutton_st cancel;
 	uv_uibutton_st ok;
 
+	uv_uiprogressbar_st rpm;
+	uv_uilabel_st rpm_3000;
+	uv_uilabel_st rpm_2000;
+	uv_uilabel_st rpm_1000;
+
+	uv_uiprogressbar_st pressure;
+	uv_uilabel_st pressure_200;
+	uv_uilabel_st pressure_100;
+	uv_uilabel_st pressure_0;
+
 	uv_uiwindow_st impl_window;
+	uv_uiobject_st *impl_buffer[IMPL_BUFFER_LEN];
 
 	union {
-		dashboard_uw180s_st dasboard_uw180s;
+		dashboard_uw180s_st dashboard_uw180s;
 		dashboard_uw50_st dashboard_uw50;
 	} implements;
 

@@ -14,6 +14,7 @@
 
 /// @brief: taskbar buffer length
 #define TASKBAR_BUF_LEN			10
+#define TASKBAR_TIME_LEN		6
 
 
 typedef struct {
@@ -21,6 +22,7 @@ typedef struct {
 	uv_uiobject_st *taskbar_buffer[TASKBAR_BUF_LEN];
 
 	uv_uilabel_st clock;
+	char time[TASKBAR_TIME_LEN];
 
 	uv_uilabel_st mtemp;
 	uv_uiprogressbar_st mtemp_bar;
@@ -33,6 +35,8 @@ typedef struct {
 
 	uv_uilabel_st fuel;
 	uv_uiprogressbar_st fuel_level;
+
+	int delay;
 
 } taskbar_st;
 

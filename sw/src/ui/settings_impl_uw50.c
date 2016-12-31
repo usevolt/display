@@ -21,8 +21,8 @@ static void show_sliders(uw50_states_e state, char *label) {
 
 	this->state = state;
 	impl_valve_ext_st *v;
-	if (state == UW40_STATE_SAW) { v = &dspl.user->uw50.saw; }
-	else if (state == UW40_STATE_TILT) { v = &dspl.user->uw50.tilt; }
+	if (state == UW50_STATE_SAW) { v = &dspl.user->uw50.saw; }
+	else if (state == UW50_STATE_TILT) { v = &dspl.user->uw50.tilt; }
 	else { v = NULL; }
 
 	uv_uigridlayout_st grid;
@@ -80,7 +80,7 @@ void settings_impl_uw50_show(void) {
 	this->window = &gui.windows.settings.implements.window;
 	uv_uiwindow_clear(this->window);
 
-	this->state = UW40_STATE_NONE;
+	this->state = UW50_STATE_NONE;
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, BACK_Y, uv_uibb(this->window)->width,
@@ -110,17 +110,17 @@ void settings_impl_uw50_show(void) {
 
 
 void settings_impl_uw50_step(uint16_t step_ms) {
-	if (this->state == UW40_STATE_NONE) {
+	if (this->state == UW50_STATE_NONE) {
 		if (uv_uibutton_clicked(&this->back)) {
 			settings_implements_show();
 			return;
 		}
 		else if (uv_uibutton_clicked(&this->saw)) {
-			show_sliders(UW40_STATE_SAW, uv_uibutton_get_text(&this->saw));
+			show_sliders(UW50_STATE_SAW, uv_uibutton_get_text(&this->saw));
 			return;
 		}
 		else if (uv_uibutton_clicked(&this->tilt)) {
-			show_sliders(UW40_STATE_TILT, uv_uibutton_get_text(&this->tilt));
+			show_sliders(UW50_STATE_TILT, uv_uibutton_get_text(&this->tilt));
 			return;
 		}
 	}
@@ -129,11 +129,11 @@ void settings_impl_uw50_step(uint16_t step_ms) {
 				uint16_t, uint16_t, uint16_t, bool) = NULL;
 		impl_valve_ext_st *v = NULL;
 
-		if (this->state == UW40_STATE_SAW) {
-			set_params = ecu_set_uw50_tilt_params;
+		if (this->state == UW50_STATE_SAW) {
+			set_params = ecu_set_uw50_saw_params;
 			v = &dspl.user->uw50.saw;
 		}
-		else if (this->state == UW40_STATE_TILT) {
+		else if (this->state == UW50_STATE_TILT) {
 			set_params = ecu_set_uw50_tilt_params;
 			v = &dspl.user->uw50.tilt;
 		}

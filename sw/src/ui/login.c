@@ -75,16 +75,23 @@ void login_step(uint16_t step_ms) {
 	}
 	else if (uv_uibutton_clicked(&this->add_user)) {
 		char str[USERNAME_MAX_LEN];
+		strcpy(str, "");
 		if (uv_vector_size(&dspl.users) == uv_vector_max_size(&dspl.users)) {
 
 		}
-		if (uv_uikeyboard_show("Add user", str, USERNAME_MAX_LEN, &uv_uikeyboard_styles[0])) {
+		if (uv_uikeyboard_show("Add user", str, USERNAME_MAX_LEN, &uv_uistyles[0])) {
 			users_add(str);
+			uv_ui_refresh(&gui.display);
+			login_show();
+			return;
+		}
+		else {
+			uv_ui_refresh(&gui.display);
 		}
 	}
 	else if (uv_uibutton_clicked(&this->delete_user)) {
 		if (users_delete(uv_uilist_at(&this->users, uv_uilist_get_selected(&this->users)))) {
-			uv_uilist_remove(&this->users, uv_uilist_get_selected(&this->users));
+			uv_uilist_pop_back(&this->users, NULL);
 		}
 	}
 

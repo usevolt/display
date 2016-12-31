@@ -34,11 +34,12 @@ typedef struct {
 /// backlight brightness. The measured supply coltage is used
 /// to linearily interpolate value from these points.
 static const backlight_point_st backlight_points[] = {
-		{12000, 1000},
-		{13000, 850},
-		{14000, 600},
+		{10000, 1000},
+		{12000, 700},
+		{13000, 650},
+		{14000, 500},
 		{15000, 400},
-		{16000, 300},
+		{16000, 200},
 		{17000, 0}
 
 };
@@ -57,7 +58,7 @@ int16_t get_vdd_mv() {
 
 
 void gui_init() {
-	this->backlight_curr = 100;
+	this->backlight_curr = 51;
 	uv_moving_aver_init(&this->vdd_mv, VDD_MOVING_AVER_COUNT);
 
 	gui_set_backlight(this->backlight_curr);
@@ -65,7 +66,7 @@ void gui_init() {
 
 
 	uv_uiwindow_init(&this->main_window, this->main_buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
-	uv_uidisplay_add(&this->display, &this->main_window, 0, 0, LCD_W(1), LCD_H(0.88), uv_uiwindow_step);
+	uv_uidisplay_add(&this->display, &this->main_window, 0, 0, LCD_W(1), LCD_H(0.86), uv_uiwindow_step);
 
 	taskbar_init(&this->display);
 

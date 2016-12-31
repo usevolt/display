@@ -13,7 +13,19 @@
 
 
 typedef struct {
-	uv_uiwindow_st *window;
+	uv_uidigit_st len;
+	uv_uilabel_st len_label;
+
+	uv_uidigit_st wid;
+	uv_uilabel_st wid_label;
+
+	uv_uidigit_st vol;
+	uv_uilabel_st vol_label;
+
+	uv_uilabel_st tree_type;
+	uv_uilabel_st log_type;
+
+
 } dashboard_uw180s_st;
 
 

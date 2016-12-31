@@ -11,12 +11,13 @@
 
 #include <uv_ui.h>
 #include "vehicle.h"
+#include "implement.h"
 #include "settings_impl_generic.h"
 #include "settings_impl_uw180s.h"
 #include "settings_impl_uw50.h"
+#include "settings_impl_uw100.h"
 
 #define SETTINGS_IMPLEMENT_BUFFER_LEN	12
-#define DEF_IMPL_COUNT	2
 
 
 typedef struct {
@@ -24,7 +25,7 @@ typedef struct {
 	uv_uiobject_st *buffer[SETTINGS_IMPLEMENT_BUFFER_LEN];
 
 	uv_uilabel_st impls_label;
-	char *impl_names[DEF_IMPL_COUNT + GENERIC_IMPLEMENT_COUNT];
+	char *impl_names[UW_IMPLEMENT_COUNT + GENERIC_IMPLEMENT_COUNT];
 	uv_uilist_st impls_list;
 	uv_uibutton_st new_impl;
 	uv_uibutton_st del_impl;
@@ -34,6 +35,7 @@ typedef struct {
 
 	union {
 		settings_uw180s_st uw180s;
+		settings_uw100_st uw100;
 		settings_uw50_st uw50;
 	};
 

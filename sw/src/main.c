@@ -39,7 +39,9 @@
 
 dspl_st dspl;
 
-
+void can_callback(void *me, uv_can_message_st *msg) {
+	network_receive_message(&this->network, msg);
+}
 
 void dspl_init(dspl_st *me) {
 
@@ -56,13 +58,40 @@ void dspl_init(dspl_st *me) {
 	uv_eeprom_read((unsigned char*) &this->hour_counter,
 			sizeof(this->hour_counter), CONFIG_EEPROM_RING_BUFFER_END_ADDR);
 
-	uv_err_check(uv_memory_load(&this->data_start, &this->data_endl)) {
+	// the first thing to do: if display is pressed for 10 s, restore system defaults
+	bool restore = false;
+	int counter = 10;
+	char str[3];
+	while (uv_lcd_touch_get(NULL, NULL)) {
+		uv_pwm_set(LCD_BACKLIGHT, DUTY_CYCLE(0.9f));
+
+		uv_lcd_draw_rect(0, 0, LCD_W(1.0f), LCD_H(1.0f), C(0x000000));
+		_uv_ui_draw_text(LCD_W(0.5f), LCD_H(0.5f) - 120, &UI_FONT_BIG, ALIGN_CENTER,
+				C(0xFFFFFF), C(0xFFFFFFFF), "Press the screen for 10 seconds to\n"
+						"restore factory settings\n \n"
+						"WARNING: This will clear all\nparameters from all users", 1.0f);
+		sprintf(str, "%u", counter);
+		_uv_ui_draw_text(LCD_W(0.5f), LCD_H(0.5f), &UI_FONT_BIG, ALIGN_CENTER,
+				(counter <= 5) ? C(0xFF0000) : C(0xFFFFFF), C(0xFFFFFFFF), str, 1.0f);
+
+
+		if (!counter) {
+			restore = true;
+			break;
+		}
+
+		counter--;
+		uv_rtos_task_delay(1000);
+	}
+
+	if (restore || uv_memory_load(&this->data_start, &this->data_endl)) {
 		// non-volatile data load failed, initialize factory settings
 
 
 		alert_reset(&this->alert);
 
-		uv_canopen_restore_defaults(&this->canopen);
+		uv_canopen_restore_defaults(&this->canopen, obj_dict, object_dictionary_size(), CAN1,
+				&this->canopen_heartbeat, NULL, NULL);
 
 		users_reset();
 
@@ -72,7 +101,8 @@ void dspl_init(dspl_st *me) {
 		uv_memory_save(&this->data_start, &this->data_endl);
 	}
 
-	// init terminal
+
+ 	// init terminal
 	uv_terminal_init(terminal_commands, commands_count());
 
 	// init PWM and start with full duty cycle (LCD off)
@@ -83,6 +113,15 @@ void dspl_init(dspl_st *me) {
 
 	uv_canopen_init(&this->canopen, obj_dict, object_dictionary_size(), CAN1,
 			&this->canopen_heartbeat, NULL, NULL);
+	uv_canopen_set_callback(&this->canopen, can_callback);
+	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + MSB_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + CSB_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + LKEYPAD_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + RKEYPAD_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + ECU_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + PEDAL_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + UW180S_ECU_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + UW180S_MB_NODE_ID, CAN_STD);
 
 	network_init(&this->network);
 
@@ -100,6 +139,7 @@ void dspl_init(dspl_st *me) {
 
 	// the display lives it's own life. It is allowed to boot itself up into operational mode
 	uv_canopen_set_state(&this->canopen, CANOPEN_OPERATIONAL);
+
 
 }
 

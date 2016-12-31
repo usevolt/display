@@ -41,7 +41,6 @@ bool users_set(char *username);
 static inline void users_clear() {
 	uv_vector_clear(&dspl.users);
 	dspl.user = 0;
-	log_add(LOG_DRIVER_CLEAR, 0);
 }
 
 /// @brief: Converts userdata pointer to the index number in users-vector

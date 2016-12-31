@@ -13,7 +13,7 @@
 
 
 void dashboard_uw50_show() {
-	uv_uiwindow_st *window = (uv_uiwindow_st *) &gui.windows.settings.tabs;
+	uv_uiwindow_st *window = (uv_uiwindow_st *) &gui.windows.dashboard.impl_window;
 	uv_uiwindow_clear(window);
 
 

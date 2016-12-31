@@ -10,7 +10,7 @@
 
 
 void pedal_step(pedal_st *this, unsigned int step_ms) {
-
+	netdev_step(this, step_ms);
 }
 
 

@@ -11,13 +11,14 @@
 
 
 void csb_step(csb_st *this, unsigned int step_ms) {
+	netdev_step(this, step_ms);
 
 }
 
 
 /// @brief: Sends the request to CSB to set the drive lights to *value*
 void csb_set_drive_light(csb_st *csb, bool value) {
-	csb->drive_light = value;
+	csb->lights.drive_light = value;
 	uv_canopen_sdo_message_st msg = {
 			.main_index = 0x1100,
 			.sub_index = 0,
@@ -30,7 +31,7 @@ void csb_set_drive_light(csb_st *csb, bool value) {
 
 /// @brief: Sends the request to CSB to set work lights to *value*
 void csb_set_work_light(csb_st *csb, bool value) {
-	csb->work_light = value;
+	csb->lights.work_light = value;
 	uv_canopen_sdo_message_st msg = {
 			.main_index = 0x1101,
 			.sub_index = 0,

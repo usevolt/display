@@ -14,20 +14,48 @@
 #include "settings_impl_generic.h"
 #include "settings_impl_uw180s.h"
 #include "settings_impl_uw50.h"
+#include "settings_impl_uw100.h"
 
 #if !GENERIC_IMPLEMENT_COUNT
-#error "Generic implement count should be non-zero!"
+#error "Generic implement count shouldn't be zero!"
 #endif
 
 #define this 	((implement_st*)me)
 
 
 
+void implement_set(impl_type_e implement) {
+	if (implement < IMPL_COUNT) {
+		dspl.user->active_implement = implement;
+
+		if (implement == IMPL_UW180S) {
+			dspl.user->implement = (void*) &dspl.user->uw180s;
+		}
+		else if (implement == IMPL_UW100) {
+			dspl.user->implement = (void*) &dspl.user->uw100;
+		}
+		else if (implement == IMPL_UW50) {
+			dspl.user->implement = (void*) &dspl.user->uw50;
+		}
+		else if (implement - UW_IMPLEMENT_COUNT < uv_vector_size(&dspl.user->generic_implements)) {
+			dspl.user->implement = uv_vector_at(&dspl.user->generic_implements,
+					implement - UW_IMPLEMENT_COUNT);
+		}
+		else {
+			printf("Tried to set generic impl %u, but there was not so many generic implements\n\r",
+					implement - UW_IMPLEMENT_COUNT);
+		}
+	}
+	else {
+		printf("Invalid implement type %u\n\r", implement);
+	}
+}
+
+
+
+
 void implement_init(void *me, const void *initializer) {
 	this->name = ((implement_st*)initializer)->name;
-	for (int16_t i = 0; i < IMPLEMENT_VALVE_COUNT; i++) {
-		valve_init(&this->valves[i], &((implement_st*)initializer)->valves[i]);
-	}
 	this->callbacks = ((implement_st*)initializer)->callbacks;
 }
 
@@ -42,43 +70,55 @@ const generic_implement_st generic_implement = {
 			.super = {
 					.name = "implement",
 					.callbacks = &generic_callbacks,
-					.valves = {
-							{
-									.name = "Main",
-									.min_speed_p = 250,
-									.max_speed_p = 800,
-									.min_speed_n = 230,
-									.min_speed_p = 760,
-									.acc = 100,
-									.dec = 100,
-									.invert = false
+			},
+			.name = "implement",
+			.valves = {
+					{
+							.name = "Main",
+							.min_speed_p = 250,
+							.max_speed_p = 800,
+							.min_speed_n = 230,
+							.min_speed_p = 760,
+							.acc = 100,
+							.dec = 100,
+							.invert = false
 
-							},
-							{
-									.name = "Rotator",
-									.min_speed_p = 250,
-									.max_speed_p = 800,
-									.min_speed_n = 230,
-									.min_speed_p = 760,
-									.acc = 100,
-									.dec = 100,
-									.invert = false
+					},
+					{
+							.name = "Rotator",
+							.min_speed_p = 250,
+							.max_speed_p = 800,
+							.min_speed_n = 230,
+							.min_speed_p = 760,
+							.acc = 100,
+							.dec = 100,
+							.invert = false
 
-							},
-							{
-									.name = "Tilt",
-									.min_speed_p = 250,
-									.max_speed_p = 800,
-									.min_speed_n = 230,
-									.min_speed_p = 760,
-									.acc = 100,
-									.dec = 100,
-									.invert = false
-
-							}
+					},
+					{
+							.name = "Tilt",
+							.min_speed_p = 250,
+							.max_speed_p = 800,
+							.min_speed_n = 230,
+							.min_speed_p = 760,
+							.acc = 100,
+							.dec = 100,
+							.invert = false
 					}
 			}
 };
+
+#undef this
+#define this ((generic_implement_st*)me)
+
+void generic_implement_init(void *me) {
+	implement_init(this, &generic_implement);
+	this->super.name = this->name;
+	for (int16_t i = 0; i < IMPLEMENT_VALVE_COUNT; i++) {
+		this->valves[i].name = generic_implement.valves[i].name;
+	}
+}
+
 
 
 const implement_callbs_st uw180s_callbacks = {
@@ -92,41 +132,6 @@ const uw180s_st uw180s = {
 		.super = {
 				.name = "UW180s",
 				.callbacks = &uw180s_callbacks,
-				.valves = {
-						{
-								.name = "Main",
-								.min_speed_p = 250,
-								.max_speed_p = 800,
-								.min_speed_n = 230,
-								.min_speed_p = 760,
-								.acc = 100,
-								.dec = 100,
-								.invert = false
-
-						},
-						{
-								.name = "Rotator",
-								.min_speed_p = 250,
-								.max_speed_p = 800,
-								.min_speed_n = 230,
-								.min_speed_p = 760,
-								.acc = 100,
-								.dec = 100,
-								.invert = false
-
-						},
-						{
-								.name = "Tilt",
-								.min_speed_p = 250,
-								.max_speed_p = 800,
-								.min_speed_n = 230,
-								.min_speed_p = 760,
-								.acc = 100,
-								.dec = 100,
-								.invert = false
-
-						}
-				}
 		},
 		.delimbers = {
 				.max_speed_p = 600,
@@ -161,6 +166,8 @@ const uw180s_st uw180s = {
 };
 
 
+
+
 const implement_callbs_st uw50_callbacks = {
 		.dasboard_step = dashboard_uw50_step,
 		.dashboard_show = dashboard_uw50_show,
@@ -170,43 +177,8 @@ const implement_callbs_st uw50_callbacks = {
 
 const uw50_st uw50 = {
 		.super = {
-				.name = "UW40",
+				.name = "UW50",
 				.callbacks = &uw50_callbacks,
-				.valves = {
-						{
-								.name = "Main",
-								.min_speed_p = 250,
-								.max_speed_p = 800,
-								.min_speed_n = 230,
-								.min_speed_p = 760,
-								.acc = 100,
-								.dec = 100,
-								.invert = false
-
-						},
-						{
-								.name = "Rotator",
-								.min_speed_p = 250,
-								.max_speed_p = 800,
-								.min_speed_n = 230,
-								.min_speed_p = 760,
-								.acc = 100,
-								.dec = 100,
-								.invert = false
-
-						},
-						{
-								.name = "Tilt",
-								.min_speed_p = 250,
-								.max_speed_p = 800,
-								.min_speed_n = 230,
-								.min_speed_p = 760,
-								.acc = 100,
-								.dec = 100,
-								.invert = false
-
-						}
-				}
 		},
 		.saw = {
 				.max_speed_p = 600,
@@ -221,6 +193,35 @@ const uw50_st uw50 = {
 				.invert = false,
 				.acc = 10,
 				.dec = 10
+		}
+};
+
+
+const implement_callbs_st uw100_callbacks = {
+		.dasboard_step = NULL,
+		.dashboard_show = NULL,
+		.settings_step = settings_impl_uw100_step,
+		.settings_show = settings_impl_uw100_show
+};
+
+const uw100_st uw100 = {
+		.super = {
+				.name = "UW100",
+				.callbacks = &uw100_callbacks,
+		},
+		.rotator = {
+				.max_speed_p = 600,
+				.max_speed_n = 600,
+				.invert = false,
+				.acc = 30,
+				.dec = 30
+		},
+		.open = {
+				.max_speed_p = 600,
+				.max_speed_n = 600,
+				.invert = false,
+				.acc = 30,
+				.dec = 30
 		}
 };
 

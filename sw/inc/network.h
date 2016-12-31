@@ -15,6 +15,8 @@
 #include "pedal.h"
 #include "keypads.h"
 #include "ecu.h"
+#include "uw180s_mb.h"
+#include "uw180s_ecu.h"
 /// @file: Provides the interface for communicating to the CAN network.
 
 
@@ -27,12 +29,14 @@ typedef struct {
 	keypad_st l_keypad;
 	ecu_st ecu;
 	pedal_st pedal;
+	mb_st uw180s_mb;
+	uw180s_ecu_st uw180s_ecu;
 } network_st;
 
 
 void network_init(network_st *this);
 
-
+void network_receive_message(network_st *this, uv_can_message_st *msg);
 
 /// @brief: Updates the all modified parameters to the CAN network devices
 static inline void network_update(network_st *this) {

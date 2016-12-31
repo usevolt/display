@@ -23,32 +23,10 @@
 
 /// @brief: Different log entries are specified here
 enum {
-	// The device has just been booted up
-	// param: Device reset source (uv_reset_get_source())
-	LOG_BOOT_UP = 0,
-	// RTC time set.
-	// Param: True if the time was set from the command line, false otherwise
-	LOG_TIME_SET,
-	// The driver was selected
-	// Param: the driver ID
-	LOG_DRIVER_SET,
-	// Driver was deleted
-	// Param: the driver ID
-	LOG_DRIVER_DELETED,
-	// A new driver was added
-	// Param: The driver ID
-	LOG_DRIVER_ADDED,
-	// Clears all logs
-	LOG_DRIVER_CLEAR,
-	// New generic implement added
-	// Param: Implement ID
-	LOG_IMPLEMENT_ADDED,
-	// Generic implement deleted
-	// Param: Implement ID
-	LOG_IMPLEMENT_DELETED,
-	// Active implement set
-	// Param: Implement ID
-	LOG_IMPLEMENT_SET
+	// Saving the settings to flash memory failed
+	// param: Return value from uv_memory_save
+	LOG_MEMORY_SAVE_FAILED = 0,
+	LOG_NETDEV_DISCONNECTED
 };
 typedef uint32_t log_entry_e;
 
