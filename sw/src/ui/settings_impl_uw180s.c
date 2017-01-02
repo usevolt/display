@@ -133,7 +133,6 @@ void settings_impl_uw180s_show(void) {
 void settings_impl_uw180s_step(uint16_t step_ms) {
 	void (*set_params)(uint16_t,
 			uint16_t, bool) = NULL;
-	impl_valve_st *v = NULL;
 
 	switch (this->state) {
 	case UW180S_STATE_NONE:
@@ -158,27 +157,21 @@ void settings_impl_uw180s_step(uint16_t step_ms) {
 		break;
 	case UW180S_STATE_WHEELS:
 		set_params = ecu_set_uw180s_wheels_params;
-		v = &dspl.user->uw180s.wheels;
 		break;
 	case UW180S_STATE_WHEELS_FEED:
 		set_params = ecu_set_uw180s_wheels_feed_params;
-		v = &dspl.user->uw180s.wheels_feed;
 		break;
 	case UW180S_STATE_DELIMBERS:
 		set_params = ecu_set_uw180s_delimbers_params;
-		v = &dspl.user->uw180s.delimbers;
 		break;
 	case UW180S_STATE_SAW:
 		set_params = ecu_set_uw180s_saw_params;
-		v = &dspl.user->uw180s.saw;
 		break;
 	case UW180S_STATE_TILT:
 		set_params = ecu_set_uw180s_tilt_params;
-		v = &dspl.user->uw180s.tilt;
 		break;
 	case UW180S_STATE_ROTATOR:
 		set_params = ecu_set_uw180s_rotator_params;
-		v = &dspl.user->uw180s.rotator;
 		break;
 	default:
 		break;
@@ -187,12 +180,6 @@ void settings_impl_uw180s_step(uint16_t step_ms) {
 		if (uv_uislider_value_changed(&this->max_speed_n) ||
 				uv_uislider_value_changed(&this->max_speed_p) ||
 				uv_uitogglebutton_clicked(&this->invert)) {
-			// update local user settings
-			if (v) {
-				v->invert = uv_uitogglebutton_get_state(&this->invert);
-				v->max_speed_p = uv_uislider_get_value(&this->max_speed_p);
-				v->max_speed_n = uv_uislider_get_value(&this->max_speed_n);
-			}
 			// call ecu callback function
 			if (set_params) {
 				set_params(uv_uislider_get_value(&this->max_speed_p),

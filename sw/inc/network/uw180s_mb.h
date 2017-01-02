@@ -24,8 +24,11 @@ typedef struct {
 } mb_st;
 
 
+void mb_update(void *me);
+
+
 static inline void mb_init(mb_st *this) {
-	netdev_init(this);
+	netdev_init(this, mb_update);
 	netdev_set_node_id(this, UW180S_MB_NODE_ID);
 	this->length = 0;
 	this->volume = 0;
@@ -50,7 +53,6 @@ static inline int32_t mb_get_width(mb_st *this) {
 void mb_step(mb_st *this, uint16_t step_ms);
 
 
-void mb_update(mb_st *this);
 
 
 #endif /* NETWORK_UW180S_MB_H_ */

@@ -57,15 +57,32 @@ static void network_task(void *me) {
 		uw180s_ecu_step(&this->uw180s_ecu, step_ms);
 
 		if(this->updating) {
-			msb_update(&this->msb);
-			csb_update(&this->csb);
-			pedal_update(&this->pedal);
-			ecu_update(&this->ecu);
-			keypad_update(&this->l_keypad);
-			keypad_update(&this->r_keypad);
-			mb_update(&this->uw180s_mb);
-			uw180s_ecu_update(&this->uw180s_ecu);
 			this->updating = false;
+
+			uint8_t update_step_ms = 10;
+
+			msb_update(&this->msb);
+			uv_rtos_task_delay(update_step_ms);
+
+			csb_update(&this->csb);
+			uv_rtos_task_delay(update_step_ms);
+
+			pedal_update(&this->pedal);
+			uv_rtos_task_delay(update_step_ms);
+
+			ecu_update(&this->ecu);
+			uv_rtos_task_delay(update_step_ms);
+
+			keypad_update(&this->l_keypad);
+			uv_rtos_task_delay(update_step_ms);
+
+			keypad_update(&this->r_keypad);
+			uv_rtos_task_delay(update_step_ms);
+
+			mb_update(&this->uw180s_mb);
+			uv_rtos_task_delay(update_step_ms);
+
+			uw180s_ecu_update(&this->uw180s_ecu);
 		}
 
 		uv_rtos_task_delay(step_ms);

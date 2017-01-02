@@ -15,7 +15,8 @@ void mb_step(mb_st *this, uint16_t step_ms) {
 
 }
 
+#define this ((mb_st*)me)
 
-void mb_update(mb_st *this) {
+void mb_update(void *me) {
 
 }

@@ -45,6 +45,7 @@ void implement_set(impl_type_e implement) {
 			printf("Tried to set generic impl %u, but there was not so many generic implements\n\r",
 					implement - UW_IMPLEMENT_COUNT);
 		}
+		ecu_set_implement(implement);
 	}
 	else {
 		printf("Invalid implement type %u\n\r", implement);

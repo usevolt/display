@@ -13,6 +13,9 @@ void keypad_step(keypad_st *this, unsigned int step_ms) {
 
 }
 
-void keypad_update(keypad_st *this) {
+
+#define this ((keypad_st*)me)
+
+void keypad_update(void *me) {
 
 }

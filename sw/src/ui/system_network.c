@@ -111,7 +111,6 @@ static const data_st labels[] = {
 				.row2 = "Controls moved\n"
 						"Engine shut down\n"
 						"Pump angle\n"
-						"Implement\n"
 						"Stop\n"
 						"Pressure",
 				.row3 = "Boom Lift mA\n"
@@ -181,14 +180,14 @@ static void update(devices_e dev) {
 		uv_ui_refresh(&this->row2_values);
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
 				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
-				msb_get_glow_plugs(&dspl.network.msb),
-				msb_get_starter(&dspl.network.msb),
-				msb_get_engine_stop(&dspl.network.msb),
-				msb_get_crane_light(&dspl.network.msb),
-				msb_get_camera(&dspl.network.msb),
-				msb_get_aux(&dspl.network.msb),
-				msb_get_heater(&dspl.network.msb),
-				msb_get_oil_cooler(&dspl.network.msb));
+				msb_get_power_glow_plugs(&dspl.network.msb),
+				msb_get_power_starter(&dspl.network.msb),
+				msb_get_power_engine_stop(&dspl.network.msb),
+				msb_get_power_crane_light(&dspl.network.msb),
+				msb_get_power_camera(&dspl.network.msb),
+				msb_get_power_aux(&dspl.network.msb),
+				msb_get_power_heater(&dspl.network.msb),
+				msb_get_power_oil_cooler(&dspl.network.msb));
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(&dspl.network.msb);
 	}
@@ -206,11 +205,10 @@ static void update(devices_e dev) {
 	}
 	else if (dev == ECU) {
 		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i",
+				"%i\n%i\n%i\n%i\n%i",
 				ecu_get_controls_moved(&dspl.network.ecu),
 				ecu_get_engine_shut_down(&dspl.network.ecu),
 				ecu_get_pump_angle(&dspl.network.ecu),
-				ecu_get_implement(&dspl.network.ecu),
 				ecu_get_stop(&dspl.network.ecu),
 				ecu_get_pressure(&dspl.network.ecu));
 		uv_ui_refresh(&this->row2_values);
@@ -307,39 +305,45 @@ static void show(devices_e dev) {
 	uv_uilabel_init(&this->row1_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			C(0xFFFFFFFF), (char*) netdev_label);
 	uv_uiwindow_add(&this->window, &this->row1_topics, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, bb.height, uv_uilabel_step);
+			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+			uv_uilabel_step);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row1_values, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->row1_val_str);
 	uv_uiwindow_add(&this->window, &this->row1_values, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, bb.height, uv_uilabel_step);
+			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+			uv_uilabel_step);
 
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row2_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			C(0xFFFFFFFF), (char*) labels[dev].row2);
 	uv_uiwindow_add(&this->window, &this->row2_topics, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, bb.height, uv_uilabel_step);
+			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+			uv_uilabel_step);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row2_values, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->row2_val_str);
 	uv_uiwindow_add(&this->window, &this->row2_values, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, bb.height, uv_uilabel_step);
+			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+			uv_uilabel_step);
 
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row3_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			C(0xFFFFFFFF), (char*) labels[dev].row3);
 	uv_uiwindow_add(&this->window, &this->row3_topics, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, bb.height, uv_uilabel_step);
+			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+			uv_uilabel_step);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row3_values, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->row3_val_str);
 	uv_uiwindow_add(&this->window, &this->row3_values, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, bb.height, uv_uilabel_step);
+			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+			uv_uilabel_step);
 
 	update(dev);
 }

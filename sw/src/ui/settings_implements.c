@@ -99,7 +99,6 @@ void settings_implements_step(uint16_t step_ms) {
 	int16_t select = uv_uilist_get_selected(&this->impls_list);
 	if (select >= 0) {
 		implement_set(select);
-		ecu_set_implement(select);
 	}
 
 	if (uv_uibutton_clicked(&this->new_impl)) {

@@ -7,6 +7,8 @@
 
 
 #include "msb.h"
+#include "main.h"
+#include <uv_canopen.h>
 
 
 void msb_step(msb_st *this, unsigned int step_ms) {
@@ -14,7 +16,28 @@ void msb_step(msb_st *this, unsigned int step_ms) {
 
 }
 
+#define this ((msb_st*)me)
 
-void msb_update(msb_st *this) {
+void msb_update(void *me) {
+	msb_set_heater(this, this->write.heater);
+	msb_set_crane_light(this, this->write.crane_light);
+}
 
+
+
+void msb_set_heater(void *me, uint8_t value) {
+	this->write.heater = value;
+	if (uv_canopen_sdo_write(&dspl.canopen, CANOPEN_SDO_CMD_WRITE_1_BYTE, this->super.node_id,
+			0x2000, 0, this->write.heater)) {
+		netdev_set_transmit_failure(this);
+	}
+
+}
+
+void msb_set_crane_light(void *me, bool value) {
+	this->write.crane_light = value;
+	if (uv_canopen_sdo_write(&dspl.canopen, CANOPEN_SDO_CMD_WRITE_1_BYTE, this->super.node_id,
+			0x2000, 0, this->write.crane_light)) {
+		netdev_set_transmit_failure(this);
+	}
 }

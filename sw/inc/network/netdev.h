@@ -17,10 +17,13 @@
 typedef struct {
 	bool connected;
 	uint8_t node_id;
-	int delay;
+	int timeout_delay;
+	int transmission_delay;
+	void (*update_callb)(void*);
 } netdev_st;
 
 #define NETDEV_CONNECTION_TIME_OUT_MS		5000
+#define NETDEV_TRANSMISSION_FAILURE_DELAY	5000
 
 
 #undef this
@@ -28,7 +31,15 @@ typedef struct {
 
 
 /// @brief: Initializes the netdev structure
-void netdev_init(void *me);
+///
+/// @param update_callb: Function which handles updating the settings over the CAN bus.
+/// Will  be called if the transmission fails.
+void netdev_init(void *me, void (*update_callb)(void*));
+
+/// @brief: This should be called if the CAN message transmission failed
+/// for any node. Starts up the internal delay counter for retransmissions
+void netdev_set_transmit_failure(void *me);
+
 
 /// @brief: Should be called when the node receives a heartbeat message
 void netdev_receive_heartbeat(void *me, uv_can_message_st *msg);

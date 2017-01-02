@@ -20,105 +20,122 @@
 typedef struct {
 	EXTENDS(netdev_st);
 
-	uint8_t fuel_level;
-	uint8_t oil_level;
-	int8_t oil_temp;
-	int8_t motor_temp;
-	int16_t rpm;
-	int16_t voltage;
+	// WRITE
 	struct {
-		uint8_t glow_plugs;
-		uint8_t starter;
-		uint8_t engine_stop;
+		uint16_t heater;
 		uint8_t crane_light;
-		uint8_t camera;
-		uint8_t aux;
-		uint8_t heater;
-		uint8_t oil_cooler;
-	} power;
+	} write;
+
+	// READ
+	struct {
+		uint8_t fuel_level;
+		uint8_t oil_level;
+		int8_t oil_temp;
+		int8_t motor_temp;
+		int16_t rpm;
+		int16_t voltage;
+		struct {
+			uint8_t glow_plugs;
+			uint8_t starter;
+			uint8_t engine_stop;
+			uint8_t crane_light;
+			uint8_t camera;
+			uint8_t aux;
+			uint8_t heater;
+			uint8_t oil_cooler;
+		} power;
+	} read;
 } msb_st;
 
 
+/// @brief: Download the most recent data to the msb
+void msb_update(void *me);
+
 static inline void msb_init(msb_st *this) {
-	netdev_init(this);
+	netdev_init(this, msb_update);
 	netdev_set_node_id(this, MSB_NODE_ID);
-	this->fuel_level = 0;
-	this->motor_temp = 0;
-	this->oil_level = 0;
-	this->oil_temp = 0;
-	this->rpm = 0;
-	this->voltage = 0;
-	this->power.aux = 0;
-	this->power.camera = 0;
-	this->power.crane_light = 0;
-	this->power.engine_stop = 0;
-	this->power.glow_plugs = 0;
-	this->power.heater = 0;
-	this->power.oil_cooler = 0;
-	this->power.starter = 0;
+	this->read.fuel_level = 0;
+	this->read.motor_temp = 0;
+	this->read.oil_level = 0;
+	this->read.oil_temp = 0;
+	this->read.rpm = 0;
+	this->read.voltage = 0;
+	this->write.heater = 0;
+	this->write.crane_light = 0;
+	this->read.power.aux = 0;
+	this->read.power.camera = 0;
+	this->read.power.crane_light = 0;
+	this->read.power.engine_stop = 0;
+	this->read.power.glow_plugs = 0;
+	this->read.power.heater = 0;
+	this->read.power.oil_cooler = 0;
+	this->read.power.starter = 0;
 }
 
 
 void msb_step(msb_st *this, unsigned int step_ms);
 
-/// @brief: Download the most recent data to the msb
-void msb_update(msb_st *this);
-
 
 static inline uint8_t msb_get_fuel_level(msb_st *msb) {
-	return msb->fuel_level;
+	return msb->read.fuel_level;
 }
 
 static inline uint8_t msb_get_oil_level(msb_st *msb) {
-	return msb->oil_level;
+	return msb->read.oil_level;
 }
 
 static inline int8_t msb_get_oil_temp(msb_st *msb) {
-	return msb->oil_temp;
+	return msb->read.oil_temp;
 }
 
 static inline int8_t msb_get_motor_temp(msb_st *msb) {
-	return msb->motor_temp;
+	return msb->read.motor_temp;
 }
 
 static inline int16_t msb_get_rpm(msb_st *msb) {
-	return msb->rpm;
+	return msb->read.rpm;
 }
 
 static inline int16_t msb_get_voltage(msb_st *msb) {
-	return msb->voltage;
+	return msb->read.voltage;
 }
 
-static inline bool msb_get_aux(msb_st *msb) {
-	return msb->power.aux;
+static inline bool msb_get_power_aux(msb_st *msb) {
+	return msb->read.power.aux;
 }
 
-static inline bool msb_get_camera(msb_st *msb) {
-	return msb->power.camera;
+static inline bool msb_get_power_heater(msb_st *msb) {
+	return msb->read.power.heater;
 }
 
-static inline bool msb_get_crane_light(msb_st *msb) {
-	return msb->power.crane_light;
+static inline bool msb_get_power_camera(msb_st *msb) {
+	return msb->read.power.camera;
 }
 
-static inline bool msb_get_engine_stop(msb_st *msb) {
-	return msb->power.engine_stop;
+static inline bool msb_get_power_crane_light(msb_st *msb) {
+	return msb->read.power.crane_light;
 }
 
-static inline bool msb_get_glow_plugs(msb_st *msb) {
-	return msb->power.glow_plugs;
+static inline bool msb_get_power_engine_stop(msb_st *msb) {
+	return msb->read.power.engine_stop;
 }
 
-static inline bool msb_get_heater(msb_st *msb) {
-	return msb->power.heater;
+static inline bool msb_get_power_glow_plugs(msb_st *msb) {
+	return msb->read.power.glow_plugs;
 }
 
-static inline bool msb_get_oil_cooler(msb_st *msb) {
-	return msb->power.oil_cooler;
+static inline bool msb_get_power_oil_cooler(msb_st *msb) {
+	return msb->read.power.oil_cooler;
 }
 
-static inline bool msb_get_starter(msb_st *msb) {
-	return msb->power.starter;
+static inline bool msb_get_power_starter(msb_st *msb) {
+	return msb->read.power.starter;
 }
+
+
+void msb_set_heater(void *me, uint8_t value);
+
+void msb_set_crane_light(void *me, bool value);
+
 
 #endif /* MSB_H_ */
