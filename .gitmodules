@@ -1,3 +1,3 @@
 [submodule "sw/hal"]
 	path = sw/hal
-	url = ssh://usewoodfi@virtualserver25.hosting.fi:/var/www/customers/usewoodfi/version_control/hal
+	url = ssh://u33867@sftp.shellit.org/home/u33867/version_control/public/hal
