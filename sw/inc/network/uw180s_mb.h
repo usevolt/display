@@ -30,6 +30,7 @@ void mb_update(void *me);
 static inline void mb_init(mb_st *this) {
 	netdev_init(this, mb_update);
 	netdev_set_node_id(this, UW180S_MB_NODE_ID);
+	netdev_set_disconnected_type(this, LOG_UW180S_MB_DISCONNECTED);
 	this->length = 0;
 	this->volume = 0;
 	this->width = 0;

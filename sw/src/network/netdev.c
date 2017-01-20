@@ -21,13 +21,14 @@ void netdev_init(void *me, void (*update_callb)(void*)) {
 	uv_delay_init(NETDEV_CONNECTION_TIME_OUT_MS, &this->timeout_delay);
 	this->transmission_delay = -1;
 	this->update_callb = update_callb;
+	this->disconnected_entry_type = LOG_NETDEV_DISCONNECTED;
 }
 
 
 void netdev_step(void *me, unsigned int step_ms) {
 	if (uv_delay(step_ms, &this->timeout_delay)) {
 		this->connected = false;
-		log_add(LOG_NETDEV_DISCONNECTED, this->node_id);
+		log_warning(this->disconnected_entry_type, this->node_id);
 	}
 	if (uv_delay(step_ms, &this->transmission_delay)) {
 		this->update_callb(this);

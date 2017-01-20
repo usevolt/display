@@ -11,6 +11,9 @@
 
 
 
+
+
+
 const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 		{
 				.name = "Boom Lift",
@@ -90,5 +93,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		}
 };
+
+
 
 

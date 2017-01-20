@@ -26,6 +26,8 @@
 #define UW180S_MB_NODE_ID		0xD
 
 
+
+
 /// @brief: Temperature warning limits
 /// Warning will be generated when the value goes over these
 #define MOTOR_TEMP_WARNING_LIMIT	75

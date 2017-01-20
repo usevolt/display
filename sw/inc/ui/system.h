@@ -15,6 +15,7 @@
 #include "system_settings.h"
 #include "system_restore.h"
 #include "system_network.h"
+#include "system_log.h"
 
 #define SYSTEM_BUFFER_LEN		5
 #define SYSTEM_TAB_BUFFER_LEN	1
@@ -36,6 +37,7 @@ typedef struct {
 
 	union {
 		system_settings_st sys_settings;
+		system_log_st sys_log;
 		system_network_st sys_network;
 		system_restore_st sys_restore;
 	} windows;

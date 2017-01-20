@@ -25,6 +25,7 @@ void uw180s_ecu_update(void *me);
 static inline void uw180s_ecu_init(uw180s_ecu_st *this) {
 	netdev_init(this, uw180s_ecu_update);
 	netdev_set_node_id(this, UW180S_ECU_NODE_ID);
+	netdev_set_disconnected_type(this, LOG_UW180S_ECU_DISCONNECTED);
 }
 
 

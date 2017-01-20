@@ -50,38 +50,6 @@ const uv_command_st terminal_commands[] = {
 				.callback = emcread_callb
 		},
 		{
-				.id = CMD_EEPROM_WRITE,
-				.str = "eepromwrite",
-				.instructions = "Write data to EEPROM.\n\r"
-						"Usage: eepromwrite <addr> <count> <data>",
-				.callback = eepromwrite_callb
-		},
-		{
-				.id = CMD_EEPROM_READ,
-				.str = "eepromread",
-				.instructions = "Read data from EEPROM.\n\r"
-						"Usage: eepromread <addr> <count>",
-				.callback = eepromread_callb
-		},
-		{
-				.id = CMD_LCD_RECT,
-				.str = "drawrect",
-				.instructions = "Draws a rectangle to the screen.\n\r"
-						"Optional 6th argument specifies if the coordinates are to be interpreted \n\r"
-						"as pixels or percents. Pixels are the default value.\n\r"
-						"Usage: drawrect <x> <y> <width> <height> <color> (\"px\"/\"%\")",
-				.callback = lcddrawrect_callb
-		},
-		{
-				.id = CMD_LCD_FRAME,
-				.str = "drawframe",
-				.instructions = "Draws a frame to the screen.\n\r"
-						"Optional 7th argument specifies if the coordinates are to be interpreted \n\r"
-						"as pixels or percents. Pixels are the default value.\n\r"
-						"Usage: drawrect <x> <y> <width> <height> <border> <color> (\"px\"/\"%\")",
-				.callback = lcddrawframe_callb
-		},
-		{
 				.id = CMD_BACKLIGHT,
 				.str = "backlight",
 				.instructions = "Sets the display's backlight brightness PWM value.\n\r"
@@ -101,14 +69,6 @@ const uv_command_st terminal_commands[] = {
 				.instructions = "Clears the log\n\r"
 						"Usage: logclear",
 				.callback = logclear_callb
-		},
-		{
-				.id = CMD_LOG_ADD,
-				.str = "logadd",
-				.instructions = "Adds a new entry to the log.\n\r"
-						"Optional 3rd argument can be used to add multiple entries at the same time.\n\r"
-						"Usage: logadd <log_entry_enum> (data) (count)",
-				.callback = logadd_callb
 		},
 		{
 				.id = CMD_LOG_SHOW,
@@ -159,15 +119,6 @@ const uv_command_st terminal_commands[] = {
 				.instructions = "Shows the given UI window on the display.\n\r"
 						"Usage: show <\"login\"/\"home\"/...>",
 				.callback = show_callb
-		},
-		{
-				.id = CMD_VALVECFG,
-				.str = "valve",
-				.instructions = "Configures the valve. First parameter specifies\n\r"
-						"the valve according to its name and second parameter\n\r"
-						"specifies the parameter to be configured.\n\r"
-						"Usage: valve <\"name\"> <\"pmin/pmax/nmin/nmax/acc/dec/invert\"> (value)",
-				.callback = valvecfg_callb
 		}
 };
 
@@ -213,85 +164,6 @@ void emcread_callb(void *me, unsigned int cmd, unsigned int args, argument_st *a
 	}
 	printf("\n\r");
 }
-void eepromwrite_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
-	if (args < 3) {
-		printf("Give at least 3 arguments\n\r");
-		return;
-	}
-	uint16_t addr = (uint32_t) argv[0].number;
-	uint16_t len = (uint32_t) argv[1].number;
-	uint8_t data = (uint32_t) argv[2].number;
-	uint8_t d[len];
-	memset(d, data, len);
-	uv_errors_e e = uv_eeprom_write(d, len, addr);
-	printf("Return: %u\n\r", UV_ERR_GET(e));
-}
-void eepromread_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
-	if (args < 2) {
-		printf("Give 2 arguments\n\r");
-		return;
-	}
-	uint16_t addr = (uint32_t) argv[0].value;
-	uint16_t len = (uint32_t) argv[1].value;
-	uint8_t data[len];
-	uv_eeprom_read(data, len, addr);
-	printf("data: ");
-	uint16_t i;
-	for (i = 0; i < len; i++) {
-		printf("%x ", data[i]);
-	}
-	printf("\n\r");
-}
-
-void lcddrawrect_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
-	if (args < 5) {
-		printf("Give at least 5 arguments\n\r");
-		return;
-	}
-	uint32_t x, y, width, height;
-	if (args >= 6 && strcmp(argv[5].value, "%") == 0) {
-
-		x = LCD_W((int) argv[0].value / 100.0f);
-		y = LCD_H((int) argv[1].value / 100.0f);
-		width = LCD_W((int) argv[2].value / 100.0f);
-		height = LCD_H((int) argv[3].value / 100.0f);
-	}
-	else {
-		x = (uint32_t) argv[0].value;
-		y = (uint32_t) argv[1].value;
-		width = (uint32_t) argv[2].value;
-		height = (uint32_t) argv[3].value;
-	}
-	printf("drawing rectangle from (%u, %u) to (%u, %u) with color %x\n\r",
-			(unsigned int) x, (unsigned int) y, (unsigned int) width, (unsigned int) height,
-			(unsigned int) argv[4].value);
-	uv_lcd_draw_rect(x, y, width, height, (uint32_t) argv[4].value);
-}
-
-void lcddrawframe_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
-	if (args < 6) {
-		printf("Give at least 5 arguments\n\r");
-		return;
-	}
-	uint32_t x, y, width, height;
-	if (args > 6 && strcmp(argv[6].str, "%") == 0) {
-
-		x = LCD_W(argv[0].number / 100.0f);
-		y = LCD_H(argv[1].number / 100.0f);
-		width = LCD_W(argv[2].number / 100.0f) - x;
-		height = LCD_H(argv[3].number / 100.0f) - y;
-	}
-	else {
-		x = (uint32_t) argv[0].value;
-		y = (uint32_t) argv[1].value;
-		width = (uint32_t) argv[2].value;
-		height = (uint32_t) argv[3].value;
-	}
-	printf("drawing frame from (%u, %u) to (%u, %u) with color %x and border of %u\n\r",
-			(unsigned int) x, (unsigned int) y, (unsigned int) width, (unsigned int) height,
-			(unsigned int) argv[5].value, (unsigned int) argv[4].value);
-	uv_lcd_draw_frame(x, y, width, height, (uint32_t) argv[4].value, (color_t) argv[5].value);
-}
 
 
 void lcdbacklight_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
@@ -317,18 +189,7 @@ void logclear_callb(void *me, unsigned int cmd, unsigned int args, argument_st *
 	log_clear();
 	printf("log cleared\n\r");
 }
-void logadd_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
-	if (!args) {
-		printf("Give 1 argument\n\r");
-		return;
-	}
-	uint16_t count = 1, i;
-	if (args >= 3) count = argv[2].number;
-	for (i = 0; i < count; i++) {
-		log_add(argv[0].number, argv[1].number);
-	}
-	printf("%u %u added to log %u times.\n\r", (unsigned int) argv[0].number, (unsigned int) argv[1].number, count);
-}
+
 void logshow_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	uint16_t i = 0;
 	while (true) {
@@ -461,55 +322,6 @@ void show_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv
 	else if (strcmp(argv[0].str, "settings") == 0) {
 		settings_show();
 	}
-}
-
-void valvecfg_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
-	if (args < 2) {
-		printf("Give at least 2 arguments\n\r");
-		return;
-	}
-	valve_st *valve = NULL;
-	for (int16_t i = 0; i < BASE_VALVE_COUNT; i++) {
-		if (strcmp(this->user->base_valves[i].name, argv[0].str) == 0) {
-			valve = &this->user->base_valves[i];
-			break;
-		}
-	}
-	if (!valve) {
-		printf("No valve %s found\n\r", argv[0].str);
-		return;
-	}
-	int16_t *value;
-	if (strcmp(argv[1].str, "pmax") == 0) {
-		value = &valve->max_speed_p;
-	}
-	else if (strcmp(argv[1].str, "pmin") == 0) {
-		value = &valve->min_speed_p;
-	}
-	else if (strcmp(argv[1].str, "nmax") == 0) {
-		value = &valve->max_speed_n;
-	}
-	else if (strcmp(argv[1].str, "nmin") == 0) {
-		value = &valve->min_speed_n;
-	}
-	else if (strcmp(argv[1].str, "acc") == 0) {
-		value = &valve->acc;
-	}
-	else if (strcmp(argv[1].str, "dec") == 0) {
-		value = &valve->dec;
-	}
-	else if (strcmp(argv[1].str, "invert") == 0) {
-		value = &valve->invert;
-	}
-	else {
-		printf("Invalid valve parameter '%s'\n\r", argv[1].str);
-		return;
-	}
-	if (args >= 3) {
-		*value = argv[2].number;
-	}
-	printf("%u\n\r", *value);
-
 }
 
 

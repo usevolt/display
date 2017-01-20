@@ -54,6 +54,7 @@ void keypad_update(void *me);
 static inline void rkeypad_init(keypad_st *this) {
 	netdev_init(this, keypad_update);
 	netdev_set_node_id(this, RKEYPAD_NODE_ID);
+	netdev_set_disconnected_type(this, LOG_RKEYPAD_DISCONNECTED);
 	this->read.x = 0;
 	this->read.y = 0;
 	this->read.z = 0;
@@ -64,6 +65,11 @@ static inline void rkeypad_init(keypad_st *this) {
 static inline void lkeypad_init(keypad_st *this) {
 	netdev_init(this, keypad_update);
 	netdev_set_node_id(this, LKEYPAD_NODE_ID);
+	netdev_set_disconnected_type(this, LOG_LKEYPAD_DISCONNECTED);
+	this->read.x = 0;
+	this->read.y = 0;
+	this->read.z = 0;
+	this->read.buttons = 0;
 }
 
 static inline int16_t keypad_get_x(keypad_st *this) {

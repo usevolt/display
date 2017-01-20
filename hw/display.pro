@@ -1,4 +1,4 @@
-update=Sun 02 Oct 2016 19:51:12 EEST
+update=su 15. tammikuuta 2017 12.09.10
 version=1
 last_client=kicad
 [pcbnew]
@@ -35,3 +35,13 @@ LibName3=/home/usevolt/uv/kicad/libs/multicomp
 LibName4=/home/usevolt/uv/kicad/libs/usevolt
 LibName5=/home/usevolt/uv/kicad/libs/wurth_elektronik_LED
 LibName6=/home/usevolt/uv/kicad/standard_libraries/power
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceAjustPassiveValues=0
+LabSize=60
+ERC_TestSimilarLabels=1

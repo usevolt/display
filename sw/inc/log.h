@@ -26,9 +26,23 @@ enum {
 	// Saving the settings to flash memory failed
 	// param: Return value from uv_memory_save
 	LOG_MEMORY_SAVE_FAILED = 0,
-	LOG_NETDEV_DISCONNECTED
+	LOG_NETDEV_DISCONNECTED,
+	LOG_MSB_DISCONNECTED,
+	LOG_CSB_DISCONNECTED,
+	LOG_ECU_DISCONNECTED,
+	LOG_LKEYPAD_DISCONNECTED,
+	LOG_RKEYPAD_DISCONNECTED,
+	LOG_PEDAL_DISCONNECTED,
+	LOG_UW180S_ECU_DISCONNECTED,
+	LOG_UW180S_MB_DISCONNECTED
 };
-typedef uint32_t log_entry_e;
+typedef uint8_t log_entry_e;
+
+enum {
+	LOG_WARNING = 0,
+	LOG_ERROR = (1 << 7)
+};
+typedef uint8_t log_entry_type_e;
 
 
 
@@ -38,8 +52,13 @@ typedef struct {
 	uv_time_st time;
 	/// @brief: Custom data depending on the log type
 	int32_t	data;
-	/// @brief: The type of this entry
+	/// @brief: The type of this entry. The most significant bit
+	/// indicates if the log entry is a warning or an error.
 	log_entry_e type;
+	/// @brief: Acknowledge byte. If true, this entry is ack'ed.
+	/// Otherwise it's still active.
+	bool ack;
+
 } log_entry_st;
 
 
@@ -61,10 +80,27 @@ const log_entry_def_st *log_entry_get_definition(log_entry_e type);
 
 
 
-/// @brief: Save a log entry to the log. The time and index are
-/// calculated automatically
-void log_add(log_entry_e type, int32_t data);
+/// @brief: Logs a yellow warning message. Warnings can be acknowledged
+/// just by tapping them. They are also automatically acknowledged on log in.
+void log_warning(log_entry_e type, int32_t data);
 
+
+/// @brief: Logs a red error message. Errors need to be acknowledged from the
+/// system settings.
+void log_error(log_entry_e type, int32_t data);
+
+
+
+/// @brief: Acknowledges an active warning or error message. If multiple
+/// active messages with a type of **type** are found, this acknowledges the
+/// newest message.
+void log_ack(log_entry_e type);
+
+/// @brief: Returns how many entries are not acknoledged
+uint16_t log_get_nack_count();
+
+/// @brief: Returns the **index**'th not acknowledged entry's definition
+const log_entry_def_st *log_get_nack_def(uint16_t index);
 
 
 /// @brief: Returns a log entry. Index determines which entry is returned.

@@ -93,7 +93,8 @@
 
 
 
-
+#define UI_LOG_WARNING_BG_C						C(0xFFFF00)
+#define UI_LOG_ERROR_BG_C						C(0xFF0000)
 
 /* Possible font sizes for uv_hal_config configuration file fonts */
 #define UI_FONT_SMALL					font_8X14

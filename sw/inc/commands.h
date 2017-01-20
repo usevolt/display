@@ -17,23 +17,17 @@
 typedef enum {
 	CMD_EMC_WRITE = 0,
 	CMD_EMC_READ,
-	CMD_EEPROM_WRITE,
-	CMD_EEPROM_READ,
-	CMD_LCD_RECT,
-	CMD_LCD_FRAME,
 	CMD_BACKLIGHT,
 	CMD_REFRESH,
 	CMD_LOG_CLEAR,
-	CMD_LOG_ADD,
 	CMD_LOG_SHOW,
-	CMD_COUNT,
 	CMD_ALERT,
 	CMD_VOLUME,
 	CMD_TIME,
 	CMD_USER,
 	CMD_HOURS,
 	CMD_SHOW,
-	CMD_VALVECFG
+	CMD_COUNT
 } dspl_commands_e;
 
 
@@ -55,7 +49,6 @@ void lcddrawframe_callb(void *me, unsigned int cmd, unsigned int args, argument_
 void lcdbacklight_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 void refresh_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 void logclear_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
-void logadd_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 void logshow_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 void alert_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 void volume_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);

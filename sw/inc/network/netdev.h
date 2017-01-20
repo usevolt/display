@@ -10,6 +10,7 @@
 
 
 #include <uv_utilities.h>
+#include "log.h"
 
 /// @file: Defines the basic data structure for network devices.
 /// All network devices should inherit this one.
@@ -20,6 +21,7 @@ typedef struct {
 	int timeout_delay;
 	int transmission_delay;
 	void (*update_callb)(void*);
+	log_entry_e disconnected_entry_type;
 } netdev_st;
 
 #define NETDEV_CONNECTION_TIME_OUT_MS		5000
@@ -53,6 +55,9 @@ static inline uint8_t netdev_get_node_id(void *me) {
 
 static inline bool netdev_get_connected(void *me) {
 	return this->connected;
+}
+static inline void netdev_set_disconnected_type(void *me, log_entry_e type) {
+	this->disconnected_entry_type = type;
 }
 
 

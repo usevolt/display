@@ -62,7 +62,9 @@ void dspl_init(dspl_st *me) {
 	bool restore = false;
 	int counter = 10;
 	char str[3];
-	while (uv_lcd_touch_get(NULL, NULL)) {
+	char coord[30];
+	int16_t x,y;
+	while (uv_lcd_touch_get(&x, &y)) {
 		uv_pwm_set(LCD_BACKLIGHT, DUTY_CYCLE(0.9f));
 
 		uv_lcd_draw_rect(0, 0, LCD_W(1.0f), LCD_H(1.0f), C(0x000000));
@@ -73,6 +75,10 @@ void dspl_init(dspl_st *me) {
 		sprintf(str, "%u", counter);
 		_uv_ui_draw_text(LCD_W(0.5f), LCD_H(0.5f), &UI_FONT_BIG, ALIGN_CENTER,
 				(counter <= 5) ? C(0xFF0000) : C(0xFFFFFF), C(0xFFFFFFFF), str, 1.0f);
+		sprintf(coord, "(%i,%i)", x, y);
+		_uv_ui_draw_text(5, LCD_H(1.0f) - UI_FONT_SMALL.char_height - 5, &UI_FONT_SMALL,
+				ALIGN_TOP_LEFT, C(0xFFFFFF), C(0), coord, 1.0f);
+		uv_lcd_draw_rect(x - 5, y - 5, 10, 10, C(0xFF0000));
 
 
 		if (!counter) {

@@ -30,6 +30,7 @@ void pedal_update(void *this);
 static inline void pedal_init(pedal_st *this) {
 	netdev_init(this, pedal_update);
 	netdev_set_node_id(this, PEDAL_NODE_ID);
+	netdev_set_disconnected_type(this, LOG_PEDAL_DISCONNECTED);
 	this->read.value = 0;
 }
 

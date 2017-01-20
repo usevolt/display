@@ -51,6 +51,7 @@ void ecu_update(void *me);
 static inline void ecu_init(ecu_st *this) {
 	netdev_init(this, ecu_update);
 	netdev_set_node_id(this, ECU_NODE_ID);
+	netdev_set_disconnected_type(this, LOG_ECU_DISCONNECTED);
 	this->read.controls_moved = 0;
 	this->read.engine_shut_down = 0;
 	this->read.pump_angle = 0;

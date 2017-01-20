@@ -54,6 +54,7 @@ void msb_update(void *me);
 static inline void msb_init(msb_st *this) {
 	netdev_init(this, msb_update);
 	netdev_set_node_id(this, MSB_NODE_ID);
+	netdev_set_disconnected_type(this, LOG_MSB_DISCONNECTED);
 	this->read.fuel_level = 0;
 	this->read.motor_temp = 0;
 	this->read.oil_level = 0;

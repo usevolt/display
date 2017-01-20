@@ -49,6 +49,7 @@ void csb_update(void *me);
 static inline void csb_init(csb_st *this) {
 	netdev_init(this, csb_update);
 	netdev_set_node_id(this, CSB_NODE_ID);
+	netdev_set_disconnected_type(this, LOG_CSB_DISCONNECTED);
 	this->write.beacon = 0;
 	this->write.cabin_light = 0;
 	this->write.drive_light = 0;
