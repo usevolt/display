@@ -130,7 +130,7 @@ void settings_implements_step(uint16_t step_ms) {
 			printf("Cannot delete generic implement n.o. %i\n\r", i - UW_IMPLEMENT_COUNT);
 		}
 		else {
-			uv_vector_remove(&dspl.user->generic_implements, i - UW_IMPLEMENT_COUNT);
+			uv_vector_remove(&dspl.user->generic_implements, i - UW_IMPLEMENT_COUNT, 1);
 			if (i - UW_IMPLEMENT_COUNT >= uv_vector_size(&dspl.user->generic_implements)) {
 				dspl.user->implement = (void *) &dspl.user->uw180s;
 			}

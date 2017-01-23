@@ -5,8 +5,9 @@ LIBS:multicomp
 LIBS:usevolt
 LIBS:wurth_elektronik_LED
 LIBS:power
+LIBS:elt21300_kicad
 LIBS:display-cache
-EELAYER 25 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8

@@ -70,4 +70,12 @@ void taskbar_init(uv_uidisplay_st *display);
 void taskbar_step(uint16_t step_ms);
 
 
+
+
+
+
+
+
+
+
 #endif /* TASKBAR_H_ */

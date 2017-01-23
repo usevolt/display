@@ -132,7 +132,7 @@ bool users_delete(char *username) {
 			if (dspl.user == &dspl.userdata[i] && i >= uv_vector_size(&dspl.users) - 1) {
 				dspl.user = dspl.userdata;
 			}
-			uv_vector_remove(&dspl.users, i);
+			uv_vector_remove(&dspl.users, i, 1);
 			uv_memory_save(&dspl.data_start, &dspl.data_endl);
 			break;
 		}

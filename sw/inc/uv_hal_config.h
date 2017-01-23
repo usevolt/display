@@ -17,6 +17,7 @@
  *
  * NOTE: Only one target MCU should be defined! */
 #define CONFIG_TARGET_LPC11C14			0
+#define CONFIG_TARGET_LPC1549			0
 #define CONFIG_TARGET_LPC1785			1
 
 

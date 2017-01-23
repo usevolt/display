@@ -168,7 +168,7 @@ void emcread_callb(void *me, unsigned int cmd, unsigned int args, argument_st *a
 
 void lcdbacklight_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	uint16_t b = gui_get_backlight();
-	if (args && argv[0].type == INTEGER) {
+	if (args && argv[0].type == ARG_INTEGER) {
 		b = argv[0].number;
 		if (b > 100) {
 			b = 100;

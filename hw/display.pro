@@ -1,4 +1,4 @@
-update=su 15. tammikuuta 2017 12.09.10
+update=ma 23. tammikuuta 2017 11.06.08
 version=1
 last_client=kicad
 [pcbnew]
@@ -25,16 +25,6 @@ version=1
 NetIExt=net
 [general]
 version=1
-[eeschema]
-version=1
-LibDir=../../../uv/kicad/libs
-[eeschema/libraries]
-LibName1=display-rescue
-LibName2=/home/usevolt/uv/kicad/libs/kemet
-LibName3=/home/usevolt/uv/kicad/libs/multicomp
-LibName4=/home/usevolt/uv/kicad/libs/usevolt
-LibName5=/home/usevolt/uv/kicad/libs/wurth_elektronik_LED
-LibName6=/home/usevolt/uv/kicad/standard_libraries/power
 [schematic_editor]
 version=1
 PageLayoutDescrFile=
@@ -45,3 +35,14 @@ NetFmtName=
 SpiceAjustPassiveValues=0
 LabSize=60
 ERC_TestSimilarLabels=1
+[eeschema]
+version=1
+LibDir=../../../uv/kicad/libs;/home/usevolt/tty/mikrokontrollerit/harj_tyo
+[eeschema/libraries]
+LibName1=display-rescue
+LibName2=/home/usevolt/uv/kicad/libs/kemet
+LibName3=/home/usevolt/uv/kicad/libs/multicomp
+LibName4=/home/usevolt/uv/kicad/libs/usevolt
+LibName5=/home/usevolt/uv/kicad/libs/wurth_elektronik_LED
+LibName6=/home/usevolt/uv/kicad/standard_libraries/power
+LibName7=elt21300_kicad
