@@ -13,9 +13,10 @@
 
 
 /// @brief: taskbar buffer length
-#define TASKBAR_BUF_LEN			10
+#define TASKBAR_BUF_LEN			12
 #define TASKBAR_TIME_LEN		6
 #define TASKBAR_COUNT_STR_LEN	16
+#define TASKBAR_HOUR_STR_LEN	16
 
 
 enum {
@@ -46,6 +47,12 @@ typedef struct {
 
 			uv_uilabel_st fuel;
 			uv_uiprogressbar_st fuel_level;
+
+			uv_uilabel_st voltage;
+			uv_uiprogressbar_st voltage_level;
+
+			char hour_str[TASKBAR_HOUR_STR_LEN];
+			uv_uilabel_st hours;
 		};
 		struct {
 			uv_uitoucharea_st touch;
@@ -56,6 +63,12 @@ typedef struct {
 			uv_uilabel_st icon_label;
 
 			uv_uilabel_st info_label;
+
+			uv_uilabel_st click_label;
+
+			int bg_delay;
+
+			uint16_t log_count;
 		};
 	};
 

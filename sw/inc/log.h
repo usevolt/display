@@ -34,7 +34,17 @@ enum {
 	LOG_RKEYPAD_DISCONNECTED,
 	LOG_PEDAL_DISCONNECTED,
 	LOG_UW180S_ECU_DISCONNECTED,
-	LOG_UW180S_MB_DISCONNECTED
+	LOG_UW180S_MB_DISCONNECTED,
+	LOG_CAN_BUS_OFF,
+	LOG_OIL_LEVEL_WARNING,
+	LOG_OIL_LEVEL_ERROR,
+	LOG_FUEL_LEVEL_WARNING,
+	LOG_MOTOR_TEMP_WARNING,
+	LOG_MOTOR_TEMP_ERROR,
+	LOG_OIL_TEMP_WARNING,
+	LOG_OIL_TEMP_ERROR,
+	LOG_BAT_V_WARNING,
+	LOG_BAT_V_ERROR
 };
 typedef uint8_t log_entry_e;
 
@@ -74,33 +84,35 @@ typedef struct {
 extern const log_entry_def_st log_entry_defs[];
 
 
+void log_init();
+
 /// @brief: Returns the definition structure of the log entry.
 /// If no match was found, returns NULL
 const log_entry_def_st *log_entry_get_definition(log_entry_e type);
 
 
 
-/// @brief: Logs a yellow warning message. Warnings can be acknowledged
-/// just by tapping them. They are also automatically acknowledged on log in.
-void log_warning(log_entry_e type, int32_t data);
+
+/// @brief: Displays a new log message. Message type will determine if it's warning or an error.
+void log_add(log_entry_e type, int32_t data);
+
+static inline log_entry_type_e log_get_type(log_entry_st *entry) {
+	return entry->type & LOG_ERROR;
+}
 
 
-/// @brief: Logs a red error message. Errors need to be acknowledged from the
-/// system settings.
-void log_error(log_entry_e type, int32_t data);
 
+/// @brief: Acknowledges an active **index**'th warning or error message. 0 is the most recent message.
+void log_ack(uint16_t index);
 
-
-/// @brief: Acknowledges an active warning or error message. If multiple
-/// active messages with a type of **type** are found, this acknowledges the
-/// newest message.
-void log_ack(log_entry_e type);
-
-/// @brief: Returns how many entries are not acknoledged
+/// @brief: Returns how many entries are not acknowledged
 uint16_t log_get_nack_count();
 
 /// @brief: Returns the **index**'th not acknowledged entry's definition
 const log_entry_def_st *log_get_nack_def(uint16_t index);
+
+/// @brief: Returns the **index**'th not acknowledged entry
+bool log_get_nack(log_entry_st *dest, uint16_t index);
 
 
 /// @brief: Returns a log entry. Index determines which entry is returned.

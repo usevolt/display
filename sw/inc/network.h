@@ -10,6 +10,7 @@
 
 #include <uv_utilities.h>
 #include <uv_rtos.h>
+#include <uv_filters.h>
 #include "msb.h"
 #include "csb.h"
 #include "pedal.h"
@@ -31,6 +32,10 @@ typedef struct {
 	pedal_st pedal;
 	mb_st uw180s_mb;
 	uw180s_ecu_st uw180s_ecu;
+
+	/// @brief: moving average filter for can state. 0 = error, non-zero = no errors
+	uv_moving_aver_st can_state;
+	int can_last_state;
 } network_st;
 
 

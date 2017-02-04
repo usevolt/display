@@ -14,6 +14,7 @@
 
 #define SYSTEM_LOG_BUFFER_LEN			10
 #define SYSTEM_LOG_ENTRIES_PER_PAGE		5
+#define SYSTEM_LOG_PAGE_STR_LEN			21
 
 
 typedef struct {
@@ -23,14 +24,17 @@ typedef struct {
 	char *entry_strs[SYSTEM_LOG_ENTRIES_PER_PAGE];
 	uv_uilist_st entry_list;
 
-	char page_str[16];
+
+	uv_uilabel_st info_label;
+
+	char page_str[20];
 	uv_uilabel_st page_label;
 
 	uv_uibutton_st ack;
 	uv_uibutton_st next_page;
 	uv_uibutton_st prev_page;
 
-	uint8_t page;
+	int8_t page;
 
 
 } system_log_st;

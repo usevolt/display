@@ -58,7 +58,7 @@ int16_t get_vdd_mv() {
 
 
 void gui_init() {
-	this->backlight_curr = 51;
+	this->backlight_curr = 50;
 	uv_moving_aver_init(&this->vdd_mv, VDD_MOVING_AVER_COUNT);
 
 	gui_set_backlight(this->backlight_curr);
@@ -139,10 +139,10 @@ void gui_step(void *nullptr) {
 
 void gui_set_backlight(uint8_t value) {
 	if (value > 100) value = 100;
-	this->backlight_trg = (value / 100.0f) * 0xFFFF;
+	this->backlight_trg = (value / 100.0f) * 0xFFFF + 0.5f;
 }
 
 
 int16_t gui_get_backlight() {
-	return this->backlight_trg * (100.0f / 0xFFFF);
+	return this->backlight_trg * (100.0f / 0xFFFF) + 0.5f;
 }

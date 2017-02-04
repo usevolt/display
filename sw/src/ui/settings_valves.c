@@ -75,7 +75,7 @@ static void sliders_show(valve_st *valve) {
 			bb.width, 50, uv_uitogglebutton_step);
 
 
-	uv_uislider_init(&this->min_speed_p, VALVE_MIN_CURRENT_MA, VALVE_MAX_CURRENT_MA / 2,
+	uv_uislider_init(&this->min_speed_p, 0, VALVE_MAX_CURRENT_MA / 2,
 			valve->min_speed_p, &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->min_speed_p,
 			bb.x, bb.y, bb.width, bb.height / 2, uv_uislider_step);
@@ -106,7 +106,7 @@ static void sliders_show(valve_st *valve) {
 			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2, uv_uilabel_step);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->min_speed_n, VALVE_MIN_CURRENT_MA, VALVE_MAX_CURRENT_MA / 2,
+	uv_uislider_init(&this->min_speed_n, 0, VALVE_MAX_CURRENT_MA / 2,
 			valve->min_speed_n, &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->min_speed_n,
 			bb.x, bb.y, bb.width, bb.height / 2, uv_uislider_step);
@@ -161,6 +161,13 @@ void settings_valves_step(uint16_t step_ms) {
 		}
 		uv_uilabel_set_text(&this->topic, (char*) this->valve->name);
 		if (uv_uislider_value_changed(&this->max_speed_n)) {
+			if (uv_uislider_get_max_value(&this->min_speed_n) > uv_uislider_get_value(&this->max_speed_n)) {
+				uv_uislider_set_max_value(&this->min_speed_n, uv_uislider_get_value(&this->max_speed_n));
+			}
+			else {
+				uv_uislider_set_max_value(&this->min_speed_n,
+						uv_mini(uv_uislider_get_value(&this->max_speed_n), VALVE_MAX_CURRENT_MA / 2));
+			}
 			this->valve->max_speed_n = uv_uislider_get_value(&this->max_speed_n);
 			this->valve->setter(this->valve);
 		}
@@ -168,6 +175,13 @@ void settings_valves_step(uint16_t step_ms) {
 			uv_uislider_set_value(&this->max_speed_n, this->valve->max_speed_n);
 		}
 		if (uv_uislider_value_changed(&this->max_speed_p)) {
+			if (uv_uislider_get_max_value(&this->min_speed_p) > uv_uislider_get_value(&this->max_speed_p)) {
+				uv_uislider_set_max_value(&this->min_speed_p, uv_uislider_get_value(&this->max_speed_p));
+			}
+			else {
+				uv_uislider_set_max_value(&this->min_speed_p,
+						uv_mini(uv_uislider_get_value(&this->max_speed_p), VALVE_MAX_CURRENT_MA / 2));
+			}
 			this->valve->max_speed_p = uv_uislider_get_value(&this->max_speed_p);
 			this->valve->setter(this->valve);
 		}

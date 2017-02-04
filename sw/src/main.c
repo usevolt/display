@@ -56,7 +56,7 @@ void dspl_init(dspl_st *me) {
 
 	// read hour counter value from EEPROM
 	uv_eeprom_read((unsigned char*) &this->hour_counter,
-			sizeof(this->hour_counter), CONFIG_EEPROM_RING_BUFFER_END_ADDR);
+			sizeof(this->hour_counter), HOUR_COUNTER_EEPROM_ADDR);
 
 	// the first thing to do: if display is pressed for 10 s, restore system defaults
 	bool restore = false;
@@ -128,6 +128,8 @@ void dspl_init(dspl_st *me) {
 	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + PEDAL_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + UW180S_ECU_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + UW180S_MB_NODE_ID, CAN_STD);
+
+	log_init();
 
 	network_init(&this->network);
 

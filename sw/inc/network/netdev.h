@@ -46,6 +46,10 @@ void netdev_set_transmit_failure(void *me);
 /// @brief: Should be called when the node receives a heartbeat message
 void netdev_receive_heartbeat(void *me, uv_can_message_st *msg);
 
+static inline void netdev_clear_disconnect_delay(void *me) {
+	uv_delay_init(NETDEV_CONNECTION_TIME_OUT_MS, &this->timeout_delay);
+}
+
 static inline void netdev_set_node_id(void *me, uint8_t node_id) {
 	this->node_id = node_id;
 }

@@ -28,7 +28,7 @@ void netdev_init(void *me, void (*update_callb)(void*)) {
 void netdev_step(void *me, unsigned int step_ms) {
 	if (uv_delay(step_ms, &this->timeout_delay)) {
 		this->connected = false;
-		log_warning(this->disconnected_entry_type, this->node_id);
+		log_add(this->disconnected_entry_type, this->node_id);
 	}
 	if (uv_delay(step_ms, &this->transmission_delay)) {
 		this->update_callb(this);

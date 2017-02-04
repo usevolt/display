@@ -58,7 +58,7 @@ static void user_reset(userdata_st *user) {
 
 	strcpy(user->username, "Usewood");
 
-	user->engine_power_usage = ENGINE_POWER_USAGE;
+	user->engine_power_usage = 50;
 
 	// base valves
 	for (uint16_t i = 0; i < BASE_VALVE_COUNT; i++) {

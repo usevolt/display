@@ -38,7 +38,7 @@ void system_settings_show(void) {
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 	// engine power usage
-	uv_uislider_init(&this->power_usage, 0, 100, ENGINE_POWER_USAGE, &uv_uistyles[0]);
+	uv_uislider_init(&this->power_usage, 0, 100, dspl.user->engine_power_usage, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->power_usage);
 	uv_uislider_set_title(&this->power_usage, "Engine power\nusage");
 	uv_uiwindow_add(&this->window, &this->power_usage, bb.x, bb.y, bb.width, bb.height,

@@ -62,6 +62,27 @@ void system_show() {
 
 }
 
+void system_show_tab(void (*show_callb)(void)) {
+	system_show();
+	if (show_callb == system_settings_show) {
+		uv_uitabwindow_set_tab(&this->tabs, 0);
+	}
+	else if (show_callb == system_log_show) {
+		uv_uitabwindow_set_tab(&this->tabs, 1);
+	}
+	else if (show_callb == system_network_show) {
+		uv_uitabwindow_set_tab(&this->tabs, 2);
+	}
+	else if (show_callb == system_restore_show) {
+		uv_uitabwindow_set_tab(&this->tabs, 3);
+	}
+	else {
+		return;
+	}
+	show_callb();
+}
+
+
 
 void system_step(uint16_t step_ms) {
 	if (uv_uibutton_clicked(&this->ok)) {

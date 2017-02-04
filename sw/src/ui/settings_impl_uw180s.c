@@ -36,8 +36,8 @@ static void show_sliders(uw180s_state_e state, const char *label) {
 	uv_uigridlayout_init(&grid, 0, uv_uibb(&this->back)->y + uv_uibb(&this->back)->height,
 			uv_uibb(this->window)->width,
 			uv_uibb(this->window)->height - uv_uibb(&this->back)->y - uv_uibb(&this->back)->height,
-			3, 1);
-	uv_uigridlayout_set_padding(&grid, 30, 30);
+			3, 2);
+	uv_uigridlayout_set_padding(&grid, 5, 10);
 	bb = uv_uigridlayout_next(&grid);
 
 	impl_valve_st *v;
@@ -64,23 +64,28 @@ static void show_sliders(uw180s_state_e state, const char *label) {
 		v = NULL;
 		break;
 	}
+
+	bb = uv_uigridlayout_next(&grid);
+
 	uv_uislider_init(&this->max_speed_p, VALVE_MIN_CURRENT_MA,
 			VALVE_MAX_CURRENT_MA, v->max_speed_p, &uv_uistyles[0]);
-	uv_uislider_set_vertical(&this->max_speed_p);
+	uv_uislider_set_horizontal(&this->max_speed_p);
 	uv_uislider_set_title(&this->max_speed_p, "Max speed forward (ma)");
 	uv_uiwindow_add(this->window, &this->max_speed_p, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->max_speed_n, VALVE_MIN_CURRENT_MA,
-			VALVE_MAX_CURRENT_MA, v->max_speed_n, &uv_uistyles[0]);
-	uv_uislider_set_vertical(&this->max_speed_n);
-	uv_uislider_set_title(&this->max_speed_n, "Max speed backward (ma)");
-	uv_uiwindow_add(this->window, &this->max_speed_n, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
+	uv_uitogglebutton_init(&this->invert, v->invert, "Invert", &uv_uistyles[0]);
+	uv_uiwindow_add(this->window, &this->invert, bb.x + bb.width / 4,
+			bb.y + bb.height + grid.vpadding / 2 - bb.width / 4,
+			bb.width / 2, bb.width / 2, uv_uitogglebutton_step);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uitogglebutton_init(&this->invert, v->invert, "Invert", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->invert, bb.x + bb.width / 4, bb.y + bb.height / 4,
-			bb.width / 2, bb.height / 2, uv_uitogglebutton_step);
+	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->max_speed_n, VALVE_MIN_CURRENT_MA,
+			VALVE_MAX_CURRENT_MA, v->max_speed_n, &uv_uistyles[0]);
+	uv_uislider_set_horizontal(&this->max_speed_n);
+	uv_uislider_set_title(&this->max_speed_n, "Max speed backward (ma)");
+	uv_uiwindow_add(this->window, &this->max_speed_n, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
 
 }
 

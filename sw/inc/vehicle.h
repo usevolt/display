@@ -30,25 +30,24 @@
 
 /// @brief: Temperature warning limits
 /// Warning will be generated when the value goes over these
-#define MOTOR_TEMP_WARNING_LIMIT	75
+#define MOTOR_TEMP_WARNING_LIMIT	90
 #define OIL_TEMP_WARNING_LIMIT		75
+#define VOLTAGE_WARNING_LIMIT_MV	11400
 
 /// @brief: Fuel & oil level warning limits
 /// Warning will be generated when the value goes under these
-#define FUEL_LEVEL_WARNING_LIMIT	30
-#define OIL_LEVEL_WARNING_LIMIT		30
+#define FUEL_LEVEL_WARNING_LIMIT	40
+#define OIL_LEVEL_WARNING_LIMIT		40
 
 
 /// @brief: Defines the maximum and minimum valve current
-#define VALVE_MIN_CURRENT_MA		0
+#define VALVE_MIN_CURRENT_MA		100
 #define VALVE_MAX_CURRENT_MA		1000
 
 #define RPM_MAX						3500
 #define RPM_WARNING_LIMIT			3000
 
 #define PRESSURE_MAX				220
-
-#define ENGINE_POWER_USAGE			50
 
 
 /// @brief: Defines the vehicle's base valve count. Base valve settings

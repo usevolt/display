@@ -12,9 +12,15 @@
 static void network_task(void *me);
 
 
+#define NETWORK_CAN_BUS_OFF_AVER_COUNT		500
+
+
 
 void network_init(network_st *this) {
 	this->updating = true;
+	this->can_last_state = CAN_ERROR_ACTIVE;
+	uv_moving_aver_init(&this->can_state, NETWORK_CAN_BUS_OFF_AVER_COUNT);
+
 	uv_rtos_task_create(network_task, "network",
 			UV_RTOS_MIN_STACK_SIZE * 10, this, UV_RTOS_IDLE_PRIORITY + 1, NULL);
 	msb_init(&this->msb);
@@ -47,43 +53,68 @@ static void network_task(void *me) {
 	int16_t step_ms = 20;
 	while (true) {
 
-		msb_step(&this->msb, step_ms);
-		csb_step(&this->csb, step_ms);
-		pedal_step(&this->pedal, step_ms);
-		ecu_step(&this->ecu, step_ms);
-		keypad_step(&this->l_keypad, step_ms);
-		keypad_step(&this->r_keypad, step_ms);
-		mb_step(&this->uw180s_mb, step_ms);
-		uw180s_ecu_step(&this->uw180s_ecu, step_ms);
+		int cur_state = (uv_can_get_error_state(CAN1) == CAN_ERROR_ACTIVE);
 
-		if(this->updating) {
-			this->updating = false;
 
-			uint8_t update_step_ms = 10;
+		int state = uv_moving_aver_step(&this->can_state, cur_state);
 
-			msb_update(&this->msb);
-			uv_rtos_task_delay(update_step_ms);
+//		printf("cur_state: %u, state: %u\n\r ", cur_state, state);
 
-			csb_update(&this->csb);
-			uv_rtos_task_delay(update_step_ms);
-
-			pedal_update(&this->pedal);
-			uv_rtos_task_delay(update_step_ms);
-
-			ecu_update(&this->ecu);
-			uv_rtos_task_delay(update_step_ms);
-
-			keypad_update(&this->l_keypad);
-			uv_rtos_task_delay(update_step_ms);
-
-			keypad_update(&this->r_keypad);
-			uv_rtos_task_delay(update_step_ms);
-
-			mb_update(&this->uw180s_mb);
-			uv_rtos_task_delay(update_step_ms);
-
-			uw180s_ecu_update(&this->uw180s_ecu);
+		// log an error when the error state has been entered
+		if (!state) {
+			if (this->can_last_state != state) {
+				log_add(LOG_CAN_BUS_OFF, 0);
+			}
+			netdev_clear_disconnect_delay(&this->msb);
+			netdev_clear_disconnect_delay(&this->csb);
+			netdev_clear_disconnect_delay(&this->l_keypad);
+			netdev_clear_disconnect_delay(&this->r_keypad);
+			netdev_clear_disconnect_delay(&this->pedal);
+			netdev_clear_disconnect_delay(&this->ecu);
+			netdev_clear_disconnect_delay(&this->uw180s_ecu);
+			netdev_clear_disconnect_delay(&this->uw180s_mb);
 		}
+		else {
+			msb_step(&this->msb, step_ms);
+			csb_step(&this->csb, step_ms);
+			pedal_step(&this->pedal, step_ms);
+			ecu_step(&this->ecu, step_ms);
+			keypad_step(&this->l_keypad, step_ms);
+			keypad_step(&this->r_keypad, step_ms);
+			mb_step(&this->uw180s_mb, step_ms);
+			uw180s_ecu_step(&this->uw180s_ecu, step_ms);
+
+			if(this->updating) {
+				this->updating = false;
+
+				uint8_t update_step_ms = 10;
+
+				msb_update(&this->msb);
+				uv_rtos_task_delay(update_step_ms);
+
+				csb_update(&this->csb);
+				uv_rtos_task_delay(update_step_ms);
+
+				pedal_update(&this->pedal);
+				uv_rtos_task_delay(update_step_ms);
+
+				ecu_update(&this->ecu);
+				uv_rtos_task_delay(update_step_ms);
+
+				keypad_update(&this->l_keypad);
+				uv_rtos_task_delay(update_step_ms);
+
+				keypad_update(&this->r_keypad);
+				uv_rtos_task_delay(update_step_ms);
+
+				mb_update(&this->uw180s_mb);
+				uv_rtos_task_delay(update_step_ms);
+
+				uw180s_ecu_update(&this->uw180s_ecu);
+			}
+		}
+
+		this->can_last_state = state;
 
 		uv_rtos_task_delay(step_ms);
 	}
