@@ -111,7 +111,8 @@ static const data_st labels[] = {
 				.row2 = "Controls moved\n"
 						"Engine shut down\n"
 						"Pump angle\n"
-						"Stop\n"
+						"Implement\n"
+						"Legs Down\n"
 						"Pressure",
 				.row3 = "Boom Lift mA\n"
 						"Boom Fold mA\n"
@@ -205,10 +206,11 @@ static void update(devices_e dev) {
 	}
 	else if (dev == ECU) {
 		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i",
+				"%i\n%i\n%i\n%i\n%i\n%i",
 				ecu_get_controls_moved(&dspl.network.ecu),
 				ecu_get_engine_shut_down(&dspl.network.ecu),
 				ecu_get_pump_angle(&dspl.network.ecu),
+				ecu_get_implement(&dspl.network.ecu),
 				ecu_get_stop(&dspl.network.ecu),
 				ecu_get_pressure(&dspl.network.ecu));
 		uv_ui_refresh(&this->row2_values);

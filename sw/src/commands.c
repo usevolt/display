@@ -296,7 +296,7 @@ void hours_callb(void *me, unsigned int cmd, unsigned int args, argument_st *arg
 		if (strcmp(argv[1].str, "usewoodfi") == 0) {
 			this->hour_counter = argv[0].number;
 			uv_eeprom_write((unsigned char*) &this->hour_counter,
-					sizeof(this->hour_counter), CONFIG_EEPROM_RING_BUFFER_END_ADDR);
+					sizeof(this->hour_counter), HOUR_COUNTER_EEPROM_ADDR);
 		}
 		else {
 			printf("Wrong password\n\r");

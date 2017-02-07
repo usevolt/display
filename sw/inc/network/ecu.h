@@ -55,7 +55,7 @@ static inline void ecu_init(ecu_st *this) {
 	this->read.controls_moved = 0;
 	this->read.engine_shut_down = 0;
 	this->read.pump_angle = 0;
-	this->read.implement = 0;
+	this->read.implement = 1;
 	this->read.stop = 0;
 	this->read.pressure = 0;
 	this->read.valves.boom_lift_ma = 0;

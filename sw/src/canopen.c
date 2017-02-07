@@ -97,6 +97,13 @@ const uv_canopen_object_st obj_dict[] = {
 				.data_ptr = (void*) &dspl.network.ecu.read.pump_angle
 		},
 		{
+				.main_index = 0x2203,
+				.sub_index = 0,
+				.permissions = CANOPEN_RO,
+				.type = CANOPEN_UNSIGNED8,
+				.data_ptr = (void*) &dspl.network.ecu.read.implement
+		},
+		{
 				.main_index = 0x2204,
 				.sub_index = 0,
 				.permissions = CANOPEN_RO,
