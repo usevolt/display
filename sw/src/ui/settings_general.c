@@ -110,6 +110,11 @@ void settings_general_step(uint16_t step_ms) {
 	else {
 		uv_uitogglebutton_set_state(&this->work_lights, csb_get_work_light(&dspl.network.csb));
 	}
+
+	// wiper
+	if (uv_uislider_value_changed(&this->wiper)) {
+		csb_set_wiper(&dspl.network.csb, uv_uislider_get_value(&this->wiper));
+	}
 }
 
 

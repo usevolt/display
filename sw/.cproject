@@ -43,21 +43,29 @@
 								<option id="gnu.c.compiler.option.misc.other.1578299325" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -Wno-format" valueType="string"/>
 								<option id="com.crt.advproject.gcc.hdrlib.1706546507" name="Library headers" superClass="com.crt.advproject.gcc.hdrlib" value="com.crt.advproject.gcc.hdrlib.newlib" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.15071090" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/inc/ui}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_CORE_LPC177x_8x/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_DSPLIB_CM3/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/hal/uv_hal/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/hal/uv_hal/freertos/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/hal/uv_hal/freertos/portable/GCC/ARM_CM3}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_CORE_LPC177x_8x}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_DSPLIB_CM3}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/inc/network}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/inc/ui}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="../uw_display/CMSIS_CORE_LPC177x_8x/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/CMSIS_DSPLIB_CM3/inc"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/hal/uv_hal/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/hal/uv_hal/freertos/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/hal/uv_hal/freertos/portable/GCC/ARM_CM3}&quot;"/>
+									<listOptionValue builtIn="false" value="../uw_display/CMSIS_CORE_LPC177x_8x"/>
+									<listOptionValue builtIn="false" value="../uw_display/CMSIS_DSPLIB_CM3"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/inc/network}&quot;"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/CMSIS_CORE_LPC177x_8x/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/CMSIS_DSPLIB_CM3/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/hal/uv_hal/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/hal/uv_hal/freertos/include"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/hal/uv_hal/freertos/portable/GCC/ARM_CM3"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/CMSIS_CORE_LPC177x_8x"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/CMSIS_DSPLIB_CM3"/>
 								</option>
 								<option id="com.crt.advproject.gcc.exe.debug.option.optimization.level.1462015691" name="Optimization Level" superClass="com.crt.advproject.gcc.exe.debug.option.optimization.level" value="gnu.c.optimization.level.general" valueType="enumerated"/>
 								<option id="com.crt.advproject.gcc.lto.1777606234" name="Enable Link-time optimization (-flto)" superClass="com.crt.advproject.gcc.lto" value="false" valueType="boolean"/>
 								<option id="com.crt.advproject.gcc.exe.debug.option.debugging.level.1577789550" name="Debug Level" superClass="com.crt.advproject.gcc.exe.debug.option.debugging.level" value="gnu.c.debugging.level.default" valueType="enumerated"/>
-								<option id="com.crt.advproject.gcc.specs.2050720298" superClass="com.crt.advproject.gcc.specs" value="com.crt.advproject.gcc.specs.newlib" valueType="enumerated"/>
+								<option id="com.crt.advproject.gcc.specs.2050720298" name="Specs" superClass="com.crt.advproject.gcc.specs" value="com.crt.advproject.gcc.specs.newlib" valueType="enumerated"/>
 								<inputType id="com.crt.advproject.compiler.input.97094434" superClass="com.crt.advproject.compiler.input"/>
 							</tool>
 							<tool id="com.crt.advproject.gas.exe.debug.21213079" name="MCU Assembler" superClass="com.crt.advproject.gas.exe.debug">
@@ -66,18 +74,26 @@
 								<option id="gnu.both.asm.option.flags.crt.847477376" name="Assembler flags" superClass="gnu.both.asm.option.flags.crt" value="-c -x assembler-with-cpp -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSIS_CORE_LPC177x_8x -D__USE_CMSIS_DSPLIB=CMSIS_DSPLIB_CM3 -D__LPC177X_8X__ -D__NEWLIB__" valueType="string"/>
 								<option id="com.crt.advproject.gas.hdrlib.470512966" name="Library headers" superClass="com.crt.advproject.gas.hdrlib" value="com.crt.advproject.gas.hdrlib.newlib" valueType="enumerated"/>
 								<option id="gnu.both.asm.option.include.paths.1335252500" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/inc/ui}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/CMSIS_CORE_LPC177x_8x/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/CMSIS_DSPLIB_CM3/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="../uw_display/CMSIS_CORE_LPC177x_8x/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/CMSIS_DSPLIB_CM3/inc"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/hal/uv_hal/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/hal/uv_hal/freertos/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/hal/uv_hal/freertos/portable/GCC/ARM_CM3}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/CMSIS_CORE_LPC177x_8x}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/CMSIS_DSPLIB_CM3}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/inc/ui}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/inc/network}&quot;"/>
+									<listOptionValue builtIn="false" value="../uw_display/CMSIS_CORE_LPC177x_8x"/>
+									<listOptionValue builtIn="false" value="../uw_display/CMSIS_DSPLIB_CM3"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/inc/network}&quot;"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/CMSIS_CORE_LPC177x_8x/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/CMSIS_DSPLIB_CM3/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/hal/uv_hal/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/hal/uv_hal/freertos/include"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/hal/uv_hal/freertos/portable/GCC/ARM_CM3"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/CMSIS_CORE_LPC177x_8x"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/CMSIS_DSPLIB_CM3"/>
 								</option>
-								<option id="com.crt.advproject.gas.specs.741657048" superClass="com.crt.advproject.gas.specs" value="com.crt.advproject.gas.specs.newlib" valueType="enumerated"/>
+								<option id="com.crt.advproject.gas.specs.741657048" name="Specs" superClass="com.crt.advproject.gas.specs" value="com.crt.advproject.gas.specs.newlib" valueType="enumerated"/>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1635983474" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 								<inputType id="com.crt.advproject.assembler.input.972454036" name="Additional Assembly Source Files" superClass="com.crt.advproject.assembler.input"/>
 							</tool>
@@ -96,7 +112,7 @@
 								<option id="com.crt.advproject.link.gcc.hdrlib.2049148400" name="Library" superClass="com.crt.advproject.link.gcc.hdrlib" value="com.crt.advproject.gcc.link.hdrlib.newlib.semihost" valueType="enumerated"/>
 								<option id="gnu.c.link.option.libs.1170568509" name="Libraries (-l)" superClass="gnu.c.link.option.libs"/>
 								<option id="gnu.c.link.option.paths.1855053741" name="Library search path (-L)" superClass="gnu.c.link.option.paths"/>
-								<option id="com.crt.advproject.link.crpenable.1811327277" name="Enable Code Read Protect" superClass="com.crt.advproject.link.crpenable" value="false" valueType="boolean"/>
+								<option id="com.crt.advproject.link.crpenable.1811327277" name="Enable Code Read Protection" superClass="com.crt.advproject.link.crpenable" value="false" valueType="boolean"/>
 								<option id="com.crt.advproject.link.gcc.multicore.slave.409692489" name="Multicore configuration" superClass="com.crt.advproject.link.gcc.multicore.slave"/>
 								<option id="com.crt.advproject.link.stackOffset.15301723" name="Stack offset" superClass="com.crt.advproject.link.stackOffset" value="0" valueType="string"/>
 								<option id="gnu.c.link.option.ldflags.2052822148" name="Linker flags" superClass="gnu.c.link.option.ldflags" value="" valueType="string"/>
@@ -113,18 +129,46 @@
 							<tool id="com.crt.advproject.cpp.exe.debug.542990443" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.exe.debug.1030030900"/>
 							<tool id="com.crt.advproject.gcc.exe.debug.589356403" name="MCU C Compiler" superClass="com.crt.advproject.gcc.exe.debug.1120205501">
 								<option id="gnu.c.compiler.option.include.paths.1111945746" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/inc/ui}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_CORE_LPC177x_8x}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_DSPLIB_CM3}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/hal/uv_hal/freertos/portable/GCC/ARM_CM3}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/hal/uv_hal/freertos/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/hal/uv_hal/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_DSPLIB_CM3/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/CMSIS_CORE_LPC177x_8x/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/inc/ui}&quot;"/>
+									<listOptionValue builtIn="false" value="../uw_display/CMSIS_CORE_LPC177x_8x/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/CMSIS_DSPLIB_CM3/inc"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/hal/uv_hal/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/hal/uv_hal/freertos/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/hal/uv_hal/freertos/portable/GCC/ARM_CM3}&quot;"/>
+									<listOptionValue builtIn="false" value="../uw_display/CMSIS_CORE_LPC177x_8x"/>
+									<listOptionValue builtIn="false" value="../uw_display/CMSIS_DSPLIB_CM3"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/inc/network}&quot;"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/CMSIS_CORE_LPC177x_8x/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/CMSIS_DSPLIB_CM3/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/hal/uv_hal/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/hal/uv_hal/freertos/include"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/hal/uv_hal/freertos/portable/GCC/ARM_CM3"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/CMSIS_CORE_LPC177x_8x"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/CMSIS_DSPLIB_CM3"/>
 								</option>
 								<inputType id="com.crt.advproject.compiler.input.2135165327" superClass="com.crt.advproject.compiler.input"/>
 							</tool>
 							<tool id="com.crt.advproject.gas.exe.debug.1231100919" name="MCU Assembler" superClass="com.crt.advproject.gas.exe.debug.21213079">
+								<option id="gnu.both.asm.option.include.paths.278388093" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/inc/ui}&quot;"/>
+									<listOptionValue builtIn="false" value="../uw_display/CMSIS_CORE_LPC177x_8x/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/CMSIS_DSPLIB_CM3/inc"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/hal/uv_hal/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/hal/uv_hal/freertos/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/hal/uv_hal/freertos/portable/GCC/ARM_CM3}&quot;"/>
+									<listOptionValue builtIn="false" value="../uw_display/CMSIS_CORE_LPC177x_8x"/>
+									<listOptionValue builtIn="false" value="../uw_display/CMSIS_DSPLIB_CM3"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/uw_display/uw_display/inc/network}&quot;"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/CMSIS_CORE_LPC177x_8x/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/CMSIS_DSPLIB_CM3/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/hal/uv_hal/inc"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/hal/uv_hal/freertos/include"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/hal/uv_hal/freertos/portable/GCC/ARM_CM3"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/CMSIS_CORE_LPC177x_8x"/>
+									<listOptionValue builtIn="false" value="../uw_display/uw_display/CMSIS_DSPLIB_CM3"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1738611819" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 								<inputType id="com.crt.advproject.assembler.input.36269155" name="Additional Assembly Source Files" superClass="com.crt.advproject.assembler.input"/>
 							</tool>
@@ -133,14 +177,12 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=".settings"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CMSIS_CORE_LPC177x_8x"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CMSIS_DSPLIB_CM3"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=".settings"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="hal"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="inc"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="src"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="src/ui"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="src/network"/>
+						<entry excluding="ui|network" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src/network"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src/ui"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -229,12 +271,10 @@
 		</configuration>
 		<configuration configurationName="release"/>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.debug.1018973033;com.crt.advproject.config.exe.debug.1018973033.;com.crt.advproject.gcc.exe.debug.1120205501;com.crt.advproject.compiler.input.97094434">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfile"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.release.2110929645;com.crt.advproject.config.exe.release.2110929645.;com.crt.advproject.gas.exe.release.1130107423;com.crt.advproject.assembler.input.2146906846">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfile"/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.release.2110929645;com.crt.advproject.config.exe.release.2110929645.;com.crt.advproject.gcc.exe.release.790320520;com.crt.advproject.compiler.input.445091363">
@@ -243,6 +283,8 @@
 		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.debug.1018973033;com.crt.advproject.config.exe.debug.1018973033.;com.crt.advproject.gas.exe.debug.21213079;com.crt.advproject.assembler.input.972454036">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfile"/>
 		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.release.2110929645;com.crt.advproject.config.exe.release.2110929645.;com.crt.advproject.gas.exe.release.1130107423;com.crt.advproject.assembler.input.2146906846">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfile"/>
+		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>

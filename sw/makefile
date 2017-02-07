@@ -26,13 +26,10 @@ BUILDDIR := release
 # Name of the produced binary firmware
 BINARY := display
 
-# name of the CMSIS directory. Should be in the same directory as this makefile
-CMSIS := CMSIS_CORE_LPC177x_8x
-
 # List of include directories
 INCLUDEDIRS := 	-I"inc/" \
-				-I"CMSIS_CORE_LPC177x_8x/inc/" \
 				-I"hal/uv_hal/inc" \
+				-I"hal/CMSIS_CORE_LPC177x_8x/inc"\
 				-I"hal/uv_hal/freertos/include" \
 				-I"hal/uv_hal/freertos/portable/GCC/ARM_CM3" \
 				-I"inc/ui" \
@@ -53,7 +50,7 @@ APP_NAME := $(shell basename `git rev-parse --show-toplevel`)
 FULL_NAME := $(APP_NAME)_$(GIT_VERSION)
 
 
-CFLAGS := -DDEBUG -D__CODE_RED -D$(CORE) -D__USE_CMSIS=$(CMSIS) -D__UV_PROJECT_NAME=$(FULL_NAME) -D__NEWLIB__ $(INCLUDEDIRS) -$(O) -g3 -Wall -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=$(MCPU) -mthumb
+CFLAGS := -DDEBUG -D__CODE_RED -D$(CORE) -D__UV_PROJECT_NAME=$(FULL_NAME) -D__NEWLIB__ $(INCLUDEDIRS) -$(O) -g3 -Wall -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=$(MCPU) -mthumb
 
 
 LDFLAGS := -nostdlib -Xlinker -Map="$(BUILDDIR)/$(APP_NAME).map" -Xlinker --cref -Xlinker --gc-sections -mcpu=$(MCPU) -mthumb -T "$(APP_NAME).ld" -D__UV_APP_VERSION=\"$(GIT_VERSION)\"

@@ -95,5 +95,7 @@ void csb_set_drive_light(csb_st *csb, bool value);
 /// @brief: Sends the request to CSB to set work lights to *value*
 void csb_set_work_light(csb_st *csb, bool value);
 
+void csb_set_wiper(csb_st *csb, uint8_t value);
+
 
 #endif /* CSB_H_ */

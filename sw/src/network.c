@@ -81,8 +81,10 @@ static void network_task(void *me) {
 			ecu_step(&this->ecu, step_ms);
 			keypad_step(&this->l_keypad, step_ms);
 			keypad_step(&this->r_keypad, step_ms);
-			mb_step(&this->uw180s_mb, step_ms);
-			uw180s_ecu_step(&this->uw180s_ecu, step_ms);
+			if (ecu_get_implement(&this->ecu) == IMPL_UW180S) {
+				mb_step(&this->uw180s_mb, step_ms);
+				uw180s_ecu_step(&this->uw180s_ecu, step_ms);
+			}
 
 			if(this->updating) {
 				this->updating = false;

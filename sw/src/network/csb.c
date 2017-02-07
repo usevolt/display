@@ -46,9 +46,24 @@ void csb_set_work_light(csb_st *csb, bool value) {
 	}
 }
 
+void csb_set_wiper(csb_st *csb, uint8_t value) {
+	csb->write.wiper = value;
+	uv_canopen_sdo_message_st msg = {
+			.main_index = 0x1102,
+			.sub_index = 0,
+			.data_length = 1,
+			.data_8bit[0] = value,
+			.request = CANOPEN_SDO_CMD_WRITE_1_BYTE,
+	};
+	if (uv_canopen_send_sdo(&dspl.canopen, &msg, CSB_NODE_ID)) {
+		netdev_set_transmit_failure(&dspl.network.csb);
+	}
+}
+
 #define this ((csb_st*)me)
 
 void csb_update(void *me) {
 	csb_set_work_light(this, this->write.work_light);
 	csb_set_drive_light(this, this->write.drive_light);
+	csb_set_wiper(this, this->write.wiper);
 }
