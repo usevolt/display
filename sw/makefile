@@ -63,8 +63,22 @@ DEPS := $(OBJECTS:.o=.d)
 
 
 
+default:
+	@echo "\n**************************"
+	@echo "Error: Target not defined."
+	@echo "**************************\n"
+	@echo " Please use either 'make fm' or 'make lm'"
 
-all: $(BINARY)
+
+fm:	CFLAGS += -DFM
+fm: LDFLAGS += -DFM
+fm: $(BINARY)
+	$(MAKE) post-build
+
+
+lm:	CFLAGS += -DLM
+lm: LDFLAGS += -DLM
+lm: $(BINARY)
 	$(MAKE) post-build
 
 $(BINARY): $(OBJECTS)

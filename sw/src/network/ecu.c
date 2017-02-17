@@ -125,6 +125,8 @@ void ecu_set_boom_rotate_params(valve_st *valve) {
 	}
 }
 
+#if FM
+
 void ecu_set_drive_params(valve_st *valve) {
 	uv_errors_e e = ERR_NONE;
 	e |= (uv_canopen_sdo_write(&dspl.canopen, CANOPEN_SDO_CMD_WRITE_2_BYTES,
@@ -166,6 +168,30 @@ void ecu_set_steer_params(valve_st *valve) {
 		netdev_set_transmit_failure(&dspl.network.ecu);
 	}
 }
+
+#elif LM
+
+void ecu_set_boom_telescope_params(valve_st *valve) {
+#warning "not implemented"
+}
+
+void ecu_set_drivefront_params(valve_st *valve) {
+#warning "not implemented"
+}
+
+void ecu_set_steerfront_params(valve_st *valve) {
+#warning "not implemented"
+}
+
+void ecu_set_driveback_params(valve_st *valve) {
+#warning "not implemented"
+}
+
+void ecu_set_steerback_params(valve_st *valve) {
+#warning "not implemented"
+}
+
+#endif
 
 void ecu_set_left_leg_params(valve_st *valve) {
 	uv_errors_e e = ERR_NONE;

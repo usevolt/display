@@ -106,6 +106,7 @@ static const data_st labels[] = {
 				.row3 = ""
 		},
 		// ECU
+#if FM
 		{
 				.name = "ECU",
 				.row2 = "Controls moved\n"
@@ -123,6 +124,27 @@ static const data_st labels[] = {
 						"Right Leg mA\n"
 						"Impl valve mA"
 		},
+#elif LM
+		{
+				.name = "ECU",
+				.row2 = "Controls moved\n"
+						"Engine shut down\n"
+						"Pump angle\n"
+						"Implement\n"
+						"Legs Down\n"
+						"Pressure",
+				.row3 = "Boom Lift mA\n"
+						"Boom Fold mA\n"
+						"Boom Rotate mA\n"
+						"Boom Telescope mA\n"
+						"Drive Front mA\n"
+						"Drive Back mA\n"
+						"Steer Front mA\n"
+						"Steer Back mA\n"
+						"Left Leg mA\n"
+						"Right Leg mA"
+		},
+#endif
 		// L_KEYPAD
 		{
 				.name = "Left Keypad",
@@ -214,6 +236,7 @@ static void update(devices_e dev) {
 				ecu_get_stop(&dspl.network.ecu),
 				ecu_get_pressure(&dspl.network.ecu));
 		uv_ui_refresh(&this->row2_values);
+#if FM
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
 				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
 				ecu_get_boom_lift_ma(&dspl.network.ecu),
@@ -223,7 +246,21 @@ static void update(devices_e dev) {
 				ecu_get_steer_ma(&dspl.network.ecu),
 				ecu_get_left_leg_ma(&dspl.network.ecu),
 				ecu_get_right_leg_ma(&dspl.network.ecu),
-				0);
+				ecu_get_impl_valve_ma(&dspl.network.ecu));
+#elif LM
+		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
+				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
+				ecu_get_boom_lift_ma(&dspl.network.ecu),
+				ecu_get_boom_fold_ma(&dspl.network.ecu),
+				ecu_get_boom_rotate_ma(&dspl.network.ecu),
+				ecu_get_boom_telescope_ma(&dspl.network.ecu),
+				ecu_get_drivefront_ma(&dspl.network.ecu),
+				ecu_get_driveback_ma(&dspl.network.ecu),
+				ecu_get_steerfront_ma(&dspl.network.ecu),
+				ecu_get_steerback_ma(&dspl.network.ecu),
+				ecu_get_left_leg_ma(&dspl.network.ecu),
+				ecu_get_right_leg_ma(&dspl.network.ecu));
+#endif
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(&dspl.network.ecu);
 	}

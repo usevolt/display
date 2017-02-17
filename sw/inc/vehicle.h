@@ -47,12 +47,28 @@
 #define RPM_MAX						3500
 #define RPM_WARNING_LIMIT			3000
 
-#define PRESSURE_MAX				220
+#define PRESSURE_MAX				250
+
+
+// a work around for eclipse cdt code analysis bug in project symbols.
+// All project symbols are parsed into empty symbols. Thus, this
+// replaces them with the right values.
+#if defined(FM)
+#undef FM
+#define FM 1
+#elif defined(LM)
+#undef LM
+#define LM 1
+#endif
 
 
 /// @brief: Defines the vehicle's base valve count. Base valve settings
 /// are shown on "valve configuration"-screen
+#if FM
 #define BASE_VALVE_COUNT			7
+#elif LM
+#define BASE_VALVE_COUNT			10
+#endif
 
 /// @brief: Vehicle's implement valve count. Implement valve settings
 /// are shown on "implement valve configuration"-screen
