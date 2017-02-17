@@ -118,7 +118,7 @@ void gui_step(void *nullptr) {
 		else if (delta < -BACKLIGHT_KP_MAX) delta = -BACKLIGHT_KP_MAX;
 		this->backlight_curr += delta * BACKLIGHT_KP;
 		int p = PWM_MAX_VALUE - (this->backlight_curr * pwm_max_val / 0xFFFF);
-//		printf("voltage: %i, pwm: %i\n\r", vdd, p);
+//		printf("voltage: %i, pwm: %i\n", vdd, p);
 		uv_pwm_set(LCD_BACKLIGHT, p);
 
 		// active window step function

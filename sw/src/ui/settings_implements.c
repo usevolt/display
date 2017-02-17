@@ -65,13 +65,13 @@ void settings_implements_show(void) {
 			uv_uilist_step);
 
 	// new implement button
-	uv_uibutton_init(&this->new_impl, "New\n\rimplement", &uv_uistyles[0]);
+	uv_uibutton_init(&this->new_impl, "New\nimplement", &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->new_impl, bb.x + bb.width * 2 - BW,
 			bb.y + uv_uibb(&this->impls_label)->y + uv_uibb(&this->impls_label)->height,
 			BW, BH, uv_uibutton_step);
 
 	// delete implement button
-	uv_uibutton_init(&this->del_impl, "Delete\n\rimplement", &uv_uistyles[0]);
+	uv_uibutton_init(&this->del_impl, "Delete\nimplement", &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->del_impl, bb.x + bb.width * 2 - BW,
 			bb.y + BH + 10 + uv_uibb(&this->impls_label)->y + uv_uibb(&this->impls_label)->height,
 			BW, BH, uv_uibutton_step);
@@ -105,7 +105,7 @@ void settings_implements_step(uint16_t step_ms) {
 		char str[GENERIC_IMPLEMENT_NAME_LEN];
 		if (uv_vector_size(&dspl.user->generic_implements) ==
 				uv_vector_max_size(&dspl.user->generic_implements)) {
-			printf("Too many implements\n\r");
+			printf("Too many implements\n");
 			return;
 		}
 		if (uv_uikeyboard_show("Implement name", str,
@@ -124,10 +124,10 @@ void settings_implements_step(uint16_t step_ms) {
 	else if (uv_uibutton_clicked(&this->del_impl)) {
 		int16_t i = uv_uilist_get_selected(&this->impls_list);
 		if (i < UW_IMPLEMENT_COUNT) {
-			printf("Default implements cannot be deleted\n\r");
+			printf("Default implements cannot be deleted\n");
 		}
 		else if (i - UW_IMPLEMENT_COUNT >= uv_vector_size(&dspl.user->generic_implements)) {
-			printf("Cannot delete generic implement n.o. %i\n\r", i - UW_IMPLEMENT_COUNT);
+			printf("Cannot delete generic implement n.o. %i\n", i - UW_IMPLEMENT_COUNT);
 		}
 		else {
 			uv_vector_remove(&dspl.user->generic_implements, i - UW_IMPLEMENT_COUNT, 1);

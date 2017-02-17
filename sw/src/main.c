@@ -165,7 +165,7 @@ void dspl_step(void *me) {
 
 		uv_errors_e e = uv_canopen_step(&this->canopen, step_ms);
 		if (e) {
-			printf("CANopen error: %u\n\r", UV_ERR_GET(e));
+			printf("CANopen error: %u\n", UV_ERR_GET(e));
 		}
 
 		alert_step(&this->alert, step_ms);

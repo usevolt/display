@@ -38,85 +38,85 @@ const uv_command_st terminal_commands[] = {
 		{
 				.id = CMD_EMC_WRITE,
 				.str = "emcwrite",
-				.instructions= "Write data to eternal SDRAM.\n\r"
+				.instructions= "Write data to eternal SDRAM.\n"
 						"Usage: emcwrite <addr> <count> <value>",
 				.callback = emcwrite_callb
 		},
 		{
 				.id = CMD_EMC_READ,
 				.str = "emcread",
-				.instructions= "Read data from external SDRAM.\n\r"
+				.instructions= "Read data from external SDRAM.\n"
 						"Usage: emcread <addr> <count>",
 				.callback = emcread_callb
 		},
 		{
 				.id = CMD_BACKLIGHT,
 				.str = "backlight",
-				.instructions = "Sets the display's backlight brightness PWM value.\n\r"
+				.instructions = "Sets the display's backlight brightness PWM value.\n"
 						"Usage: backlight <0...100>",
 				.callback = lcdbacklight_callb
 		},
 		{
 				.id = CMD_REFRESH,
 				.str = "refresh",
-				.instructions = "Refreshes the screen.\n\r"
+				.instructions = "Refreshes the screen.\n"
 						"Usage: refresh",
 				.callback = refresh_callb
 		},
 		{
 				.id = CMD_LOG_CLEAR,
 				.str = "logclear",
-				.instructions = "Clears the log\n\r"
+				.instructions = "Clears the log\n"
 						"Usage: logclear",
 				.callback = logclear_callb
 		},
 		{
 				.id = CMD_LOG_SHOW,
 				.str = "logshow",
-				.instructions = "Shows all log entries\n\r"
+				.instructions = "Shows all log entries\n"
 						"Usage: logshow",
 				.callback = logshow_callb
 		},
 		{
 				.id = CMD_ALERT,
 				.str = "alert",
-				.instructions = "Plays different alert sounds with the buzzer depending\n\r"
-						"on the parameter given.\n\r"
+				.instructions = "Plays different alert sounds with the buzzer depending\n"
+						"on the parameter given.\n"
 						"Usage: alert <alert_enum>",
 				.callback = alert_callb
 		},
 		{
 				.id = CMD_VOLUME,
 				.str = "volume",
-				.instructions = "Sets the buzzer volume in percents\n\r"
+				.instructions = "Sets the buzzer volume in percents\n"
 						"Usage: volume <0...100>",
 				.callback = volume_callb
 		},
 		{
 				.id = CMD_TIME,
 				.str = "time",
-				.instructions = "Sets or gets the time from the RTC.\n\r"
+				.instructions = "Sets or gets the time from the RTC.\n"
 						"Usage: time (year) (month) (day) (hour) (min) (sec)",
 				.callback = time_callb
 		},
 		{
 				.id = CMD_USER,
 				.str = "user",
-				.instructions = "Adds or deletes users, or sets the current user.\n\r"
+				.instructions = "Adds or deletes users, or sets the current user.\n"
 						"Usage: user (\"add\"/\"remove\"/\"set\"/\"clear\") (username)",
 				.callback = user_callb
 		},
 		{
 				.id = CMD_HOURS,
 				.str = "hours",
-				.instructions = "Displays or sets the usage calculator hours.\n\r"
+				.instructions = "Displays or sets the usage calculator hours.\n"
 						"Usage: hours (set_hours) (password)",
 				.callback = hours_callb
 		},
 		{
 				.id = CMD_SHOW,
 				.str = "show",
-				.instructions = "Shows the given UI window on the display.\n\r"
+				.instructions = "Shows the given UI window on the display.\n"
 						"Usage: show <\"login\"/\"home\"/...>",
 				.callback = show_callb
 		}
@@ -134,7 +134,7 @@ unsigned int commands_count(void) {
 
 void emcwrite_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	if (args < 3) {
-		printf("Give 3 arguments\n\r");
+		printf("Give 3 arguments\n");
 		return;
 	}
 	uint8_t data = (uint8_t) argv[2].number;
@@ -142,13 +142,13 @@ void emcwrite_callb(void *me, unsigned int cmd, unsigned int args, argument_st *
 	uint32_t len = (uint32_t) argv[1].value;
 
 	memset(addr, data, len);
-	printf("wrote %u bytes of 0x%x to address 0x%x\n\r", (unsigned int) len,
+	printf("wrote %u bytes of 0x%x to address 0x%x\n", (unsigned int) len,
 			(unsigned int) data, (unsigned int) addr);
 }
 
 void emcread_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	if (args < 2) {
-		printf("Give 2 arguments\n\r");
+		printf("Give 2 arguments\n");
 		return;
 	}
 	volatile uint8_t data;
@@ -156,13 +156,13 @@ void emcread_callb(void *me, unsigned int cmd, unsigned int args, argument_st *a
 	uint32_t len = (uint32_t) argv[1].value;
 	int i;
 
-	printf("len: %u, args: %u\n\r", (unsigned int) len, (unsigned int) args);
+	printf("len: %u, args: %u\n", (unsigned int) len, (unsigned int) args);
 	printf("data: ");
 	for (i = 0; i < len; i++) {
 		data = *(addr + i);
 		printf("0x%x ", data);
 	}
-	printf("\n\r");
+	printf("\n");
 }
 
 
@@ -176,18 +176,18 @@ void lcdbacklight_callb(void *me, unsigned int cmd, unsigned int args, argument_
 		gui_set_backlight(b);
 	}
 
-	printf("Backlight %u\n\r", b);
+	printf("Backlight %u\n", b);
 }
 
 void refresh_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
-	printf("Refreshing the display\n\r");
+	printf("Refreshing the display\n");
 	uv_ui_refresh_parent(&gui.display);
 }
 
 
 void logclear_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	log_clear();
-	printf("log cleared\n\r");
+	printf("log cleared\n");
 }
 
 void logshow_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
@@ -204,10 +204,10 @@ void logshow_callb(void *me, unsigned int cmd, unsigned int args, argument_st *a
 				i, tim->year, tim->month, tim->day,
 				tim->hour, tim->min, tim->sec, entry.ack, def->def);
 		if (strlen(def->param_def)) {
-			printf(": %s %i\n\r", def->param_def, (int) entry.data);
+			printf(": %s %i\n", def->param_def, (int) entry.data);
 		}
 		else {
-			printf("\n\r");
+			printf("\n");
 		}
 		i++;
 	}
@@ -215,7 +215,7 @@ void logshow_callb(void *me, unsigned int cmd, unsigned int args, argument_st *a
 
 void alert_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	if (!args) {
-		printf("Give 1 argument\n\r");
+		printf("Give 1 argument\n");
 		return;
 	}
 	if (argv[0].number < ALERT_COUNT) {
@@ -227,7 +227,7 @@ void volume_callb(void *me, unsigned int cmd, unsigned int args, argument_st *ar
 	if (args && argv[0].number <= 100) {
 		alert_set_volume(&this->alert, argv[0].number);
 	}
-	printf("Volume: %u\n\r", alert_get_volume(&this->alert));
+	printf("Volume: %u\n", alert_get_volume(&this->alert));
 }
 
 
@@ -237,7 +237,7 @@ void time_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv
 		uv_rtc_get_time(&time);
 	}
 	else if (args < 6) {
-		printf("Give 6 arguments\n\r");
+		printf("Give 6 arguments\n");
 		return;
 	}
 	else {
@@ -249,41 +249,41 @@ void time_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv
 		time.sec = argv[5].number;
 		uv_rtc_set_time(&time);
 	}
-	printf("%i-%i-%i %i:%i:%i\n\r", time.year, time.month, time.day,
+	printf("%i-%i-%i %i:%i:%i\n", time.year, time.month, time.day,
 			time.hour, time.min, time.sec);
 }
 
 
 void user_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	if (!args) {
-		printf("User count: %u/%u\n\r", uv_vector_size(&this->users), uv_vector_max_size(&this->users));
-		printf("Users:\n\r");
+		printf("User count: %u/%u\n", uv_vector_size(&this->users), uv_vector_max_size(&this->users));
+		printf("Users:\n");
 		user_e i;
 		for (i = 0; i < uv_vector_size(&this->users); i++) {
 			if (strlen(((userdata_st*) uv_vector_at(&this->users, i))->username)) {
-				printf("'%s'\n\r", ((userdata_st*) uv_vector_at(&this->users, i))->username);
+				printf("'%s'\n", ((userdata_st*) uv_vector_at(&this->users, i))->username);
 			}
 		}
 		if (users_count()) {
-			printf("Active user: %s\n\r", this->user->username);
+			printf("Active user: %s\n", this->user->username);
 		}
 
 	}
 	else if (strcmp(argv[0].str, "add") == 0 && args >= 2) {
 		if (!users_add(argv[1].str)) {
-			printf("Too many users\n\r");
+			printf("Too many users\n");
 			return;
 		}
-		printf("Added %s\n\r", argv[1].str);
+		printf("Added %s\n", argv[1].str);
 	}
 	else if (strcmp(argv[0].str, "remove") == 0 && args >= 2) {
 		if (users_delete(argv[1].str)) {
-			printf("Removed %s\n\r", argv[1].str);
+			printf("Removed %s\n", argv[1].str);
 		}
 	}
 	else if (strcmp(argv[0].str, "set") == 0 && args >= 2) {
 		if (users_set(argv[1].str)) {
-			printf("Current user: %s\n\r", this->user->username);
+			printf("Current user: %s\n", this->user->username);
 		}
 	}
 	else if (strcmp(argv[0].str, "clear") == 0) {
@@ -299,15 +299,15 @@ void hours_callb(void *me, unsigned int cmd, unsigned int args, argument_st *arg
 					sizeof(this->hour_counter), HOUR_COUNTER_EEPROM_ADDR);
 		}
 		else {
-			printf("Wrong password\n\r");
+			printf("Wrong password\n");
 		}
 	}
-	printf("Hours: %u\n\r", this->hour_counter);
+	printf("Hours: %u\n", this->hour_counter);
 }
 
 void show_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
 	if (!args) {
-		printf("Give 1 argument\n\r");
+		printf("Give 1 argument\n");
 		return;
 	}
 	else if (strcmp(argv[0].str, "login") == 0) {

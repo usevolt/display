@@ -42,13 +42,13 @@ void implement_set(impl_type_e implement) {
 					implement - UW_IMPLEMENT_COUNT);
 		}
 		else {
-			printf("Tried to set generic impl %u, but there was not so many generic implements\n\r",
+			printf("Tried to set generic impl %u, but there was not so many generic implements\n",
 					implement - UW_IMPLEMENT_COUNT);
 		}
 		ecu_set_implement(implement);
 	}
 	else {
-		printf("Invalid implement type %u\n\r", implement);
+		printf("Invalid implement type %u\n", implement);
 	}
 }
 

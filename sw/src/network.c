@@ -58,7 +58,7 @@ static void network_task(void *me) {
 
 		int state = uv_moving_aver_step(&this->can_state, cur_state);
 
-//		printf("cur_state: %u, state: %u\n\r ", cur_state, state);
+//		printf("cur_state: %u, state: %u\n ", cur_state, state);
 
 		// log an error when the error state has been entered
 		if (!state) {

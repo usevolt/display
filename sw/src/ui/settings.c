@@ -21,8 +21,8 @@
 
 static const char* tab_names[] = {
 		"General",
-		"Valve\n\rconfigurations",
-		"Implement\n\rsettings"
+		"Valve\nconfigurations",
+		"Implement\nsettings"
 };
 
 
