@@ -11,7 +11,7 @@
 #include <main.h>
 
 // object dictionary definition
-extern const uv_canopen_object_st obj_dict[];
+extern const canopen_object_st obj_dict[];
 
 unsigned int object_dictionary_size(void);
 

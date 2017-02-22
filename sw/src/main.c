@@ -90,21 +90,18 @@ void dspl_init(dspl_st *me) {
 		uv_rtos_task_delay(1000);
 	}
 
-	if (restore || uv_memory_load(&this->data_start, &this->data_endl)) {
+	if (restore || uv_memory_load(&this->data_start, &this->data_end)) {
 		// non-volatile data load failed, initialize factory settings
 
 
 		alert_reset(&this->alert);
-
-		uv_canopen_restore_defaults(&this->canopen, obj_dict, object_dictionary_size(), CAN1,
-				&this->canopen_heartbeat, NULL, NULL);
 
 		users_reset();
 
 		gui_set_backlight(100);
 
 		// save initialized values to memory
-		uv_memory_save(&this->data_start, &this->data_endl);
+		uv_memory_save(&this->data_start, &this->data_end);
 	}
 
 
@@ -116,18 +113,6 @@ void dspl_init(dspl_st *me) {
 	uv_pwm_set(BUZZER, DUTY_CYCLE(1));
 
 	uv_eeprom_init_circular_buffer(sizeof(log_entry_st));
-
-	uv_canopen_init(&this->canopen, obj_dict, object_dictionary_size(), CAN1,
-			&this->canopen_heartbeat, NULL, NULL);
-	uv_canopen_set_callback(&this->canopen, can_callback);
-	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + MSB_NODE_ID, CAN_STD);
-	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + CSB_NODE_ID, CAN_STD);
-	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + LKEYPAD_NODE_ID, CAN_STD);
-	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + RKEYPAD_NODE_ID, CAN_STD);
-	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + ECU_NODE_ID, CAN_STD);
-	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + PEDAL_NODE_ID, CAN_STD);
-	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + UW180S_ECU_NODE_ID, CAN_STD);
-	uv_can_config_rx_message(CAN1, CANOPEN_HEARTBEAT_ID + UW180S_MB_NODE_ID, CAN_STD);
 
 	log_init();
 
@@ -148,7 +133,7 @@ void dspl_init(dspl_st *me) {
 	uv_delay_init(1000, &this->step_delay);
 
 	// the display lives it's own life. It is allowed to boot itself up into operational mode
-	uv_canopen_set_state(&this->canopen, CANOPEN_OPERATIONAL);
+	uv_canopen_set_state(CANOPEN_OPERATIONAL);
 
 
 }
@@ -164,11 +149,6 @@ void dspl_step(void *me) {
 //		uv_wdt_update();
 
 		uv_terminal_step();
-
-		uv_errors_e e = uv_canopen_step(&this->canopen, step_ms);
-		if (e) {
-			printf("CANopen error: %u\n", UV_ERR_GET(e));
-		}
 
 		alert_step(&this->alert, step_ms);
 

@@ -210,110 +210,10 @@
 
 
 #define CONFIG_NON_VOLATILE_MEMORY		1
+#define CONFIG_APPLICATION_STRUCT		struct _dspl_st dspl
+#define CONFIG_NON_VOLATILE_START		dspl.data_start
+#define CONFIG_NON_VOLATILE_END			dspl.data_end
 #define CONFIG_NON_VOLATILE_START_ADDR	0x0001000
-
-
-
-/* Enables timer modules.
- * On LPC11Cxx, TIMER0 == TMR16B0,
- * 				TIMER1 == TMR16B1,
- * 				TIMER2 == TMR32B0,
- * 				TIMER3 == TMR32B1
- *
- * Note that the mode of the timer is configured
- * by enabling TIMERx, COUNTERx or PWMx.
- * This means that depending on hardware, TIMER1 and COUNTER1,
- * for example, cannot be enabled at the same time.
- * NOTE: LPC17xx has own PWM0 and PWM1 modules
- * which are separate from timers. These can be enabled
- * alongside TIMER0 and TIMER1.
- */
-#define CONFIG_TIMER0					0
-#define CONFIG_COUNTER0					0
-#define CONFIG_TIMER1					0
-#define CONFIG_COUNTER1					0
-#define CONFIG_TIMER2					0
-#define CONFIG_COUNTER2					0
-#define CONFIG_TIMER3					0
-#define CONFIG_COUNTER3					0
-
-
-/* Enables Capture inputs on specific timer modules.
- * Use to select which I/O pins will be used for Capture input.
- * Setting these to 1 enables the counter to be initialized in
- * capture mode.
- */
-#define CONFIG_TIMER0_CAP0_PIO3_23			0
-#define CONFIG_TIMER0_CAP1_PIO3_24			0
-
-#define CONFIG_TIMER1_CAP0_PIO3_27			0
-#define CONFIG_TIMER1_CAP1_PIO1_19			0
-#define CONFIG_TIMER1_CAP1_PIO3_28			0
-
-#define CONFIG_TIMER2_CAP0_PIO0_4			0
-#define CONFIG_TIMER2_CAP0_PIO1_14			0
-#define CONFIG_TIMER2_CAP0_PIO2_6			0
-#define CONFIG_TIMER2_CAP0_PIO2_14			0
-#define CONFIG_TIMER2_CAP1_PIO0_5			0
-#define CONFIG_TIMER2_CAP1_PIO2_15			0
-
-#define CONFIG_TIMER3_CAP0_PIO1_10			0
-#define CONFIG_TIMER3_CAP0_PIO2_22			0
-#define CONFIG_TIMER3_CAP1_PIO2_23			0
-
-/* Configures timer capture inputs to capture either rising, falling,
- * or both edges.
- */
-#define CONFIG_TIMER0_CAP0_RISING_EDGES		0
-#define CONFIG_TIMER0_CAP0_FALLING_EDGES	0
-#define CONFIG_TIMER0_CAP1_RISING_EDGES		0
-#define CONFIG_TIMER0_CAP1_FALLING_EDGES	0
-
-#define CONFIG_TIMER1_CAP0_RISING_EDGES		0
-#define CONFIG_TIMER1_CAP0_FALLING_EDGES	0
-#define CONFIG_TIMER1_CAP1_RISING_EDGES		0
-#define CONFIG_TIMER1_CAP1_FALLING_EDGES	0
-
-#define CONFIG_TIMER2_CAP0_RISING_EDGES		0
-#define CONFIG_TIMER2_CAP0_FALLING_EDGES	0
-#define CONFIG_TIMER2_CAP1_RISING_EDGES		0
-#define CONFIG_TIMER2_CAP1_FALLING_EDGES	0
-
-#define CONFIG_TIMER3_CAP0_RISING_EDGES		0
-#define CONFIG_TIMER3_CAP0_FALLING_EDGES	0
-#define CONFIG_TIMER3_CAP1_RISING_EDGES		0
-#define CONFIG_TIMER3_CAP1_FALLING_EDGES	0
-
-/* Enables PWM channels for PWM modules.
- * On LPC11Cxx, Timers are used as PWM modules and they contain 3 PWM channels.
- * On LPC17xx, PWM modules are separate from timers and they contain 6 PWM channels.
- */
-#define CONFIG_PWM0_CHANNEL1				0
-#define CONFIG_PWM0_CHANNEL2				0
-#define CONFIG_PWM0_CHANNEL3				0
-#define CONFIG_PWM0_CHANNEL4				0
-#define CONFIG_PWM0_CHANNEL5				0
-#define CONFIG_PWM0_CHANNEL6				0
-
-#define CONFIG_PWM1_CHANNEL1				0
-#define CONFIG_PWM1_CHANNEL2				0
-#define CONFIG_PWM1_CHANNEL3				0
-#define CONFIG_PWM1_CHANNEL4				0
-#define CONFIG_PWM1_CHANNEL5				0
-#define CONFIG_PWM1_CHANNEL6				0
-
-#define CONFIG_PWM2_CHANNEL1				0
-#define CONFIG_PWM2_CHANNEL2				0
-#define CONFIG_PWM2_CHANNEL3				0
-
-#define CONFIG_PWM3_CHANNEL1				0
-#define CONFIG_PWM3_CHANNEL2				0
-#define CONFIG_PWM3_CHANNEL3				0
-
-
-
-
-#define CONFIG_I2C							0
 
 
 
@@ -457,25 +357,14 @@
  */
 #define CONFIG_CANOPEN								1
 #define CONFIG_CANOPEN_LOG							0
-#define CONFIG_CANOPEN_DEVICE_TYPE_INDEX			0x1000
-#define CONFIG_CANOPEN_ERROR_REGISTER_INDEX 		0x1001
-#define CONFIG_CANOPEN_PREDEFINED_ERROR_FIELD_INDEX	0x1003
-#define CONFIG_CANOPEN_PREDEFINED_ERROR_SIZE		4
-#define CONFIG_CANOPEN_STORE_PARAMS_INDEX			0x1010
-#define CONFIG_CANOPEN_RESTORE_PARAMS_INDEX			0x1011
-#define CONFIG_CANOPEN_IDENTITY_INDEX				0x1018
-#define CONFIG_CANOPEN_NODEID_INDEX					0x100B
-#define CONFIG_CANOPEN_HEARTBEAT_INDEX				0x1017
-#define CONFIG_CANOPEN_RXPDO_COM_INDEX				0x1400
-#define CONFIG_CANOPEN_RXPDO_MAP_INDEX				0x1600
-#define CONFIG_CANOPEN_TXPDO_COM_INDEX				0x1800
-#define CONFIG_CANOPEN_TXPDO_MAP_INDEX				0x1A00
 #define CONFIG_CANOPEN_RXPDO_COUNT					9
-#define CONFIG_CANOPEN_TXPDO_COUNT					0
-#define CONFIG_CANOPEN_PDO_MAPPING_COUNT			8
+#define CONFIG_CANOPEN_TXPDO_COUNT					1
+#define CONFIG_CANOPEN_OBJ_DICT_APP_PARAMS			obj_dict
+#define CONFIG_CANOPEN_OBJ_DICT_APP_PARAMS_COUNT	object_dictionary_size
 
 #define CONFIG_CANOPEN_DEFAULT_NODE_ID				0xE
-#define CONFIG_CANOPEN_DEFAULT_HEARTBEAT_TIME		1000
+#define CONFIG_CANOPEN_PRODUCER_HEARTBEAT_TIME_MS	1000
+#define CONFIG_CANOPEN_CONSUMER_HEARTBEAT_COUNT		10
 #define CONFIG_CANOPEN_DEVICE_TYPE					0
 #define CONFIG_CANOPEN_VENDOR_ID					0
 #define CONFIG_CANOPEN_PRODUCT_CODE					0x00A60000
@@ -771,10 +660,6 @@
 
 
 
-
-
-
-#define I2C								0
 
 
 

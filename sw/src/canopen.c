@@ -11,7 +11,7 @@
 
 extern dspl_st dspl;
 
-const uv_canopen_object_st obj_dict[] = {
+const canopen_object_st obj_dict[] = {
 		{
 				.main_index = 0x2000,
 				.sub_index = 0,
@@ -193,7 +193,7 @@ const uv_canopen_object_st obj_dict[] = {
 
 
 unsigned int object_dictionary_size(void) {
-	return sizeof(obj_dict) / sizeof(uv_canopen_object_st);
+	return sizeof(obj_dict) / sizeof(canopen_object_st);
 }
 
 

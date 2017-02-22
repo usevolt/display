@@ -26,7 +26,7 @@ void csb_set_drive_light(csb_st *csb, bool value) {
 			.data_8bit[0] = (value) ? 1 : 0,
 			.request = CANOPEN_SDO_CMD_WRITE_1_BYTE,
 	};
-	if (uv_canopen_send_sdo(&dspl.canopen, &msg, CSB_NODE_ID)) {
+	if (uv_canopen_send_sdo(&msg, CSB_NODE_ID)) {
 		netdev_set_transmit_failure(&dspl.network.csb);
 	}
 }
@@ -41,7 +41,7 @@ void csb_set_work_light(csb_st *csb, bool value) {
 			.data_8bit[0] = (value) ? 1 : 0,
 			.request = CANOPEN_SDO_CMD_WRITE_1_BYTE,
 	};
-	if (uv_canopen_send_sdo(&dspl.canopen, &msg, CSB_NODE_ID)) {
+	if (uv_canopen_send_sdo(&msg, CSB_NODE_ID)) {
 		netdev_set_transmit_failure(&dspl.network.csb);
 	}
 }
@@ -55,7 +55,7 @@ void csb_set_wiper(csb_st *csb, uint8_t value) {
 			.data_8bit[0] = value,
 			.request = CANOPEN_SDO_CMD_WRITE_1_BYTE,
 	};
-	if (uv_canopen_send_sdo(&dspl.canopen, &msg, CSB_NODE_ID)) {
+	if (uv_canopen_send_sdo(&msg, CSB_NODE_ID)) {
 		netdev_set_transmit_failure(&dspl.network.csb);
 	}
 }

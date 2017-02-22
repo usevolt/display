@@ -12,6 +12,7 @@
 #include <uv_memory.h>
 #include <uv_canopen.h>
 #include <uv_utilities.h>
+//#include <canopen/canopen_obj_dict.h>
 #include <uv_rtos.h>
 #include "alert.h"
 #include "vehicle.h"
@@ -48,7 +49,7 @@ typedef struct {
 } userdata_st;
 
 
-typedef struct {
+typedef struct _dspl_st {
 
 	int step_delay;
 
@@ -70,16 +71,13 @@ typedef struct {
 
 	uv_data_start_t data_start;
 
-
 	alert_st alert;
 
 	userdata_st userdata[USER_COUNT];
 
 	uv_vector_st users;
 
-	uv_canopen_st canopen;
-
-	uv_data_end_t data_endl;
+	uv_data_end_t data_end;
 
 } dspl_st;
 
