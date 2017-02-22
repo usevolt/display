@@ -53,7 +53,8 @@ typedef struct {
 	int step_delay;
 
 	uint16_t hour_counter;
-	uint8_t last_hour;
+	uint16_t sec_counter;
+	uint8_t last_sec;
 
 	int canopen_heartbeat;
 

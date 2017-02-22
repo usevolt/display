@@ -16,6 +16,8 @@
 
 enum {
 	UW180S_STATE_NONE = 0,
+	UW180S_STATE_MB,
+	UW180S_STATE_VALVES,
 	UW180S_STATE_WHEELS,
 	UW180S_STATE_WHEELS_FEED,
 	UW180S_STATE_DELIMBERS,
@@ -34,18 +36,26 @@ typedef struct {
 
 	union {
 		struct {
+			uv_uitogglebutton_st enabled;
+		} mb;
+		struct {
+			uv_uibutton_st valves;
+			uv_uibutton_st measurement;
+		} main;
+		struct {
 			uv_uibutton_st wheels;
 			uv_uibutton_st wheels_feed;
 			uv_uibutton_st delimbers;
 			uv_uibutton_st tilt;
 			uv_uibutton_st rotator;
 			uv_uibutton_st saw;
-		};
+		} valves;
 		struct {
 			uv_uislider_st max_speed_p;
 			uv_uislider_st max_speed_n;
 			uv_uitogglebutton_st invert;
-		};
+			char str[32];
+		} sliders;
 	};
 
 } settings_uw180s_st;

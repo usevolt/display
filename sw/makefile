@@ -23,6 +23,7 @@ O := Og
 # Name of the directory where build files will be saved
 BUILDDIR := release
 
+
 # Name of the produced binary firmware
 BINARY := display
 
@@ -47,10 +48,10 @@ CC := arm-none-eabi-gcc
 SOURCES := $(shell find $(SOURCEDIR) -name '*.c')
 GIT_VERSION := $(shell git describe --abbrev=4 --dirty --always --tags)
 APP_NAME := $(shell basename `git rev-parse --show-toplevel`)
-FULL_NAME := $(APP_NAME)_$(GIT_VERSION)
+FULL_NAME := wrongname
 
 
-CFLAGS := -DDEBUG -D__CODE_RED -D$(CORE) -D__UV_PROJECT_NAME=$(FULL_NAME) -D__NEWLIB__ $(INCLUDEDIRS) -$(O) -g3 -Wall -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=$(MCPU) -mthumb
+CFLAGS := -DDEBUG -D__CODE_RED -D$(CORE) -D__NEWLIB__ $(INCLUDEDIRS) -$(O) -g3 -Wall -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=$(MCPU) -mthumb
 
 
 LDFLAGS := -nostdlib -Xlinker -Map="$(BUILDDIR)/$(APP_NAME).map" -Xlinker --cref -Xlinker --gc-sections -mcpu=$(MCPU) -mthumb -T "$(APP_NAME).ld" -D__UV_APP_VERSION=\"$(GIT_VERSION)\"
@@ -70,13 +71,13 @@ default:
 	@echo " Please use either 'make fm' or 'make lm'"
 
 
-fm:	CFLAGS += -DFM
+fm:	CFLAGS += -DFM -D__UV_PROJECT_NAME=$(APP_NAME)_FM_$(GIT_VERSION)
 fm: LDFLAGS += -DFM
 fm: $(BINARY)
 	$(MAKE) post-build
 
 
-lm:	CFLAGS += -DLM
+lm:	CFLAGS += -DLM -D__UV_PROJECT_NAME=$(APP_NAME)_LM_$(GIT_VERSION)
 lm: LDFLAGS += -DLM
 lm: $(BINARY)
 	$(MAKE) post-build
@@ -96,17 +97,17 @@ post-build:
 	-@echo ""
 	-@echo 'Performing post-build steps'
 	-@echo ""
-	-arm-none-eabi-size "$(APP_NAME).axf" 
-	-arm-none-eabi-objcopy -O ihex "$(APP_NAME).axf" "$(APP_NAME).hex"
-	-arm-none-eabi-objcopy -v -O binary "$(APP_NAME).axf" "$(APP_NAME).bin"
-	@chmod +x $(APP_NAME).hex
+	-arm-none-eabi-size "$(BINARY).axf" 
+	-arm-none-eabi-objcopy -O ihex "$(BINARY).axf" "$(BINARY).hex"
+	-arm-none-eabi-objcopy -v -O binary "$(BINARY).axf" "$(BINARY).bin"
+	@chmod +x $(BINARY).hex
 	-@echo ' '
 
 clean:
 	@rm -rf $(BUILDDIR)
-	@rm -rf $(APP_NAME).axf
-	@rm -rf $(APP_NAME).hex
-	@rm -rf $(APP_NAME).bin
+	@rm -rf $(BINARY).axf
+	@rm -rf $(BINARY).hex
+	@rm -rf $(BINARY).bin
 
 	
 -include $(DEPS)

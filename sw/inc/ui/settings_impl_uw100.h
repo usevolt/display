@@ -12,11 +12,35 @@
 #include <uv_utilities.h>
 #include <uv_ui.h>
 
+
+enum {
+	UW100_STATE_NONE = 0,
+	UW100_STATE_ROTATOR,
+	UW100_STATE_OPEN
+};
+typedef uint8_t uw100_states_e;
+
 typedef struct {
+	uv_uiwindow_st *window;
 
+	uw100_states_e state;
+
+	uv_uibutton_st back;
+	uv_uilabel_st label;
+	union {
+		struct {
+			uv_uibutton_st rotator;
+			uv_uibutton_st open;
+		};
+		struct {
+			uv_uislider_st max_speed_p;
+			uv_uislider_st max_speed_n;
+			uv_uislider_st acc;
+			uv_uislider_st dec;
+			uv_uitogglebutton_st invert;
+		};
+	};
 } settings_uw100_st;
-
-
 void settings_impl_uw100_show(void);
 void settings_impl_uw100_step(uint16_t step_ms);
 

@@ -148,6 +148,10 @@ static inline int16_t ecu_get_steer_ma(ecu_st *this) {
 	return this->read.valves.steer_ma;
 }
 
+static inline int16_t ecu_get_impl_valve_ma(ecu_st *this) {
+	return this->read.valves.impl_valve_ma;
+}
+
 #elif LM
 
 static inline int16_t ecu_get_boom_telescope_ma(ecu_st *this) {
@@ -233,6 +237,12 @@ void ecu_set_uw180s_tilt_params(uint16_t speed_f,
 
 void ecu_set_uw180s_rotator_params(uint16_t speed_f,
 		uint16_t speed_b, bool invert);
+
+void ecu_set_uw100_rotator_params(uint16_t speed_f,
+		uint16_t speed_b, uint16_t acc, uint16_t dec, bool invert);
+
+void ecu_set_uw100_open_params(uint16_t speed_f,
+		uint16_t speed_b, uint16_t acc, uint16_t dec, bool invert);
 
 
 void ecu_set_uw50_saw_params(uint16_t speed_f,

@@ -16,8 +16,8 @@
 
 static const char* tab_names[] = {
 		"System\nSettings",
-		"Log",
 		"Network\nDiagnostics",
+		"Log",
 		"System\nRestore"
 };
 
@@ -67,10 +67,10 @@ void system_show_tab(void (*show_callb)(void)) {
 	if (show_callb == system_settings_show) {
 		uv_uitabwindow_set_tab(&this->tabs, 0);
 	}
-	else if (show_callb == system_log_show) {
+	else if (show_callb == system_network_show) {
 		uv_uitabwindow_set_tab(&this->tabs, 1);
 	}
-	else if (show_callb == system_network_show) {
+	else if (show_callb == system_log_show) {
 		uv_uitabwindow_set_tab(&this->tabs, 2);
 	}
 	else if (show_callb == system_restore_show) {
@@ -97,10 +97,10 @@ void system_step(uint16_t step_ms) {
 			system_settings_show();
 		}
 		else if (uv_uitabwindow_tab(&this->tabs) == 1) {
-			system_log_show();
+			system_network_show();
 		}
 		else if (uv_uitabwindow_tab(&this->tabs) == 2) {
-			system_network_show();
+			system_log_show();
 		}
 		else if (uv_uitabwindow_tab(&this->tabs) == 3) {
 			system_restore_show();
@@ -111,10 +111,10 @@ void system_step(uint16_t step_ms) {
 		system_settings_step(step_ms);
 	}
 	else if (uv_uitabwindow_tab(&this->tabs) == 1) {
-		system_log_step(step_ms);
+		system_network_step(step_ms);
 	}
 	else if (uv_uitabwindow_tab(&this->tabs) == 2) {
-		system_network_step(step_ms);
+		system_log_step(step_ms);
 	}
 	else if (uv_uitabwindow_tab(&this->tabs) == 3) {
 		system_restore_step(step_ms);

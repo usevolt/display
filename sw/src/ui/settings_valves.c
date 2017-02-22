@@ -29,10 +29,15 @@ void settings_valves_show() {
 
 	// grid layout is used to help with aligning the elements
 	uv_uigridlayout_st grid;
-	uv_uigridlayout_init(&grid, 0, 0,
-			uv_uibb(&this->window)->width, uv_uibb(&this->window)->height,
-			3, 3);
+#if FM
+	uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->window)->width,
+			uv_uibb(&this->window)->height, 3, 3);
 	uv_uigridlayout_set_padding(&grid, 20, 15);
+#elif LM
+	uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->window)->width,
+			uv_uibb(&this->window)->height, 4, 3);
+	uv_uigridlayout_set_padding(&grid, 10, 15);
+#endif
 	uv_bounding_box_st bb;
 
 	for (int16_t i = 0; i < BASE_VALVE_COUNT; i++) {

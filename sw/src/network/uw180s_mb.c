@@ -7,11 +7,13 @@
 
 
 #include "uw180s_mb.h"
+#include "main.h"
 
 
 void mb_step(mb_st *this, uint16_t step_ms) {
-	netdev_step(this, step_ms);
-
+	if (dspl.user->uw180s.mb_enabled) {
+		netdev_step(this, step_ms);
+	}
 
 }
 

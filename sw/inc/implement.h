@@ -89,6 +89,7 @@ typedef struct {
 	impl_valve_st saw;
 	impl_valve_st tilt;
 	impl_valve_st rotator;
+	bool mb_enabled;
 
 } uw180s_st;
 /// @brief: Uw180s factory settings

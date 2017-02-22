@@ -142,6 +142,7 @@ void settings_implements_step(uint16_t step_ms) {
 	uv_ui_set_enabled(&this->impl_settings, dspl.user->implement ? true : false);
 	if (uv_uibutton_clicked(&this->impl_settings)) {
 		this->implement_dialog = true;
+		printf("showing settings\n");
 		dspl.user->implement->callbacks->settings_show();
 	}
 }

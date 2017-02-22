@@ -353,6 +353,17 @@ void ecu_set_uw180s_rotator_params(uint16_t speed_f,
 	}
 }
 
+void ecu_set_uw100_rotator_params(uint16_t speed_f,
+		uint16_t speed_b, uint16_t acc, uint16_t dec, bool invert) {
+#warning "Not impemented"
+}
+
+void ecu_set_uw100_open_params(uint16_t speed_f,
+		uint16_t speed_b, uint16_t acc, uint16_t dec, bool invert) {
+#warning "Not implemented"
+}
+
+
 void ecu_set_uw50_saw_params(uint16_t speed_f,
 		uint16_t speed_b, uint16_t acc, uint16_t dec, bool invert) {
 	dspl.user->uw50.saw.max_speed_p = speed_f;

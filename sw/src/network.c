@@ -75,6 +75,14 @@ static void network_task(void *me) {
 			netdev_clear_disconnect_delay(&this->uw180s_mb);
 		}
 		else {
+			for (int i = 0; i < log_get_nack_count(); i++) {
+				log_entry_st e;
+				log_get_nack(&e, i);
+				if (e.type == LOG_CAN_BUS_OFF) {
+					log_ack(i);
+					break;
+				}
+			}
 			msb_step(&this->msb, step_ms);
 			csb_step(&this->csb, step_ms);
 			pedal_step(&this->pedal, step_ms);

@@ -10,6 +10,7 @@
 #include "main.h"
 #include "dashboard_generic.h"
 #include "dashboard_uw180s.h"
+#include "dashboard_uw100.h"
 #include "dashboard_uw50.h"
 #include "settings_impl_generic.h"
 #include "settings_impl_uw180s.h"
@@ -163,7 +164,8 @@ const uw180s_st uw180s = {
 				.max_speed_p = 850,
 				.max_speed_n = 850,
 				.invert = false
-		}
+		},
+		.mb_enabled = true
 };
 
 
@@ -199,8 +201,8 @@ const uw50_st uw50 = {
 
 
 const implement_callbs_st uw100_callbacks = {
-		.dasboard_step = NULL,
-		.dashboard_show = NULL,
+		.dasboard_step = dashboard_uw100_step,
+		.dashboard_show = dashboard_uw100_show,
 		.settings_step = settings_impl_uw100_step,
 		.settings_show = settings_impl_uw100_show
 };
@@ -225,6 +227,7 @@ const uw100_st uw100 = {
 				.dec = 30
 		}
 };
+
 
 
 

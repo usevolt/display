@@ -40,6 +40,9 @@ static void user_init(userdata_st *this) {
 	case IMPL_UW180S:
 		this->implement = (implement_st*) &this->uw180s;
 		break;
+	case IMPL_UW100:
+		this->implement = (implement_st*) &this->uw100;
+		break;
 	case IMPL_UW50:
 		this->implement = (implement_st*) &this->uw50;
 		break;

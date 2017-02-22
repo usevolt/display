@@ -8,7 +8,7 @@
 #include "dashboard_uw50.h"
 #include "gui.h"
 
-#define this (&gui.windows.settings.general)
+#define this (&gui.windows.settings.implements.uw50)
 
 
 

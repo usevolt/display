@@ -225,11 +225,11 @@ void taskbar_step(uint16_t step_ms) {
 			return;
 		}
 
+		uv_uiprogressbar_set_value(&this->voltage_level, msb_get_voltage(&dspl.network.msb));
+		uv_uiprogressbar_set_value(&this->fuel_level, msb_get_fuel_level(&dspl.network.msb));
 		uv_uiprogressbar_set_value(&this->oil_level, msb_get_oil_level(&dspl.network.msb));
 		uv_uiprogressbar_set_value(&this->otemp_bar, msb_get_oil_temp(&dspl.network.msb));
-		uv_uiprogressbar_set_value(&this->fuel_level, msb_get_fuel_level(&dspl.network.msb));
 		uv_uiprogressbar_set_value(&this->mtemp_bar, msb_get_motor_temp(&dspl.network.msb));
-		uv_uiprogressbar_set_value(&this->voltage_level, msb_get_voltage(&dspl.network.msb));
 
 		if (uv_delay(step_ms, &this->delay)) {
 			uv_time_st t;

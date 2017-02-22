@@ -135,7 +135,9 @@ void dspl_init(dspl_st *me) {
 
 	uv_time_st time;
 	uv_rtc_get_time(&time);
-	this->last_hour = time.hour;
+	this->last_sec = time.sec;
+	// init sec counter to half an hour in startup
+	this->sec_counter = 60 * 30;
 
 	users_init();
 
@@ -172,12 +174,16 @@ void dspl_step(void *me) {
 
 		uv_time_st time;
 		uv_rtc_get_time(&time);
-		if (this->last_hour != time.hour) {
-			this->hour_counter++;
-			uv_eeprom_write((unsigned char*) &this->hour_counter,
-					sizeof(this->hour_counter), HOUR_COUNTER_EEPROM_ADDR);
+		if (this->last_sec != time.sec) {
+			this->sec_counter++;
+			if (this->sec_counter == 60 * 60) {
+				this->hour_counter++;
+				uv_eeprom_write((unsigned char*) &this->hour_counter,
+						sizeof(this->hour_counter), HOUR_COUNTER_EEPROM_ADDR);
+				this->sec_counter = 0;
+			}
 		}
-		this->last_hour = time.hour;
+		this->last_sec = time.sec;
 
 		if (uv_delay(step_ms, &this->step_delay)) {
 			uv_gpio_toggle(LED_PIN);
