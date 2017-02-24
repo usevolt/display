@@ -28,7 +28,7 @@ void msb_update(void *me) {
 void msb_set_heater(void *me, uint8_t value) {
 	this->write.heater = value;
 	if (uv_canopen_sdo_write(&dspl.canopen, CANOPEN_SDO_CMD_WRITE_1_BYTE, this->super.node_id,
-			0x2000, 0, this->write.heater)) {
+			0x1101, 0, this->write.heater * 2)) {
 		netdev_set_transmit_failure(this);
 	}
 
@@ -37,7 +37,7 @@ void msb_set_heater(void *me, uint8_t value) {
 void msb_set_crane_light(void *me, bool value) {
 	this->write.crane_light = value;
 	if (uv_canopen_sdo_write(&dspl.canopen, CANOPEN_SDO_CMD_WRITE_1_BYTE, this->super.node_id,
-			0x2000, 0, this->write.crane_light)) {
+			0x1102, 0, this->write.crane_light)) {
 		netdev_set_transmit_failure(this);
 	}
 }

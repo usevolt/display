@@ -57,6 +57,7 @@ void ecu_update(void *me) {
 	ecu_set_uw50_tilt_params(dspl.user->uw50.tilt.max_speed_p,
 			dspl.user->uw50.tilt.max_speed_n, dspl.user->uw50.tilt.acc,
 			dspl.user->uw50.tilt.dec, dspl.user->uw50.tilt.invert);
+
 }
 
 
@@ -353,6 +354,14 @@ void ecu_set_uw180s_rotator_params(uint16_t speed_f,
 	}
 }
 
+void ecu_set_uw180s_log_length(uint16_t value) {
+	if (uv_canopen_sdo_write(&dspl.canopen, CANOPEN_SDO_CMD_WRITE_2_BYTES,
+			ECU_NODE_ID, 0x2010, 8, value)) {
+		netdev_set_transmit_failure(&dspl.network.ecu);
+	}
+}
+
+
 void ecu_set_uw100_rotator_params(uint16_t speed_f,
 		uint16_t speed_b, uint16_t acc, uint16_t dec, bool invert) {
 #warning "Not impemented"
@@ -402,6 +411,17 @@ void ecu_set_uw50_tilt_params(uint16_t speed_f,
 	e |= (uv_canopen_sdo_write(&dspl.canopen, CANOPEN_SDO_CMD_WRITE_1_BYTE,
 			ECU_NODE_ID, 0x2031, 5, invert));
 	if (e) {
+		netdev_set_transmit_failure(&dspl.network.ecu);
+	}
+}
+
+
+void ecu_save_params() {
+	uint8_t c[4] = {
+			's', 'a', 'v', 'e'
+	};
+	if (uv_canopen_sdo_write(&dspl.canopen, CANOPEN_SDO_CMD_WRITE_4_BYTES,
+			ECU_NODE_ID, 0x1010, 1, *((uint32_t*)(c)))) {
 		netdev_set_transmit_failure(&dspl.network.ecu);
 	}
 }

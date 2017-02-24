@@ -69,9 +69,9 @@ static void user_reset(userdata_st *user) {
 	}
 
 	// implement valves
-	user->uw180s = uw180s;
-	user->uw100 = uw100;
-	user->uw50 = uw50;
+	uw180s_reset(&user->uw180s);
+	uw100_reset(&user->uw100);
+	uw50_reset(&user->uw50);
 	uv_vector_init(&user->generic_implements, user->generic_impl_data,
 			GENERIC_IMPLEMENT_COUNT, sizeof(generic_implement_st));
 	user->implement = (void *) &user->uw180s;

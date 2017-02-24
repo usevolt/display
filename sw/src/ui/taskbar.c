@@ -162,11 +162,11 @@ static void show(taskbar_state_e state) {
 				UI_FONT_SMALL.char_height,
 				uv_uilabel_step);
 
-		uv_uiprogressbar_init(&this->voltage_level, 0, 100, &uv_uistyles[0]);
+		uv_uiprogressbar_init(&this->voltage_level, VOLTAGE_MIN, VOLTAGE_MAX, &uv_uistyles[0]);
 		uv_uiprogressbar_set_value(&this->voltage_level, msb_get_voltage(&dspl.network.msb));
 		uv_uiprogressbar_set_vertical(&this->voltage_level);
 		uv_uiprogressbar_set_limit(&this->voltage_level, UI_PROGRESSBAR_LIMIT_UNDER,
-				VOLTAGE_WARNING_LIMIT_MV, ERROR_COLOR);
+				VOLTAGE_WARNING_LIMIT, ERROR_COLOR);
 		uv_uiwindow_add(&this->taskbar, &this->voltage_level,
 				uv_uibb(&this->voltage)->x, 0,
 				LEVEL_PB_WIDTH, uv_uibb(&this->voltage)->y - 4, uv_uiprogressbar_step);

@@ -186,6 +186,27 @@ const uv_canopen_object_st obj_dict[] = {
 				.permissions = CANOPEN_RO,
 				.type = CANOPEN_SIGNED16,
 				.data_ptr = (void*) &dspl.network.pedal.read.value
+		},
+		{
+				.main_index = 0x2600,
+				.sub_index = 0,
+				.permissions = CANOPEN_RO,
+				.type = CANOPEN_SIGNED16,
+				.data_ptr = (void*) &dspl.network.uw180s_mb.read.width
+		},
+		{
+				.main_index = 0x2601,
+				.sub_index = 0,
+				.permissions = CANOPEN_RO,
+				.type = CANOPEN_SIGNED16,
+				.data_ptr = (void*) &dspl.network.uw180s_mb.read.length
+		},
+		{
+				.main_index = 0x2602,
+				.sub_index = 0,
+				.permissions = CANOPEN_RO,
+				.type = CANOPEN_SIGNED16,
+				.data_ptr = (void*) &dspl.network.uw180s_mb.read.volume
 		}
 };
 

@@ -172,7 +172,7 @@ static const data_st labels[] = {
 		// UW180S_MB
 		{
 				.name = "UW180S MB",
-				.row2 = "",
+				.row2 = "Length\nWidth\nVolume\n",
 				.row3 = ""
 		},
 
@@ -312,7 +312,11 @@ static void update(devices_e dev) {
 		update_netdev(&dspl.network.uw180s_ecu);
 	}
 	else if (dev == UW180S_MB) {
-		strcpy(this->row2_val_str, "");
+		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
+				"%i\n%i\n%i",
+				mb_get_length(&dspl.network.uw180s_mb),
+				mb_get_width(&dspl.network.uw180s_mb),
+				mb_get_volume(&dspl.network.uw180s_mb));
 		uv_ui_refresh(&this->row2_values);
 		strcpy(this->row3_val_str, "");
 		uv_ui_refresh(&this->row3_values);

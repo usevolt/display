@@ -133,14 +133,17 @@ static void show_valves(void) {
 }
 
 
+static char *log_names[LOG_TYPE_COUNT];
+
+
 static void show_mb() {
 	uv_uiwindow_clear(this->window);
 	this->state = UW180S_STATE_MB;
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, BACK_Y + BACK_H, uv_uibb(this->window)->width,
-			uv_uibb(this->window)->height - BACK_Y - BACK_H, 3, 1);
-	uv_uigridlayout_set_padding(&grid, 30, 60);
+			uv_uibb(this->window)->height - BACK_Y - BACK_H, 5, 1);
+	uv_uigridlayout_set_padding(&grid, 10, 30);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 	uv_uibutton_init(&this->back, "Back", &uv_uistyles[0]);
@@ -154,8 +157,61 @@ static void show_mb() {
 
 	uv_uitogglebutton_init(&this->mb.enabled,
 			dspl.user->uw180s.mb_enabled, "Enabled", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->mb.enabled,bb.x, bb.y,
-			bb.width, bb.height, uv_uitogglebutton_step);
+	uv_uiwindow_add(this->window, &this->mb.enabled, LCD_W_PX - BACK_W - BACK_X,
+			BACK_Y, BACK_W, BACK_H, uv_uitogglebutton_step);
+
+//	for (int i = 0; i < LOG_TYPE_COUNT; i++) {
+//		log_names[i] = dspl.user->uw180s.log_type_buffer[i].name;
+//	}
+//	uv_uilist_init(&this->mb.logs, log_names,
+//			uv_vector_size(&dspl.user->uw180s.log_types), &uv_uistyles[0]);
+//	uv_uiwindow_add(this->window, &this->mb.logs, bb.x, bb.y,
+//			bb.width * 2, bb.height, uv_uilist_step);
+//
+//
+//	bb = uv_uigridlayout_next(&grid);
+//	bb = uv_uigridlayout_next(&grid);
+//	uv_uibutton_init(&this->mb.log_add, "Add Log", &uv_uistyles[0]);
+//	uv_uiwindow_add(this->window, &this->mb.log_add, bb.x, bb.y,
+//			bb.width, bb.height / 2 - 10, uv_uibutton_step);
+//
+//	uv_uibutton_init(&this->mb.log_del, "Delete Log", &uv_uistyles[0]);
+//	uv_uiwindow_add(this->window, &this->mb.log_del, bb.x, bb.y + bb.height / 2 + 10,
+//			bb.width, bb.height / 2 - 10, uv_uibutton_step);
+
+	uv_uislider_init(&this->mb.log_len1, 0, 1000, dspl.user->uw180s.log_len1, &uv_uistyles[0]);
+	uv_uislider_set_vertical(&this->mb.log_len1);
+	uv_uislider_set_title(&this->mb.log_len1, "Log length 1");
+	uv_uiwindow_add(this->window, &this->mb.log_len1, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->mb.log_len2, 0, 1000, dspl.user->uw180s.log_len2, &uv_uistyles[0]);
+	uv_uislider_set_vertical(&this->mb.log_len2);
+	uv_uislider_set_title(&this->mb.log_len2, "Log length 2");
+	uv_uiwindow_add(this->window, &this->mb.log_len2, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->mb.len_calib, 0, UW180S_MB_LEN_CALIB_MAX,
+			dspl.user->uw180s.len_calib, &uv_uistyles[0]);
+	uv_uislider_set_vertical(&this->mb.len_calib);
+	uv_uislider_set_title(&this->mb.len_calib, "Length\nCalibration");
+	uv_uiwindow_add(this->window, &this->mb.len_calib,
+			bb.x, bb.y + 20, bb.width, bb.height, uv_uislider_step);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->mb.vol_calib, UW180S_MB_VOL_CALIB_MIN, UW180S_MB_VOL_CALIB_MAX,
+			dspl.user->uw180s.vol_calib, &uv_uistyles[0]);
+	uv_uislider_set_vertical(&this->mb.vol_calib);
+	uv_uislider_set_title(&this->mb.vol_calib, "Volume\nCalibration");
+	uv_uiwindow_add(this->window, &this->mb.vol_calib,
+			bb.x, bb.y + 20, bb.width, bb.height, uv_uislider_step);
+
+	uv_uilabel_init(&this->mb.info_label, &UI_FONT_SMALL, ALIGN_CENTER,
+			C(0xFFFFFF), C(0xFFFFFFFF), "Note: Calibration values are\n"
+			"shared across all users");
+	uv_uiwindow_add(this->window, &this->mb.info_label,
+			uv_uibb(&this->mb.len_calib)->x, BACK_Y + BACK_H + 10,
+			bb.x + bb.width - uv_uibb(&this->mb.len_calib)->x, 30, uv_uilabel_step);
 
 }
 
@@ -177,11 +233,11 @@ void settings_impl_uw180s_show(void) {
 	uv_uilabel_init(&this->label, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF), C(0xFFFFFFFF), "UW180s");
 	uv_uiwindow_add(this->window, &this->label, LABEL_X, LABEL_Y, LABEL_W, LABEL_H, uv_uilabel_step);
 
-	uv_uibutton_init(&this->main.measurement, "Measurement", &uv_uistyles[0]);
+	uv_uibutton_init(&this->main.measurement, "Log\nMeasurement", &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->main.measurement, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->main.valves, "Valves", &uv_uistyles[0]);
+	uv_uibutton_init(&this->main.valves, "Valve\nConfigurations", &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->main.valves, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
 
 }
@@ -263,6 +319,34 @@ void settings_impl_uw180s_step(uint16_t step_ms) {
 		else if (uv_uitogglebutton_clicked(&this->mb.enabled)) {
 			dspl.user->uw180s.mb_enabled = uv_uitogglebutton_get_state(&this->mb.enabled);
 		}
+		else if (uv_uislider_value_changed(&this->mb.len_calib)) {
+			mb_set_length_calib(&dspl.network.uw180s_mb, uv_uislider_get_value(&this->mb.len_calib));
+		}
+		else if (uv_uislider_value_changed(&this->mb.vol_calib)) {
+			mb_set_vol_calib(&dspl.network.uw180s_mb, uv_uislider_get_value(&this->mb.vol_calib));
+		}
+		else if (uv_uislider_value_changed(&this->mb.log_len1)) {
+			dspl.user->uw180s.log_len1 = uv_uislider_get_value(&this->mb.log_len1);
+		}
+		else if (uv_uislider_value_changed(&this->mb.log_len2)) {
+			dspl.user->uw180s.log_len2 = uv_uislider_get_value(&this->mb.log_len2);
+		}
+//		else if (uv_uibutton_clicked(&this->mb.log_add)) {
+//			if (uv_vector_size(&dspl.user->uw180s.log_types) <
+//					uv_vector_max_size(&dspl.user->uw180s.log_types)) {
+//				if (uv_uikeyboard_show("Add new log type",
+//						((log_type_st*) uv_vector_at(&dspl.user->uw180s.log_types,
+//								uv_vector_size(&dspl.user->uw180s.log_types) + 1))->name,
+//						LOG_NAME_LEN, &uv_uistyles[0])) {
+//					uv_vector_push_back(&dspl.user->uw180s.log_types, NULL);
+//					uv_uilist_push_back(&this->mb.logs,
+//							((log_type_st*) uv_vector_at(&dspl.user->uw180s.log_types))->name);
+//				}
+//			}
+//			else {
+//				printf("Log count is at maximum\n");
+//			}
+//		}
 	}
 	else {
 		if (uv_uibutton_clicked(&this->back)) {
