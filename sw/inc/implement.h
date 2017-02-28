@@ -78,6 +78,14 @@ void generic_implement_init(void *me);
 
 
 
+#define LOG_TYPE_COUNT	4
+#define LOG_NAME_LEN	16
+
+/// @brief: Structure for a single log type
+typedef struct {
+	int16_t length_mm;
+	char name[LOG_NAME_LEN];
+} log_type_st;
 
 /// @brief: Defines the structure for UW180S implement
 typedef struct {
@@ -90,13 +98,33 @@ typedef struct {
 	impl_valve_st tilt;
 	impl_valve_st rotator;
 	bool mb_enabled;
+	int16_t len_calib;
+	int16_t vol_calib;
+	log_type_st log_type_buffer[LOG_TYPE_COUNT];
+	uv_vector_st log_types;
+
+	int16_t log_len1;
+	int16_t log_len2;
 
 } uw180s_st;
 /// @brief: Uw180s factory settings
 extern const uw180s_st uw180s;
 
-static inline void uw180s_init(void *me) {
-	implement_init(me, &uw180s);
+static inline void uw180s_reset(uw180s_st *this);
+
+
+static inline void uw180s_init(uw180s_st *this) {
+	implement_init(this, &uw180s);
+	if (uv_vector_size(&this->log_types) > LOG_TYPE_COUNT) {
+		uw180s_reset(this);
+	}
+}
+
+static inline void uw180s_reset(uw180s_st *this) {
+	*this = uw180s;
+	uw180s_init(this);
+	uv_vector_init(&this->log_types, this->log_type_buffer,
+			LOG_TYPE_COUNT, sizeof(log_type_st));
 }
 
 
@@ -110,6 +138,11 @@ extern const uw100_st uw100;
 
 static inline void uw100_init(void *me) {
 	implement_init(me, &uw100);
+}
+
+static inline void uw100_reset(uw100_st *this) {
+	*this = uw100;
+	uw100_init(this);
 }
 
 
@@ -126,6 +159,11 @@ extern const uw50_st uw50;
 
 static inline void uw50_init(void *me) {
 	implement_init(me, &uw50);
+}
+
+static inline void uw50_reset(uw50_st *this) {
+	*this = uw50;
+	uw50_init(this);
 }
 
 

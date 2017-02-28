@@ -25,6 +25,10 @@ typedef struct {
 	uv_uilabel_st tree_type;
 	uv_uilabel_st log_type;
 
+	uv_uibutton_st log_length;
+
+	uint8_t active_len;
+
 
 } dashboard_uw180s_st;
 

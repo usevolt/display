@@ -22,7 +22,7 @@ typedef struct {
 
 	// WRITE
 	struct {
-		uint16_t heater;
+		uint8_t heater;
 		uint8_t crane_light;
 	} write;
 

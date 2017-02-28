@@ -238,6 +238,8 @@ void ecu_set_uw180s_tilt_params(uint16_t speed_f,
 void ecu_set_uw180s_rotator_params(uint16_t speed_f,
 		uint16_t speed_b, bool invert);
 
+void ecu_set_uw180s_log_length(uint16_t value);
+
 void ecu_set_uw100_rotator_params(uint16_t speed_f,
 		uint16_t speed_b, uint16_t acc, uint16_t dec, bool invert);
 
@@ -250,6 +252,8 @@ void ecu_set_uw50_saw_params(uint16_t speed_f,
 
 void ecu_set_uw50_tilt_params(uint16_t speed_f,
 		uint16_t speed_b, uint16_t acc, uint16_t dec, bool invert);
+
+void ecu_save_params();
 
 #undef VALVE_SETTER
 

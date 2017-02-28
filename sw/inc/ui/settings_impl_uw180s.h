@@ -36,7 +36,15 @@ typedef struct {
 
 	union {
 		struct {
+			uv_uislider_st log_len1;
+			uv_uislider_st log_len2;
+//			uv_uilist_st logs;
+//			uv_uibutton_st log_add;
+//			uv_uibutton_st log_del;
 			uv_uitogglebutton_st enabled;
+			uv_uislider_st len_calib;
+			uv_uislider_st vol_calib;
+			uv_uilabel_st info_label;
 		} mb;
 		struct {
 			uv_uibutton_st valves;

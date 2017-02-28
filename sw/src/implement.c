@@ -130,6 +130,13 @@ const implement_callbs_st uw180s_callbacks = {
 		.settings_show = settings_impl_uw180s_show
 };
 
+
+#define LOG_TYPE_INIT(x)	{\
+			.length_mm = 3000, \
+			.name = "" \
+	} ,\
+
+
 const uw180s_st uw180s = {
 		.super = {
 				.name = "UW180s",
@@ -165,7 +172,14 @@ const uw180s_st uw180s = {
 				.max_speed_n = 850,
 				.invert = false
 		},
-		.mb_enabled = true
+		.mb_enabled = true,
+		.len_calib = 15,
+		.vol_calib = 0,
+		.log_len1 = 300,
+		.log_len2 = 500,
+		.log_type_buffer = {
+				REPEAT(LOG_TYPE_COUNT, LOG_TYPE_INIT)
+		}
 };
 
 

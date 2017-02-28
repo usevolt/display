@@ -32,7 +32,7 @@
 /// Warning will be generated when the value goes over these
 #define MOTOR_TEMP_WARNING_LIMIT	90
 #define OIL_TEMP_WARNING_LIMIT		75
-#define VOLTAGE_WARNING_LIMIT_MV	11400
+#define VOLTAGE_WARNING_LIMIT		11800
 
 /// @brief: Fuel & oil level warning limits
 /// Warning will be generated when the value goes under these
@@ -48,6 +48,13 @@
 #define RPM_WARNING_LIMIT			3000
 
 #define PRESSURE_MAX				250
+
+#define VOLTAGE_MAX					15000
+#define VOLTAGE_MIN					10000
+
+#define UW180S_MB_LEN_CALIB_MAX		300
+#define UW180S_MB_VOL_CALIB_MIN		-100
+#define UW180S_MB_VOL_CALIB_MAX		100
 
 
 // a work around for eclipse cdt code analysis bug in project symbols.

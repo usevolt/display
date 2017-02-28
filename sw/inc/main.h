@@ -81,7 +81,6 @@ typedef struct _dspl_st {
 
 } dspl_st;
 
-extern dspl_st dspl;
 
 void dspl_init(dspl_st *me);
 

@@ -106,6 +106,7 @@ void settings_general_step(uint16_t step_ms) {
 	// work lights
 	if (uv_uitogglebutton_clicked(&this->work_lights)) {
 		csb_set_work_light(&dspl.network.csb, uv_uitogglebutton_get_state(&this->work_lights));
+		msb_set_crane_light(&dspl.network.msb, uv_uitogglebutton_get_state(&this->work_lights));
 	}
 	else {
 		uv_uitogglebutton_set_state(&this->work_lights, csb_get_work_light(&dspl.network.csb));
@@ -114,6 +115,11 @@ void settings_general_step(uint16_t step_ms) {
 	// wiper
 	if (uv_uislider_value_changed(&this->wiper)) {
 		csb_set_wiper(&dspl.network.csb, uv_uislider_get_value(&this->wiper));
+	}
+
+	// heater
+	if (uv_uislider_value_changed(&this->heater)) {
+		msb_set_heater(&dspl.network.msb, uv_uislider_get_value(&this->heater));
 	}
 }
 
