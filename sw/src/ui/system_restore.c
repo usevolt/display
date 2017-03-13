@@ -59,7 +59,7 @@ extern uv_errors_e __uv_clear_previous_non_volatile_data();
 void system_restore_step(uint16_t step_ms) {
 	if (uv_uibutton_is_down(&this->restore)) {
 		if (uv_delay(step_ms, &this->delay)) {
-			__uv_clear_previous_non_volatile_data();
+			uv_memory_clear();
 			uv_system_reset(false);
 			return;
 		}

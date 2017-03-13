@@ -90,7 +90,7 @@ void dspl_init(dspl_st *me) {
 		uv_rtos_task_delay(1000);
 	}
 
-	if (restore || uv_memory_load(&this->data_start, &this->data_end)) {
+	if (restore || uv_memory_load()) {
 		// non-volatile data load failed, initialize factory settings
 
 
@@ -101,7 +101,7 @@ void dspl_init(dspl_st *me) {
 		gui_set_backlight(100);
 
 		// save initialized values to memory
-		uv_memory_save(&this->data_start, &this->data_end);
+		uv_memory_save();
 	}
 
 

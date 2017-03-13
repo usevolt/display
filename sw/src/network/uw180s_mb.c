@@ -22,7 +22,7 @@ void mb_set_length_calib(mb_st *this, int16_t value) {
 	for (int16_t i = 0; i < uv_vector_size(&dspl.users); i++) {
 		((userdata_st*) uv_vector_at(&dspl.users, i))->uw180s.len_calib = value;
 	}
-	if (uv_canopen_sdo_write(CANOPEN_SDO_CMD_WRITE_2_BYTES, this->super.node_id, 0x2007, 0, value)) {
+	if (uv_canopen_sdo_write(this->super.node_id, 0x2007, 0, 2, &value)) {
 		netdev_set_transmit_failure(this);
 	}
 }
@@ -32,7 +32,7 @@ void mb_set_vol_calib(mb_st *this, int16_t value) {
 	for (int16_t i = 0; i < uv_vector_size(&dspl.users); i++) {
 		((userdata_st*) uv_vector_at(&dspl.users, i))->uw180s.vol_calib = value;
 	}
-	if (uv_canopen_sdo_write(CANOPEN_SDO_CMD_WRITE_2_BYTES, this->super.node_id, 0x2008, 0, value)) {
+	if (uv_canopen_sdo_write(this->super.node_id, 0x2008, 0, 2, &value)) {
 		netdev_set_transmit_failure(this);
 	}
 }

@@ -118,7 +118,7 @@ bool users_add(char *username) {
 	d->username[USERNAME_MAX_LEN - 1] = '\0';
 
 
-	uv_memory_save(&dspl.data_start, &dspl.data_end);
+	uv_memory_save();
 
 	return true;
 }
@@ -136,7 +136,7 @@ bool users_delete(char *username) {
 				dspl.user = dspl.userdata;
 			}
 			uv_vector_remove(&dspl.users, i, 1);
-			uv_memory_save(&dspl.data_start, &dspl.data_end);
+			uv_memory_save();
 			break;
 		}
 	}

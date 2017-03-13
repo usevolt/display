@@ -19,14 +19,7 @@ void csb_step(csb_st *this, unsigned int step_ms) {
 /// @brief: Sends the request to CSB to set the drive lights to *value*
 void csb_set_drive_light(csb_st *csb, bool value) {
 	csb->write.drive_light = value;
-	uv_canopen_sdo_message_st msg = {
-			.main_index = 0x1100,
-			.sub_index = 0,
-			.data_length = 1,
-			.data_8bit[0] = (value) ? 1 : 0,
-			.request = CANOPEN_SDO_CMD_WRITE_1_BYTE,
-	};
-	if (uv_canopen_send_sdo(&msg, CSB_NODE_ID)) {
+	if (uv_canopen_sdo_write(CSB_NODE_ID, 0x1100, 0, 1, &value)) {
 		netdev_set_transmit_failure(&dspl.network.csb);
 	}
 }
@@ -34,21 +27,14 @@ void csb_set_drive_light(csb_st *csb, bool value) {
 /// @brief: Sends the request to CSB to set work lights to *value*
 void csb_set_work_light(csb_st *csb, bool value) {
 	csb->write.work_light = value;
-	uv_canopen_sdo_message_st msg = {
-			.main_index = 0x1101,
-			.sub_index = 0,
-			.data_length = 1,
-			.data_8bit[0] = (value) ? 1 : 0,
-			.request = CANOPEN_SDO_CMD_WRITE_1_BYTE,
-	};
-	if (uv_canopen_send_sdo(&msg, CSB_NODE_ID)) {
+	if (uv_canopen_sdo_write(CSB_NODE_ID, 0x1101, 0, 1, &value)) {
 		netdev_set_transmit_failure(&dspl.network.csb);
 	}
 }
 
 void csb_set_wiper(csb_st *csb, uint8_t value) {
 	csb->write.wiper = value;
-	if (uv_canopen_sdo_write(CANOPEN_SDO_CMD_WRITE_1_BYTE, CSB_NODE_ID, 0x1104, 0, value)) {
+	if (uv_canopen_sdo_write(CSB_NODE_ID, 0x1104, 0, 1, &value)) {
 		netdev_set_transmit_failure(&dspl.network.csb);
 	}
 }

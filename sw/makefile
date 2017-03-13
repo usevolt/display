@@ -21,7 +21,7 @@ CORE := CORE_M3
 O := Og
 
 # Name of the directory where build files will be saved
-BUILDDIR := release
+BUILDDIR := obj
 
 
 # Name of the produced binary firmware

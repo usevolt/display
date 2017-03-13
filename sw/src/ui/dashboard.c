@@ -118,7 +118,7 @@ void dashboard_step(uint16_t step_ms) {
 		return;
 	}
 	else if (uv_uibutton_clicked(&this->ok)) {
-		uv_memory_save(&dspl.data_start, &dspl.data_end);
+		uv_memory_save();
 		home_show();
 		return;
 	}
