@@ -12,7 +12,7 @@
 
 
 typedef struct {
-	int16_t nack_count;
+	uint16_t nack_count;
 } _log_st;
 
 static _log_st _this;

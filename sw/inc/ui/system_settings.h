@@ -12,12 +12,16 @@
 #include <uv_ui.h>
 #include <uv_rtc.h>
 
-#define SYSTEM_SETTINGS_BUF_LEN		15
+#define SYSTEM_SETTINGS_BUF_LEN		17
 #define DATE_STR_LEN				40
 
 typedef struct {
 	uv_uiwindow_st window;
 	uv_uiobject_st *buffer[SYSTEM_SETTINGS_BUF_LEN];
+
+	uv_uilabel_st impls_label;
+	uv_uilist_st impls_list;
+	char *impl_names[UW_IMPLEMENT_COUNT];
 
 	uv_uislider_st power_usage;
 

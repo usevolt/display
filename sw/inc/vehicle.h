@@ -81,9 +81,6 @@
 /// are shown on "implement valve configuration"-screen
 #define IMPLEMENT_VALVE_COUNT		3
 
-/// @brief: Describes the generic implement count
-#define GENERIC_IMPLEMENT_COUNT		2
-
 /// @brief: Amount of Usewood implements
 #define UW_IMPLEMENT_COUNT			3
 
@@ -92,8 +89,6 @@ enum {
 	IMPL_UW180S = 0,
 	IMPL_UW100,
 	IMPL_UW50,
-	IMPL_GENERIC1,
-	IMPL_GENERIC2,
 	IMPL_COUNT
 };
 typedef uint8_t impl_type_e;

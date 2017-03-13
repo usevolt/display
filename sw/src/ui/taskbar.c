@@ -59,117 +59,104 @@ static void show(taskbar_state_e state) {
 	taskbar_style.window_c = WINDOW_COLOR;
 
 	if (state == TASKBAR_NO_ALERTS) {
-		snprintf(this->hour_str, TASKBAR_HOUR_STR_LEN, "%u hours", dspl.hour_counter);
-		uv_uilabel_init(&this->hours, &UI_FONT_SMALL, ALIGN_BOTTOM_LEFT,
+
+		uv_uigridlayout_st grid;
+		uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->taskbar)->width,
+				uv_uibb(&this->taskbar)->height, 10, 1);
+		uv_uigridlayout_set_padding(&grid, 5, 0);
+		uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
+
+		snprintf(this->hour_str, TASKBAR_HOUR_STR_LEN, "%u\nhours", dspl.hour_counter);
+		uv_uilabel_init(&this->hours, &UI_FONT_SMALL, ALIGN_CENTER,
 				C(0xFFFFFF), taskbar_style.window_c, this->hour_str);
 		uv_uiwindow_add(&this->taskbar, &this->hours,
-				0, 0, 100, uv_uibb(&this->taskbar)->height, uv_uilabel_step);
+				bb.x, bb.y, bb.width, bb.height, uv_uilabel_step);
 
-		uv_time_st t;
-		uv_rtc_get_time(&t);
-		snprintf(this->time, TASKBAR_TIME_LEN, "%02u:%02u", t.hour, t.min);
-		uv_delay_init(100, &this->delay);
-		uv_uilabel_init(&this->clock, &UI_FONT_BIG, ALIGN_CENTER_RIGHT,
-				C(0xFFFFFF), taskbar_style.window_c, this->time);
-		uv_uiwindow_add(&this->taskbar, &this->clock,
-				uv_ui_get_bb(&this->taskbar)->width - UI_FONT_SMALL.char_width * 5, 0,
-				UI_FONT_SMALL.char_width * 5,
-				uv_ui_get_bb(&this->taskbar)->height, uv_uilabel_step);
+		bb = uv_uigridlayout_next(&grid);
 
-		// Motor temp
-		uv_uilabel_init(&this->mtemp, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER, C(0xFFFFFF),
-				C(0xFFFFFFFF), "Motor T");
-		uv_uiwindow_add(&this->taskbar, &this->mtemp,
-				uv_uibb(&this->clock)->x - uv_uibb(&this->clock)->width - LEVEL_PB_WIDTH - 30,
-				uv_uibb(&this->taskbar)->height - UI_FONT_SMALL.char_height,
-				LEVEL_PB_WIDTH,
-				UI_FONT_SMALL.char_height,
+		uv_uilabel_init(&this->emcy_stop, &UI_FONT_BIG, ALIGN_TOP_CENTER, C(0xFF0000),
+				taskbar_style.window_c, "!");
+		uv_uilabel_set_scale(&this->emcy_stop, 1.8f);
+		uv_ui_set_enabled(&this->emcy_stop, false);
+		uv_uiwindow_add(&this->taskbar, &this->emcy_stop, bb.x, bb.y, bb.width, 0,
 				uv_uilabel_step);
-
-		uv_uiprogressbar_init(&this->mtemp_bar, 50, 100, &uv_uistyles[0]);
-		uv_uiprogressbar_set_vertical(&this->mtemp_bar);
-		uv_uiprogressbar_set_value(&this->mtemp_bar, msb_get_motor_temp(&dspl.network.msb));
-		uv_uiprogressbar_set_limit(&this->mtemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
-				MOTOR_TEMP_WARNING_LIMIT, ERROR_COLOR);
-		uv_uiwindow_add(&this->taskbar, &this->mtemp_bar,
-				uv_uibb(&this->mtemp)->x, 0,
-				LEVEL_PB_WIDTH, uv_uibb(&this->mtemp)->y - 4, uv_uiprogressbar_step);
-
-		// Oil temp
-		uv_uilabel_init(&this->otemp, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER, C(0xFFFFFF),
-				C(0xFFFFFFFF), "Oil T");
-		uv_uiwindow_add(&this->taskbar, &this->otemp,
-				uv_uibb(&this->mtemp)->x - LEVEL_PB_WIDTH - 30,
-				uv_uibb(&this->taskbar)->height - UI_FONT_SMALL.char_height,
-				LEVEL_PB_WIDTH,
-				UI_FONT_SMALL.char_height,
+		uv_uilabel_init(&this->emcy_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER,
+				C(0xFFFFFF), C(0xFFFFFFFF), "Stop");
+		uv_ui_set_enabled(&this->emcy_label, false);
+		uv_uiwindow_add(&this->taskbar, &this->emcy_label, bb.x, bb.y, bb.width, bb.height,
 				uv_uilabel_step);
+		uv_delay_init(BG_ERROR_DELAY_MS, &this->emcy_delay);
 
-		uv_uiprogressbar_init(&this->otemp_bar, 0, 100, &uv_uistyles[0]);
-		uv_uiprogressbar_set_value(&this->otemp_bar, msb_get_oil_temp(&dspl.network.msb));
-		uv_uiprogressbar_set_vertical(&this->otemp_bar);
-		uv_uiprogressbar_set_limit(&this->otemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
-				OIL_TEMP_WARNING_LIMIT, ERROR_COLOR);
-		uv_uiwindow_add(&this->taskbar, &this->otemp_bar,
-				uv_uibb(&this->otemp)->x, 0,
-				LEVEL_PB_WIDTH, uv_uibb(&this->otemp)->y - 4, uv_uiprogressbar_step);
+		bb = uv_uigridlayout_next(&grid);
 
-		// Oil level
-		uv_uilabel_init(&this->oil, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER, C(0xFFFFFF),
-				C(0xFFFFFFFF), "Oil L");
-		uv_uiwindow_add(&this->taskbar, &this->oil,
-				uv_uibb(&this->otemp)->x - LEVEL_PB_WIDTH - 30,
-				uv_uibb(&this->taskbar)->height - UI_FONT_SMALL.char_height,
-				LEVEL_PB_WIDTH,
-				UI_FONT_SMALL.char_height,
-				uv_uilabel_step);
-
-		uv_uiprogressbar_init(&this->oil_level, 20, 100, &uv_uistyles[0]);
-		uv_uiprogressbar_set_value(&this->oil_level, msb_get_oil_level(&dspl.network.msb));
-		uv_uiprogressbar_set_vertical(&this->oil_level);
-		uv_uiprogressbar_set_limit(&this->oil_level, UI_PROGRESSBAR_LIMIT_UNDER,
-				OIL_LEVEL_WARNING_LIMIT, ERROR_COLOR);
-		uv_uiwindow_add(&this->taskbar, &this->oil_level,
-				uv_uibb(&this->oil)->x, 0,
-				LEVEL_PB_WIDTH, uv_uibb(&this->oil)->y - 4, uv_uiprogressbar_step);
-
-		// Fuel level
-		uv_uilabel_init(&this->fuel, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER, C(0xFFFFFF),
-				C(0xFFFFFFFF), "Fuel L");
-		uv_uiwindow_add(&this->taskbar, &this->fuel,
-				uv_uibb(&this->oil)->x - LEVEL_PB_WIDTH - 30,
-				uv_uibb(&this->taskbar)->height - UI_FONT_SMALL.char_height,
-				LEVEL_PB_WIDTH,
-				UI_FONT_SMALL.char_height,
-				uv_uilabel_step);
-
-		uv_uiprogressbar_init(&this->fuel_level, 0, 100, &uv_uistyles[0]);
-		uv_uiprogressbar_set_value(&this->fuel_level, msb_get_fuel_level(&dspl.network.msb));
-		uv_uiprogressbar_set_vertical(&this->fuel_level);
-		uv_uiprogressbar_set_limit(&this->fuel_level, UI_PROGRESSBAR_LIMIT_UNDER,
-				FUEL_LEVEL_WARNING_LIMIT, ERROR_COLOR);
-		uv_uiwindow_add(&this->taskbar, &this->fuel_level,
-				uv_uibb(&this->fuel)->x, 0,
-				LEVEL_PB_WIDTH, uv_uibb(&this->fuel)->y - 4, uv_uiprogressbar_step);
+		bb = uv_uigridlayout_next(&grid);
 
 		// voltage
-		uv_uilabel_init(&this->voltage, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER, C(0xFFFFFF),
-				C(0xFFFFFFFF), "Bat V");
-		uv_uiwindow_add(&this->taskbar, &this->voltage,
-				uv_uibb(&this->fuel)->x - LEVEL_PB_WIDTH - 30,
-				uv_uibb(&this->taskbar)->height - UI_FONT_SMALL.char_height,
-				LEVEL_PB_WIDTH,
-				UI_FONT_SMALL.char_height,
-				uv_uilabel_step);
-
+		bb = uv_uigridlayout_next(&grid);
 		uv_uiprogressbar_init(&this->voltage_level, VOLTAGE_MIN, VOLTAGE_MAX, &uv_uistyles[0]);
 		uv_uiprogressbar_set_value(&this->voltage_level, msb_get_voltage(&dspl.network.msb));
 		uv_uiprogressbar_set_vertical(&this->voltage_level);
 		uv_uiprogressbar_set_limit(&this->voltage_level, UI_PROGRESSBAR_LIMIT_UNDER,
 				VOLTAGE_WARNING_LIMIT, ERROR_COLOR);
-		uv_uiwindow_add(&this->taskbar, &this->voltage_level,
-				uv_uibb(&this->voltage)->x, 0,
-				LEVEL_PB_WIDTH, uv_uibb(&this->voltage)->y - 4, uv_uiprogressbar_step);
+		uv_uiprogressbar_set_title(&this->voltage_level, "Bat V");
+		uv_uiwindow_add(&this->taskbar, &this->voltage_level, bb.x, bb.y,
+				bb.width, bb.height, uv_uiprogressbar_step);
+
+		// Fuel level
+		bb = uv_uigridlayout_next(&grid);
+		uv_uiprogressbar_init(&this->fuel_level, 0, 100, &uv_uistyles[0]);
+		uv_uiprogressbar_set_value(&this->fuel_level, msb_get_fuel_level(&dspl.network.msb));
+		uv_uiprogressbar_set_vertical(&this->fuel_level);
+		uv_uiprogressbar_set_limit(&this->fuel_level, UI_PROGRESSBAR_LIMIT_UNDER,
+				FUEL_LEVEL_WARNING_LIMIT, ERROR_COLOR);
+		uv_uiprogressbar_set_title(&this->fuel_level, "Fuel L");
+		uv_uiwindow_add(&this->taskbar, &this->fuel_level, bb.x, bb.y,
+				bb.width, bb.height, uv_uiprogressbar_step);
+
+		// Oil level
+		bb = uv_uigridlayout_next(&grid);
+		uv_uiprogressbar_init(&this->oil_level, 20, 100, &uv_uistyles[0]);
+		uv_uiprogressbar_set_value(&this->oil_level, msb_get_oil_level(&dspl.network.msb));
+		uv_uiprogressbar_set_vertical(&this->oil_level);
+		uv_uiprogressbar_set_limit(&this->oil_level, UI_PROGRESSBAR_LIMIT_UNDER,
+				OIL_LEVEL_WARNING_LIMIT, ERROR_COLOR);
+		uv_uiprogressbar_set_title(&this->oil_level, "Oil L");
+		uv_uiwindow_add(&this->taskbar, &this->oil_level, bb.x, bb.y,
+				bb.width, bb.height, uv_uiprogressbar_step);
+
+		// Oil temp
+		bb = uv_uigridlayout_next(&grid);
+		uv_uiprogressbar_init(&this->otemp_bar, 0, 100, &uv_uistyles[0]);
+		uv_uiprogressbar_set_value(&this->otemp_bar, msb_get_oil_temp(&dspl.network.msb));
+		uv_uiprogressbar_set_vertical(&this->otemp_bar);
+		uv_uiprogressbar_set_limit(&this->otemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
+				OIL_TEMP_WARNING_LIMIT, ERROR_COLOR);
+		uv_uiprogressbar_set_title(&this->otemp_bar, "Oil T");
+		uv_uiwindow_add(&this->taskbar, &this->otemp_bar, bb.x, bb.y,
+				bb.width, bb.height, uv_uiprogressbar_step);
+
+
+		// Motor temp
+		bb = uv_uigridlayout_next(&grid);
+		uv_uiprogressbar_init(&this->mtemp_bar, 50, 100, &uv_uistyles[0]);
+		uv_uiprogressbar_set_vertical(&this->mtemp_bar);
+		uv_uiprogressbar_set_value(&this->mtemp_bar, msb_get_motor_temp(&dspl.network.msb));
+		uv_uiprogressbar_set_limit(&this->mtemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
+				MOTOR_TEMP_WARNING_LIMIT, ERROR_COLOR);
+		uv_uiprogressbar_set_title(&this->mtemp_bar, "Motor T");
+		uv_uiwindow_add(&this->taskbar, &this->mtemp_bar, bb.x, bb.y,
+				bb.width, bb.height, uv_uiprogressbar_step);
+
+
+		bb = uv_uigridlayout_next(&grid);
+		uv_time_st t;
+		uv_rtc_get_time(&t);
+		snprintf(this->time, TASKBAR_TIME_LEN, "%02u:%02u", t.hour, t.min);
+		uv_delay_init(1000 * 60, &this->delay);
+		uv_uilabel_init(&this->clock, &UI_FONT_BIG, ALIGN_CENTER_RIGHT,
+				C(0xFFFFFF), taskbar_style.window_c, this->time);
+		uv_uiwindow_add(&this->taskbar, &this->clock, bb.x, bb.y,
+				bb.width, bb.height, uv_uilabel_step);
 
 	}
 	else if (state == TASKBAR_ALERTS) {
@@ -223,6 +210,18 @@ void taskbar_step(uint16_t step_ms) {
 		if (log_get_nack_count()) {
 			show(TASKBAR_ALERTS);
 			return;
+		}
+
+		if (msb_get_emcy_stop(&dspl.network.msb)) {
+			uv_ui_set_enabled(&this->emcy_label, true);
+			if (uv_delay(step_ms, &this->emcy_delay)) {
+				uv_delay_init(BG_ERROR_DELAY_MS, &this->emcy_delay);
+				uv_ui_set_enabled(&this->emcy_stop, !uv_ui_get_enabled(&this->emcy_stop));
+			}
+		}
+		else {
+			uv_ui_set_enabled(&this->emcy_stop, false);
+			uv_ui_set_enabled(&this->emcy_label, false);
 		}
 
 		uv_uiprogressbar_set_value(&this->voltage_level, msb_get_voltage(&dspl.network.msb));

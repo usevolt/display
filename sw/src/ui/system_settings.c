@@ -33,11 +33,34 @@ void system_settings_show(void) {
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->window)->width,
-			uv_uibb(&this->window)->height, 2, 1);
+			uv_uibb(&this->window)->height, 3, 1);
 	uv_uigridlayout_set_padding(&grid, 10, 20);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
+	uint8_t date_xoffset = 80;
+
+	// implement select
+	uv_uilabel_init(&this->impls_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER, C(0xFFFFFF),
+			C(0xFFFFFFFF), "Current implement");
+	uv_uiwindow_add(&this->window, &this->impls_label, bb.x, bb.y,
+			bb.width + date_xoffset, bb.height, uv_uilabel_step);
+
+	uv_uilist_init(&this->impls_list, this->impl_names,
+			UW_IMPLEMENT_COUNT, &uv_uistyles[0]);
+
+	// todo: Add all implements here
+	uv_uilist_push_back(&this->impls_list, dspl.user->uw180s.super.name);
+	uv_uilist_push_back(&this->impls_list, dspl.user->uw100.super.name);
+	uv_uilist_push_back(&this->impls_list, dspl.user->uw50.super.name);
+
+	uv_uilist_select(&this->impls_list, dspl.user->active_implement);
+
+	uv_uiwindow_add(&this->window, &this->impls_list, bb.x, bb.y,
+			bb.width + date_xoffset, bb.height - UI_FONT_SMALL.char_height, uv_uilist_step);
+
+
 	// engine power usage
+	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->power_usage, 0, 100, dspl.user->engine_power_usage, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->power_usage);
 	uv_uislider_set_title(&this->power_usage, "Engine power\nusage");
@@ -49,21 +72,18 @@ void system_settings_show(void) {
 	update_time();
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uilabel_init(&this->time, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF),
+	uv_uilabel_init(&this->time, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER, C(0xFFFFFF),
 			C(0xFFFFFFFF), "Date and time");
 	uv_uiwindow_add(&this->window, &this->time,
-			bb.x + bb.width / 2, bb.y + bb.height - 20,
-			0, UI_FONT_SMALL.char_height, uv_uilabel_step);
+			bb.x - date_xoffset, bb.y + bb.height, bb.width, 0, uv_uilabel_step);
 
 	uv_uilabel_init(&this->date_label, &UI_FONT_BIG, ALIGN_CENTER_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->datestr);
 	uv_uiwindow_add(&this->window, &this->date_label,
-			bb.x + bb.width / 2 - UI_FONT_BIG.char_width * 10,
-			uv_uibb(&this->window)->height / 2,
-			0, 0, uv_uilabel_step);
+			bb.x - date_xoffset, bb.y, bb.width, bb.height - UI_FONT_SMALL.char_height, uv_uilabel_step);
 
 	int16_t datex = uv_uibb(&this->date_label)->x;
-	int16_t datey = uv_uibb(&this->date_label)->y;
+	int16_t datey = uv_uibb(&this->date_label)->y + uv_uibb(&this->date_label)->height / 2;
 	int16_t fw = UI_FONT_BIG.char_width;
 	int16_t fh = UI_FONT_BIG.char_height;
 
@@ -132,6 +152,10 @@ void system_settings_show(void) {
 
 
 void system_settings_step(uint16_t step_ms) {
+	if (uv_uilist_get_selected(&this->impls_list) != -1) {
+		implement_set(uv_uilist_get_selected(&this->impls_list));
+	}
+
 	if (uv_uislider_value_changed(&this->power_usage)) {
 		dspl.user->engine_power_usage = uv_uislider_get_value(&this->power_usage);
 		ecu_set_engine_power_usage(dspl.user->engine_power_usage);

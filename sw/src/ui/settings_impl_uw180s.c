@@ -227,9 +227,6 @@ void settings_impl_uw180s_show(void) {
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 
-	uv_uibutton_init(&this->back, "Back", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->back, BACK_X, BACK_X, BACK_W, BACK_H, uv_uibutton_step);
-
 	uv_uilabel_init(&this->label, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF), C(0xFFFFFFFF), "UW180s");
 	uv_uiwindow_add(this->window, &this->label, LABEL_X, LABEL_Y, LABEL_W, LABEL_H, uv_uilabel_step);
 
@@ -349,11 +346,7 @@ void settings_impl_uw180s_step(uint16_t step_ms) {
 //		}
 	}
 	else {
-		if (uv_uibutton_clicked(&this->back)) {
-			settings_implements_show();
-			return;
-		}
-		else if (uv_uibutton_clicked(&this->main.measurement)) {
+		if (uv_uibutton_clicked(&this->main.measurement)) {
 			show_mb();
 			return;
 		}

@@ -12,14 +12,9 @@
 #include "dashboard_uw180s.h"
 #include "dashboard_uw100.h"
 #include "dashboard_uw50.h"
-#include "settings_impl_generic.h"
 #include "settings_impl_uw180s.h"
 #include "settings_impl_uw50.h"
 #include "settings_impl_uw100.h"
-
-#if !GENERIC_IMPLEMENT_COUNT
-#error "Generic implement count shouldn't be zero!"
-#endif
 
 #define this 	((implement_st*)me)
 
@@ -38,14 +33,6 @@ void implement_set(impl_type_e implement) {
 		else if (implement == IMPL_UW50) {
 			dspl.user->implement = (void*) &dspl.user->uw50;
 		}
-		else if (implement - UW_IMPLEMENT_COUNT < uv_vector_size(&dspl.user->generic_implements)) {
-			dspl.user->implement = uv_vector_at(&dspl.user->generic_implements,
-					implement - UW_IMPLEMENT_COUNT);
-		}
-		else {
-			printf("Tried to set generic impl %u, but there was not so many generic implements\n",
-					implement - UW_IMPLEMENT_COUNT);
-		}
 		ecu_set_implement(implement);
 	}
 	else {
@@ -60,67 +47,6 @@ void implement_init(void *me, const void *initializer) {
 	this->name = ((implement_st*)initializer)->name;
 	this->callbacks = ((implement_st*)initializer)->callbacks;
 }
-
-const implement_callbs_st generic_callbacks = {
-		.dashboard_show = dashboard_generic_show,
-		.dasboard_step = dashboard_generic_step,
-		.settings_show = settings_impl_generic_show,
-		.settings_step = settings_impl_generic_step
-};
-
-const generic_implement_st generic_implement = {
-			.super = {
-					.name = "implement",
-					.callbacks = &generic_callbacks,
-			},
-			.name = "implement",
-			.valves = {
-					{
-							.name = "Main",
-							.min_speed_p = 250,
-							.max_speed_p = 800,
-							.min_speed_n = 230,
-							.min_speed_p = 760,
-							.acc = 100,
-							.dec = 100,
-							.invert = false
-
-					},
-					{
-							.name = "Rotator",
-							.min_speed_p = 250,
-							.max_speed_p = 800,
-							.min_speed_n = 230,
-							.min_speed_p = 760,
-							.acc = 100,
-							.dec = 100,
-							.invert = false
-
-					},
-					{
-							.name = "Tilt",
-							.min_speed_p = 250,
-							.max_speed_p = 800,
-							.min_speed_n = 230,
-							.min_speed_p = 760,
-							.acc = 100,
-							.dec = 100,
-							.invert = false
-					}
-			}
-};
-
-#undef this
-#define this ((generic_implement_st*)me)
-
-void generic_implement_init(void *me) {
-	implement_init(this, &generic_implement);
-	this->super.name = this->name;
-	for (int16_t i = 0; i < IMPLEMENT_VALVE_COUNT; i++) {
-		this->valves[i].name = generic_implement.valves[i].name;
-	}
-}
-
 
 
 const implement_callbs_st uw180s_callbacks = {

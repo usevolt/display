@@ -86,6 +86,7 @@ void system_show_tab(void (*show_callb)(void)) {
 
 void system_step(uint16_t step_ms) {
 	if (uv_uibutton_clicked(&this->ok)) {
+		uv_memory_save();
 		home_show();
 	}
 	else if (uv_uibutton_clicked(&this->cancel)) {

@@ -39,8 +39,6 @@ typedef struct {
 		uw180s_st uw180s;
 		uw50_st uw50;
 		uw100_st uw100;
-		generic_implement_st generic_impl_data[GENERIC_IMPLEMENT_COUNT];
-		uv_vector_st generic_implements;
 		/// @brief: Pointer to the currently active implement. Requires to be casted
 		/// to the implement type.
 		implement_st *implement;

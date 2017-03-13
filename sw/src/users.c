@@ -25,30 +25,19 @@ static void user_init(userdata_st *this) {
 	uw180s_init(&this->uw180s);
 	uw100_init(&this->uw100);
 	uw50_init(&this->uw50);
-	if (uv_vector_size(&this->generic_implements) > GENERIC_IMPLEMENT_COUNT) {
-		uv_vector_init(&this->generic_implements, this->generic_impl_data,
-				GENERIC_IMPLEMENT_COUNT, sizeof(generic_implement_st));
-	}
-	for (int16_t i = 0; i < uv_vector_size(&this->generic_implements); i++) {
-		generic_implement_init(uv_vector_at(&this->generic_implements, i));
-	}
-	if (this->active_implement >= IMPL_COUNT ||
-			this->active_implement >= uv_vector_size(&this->generic_implements) + UW_IMPLEMENT_COUNT) {
+	if (this->active_implement >= IMPL_COUNT) {
 		this->active_implement = IMPL_UW180S;
 	}
 	switch (this->active_implement) {
-	case IMPL_UW180S:
-		this->implement = (implement_st*) &this->uw180s;
-		break;
 	case IMPL_UW100:
 		this->implement = (implement_st*) &this->uw100;
 		break;
 	case IMPL_UW50:
 		this->implement = (implement_st*) &this->uw50;
 		break;
+	case IMPL_UW180S:
 	default:
-		this->implement = uv_vector_at(&this->generic_implements,
-				this->active_implement - UW_IMPLEMENT_COUNT);
+		this->implement = (implement_st*) &this->uw180s;
 		break;
 	}
 
@@ -72,8 +61,6 @@ static void user_reset(userdata_st *user) {
 	uw180s_reset(&user->uw180s);
 	uw100_reset(&user->uw100);
 	uw50_reset(&user->uw50);
-	uv_vector_init(&user->generic_implements, user->generic_impl_data,
-			GENERIC_IMPLEMENT_COUNT, sizeof(generic_implement_st));
 	user->implement = (void *) &user->uw180s;
 	user->active_implement = IMPL_UW180S;
 

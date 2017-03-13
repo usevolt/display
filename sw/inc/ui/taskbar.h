@@ -13,7 +13,7 @@
 
 
 /// @brief: taskbar buffer length
-#define TASKBAR_BUF_LEN			12
+#define TASKBAR_BUF_LEN			20
 #define TASKBAR_TIME_LEN		6
 #define TASKBAR_COUNT_STR_LEN	16
 #define TASKBAR_HOUR_STR_LEN	16
@@ -33,26 +33,26 @@ typedef struct {
 
 	union {
 		struct {
-			uv_uilabel_st clock;
-			char time[TASKBAR_TIME_LEN];
 
-			uv_uilabel_st mtemp;
-			uv_uiprogressbar_st mtemp_bar;
-
-			uv_uilabel_st otemp;
-			uv_uiprogressbar_st otemp_bar;
-
-			uv_uilabel_st oil;
-			uv_uiprogressbar_st oil_level;
-
-			uv_uilabel_st fuel;
-			uv_uiprogressbar_st fuel_level;
-
-			uv_uilabel_st voltage;
-			uv_uiprogressbar_st voltage_level;
+			uv_uilabel_st emcy_stop;
+			uv_uilabel_st emcy_label;
+			int emcy_delay;
 
 			char hour_str[TASKBAR_HOUR_STR_LEN];
 			uv_uilabel_st hours;
+
+			uv_uiprogressbar_st voltage_level;
+
+			uv_uiprogressbar_st fuel_level;
+
+			uv_uiprogressbar_st oil_level;
+
+			uv_uiprogressbar_st otemp_bar;
+
+			uv_uiprogressbar_st mtemp_bar;
+
+			uv_uilabel_st clock;
+			char time[TASKBAR_TIME_LEN];
 		};
 		struct {
 			uv_uitoucharea_st touch;

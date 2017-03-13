@@ -12,8 +12,6 @@
 #include <stdbool.h>
 #include "vehicle.h"
 
-#define GENERIC_IMPLEMENT_NAME_LEN		20
-
 
 /// @brief: Implement callback functino pointers.
 /// Every implement should assing one of these to indicate
@@ -59,22 +57,6 @@ typedef struct {
 /// @param initializer: Pointer to the implement_st structure
 /// which is used to copy the initialization values
 void implement_init(void *me, const void *initializer);
-
-
-
-/// @brief: describes the structure for generic implements.
-typedef struct {
-	EXTENDS(implement_st);
-
-	char name[GENERIC_IMPLEMENT_NAME_LEN];
-
-	/// @brief: Base machine's implement valve settings
-	valve_st valves[IMPLEMENT_VALVE_COUNT];
-} generic_implement_st;
-/// @brief: Generic implement factory settings. Same for all generic valves.
-extern const generic_implement_st generic_implement;
-
-void generic_implement_init(void *me);
 
 
 

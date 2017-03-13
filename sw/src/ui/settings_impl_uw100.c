@@ -88,9 +88,6 @@ void settings_impl_uw100_show(void) {
 			uv_uibb(this->window)->height - BACK_Y, 3, 3);
 	uv_uigridlayout_set_padding(&grid, 30, 10);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
-
-	uv_uibutton_init(&this->back, "Back", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->back, bb.x, bb.y, bb.width, BACK_H, uv_uibutton_step);
 	bb = uv_uigridlayout_next(&grid);
 
 	uv_uilabel_init(&this->label, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF), C(0xFFFFFFFF), "UW100");
@@ -112,11 +109,7 @@ void settings_impl_uw100_show(void) {
 
 void settings_impl_uw100_step(uint16_t step_ms) {
 	if (this->state == UW100_STATE_NONE) {
-		if (uv_uibutton_clicked(&this->back)) {
-			settings_implements_show();
-			return;
-		}
-		else if (uv_uibutton_clicked(&this->rotator)) {
+		if (uv_uibutton_clicked(&this->rotator)) {
 			show_sliders(UW100_STATE_ROTATOR, uv_uibutton_get_text(&this->rotator));
 			return;
 		}

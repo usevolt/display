@@ -56,6 +56,13 @@ const canopen_object_st obj_dict[] = {
 		},
 		{
 				.main_index = 0x2006,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_SIGNED16,
+				.data_ptr = (void*) &dspl.network.msb.read.emcy_stop
+		},
+		{
+				.main_index = 0x2006,
 				.array_max_size = 8,
 				.permissions = CANOPEN_WO,
 				.type = CANOPEN_ARRAY8,

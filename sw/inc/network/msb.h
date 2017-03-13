@@ -34,6 +34,7 @@ typedef struct {
 		int8_t motor_temp;
 		int16_t rpm;
 		int16_t voltage;
+		uint8_t emcy_stop;
 		struct {
 			uint8_t glow_plugs;
 			uint8_t starter;
@@ -99,6 +100,10 @@ static inline int16_t msb_get_rpm(msb_st *msb) {
 
 static inline int16_t msb_get_voltage(msb_st *msb) {
 	return msb->read.voltage;
+}
+
+static inline uint8_t msb_get_emcy_stop(msb_st *msb) {
+	return msb->read.emcy_stop;
 }
 
 static inline bool msb_get_power_aux(msb_st *msb) {
