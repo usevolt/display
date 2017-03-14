@@ -21,7 +21,7 @@ typedef struct {
 	uv_uiobject_st *buffer[SETTINGS_GENERAL_BUFFER_LEN];
 
 	uv_uislider_st brightness;
-	uv_uislider_st volume;
+//	uv_uislider_st volume;
 
 	uv_uitogglebutton_st drive_lights;
 	uv_uitogglebutton_st work_lights;

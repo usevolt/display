@@ -26,7 +26,7 @@ void settings_general_show() {
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0,
 			uv_uibb(&this->window)->width,
-			uv_uibb(&this->window)->height, 5, 1);
+			uv_uibb(&this->window)->height, 4, 1);
 	uv_uigridlayout_set_padding(&grid, 10, 40);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
@@ -37,13 +37,13 @@ void settings_general_show() {
 	uv_uiwindow_add(&this->window, &this->brightness,
 			bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
 
-	// volume
-	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->volume, 0, 100, alert_get_volume(&dspl.alert), &uv_uistyles[0]);
-	uv_uislider_set_vertical(&this->volume);
-	uv_uislider_set_title(&this->volume, "Volume");
-	uv_uiwindow_add(&this->window, &this->volume,
-			bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
+//	// volume
+//	bb = uv_uigridlayout_next(&grid);
+//	uv_uislider_init(&this->volume, 0, 100, alert_get_volume(&dspl.alert), &uv_uistyles[0]);
+//	uv_uislider_set_vertical(&this->volume);
+//	uv_uislider_set_title(&this->volume, "Volume");
+//	uv_uiwindow_add(&this->window, &this->volume,
+//			bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
 
 	// drive lights
 	bb = uv_uigridlayout_next(&grid);
@@ -79,14 +79,6 @@ void settings_general_show() {
 
 
 void settings_general_step(uint16_t step_ms) {
-	// volume
-	if (uv_uislider_value_changed(&this->volume)) {
-		alert_set_volume(&dspl.alert, uv_uislider_get_value(&this->volume));
-	}
-	else {
-		uv_uislider_set_value(&this->volume, alert_get_volume(&dspl.alert));
-	}
-
 	// brightness
 	if (uv_uislider_value_changed(&this->brightness)) {
 		gui_set_backlight(uv_uislider_get_value(&this->brightness));
@@ -94,6 +86,14 @@ void settings_general_step(uint16_t step_ms) {
 	else {
 		uv_uislider_set_value(&this->brightness, gui_get_backlight());
 	}
+
+//	// volume
+//	if (uv_uislider_value_changed(&this->volume)) {
+//		alert_set_volume(&dspl.alert, uv_uislider_get_value(&this->volume));
+//	}
+//	else {
+//		uv_uislider_set_value(&this->volume, alert_get_volume(&dspl.alert));
+//	}
 
 	// drive lights
 	if (uv_uitogglebutton_clicked(&this->drive_lights)) {

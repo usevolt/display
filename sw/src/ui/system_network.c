@@ -333,7 +333,7 @@ static void show(devices_e dev) {
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->window)->width,
 			uv_uibb(&this->window)->height, 6, 4);
-	uv_uigridlayout_set_padding(&grid, 20, 10);
+	uv_uigridlayout_set_padding(&grid, 5, 10);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 
@@ -348,14 +348,14 @@ static void show(devices_e dev) {
 	uv_uilabel_init(&this->row1_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			C(0xFFFFFFFF), (char*) netdev_label);
 	uv_uiwindow_add(&this->window, &this->row1_topics, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+			bb.width * 1.5f, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
 			uv_uilabel_step);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row1_values, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->row1_val_str);
-	uv_uiwindow_add(&this->window, &this->row1_values, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+	uv_uiwindow_add(&this->window, &this->row1_values, bb.x + bb.width / 2, bb.y + bb.height + grid.vpadding,
+			bb.width / 2, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
 			uv_uilabel_step);
 
 
@@ -363,14 +363,14 @@ static void show(devices_e dev) {
 	uv_uilabel_init(&this->row2_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			C(0xFFFFFFFF), (char*) labels[dev].row2);
 	uv_uiwindow_add(&this->window, &this->row2_topics, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+			bb.width * 1.5f, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
 			uv_uilabel_step);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row2_values, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->row2_val_str);
-	uv_uiwindow_add(&this->window, &this->row2_values, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+	uv_uiwindow_add(&this->window, &this->row2_values, bb.x + bb.width / 2, bb.y + bb.height + grid.vpadding,
+			bb.width / 2, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
 			uv_uilabel_step);
 
 
@@ -378,14 +378,14 @@ static void show(devices_e dev) {
 	uv_uilabel_init(&this->row3_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			C(0xFFFFFFFF), (char*) labels[dev].row3);
 	uv_uiwindow_add(&this->window, &this->row3_topics, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+			bb.width * 1.5f, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
 			uv_uilabel_step);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row3_values, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->row3_val_str);
-	uv_uiwindow_add(&this->window, &this->row3_values, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+	uv_uiwindow_add(&this->window, &this->row3_values, bb.x + bb.width / 2, bb.y + bb.height + grid.vpadding,
+			bb.width / 2, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
 			uv_uilabel_step);
 
 	update(dev);
