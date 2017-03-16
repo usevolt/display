@@ -10,6 +10,7 @@
 
 
 #include <uv_utilities.h>
+#include "uv_canopen.h"
 #include "log.h"
 
 /// @file: Defines the basic data structure for network devices.
@@ -17,6 +18,7 @@
 
 typedef struct {
 	bool connected;
+	bool notified;
 	uint8_t node_id;
 	int timeout_delay;
 	int transmission_delay;
@@ -52,6 +54,8 @@ static inline void netdev_clear_disconnect_delay(void *me) {
 
 static inline void netdev_set_node_id(void *me, uint8_t node_id) {
 	this->node_id = node_id;
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL,
+			CANOPEN_HEARTBEAT_ID + node_id, CAN_STD);
 }
 static inline uint8_t netdev_get_node_id(void *me) {
 	return this->node_id;

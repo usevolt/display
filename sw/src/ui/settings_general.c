@@ -69,7 +69,7 @@ void settings_general_show() {
 	// heater
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->heater, 0, MSB_HEATER_SPEED_COUNT - 1,
-			msb_get_power_heater(&dspl.network.msb), &uv_uistyles[0]);
+			msb_get_heater(&dspl.network.msb), &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->heater);
 	uv_uislider_set_title(&this->heater, "Heater");
 	uv_uiwindow_add(&this->window, &this->heater, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);

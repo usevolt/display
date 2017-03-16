@@ -92,6 +92,8 @@ void settings_step(uint16_t step_ms) {
 		if (e) {
 			log_add(LOG_MEMORY_SAVE_FAILED, (int32_t) e);
 		}
+		// save ecu params
+		ecu_save_params();
 		home_show();
 	}
 	else if (uv_uibutton_clicked(&this->cancel)) {

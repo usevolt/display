@@ -16,7 +16,7 @@
 #define TASKBAR_BUF_LEN			20
 #define TASKBAR_TIME_LEN		6
 #define TASKBAR_COUNT_STR_LEN	16
-#define TASKBAR_HOUR_STR_LEN	16
+#define TASKBAR_HOUR_STR_LEN	8
 
 
 enum {
@@ -33,13 +33,28 @@ typedef struct {
 
 	union {
 		struct {
+			uv_uidigit_st hours;
+			uv_uilabel_st hours_label;
+
+			uv_uilabel_st engine_water;
+			uv_uilabel_st engine_oil_press;
+			uv_uilabel_st engine_alt;
+			uv_uilabel_st engine_glow_plugs;
+			int engine_delay;
+			bool engine_visible;
 
 			uv_uilabel_st emcy_stop;
 			uv_uilabel_st emcy_label;
 			int emcy_delay;
 
-			char hour_str[TASKBAR_HOUR_STR_LEN];
-			uv_uilabel_st hours;
+#if LM
+			uv_uitoucharea_st gear_touch;
+			uv_uidigit_st gear;
+			uv_uilabel_st gear_label;
+#endif
+			uv_uilabel_st horn;
+			uv_uilabel_st horn_label;
+			uv_uitoucharea_st horn_touch;
 
 			uv_uiprogressbar_st voltage_level;
 
@@ -51,7 +66,7 @@ typedef struct {
 
 			uv_uiprogressbar_st mtemp_bar;
 
-			uv_uilabel_st clock;
+			uv_uidigit_st clock;
 			char time[TASKBAR_TIME_LEN];
 		};
 		struct {

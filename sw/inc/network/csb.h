@@ -20,15 +20,6 @@
 
 typedef struct {
 	EXTENDS(netdev_st);
-	// WRITE
-	struct {
-		uint8_t drive_light;
-		uint8_t work_light;
-		uint8_t cabin_light;
-		uint8_t beacon;
-		uint8_t wiper;
-	} write;
-
 	// READ
 	struct {
 		struct {
@@ -37,6 +28,7 @@ typedef struct {
 			uint8_t cabin_light;
 			uint8_t beacon;
 		} lights;
+		uint8_t oil_cooler;
 		uint8_t wiper;
 		uint8_t errors;
 	} read;
@@ -50,11 +42,7 @@ static inline void csb_init(csb_st *this) {
 	netdev_init(this, csb_update);
 	netdev_set_node_id(this, CSB_NODE_ID);
 	netdev_set_disconnected_type(this, LOG_CSB_DISCONNECTED);
-	this->write.beacon = 0;
-	this->write.cabin_light = 0;
-	this->write.drive_light = 0;
-	this->write.wiper = 0;
-	this->write.work_light = 0;
+	this->read.oil_cooler = 0;
 	this->read.wiper = 0;
 	this->read.errors = 0;
 	this->read.lights.beacon = 0;
@@ -86,6 +74,10 @@ static inline uint8_t csb_get_beacon(csb_st *csb) {
 
 static inline uint8_t csb_get_wiper(csb_st *csb) {
 	return csb->read.wiper;
+}
+
+static inline uint8_t csb_get_oil_cooler(csb_st *csb) {
+	return csb->read.oil_cooler;
 }
 
 /// @brief: Sends the request to CSB to set the drive lights to *value*

@@ -60,14 +60,22 @@ void implement_init(void *me, const void *initializer);
 
 
 
-#define LOG_TYPE_COUNT	4
-#define LOG_NAME_LEN	16
+#define LOG_TYPE_COUNT		4
+#define TREE_TYPE_COUNT		4
+#define LOG_NAME_LEN		16
 
 /// @brief: Structure for a single log type
 typedef struct {
 	int16_t length_mm;
+	int16_t max_dia_mm;
+	int16_t min_dia_mm;
 	char name[LOG_NAME_LEN];
 } log_type_st;
+
+
+typedef struct {
+	char name[LOG_NAME_LEN];
+} tree_type_st;
 
 /// @brief: Defines the structure for UW180S implement
 typedef struct {
@@ -82,8 +90,14 @@ typedef struct {
 	bool mb_enabled;
 	int16_t len_calib;
 	int16_t vol_calib;
+	/// @brief: Stores all log types defined by user
 	log_type_st log_type_buffer[LOG_TYPE_COUNT];
 	uv_vector_st log_types;
+	/// @brief: Stores tree types defined by user
+	tree_type_st tree_type_buffer[TREE_TYPE_COUNT];
+	uv_vector_st tree_types;
+	/// @brief: Stores log counts sorted by tree types
+	uint32_t log_counts[TREE_TYPE_COUNT][LOG_TYPE_COUNT];
 
 	int16_t log_len1;
 	int16_t log_len2;

@@ -132,6 +132,8 @@ void dspl_init(dspl_st *me) {
 
 	uv_delay_init(1000, &this->step_delay);
 
+	uv_canopen_set_can_callback(can_callback);
+
 	// the display lives it's own life. It is allowed to boot itself up into operational mode
 	uv_canopen_set_state(CANOPEN_OPERATIONAL);
 
@@ -145,8 +147,6 @@ void dspl_step(void *me) {
 
 	while (true) {
 		int step_ms = 20;
-
-//		uv_wdt_update();
 
 		uv_terminal_step();
 
@@ -176,8 +176,6 @@ void dspl_step(void *me) {
 
 
 int main(void) {
-//	uv_wdt_init(1);
-
 
 	uv_init(&dspl);
 

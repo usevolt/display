@@ -80,20 +80,18 @@ static const data_st labels[] = {
 		// MSB
 		{
 				.name = "MSB",
-				.row2 = "Fuel level\n"
-						"Oil level\n"
-						"Oil temp\n"
-						"Motor temp\n"
+				.row2 = "Fuel level (%)\n"
+						"Oil level (%)\n"
+						"Oil temp (C)\n"
+						"Motor temp (C)\n"
 						"Rpm\n"
-						"Voltage",
+						"Voltage (mV)",
 				.row3 = "Glow plugs\n"
 						"Starter\n"
-						"Engine stop\n"
+						"Engine water\n"
 						"Crane lights\n"
-						"Camera\n"
+						"Engine oil press\n"
 						"Aux\n"
-						"Heater\n"
-						"Oil cooler\n"
 		},
 		// CSB
 		{
@@ -102,7 +100,8 @@ static const data_st labels[] = {
 						"Work light\n"
 						"Cabin light\n"
 						"Beacon\n"
-						"Wiper\n",
+						"Wiper\n"
+						"Oil Cooler",
 				.row3 = ""
 		},
 		// ECU
@@ -111,51 +110,52 @@ static const data_st labels[] = {
 				.name = "ECU",
 				.row2 = "Controls moved\n"
 						"Engine shut down\n"
-						"Pump angle\n"
+						"Pump angle (ppt)\n"
 						"Implement\n"
 						"Legs Down\n"
-						"Pressure",
-				.row3 = "Boom Lift mA\n"
-						"Boom Fold mA\n"
-						"Boom Rotate mA\n"
-						"Drive mA\n"
-						"Steer mA\n"
-						"Left Leg mA\n"
-						"Right Leg mA\n"
-						"Impl valve mA"
+						"Pressure (bar)",
+				.row3 = "Boom Lift (mA)\n"
+						"Boom Fold (mA)\n"
+						"Boom Rotate (mA)\n"
+						"Drive (mA)\n"
+						"Steer (mA)\n"
+						"Left Leg (mA)\n"
+						"Right Leg (mA)\n"
+						"Impl valve (mA)"
 		},
 #elif LM
 		{
 				.name = "ECU",
 				.row2 = "Controls moved\n"
 						"Engine shut down\n"
-						"Pump angle\n"
+						"Pump angle (ppt)\n"
 						"Implement\n"
 						"Legs Down\n"
-						"Pressure",
-				.row3 = "Boom Lift mA\n"
-						"Boom Fold mA\n"
-						"Boom Rotate mA\n"
-						"Boom Telescope mA\n"
-						"Drive Front mA\n"
-						"Drive Back mA\n"
-						"Steer Front mA\n"
-						"Steer Back mA\n"
-						"Left Leg mA\n"
-						"Right Leg mA"
+						"Pressure (bar)",
+				.row3 = "Boom Lift (mA)\n"
+						"Boom Fold (mA)\n"
+						"Boom Rotate (mA)\n"
+						"Boom Telescope (mA)\n"
+						"Drive Front (mA)\n"
+						"Drive Back (mA)\n"
+						"Steer Front (mA)\n"
+						"Steer Back (mA)\n"
+						"Left Leg (mA)\n"
+						"Right Leg (mA)\n"
+						"Cabin Rotate (mA)"
 		},
 #endif
 		// L_KEYPAD
 		{
 				.name = "Left Keypad",
-				.row2 = "x\ny\nz\nb1\nb2\nb3\nb4\nb5\nb6",
-				.row3 = "b7\nb8\nb9\nb10\nb11\nb12\nb13\nb14\nb15\nb16"
+				.row2 = "x\nx err\ny\ny err\nz\nz err\nv\nv err",
+				.row3 = "b1\nb2\nb3\nb4\nb5\nb6\nb7\nb8\nb9\nb10"
 		},
 		// R_KEYPAD
 		{
 				.name = "Right Keypad",
-				.row2 = "x\ny\nz\nb1\nb2\nb3\nb4\nb5\nb6",
-				.row3 = "b7\nb8\nb9\nb10\nb11\nb12\nb13\nb14\nb15\nb16"
+				.row2 = "x\nx err\ny\ny err\nz\nz err\nv\nv err",
+				.row3 = "b1\nb2\nb3\nb4\nb5\nb6\nb7\nb8\nb9\nb10"
 		},
 		// PEDAL
 		{
@@ -202,26 +202,25 @@ static void update(devices_e dev) {
 				msb_get_voltage(&dspl.network.msb));
 		uv_ui_refresh(&this->row2_values);
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
+				"%i\n%i\n%i\n%i\n%i\n%i",
 				msb_get_power_glow_plugs(&dspl.network.msb),
 				msb_get_power_starter(&dspl.network.msb),
-				msb_get_power_engine_stop(&dspl.network.msb),
+				msb_get_power_engine_water(&dspl.network.msb),
 				msb_get_power_crane_light(&dspl.network.msb),
-				msb_get_power_camera(&dspl.network.msb),
-				msb_get_power_aux(&dspl.network.msb),
-				msb_get_power_heater(&dspl.network.msb),
-				msb_get_power_oil_cooler(&dspl.network.msb));
+				msb_get_power_engine_oil_press(&dspl.network.msb),
+				msb_get_power_aux(&dspl.network.msb));
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(&dspl.network.msb);
 	}
 	else if (dev == CSB) {
 		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i",
+				"%i\n%i\n%i\n%i\n%i\n%i",
 				csb_get_drive_light(&dspl.network.csb),
 				csb_get_work_light(&dspl.network.csb),
 				csb_get_cabin_light(&dspl.network.csb),
 				csb_get_beacon(&dspl.network.csb),
-				csb_get_wiper(&dspl.network.csb));
+				csb_get_wiper(&dspl.network.csb),
+				csb_get_oil_cooler(&dspl.network.csb));
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN, " ");
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(&dspl.network.csb);
@@ -249,7 +248,7 @@ static void update(devices_e dev) {
 				ecu_get_impl_valve_ma(&dspl.network.ecu));
 #elif LM
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
+				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
 				ecu_get_boom_lift_ma(&dspl.network.ecu),
 				ecu_get_boom_fold_ma(&dspl.network.ecu),
 				ecu_get_boom_rotate_ma(&dspl.network.ecu),
@@ -259,7 +258,8 @@ static void update(devices_e dev) {
 				ecu_get_steerfront_ma(&dspl.network.ecu),
 				ecu_get_steerback_ma(&dspl.network.ecu),
 				ecu_get_left_leg_ma(&dspl.network.ecu),
-				ecu_get_right_leg_ma(&dspl.network.ecu));
+				ecu_get_right_leg_ma(&dspl.network.ecu),
+				ecu_get_cab_rot_ma(&dspl.network.ecu));
 #endif
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(&dspl.network.ecu);
@@ -270,29 +270,28 @@ static void update(devices_e dev) {
 		else { keypad = &dspl.network.l_keypad; }
 
 		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
+				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
 				keypad_get_x(keypad),
+				keypad_get_x_err(keypad),
 				keypad_get_y(keypad),
+				keypad_get_y_err(keypad),
 				keypad_get_z(keypad),
-				keypad_get_b1(keypad),
-				keypad_get_b2(keypad),
-				keypad_get_b3(keypad),
-				keypad_get_b4(keypad),
-				keypad_get_b5(keypad),
-				keypad_get_b6(keypad));
+				keypad_get_z_err(keypad),
+				keypad_get_v(keypad),
+				keypad_get_v_err(keypad));
 		uv_ui_refresh(&this->row2_values);
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
 				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
-				keypad_get_b7(keypad),
-				keypad_get_b8(keypad),
-				keypad_get_b9(keypad),
-				keypad_get_b10(keypad),
-				keypad_get_b11(keypad),
-				keypad_get_b12(keypad),
-				keypad_get_b13(keypad),
-				keypad_get_b14(keypad),
-				keypad_get_b15(keypad),
-				keypad_get_b16(keypad));
+				keypad_get_button(keypad, 0),
+				keypad_get_button(keypad, 1),
+				keypad_get_button(keypad, 2),
+				keypad_get_button(keypad, 3),
+				keypad_get_button(keypad, 4),
+				keypad_get_button(keypad, 5),
+				keypad_get_button(keypad, 6),
+				keypad_get_button(keypad, 7),
+				keypad_get_button(keypad, 8),
+				keypad_get_button(keypad, 9));
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(keypad);
 	}
@@ -333,7 +332,7 @@ static void show(devices_e dev) {
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->window)->width,
 			uv_uibb(&this->window)->height, 6, 4);
-	uv_uigridlayout_set_padding(&grid, 20, 10);
+	uv_uigridlayout_set_padding(&grid, 5, 10);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 
@@ -348,14 +347,14 @@ static void show(devices_e dev) {
 	uv_uilabel_init(&this->row1_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			C(0xFFFFFFFF), (char*) netdev_label);
 	uv_uiwindow_add(&this->window, &this->row1_topics, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+			bb.width * 1.5f, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
 			uv_uilabel_step);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row1_values, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->row1_val_str);
-	uv_uiwindow_add(&this->window, &this->row1_values, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+	uv_uiwindow_add(&this->window, &this->row1_values, bb.x + bb.width / 2, bb.y + bb.height + grid.vpadding,
+			bb.width / 2, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
 			uv_uilabel_step);
 
 
@@ -363,14 +362,14 @@ static void show(devices_e dev) {
 	uv_uilabel_init(&this->row2_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			C(0xFFFFFFFF), (char*) labels[dev].row2);
 	uv_uiwindow_add(&this->window, &this->row2_topics, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+			bb.width * 1.5f, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
 			uv_uilabel_step);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row2_values, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->row2_val_str);
-	uv_uiwindow_add(&this->window, &this->row2_values, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+	uv_uiwindow_add(&this->window, &this->row2_values, bb.x + bb.width / 2, bb.y + bb.height + grid.vpadding,
+			bb.width / 2, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
 			uv_uilabel_step);
 
 
@@ -378,14 +377,14 @@ static void show(devices_e dev) {
 	uv_uilabel_init(&this->row3_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			C(0xFFFFFFFF), (char*) labels[dev].row3);
 	uv_uiwindow_add(&this->window, &this->row3_topics, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+			bb.width * 1.5f, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
 			uv_uilabel_step);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row3_values, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->row3_val_str);
-	uv_uiwindow_add(&this->window, &this->row3_values, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
+	uv_uiwindow_add(&this->window, &this->row3_values, bb.x + bb.width / 2, bb.y + bb.height + grid.vpadding,
+			bb.width / 2, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
 			uv_uilabel_step);
 
 	update(dev);
