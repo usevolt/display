@@ -322,8 +322,8 @@ void taskbar_step(uint16_t step_ms) {
 #if LM
 		if (uv_uitoucharea_clicked(&this->gear_touch, NULL, NULL)) {
 			ecu_set_gear(ecu_get_gear(&dspl.network.ecu) % ECU_GEAR_COUNT + 1);
-			uv_uidigit_set_value(&this->gear, ecu_get_gear(&dspl.network.ecu));
 		}
+		uv_uidigit_set_value(&this->gear, ecu_get_gear(&dspl.network.ecu));
 #endif
 
 		msb_set_horn(&dspl.network.msb,

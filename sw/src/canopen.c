@@ -139,6 +139,13 @@ const canopen_object_st obj_dict[] = {
 				.data_ptr = (void*) &dspl.network.ecu.read.valves
 		},
 		{
+				.main_index = 0x2207,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED8,
+				.data_ptr = (void*) &dspl.network.ecu.read.gear
+		},
+		{
 				.main_index = 0x2300,
 				.array_max_size = 2,
 				.permissions = CANOPEN_WO,
