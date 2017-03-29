@@ -17,7 +17,8 @@
 
 /// @brief: Initializes the netdev structure
 void netdev_init(void *me, void (*update_callb)(void*)) {
-	this->connected = true;
+	this->connected = false;
+	this->notified = false;
 	uv_delay_init(NETDEV_CONNECTION_TIME_OUT_MS, &this->timeout_delay);
 	this->transmission_delay = -1;
 	this->update_callb = update_callb;
@@ -27,18 +28,24 @@ void netdev_init(void *me, void (*update_callb)(void*)) {
 
 void netdev_step(void *me, unsigned int step_ms) {
 	if (uv_delay(step_ms, &this->timeout_delay)) {
-		this->connected = false;
-		bool entry_found = false;
-		for (int i = 0; i < log_get_nack_count(); i++) {
-			log_entry_st e;
-			log_get_nack(&e, i);
-			if (e.type == this->disconnected_entry_type) {
-				entry_found = true;
-				break;
-			}
+		if (this->connected) {
+			this->connected = false;
+			this->notified = false;
 		}
-		if (!entry_found) {
-			log_add(this->disconnected_entry_type, this->node_id);
+		if (!this->notified) {
+			bool entry_found = false;
+			for (int i = 0; i < log_get_nack_count(); i++) {
+				log_entry_st e;
+				log_get_nack(&e, i);
+				if (e.type == this->disconnected_entry_type) {
+					entry_found = true;
+					break;
+				}
+			}
+			if (!entry_found) {
+				log_add(this->disconnected_entry_type, this->node_id);
+			}
+			this->notified = true;
 		}
 	}
 	if (uv_delay(step_ms, &this->transmission_delay)) {
@@ -55,16 +62,22 @@ void netdev_set_transmit_failure(void *me) {
 void netdev_receive_heartbeat(void *me, uv_can_message_st *msg) {
 	if (msg->type == CAN_STD && (msg->id & 0xFF) == this->node_id) {
 		if (!this->connected) {
-			//check if log warning as active and clear it
-			for (int i = 0; i < log_get_nack_count(); i++) {
-				log_entry_st e;
-				log_get_nack(&e, i);
-				if (e.type == this->disconnected_entry_type) {
-					log_ack(i);
-					i = 0;
-				}
-			}
 			this->connected = true;
+			this->notified = false;
+		}
+		else {
+			if (!this->notified) {
+				//check if log warning as active and clear it
+				for (int i = 0; i < log_get_nack_count(); i++) {
+					log_entry_st e;
+					log_get_nack(&e, i);
+					if (e.type == this->disconnected_entry_type) {
+						log_ack(i);
+						i = 0;
+					}
+				}
+				this->notified = true;
+			}
 		}
 		uv_delay_init(NETDEV_CONNECTION_TIME_OUT_MS, &this->timeout_delay);
 	}

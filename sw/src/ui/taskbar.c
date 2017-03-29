@@ -24,6 +24,10 @@
 #define BG_WARNING_DELAY_MS	1000
 #define BG_ERROR_DELAY_MS	100
 
+#define ENGINE_LIGHT_DELAY_MS			100
+
+#define CLOCK_WIDTH			(UI_FONT_BIG.char_width * 5 + 5)
+
 static void show(taskbar_state_e state);
 
 
@@ -61,19 +65,58 @@ static void show(taskbar_state_e state) {
 	if (state == TASKBAR_NO_ALERTS) {
 
 		uv_uigridlayout_st grid;
-		uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->taskbar)->width,
-				uv_uibb(&this->taskbar)->height, 10, 1);
+		uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->taskbar)->width - CLOCK_WIDTH,
+				uv_uibb(&this->taskbar)->height, 11, 1);
 		uv_uigridlayout_set_padding(&grid, 5, 0);
 		uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
-		snprintf(this->hour_str, TASKBAR_HOUR_STR_LEN, "%u\nhours", dspl.hour_counter);
-		uv_uilabel_init(&this->hours, &UI_FONT_SMALL, ALIGN_CENTER,
-				C(0xFFFFFF), taskbar_style.window_c, this->hour_str);
-		uv_uiwindow_add(&this->taskbar, &this->hours,
+		uv_uidigit_init(&this->hours, &UI_FONT_SMALL, ALIGN_CENTER,
+				C(0xFFFFFF), taskbar_style.window_c, "%u", dspl.hour_counter);
+		uv_uiwindow_add(&this->taskbar, &this->hours, bb.x, bb.y, bb.width,
+				bb.height - UI_FONT_SMALL.char_height, uv_uidigit_step);
+
+		uv_uilabel_init(&this->hours_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER,
+				C(0xFFFFFF), C(0xFFFFFFFF), "Hours");
+		uv_uiwindow_add(&this->taskbar, &this->hours_label,
 				bb.x, bb.y, bb.width, bb.height, uv_uilabel_step);
 
+		// kubota warning lights
+		this->engine_visible = false;
 		bb = uv_uigridlayout_next(&grid);
+		uv_uigridlayout_st engine_grid;
+		uv_uigridlayout_init(&engine_grid, bb.x, bb.y, bb.width, bb.height, 1, 4);
+		bb = uv_uigridlayout_next(&engine_grid);
+		uv_uilabel_init(&this->engine_water, &UI_FONT_SMALL, ALIGN_TOP_CENTER,
+				C(0xFF0000), taskbar_style.window_c, "Water");
+		uv_ui_set_enabled(&this->engine_water, false);
+		uv_uiwindow_add(&this->taskbar, &this->engine_water, bb.x, bb.y,
+				bb.width, bb.height, uv_uilabel_step);
+		uv_delay_init(ENGINE_LIGHT_DELAY_MS, &this->engine_delay);
 
+		bb = uv_uigridlayout_next(&engine_grid);
+		uv_uilabel_init(&this->engine_oil_press, &UI_FONT_SMALL, ALIGN_CENTER,
+				C(0xFF0000), taskbar_style.window_c, "Oil press");
+		uv_ui_set_enabled(&this->engine_oil_press, false);
+		uv_uiwindow_add(&this->taskbar, &this->engine_oil_press, bb.x, bb.y,
+				bb.width, bb.height, uv_uilabel_step);
+
+		bb = uv_uigridlayout_next(&engine_grid);
+		uv_uilabel_init(&this->engine_alt, &UI_FONT_SMALL, ALIGN_CENTER,
+				C(0xFF0000), taskbar_style.window_c, "Alternator");
+		uv_ui_set_enabled(&this->engine_alt, false);
+		uv_uiwindow_add(&this->taskbar, &this->engine_alt, bb.x, bb.y,
+				bb.width, bb.height, uv_uilabel_step);
+
+		bb = uv_uigridlayout_next(&engine_grid);
+		uv_uilabel_init(&this->engine_glow_plugs, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER,
+				C(0xFFFF00), taskbar_style.window_c, "Glow plugs");
+		uv_ui_set_enabled(&this->engine_glow_plugs, false);
+		uv_uiwindow_add(&this->taskbar, &this->engine_glow_plugs, bb.x, bb.y,
+				bb.width, bb.height, uv_uilabel_step);
+
+
+		// emcy stop
+		bb = uv_uigridlayout_next(&grid);
 		uv_uilabel_init(&this->emcy_stop, &UI_FONT_BIG, ALIGN_TOP_CENTER, C(0xFF0000),
 				taskbar_style.window_c, "!");
 		uv_uilabel_set_scale(&this->emcy_stop, 1.8f);
@@ -87,7 +130,40 @@ static void show(taskbar_state_e state) {
 				uv_uilabel_step);
 		uv_delay_init(BG_ERROR_DELAY_MS, &this->emcy_delay);
 
+#if LM
+		// gear
 		bb = uv_uigridlayout_next(&grid);
+		uv_uidigit_init(&this->gear, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
+				taskbar_style.window_c, "%u", ecu_get_gear(&dspl.network.ecu));
+		uv_uiwindow_add(&this->taskbar, &this->gear, bb.x, bb.y, bb.width,
+				bb.height - UI_FONT_SMALL.char_height, uv_uidigit_step);
+
+		uv_uilabel_init(&this->gear_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER, C(0xFFFFFF),
+				C(0xFFFFFFFF), "gear");
+		uv_uiwindow_add(&this->taskbar, &this->gear_label, bb.x, bb.y + bb.height,
+				bb.width, 0, uv_uilabel_step);
+
+		uv_uitoucharea_init(&this->gear_touch);
+		uv_uiwindow_add(&this->taskbar, &this->gear_touch, bb.x, bb.y,
+				bb.width, bb.height, uv_uitoucharea_step);
+#elif FM
+		bb = uv_uigridlayout_next(&grid);
+#endif
+		// horn
+		bb = uv_uigridlayout_next(&grid);
+		uv_uilabel_init(&this->horn, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
+				taskbar_style.window_c, "Off");
+		uv_uiwindow_add(&this->taskbar, &this->horn, bb.x, bb.y, bb.width,
+				bb.height - UI_FONT_SMALL.char_height, uv_uilabel_step);
+
+		uv_uilabel_init(&this->horn_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER,
+				C(0xFFFFFF), C(0xFFFFFFFF), "Horn");
+		uv_uiwindow_add(&this->taskbar, &this->horn_label, bb.x, bb.y,
+				bb.width, bb.height, uv_uilabel_step);
+
+		uv_uitoucharea_init(&this->horn_touch);
+		uv_uiwindow_add(&this->taskbar, &this->horn_touch, bb.x, bb.y,
+				bb.width, bb.height, uv_uitoucharea_step);
 
 		bb = uv_uigridlayout_next(&grid);
 
@@ -148,15 +224,15 @@ static void show(taskbar_state_e state) {
 				bb.width, bb.height, uv_uiprogressbar_step);
 
 
-		bb = uv_uigridlayout_next(&grid);
 		uv_time_st t;
 		uv_rtc_get_time(&t);
 		snprintf(this->time, TASKBAR_TIME_LEN, "%02u:%02u", t.hour, t.min);
 		uv_delay_init(1000 * 60, &this->delay);
 		uv_uilabel_init(&this->clock, &UI_FONT_BIG, ALIGN_CENTER_RIGHT,
 				C(0xFFFFFF), taskbar_style.window_c, this->time);
-		uv_uiwindow_add(&this->taskbar, &this->clock, bb.x, bb.y,
-				bb.width, bb.height, uv_uilabel_step);
+		uv_uiwindow_add(&this->taskbar, &this->clock,
+				uv_uibb(&this->taskbar)->width - CLOCK_WIDTH, 0,
+				CLOCK_WIDTH, uv_uibb(&this->taskbar)->height, uv_uilabel_step);
 
 	}
 	else if (state == TASKBAR_ALERTS) {
@@ -212,6 +288,24 @@ void taskbar_step(uint16_t step_ms) {
 			return;
 		}
 
+		if (uv_delay(step_ms, &this->engine_delay)) {
+			uv_delay_init(ENGINE_LIGHT_DELAY_MS, &this->engine_delay);
+			if (ecu_get_engine_shut_down(&dspl.network.ecu)) {
+				this->engine_visible = true;
+			}
+			else {
+				this->engine_visible = !this->engine_visible;
+			}
+			uv_ui_set_enabled(&this->engine_water,
+					msb_get_power_engine_water(&dspl.network.msb) ? this->engine_visible : false);
+			uv_ui_set_enabled(&this->engine_oil_press,
+					msb_get_power_engine_oil_press(&dspl.network.msb) ? this->engine_visible : false);
+			uv_ui_set_enabled(&this->engine_alt,
+					msb_get_alt(&dspl.network.msb) ? this->engine_visible : false);
+			uv_ui_set_enabled(&this->engine_glow_plugs,
+					msb_get_power_glow_plugs(&dspl.network.msb) ? this->engine_visible : false);
+		}
+
 		if (msb_get_emcy_stop(&dspl.network.msb)) {
 			uv_ui_set_enabled(&this->emcy_label, true);
 			if (uv_delay(step_ms, &this->emcy_delay)) {
@@ -222,7 +316,25 @@ void taskbar_step(uint16_t step_ms) {
 		else {
 			uv_ui_set_enabled(&this->emcy_stop, false);
 			uv_ui_set_enabled(&this->emcy_label, false);
+			this->emcy_delay = 0;
 		}
+
+#if LM
+		if (uv_uitoucharea_clicked(&this->gear_touch, NULL, NULL)) {
+			ecu_set_gear(ecu_get_gear(&dspl.network.ecu) % ECU_GEAR_COUNT + 1);
+		}
+		uv_uidigit_set_value(&this->gear, ecu_get_gear(&dspl.network.ecu));
+#endif
+
+		msb_set_horn(&dspl.network.msb,
+				uv_uitoucharea_is_down(&this->horn_touch, NULL, NULL));
+		if (uv_uitoucharea_is_down(&this->horn_touch, NULL, NULL)) {
+			uv_uilabel_set_text(&this->horn, "On");
+		}
+		else {
+			uv_uilabel_set_text(&this->horn, "Off");
+		}
+
 
 		uv_uiprogressbar_set_value(&this->voltage_level, msb_get_voltage(&dspl.network.msb));
 		uv_uiprogressbar_set_value(&this->fuel_level, msb_get_fuel_level(&dspl.network.msb));

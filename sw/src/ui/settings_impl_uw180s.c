@@ -12,14 +12,14 @@
 #define this	(&gui.windows.settings.implements.uw180s)
 
 #define BACK_H		50
-#define BACK_W		200
+#define BACK_W		150
 #define BACK_Y		5
 #define BACK_X		5
 
 #define LABEL_H		BACK_H
 #define LABEL_W		BACK_W
 #define LABEL_Y		BACK_Y
-#define LABEL_X		(LCD_W(0.5f) - LABEL_W / 2)
+#define LABEL_X		(uv_uibb(&gui.main_window)->width / 2 - LABEL_W / 2)
 
 static void show_sliders(uw180s_state_e state, const char *label) {
 	uv_uiwindow_clear(this->window);
@@ -70,6 +70,7 @@ static void show_sliders(uw180s_state_e state, const char *label) {
 
 	uv_uislider_init(&this->sliders.max_speed_p, VALVE_MIN_CURRENT_MA,
 			VALVE_MAX_CURRENT_MA, v->max_speed_p, &uv_uistyles[0]);
+	uv_uislider_set_inc_step(&this->sliders.max_speed_p, 10);
 	uv_uislider_set_horizontal(&this->sliders.max_speed_p);
 	uv_uislider_set_title(&this->sliders.max_speed_p, "Max speed forward (ma)");
 	uv_uiwindow_add(this->window, &this->sliders.max_speed_p, bb.x, bb.y,
@@ -85,6 +86,7 @@ static void show_sliders(uw180s_state_e state, const char *label) {
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->sliders.max_speed_n, VALVE_MIN_CURRENT_MA,
 			VALVE_MAX_CURRENT_MA, v->max_speed_n, &uv_uistyles[0]);
+	uv_uislider_set_inc_step(&this->sliders.max_speed_n, 10);
 	uv_uislider_set_horizontal(&this->sliders.max_speed_n);
 	uv_uislider_set_title(&this->sliders.max_speed_n, "Max speed backward (ma)");
 	uv_uiwindow_add(this->window, &this->sliders.max_speed_n, bb.x, bb.y,
@@ -157,8 +159,9 @@ static void show_mb() {
 
 	uv_uitogglebutton_init(&this->mb.enabled,
 			dspl.user->uw180s.mb_enabled, "Enabled", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->mb.enabled, LCD_W_PX - BACK_W - BACK_X,
-			BACK_Y, BACK_W, BACK_H, uv_uitogglebutton_step);
+	uv_uiwindow_add(this->window, &this->mb.enabled,
+			uv_uibb(&gui.main_window)->width - BACK_W, BACK_Y,
+			BACK_W, BACK_H, uv_uitogglebutton_step);
 
 //	for (int i = 0; i < LOG_TYPE_COUNT; i++) {
 //		log_names[i] = dspl.user->uw180s.log_type_buffer[i].name;

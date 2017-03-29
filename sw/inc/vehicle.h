@@ -74,7 +74,7 @@
 #if FM
 #define BASE_VALVE_COUNT			7
 #elif LM
-#define BASE_VALVE_COUNT			10
+#define BASE_VALVE_COUNT			11
 #endif
 
 /// @brief: Vehicle's implement valve count. Implement valve settings
@@ -96,8 +96,6 @@ typedef uint8_t impl_type_e;
 /// @brief: Structure defining the vehicle's base
 /// valve construction and factory values
 extern const valve_st vehicle_valves[];
-
-
 
 
 

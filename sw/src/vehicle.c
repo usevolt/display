@@ -208,6 +208,17 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.acc = 40,
 				.dec = 100,
 				.invert = false
+		},
+		{
+				.name = "Cabin Rotate",
+				.setter = ecu_set_cab_rot_params,
+				.min_speed_p = 300,
+				.max_speed_p = 500,
+				.min_speed_n = 300,
+				.max_speed_n = 500,
+				.acc = 30,
+				.dec = 30,
+				.invert = false
 		}
 };
 

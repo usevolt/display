@@ -20,12 +20,6 @@
 typedef struct {
 	EXTENDS(netdev_st);
 
-	// WRITE
-	struct {
-		uint8_t heater;
-		uint8_t crane_light;
-	} write;
-
 	// READ
 	struct {
 		uint8_t fuel_level;
@@ -34,18 +28,19 @@ typedef struct {
 		int8_t motor_temp;
 		int16_t rpm;
 		int16_t voltage;
-		uint8_t emcy_stop;
+		uint8_t heater;
+		uint8_t alt;
 		struct {
 			uint8_t glow_plugs;
 			uint8_t starter;
-			uint8_t engine_stop;
+			uint8_t engine_water;
 			uint8_t crane_light;
-			uint8_t camera;
+			uint8_t engine_oil_press;
 			uint8_t aux;
-			uint8_t heater;
-			uint8_t oil_cooler;
+			uint8_t emcy_stop;
 		} power;
 	} read;
+	uint8_t horn;
 } msb_st;
 
 
@@ -62,16 +57,15 @@ static inline void msb_init(msb_st *this) {
 	this->read.oil_temp = 0;
 	this->read.rpm = 0;
 	this->read.voltage = 0;
-	this->write.heater = 0;
-	this->write.crane_light = 0;
+	this->read.heater = 0;
+	this->read.alt = 0;
 	this->read.power.aux = 0;
-	this->read.power.camera = 0;
 	this->read.power.crane_light = 0;
-	this->read.power.engine_stop = 0;
 	this->read.power.glow_plugs = 0;
-	this->read.power.heater = 0;
-	this->read.power.oil_cooler = 0;
 	this->read.power.starter = 0;
+	this->read.power.engine_water = 0;
+	this->read.power.engine_oil_press = 0;
+	this->read.power.emcy_stop = 0;
 }
 
 
@@ -103,45 +97,47 @@ static inline int16_t msb_get_voltage(msb_st *msb) {
 }
 
 static inline uint8_t msb_get_emcy_stop(msb_st *msb) {
-	return msb->read.emcy_stop;
+	return msb->read.power.emcy_stop;
+}
+
+static inline uint8_t msb_get_alt(msb_st *msb) {
+	return msb->read.alt;
 }
 
 static inline bool msb_get_power_aux(msb_st *msb) {
 	return msb->read.power.aux;
 }
 
-static inline bool msb_get_power_heater(msb_st *msb) {
-	return msb->read.power.heater;
-}
-
-static inline bool msb_get_power_camera(msb_st *msb) {
-	return msb->read.power.camera;
-}
-
 static inline bool msb_get_power_crane_light(msb_st *msb) {
 	return msb->read.power.crane_light;
-}
-
-static inline bool msb_get_power_engine_stop(msb_st *msb) {
-	return msb->read.power.engine_stop;
 }
 
 static inline bool msb_get_power_glow_plugs(msb_st *msb) {
 	return msb->read.power.glow_plugs;
 }
 
-static inline bool msb_get_power_oil_cooler(msb_st *msb) {
-	return msb->read.power.oil_cooler;
+static inline bool msb_get_power_engine_water(msb_st *msb) {
+	return msb->read.power.engine_water;
+}
+
+static inline bool msb_get_power_engine_oil_press(msb_st *msb) {
+	return msb->read.power.engine_oil_press;
 }
 
 static inline bool msb_get_power_starter(msb_st *msb) {
 	return msb->read.power.starter;
 }
 
+static inline uint8_t msb_get_heater(msb_st *msb) {
+	return msb->read.heater;
+}
+
 
 void msb_set_heater(void *me, uint8_t value);
 
 void msb_set_crane_light(void *me, bool value);
+
+void msb_set_horn(void *me, bool value);
 
 
 #endif /* MSB_H_ */

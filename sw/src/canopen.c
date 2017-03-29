@@ -56,17 +56,17 @@ const canopen_object_st obj_dict[] = {
 		},
 		{
 				.main_index = 0x2006,
-				.sub_index = 0,
-				.permissions = CANOPEN_WO,
-				.type = CANOPEN_SIGNED16,
-				.data_ptr = (void*) &dspl.network.msb.read.emcy_stop
-		},
-		{
-				.main_index = 0x2006,
 				.array_max_size = 8,
 				.permissions = CANOPEN_WO,
 				.type = CANOPEN_ARRAY8,
 				.data_ptr = (void*) &dspl.network.msb.read.power
+		},
+		{
+				.main_index = 0x2007,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED8,
+				.data_ptr = (void*) &dspl.network.msb.read.alt
 		},
 		{
 				.main_index = 0x2100,
@@ -81,6 +81,13 @@ const canopen_object_st obj_dict[] = {
 				.permissions = CANOPEN_WO,
 				.type = CANOPEN_UNSIGNED8,
 				.data_ptr = &dspl.network.csb.read.wiper
+		},
+		{
+				.main_index = 0x2102,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED8,
+				.data_ptr = &dspl.network.csb.read.oil_cooler
 		},
 		{
 				.main_index = 0x2200,
@@ -132,60 +139,81 @@ const canopen_object_st obj_dict[] = {
 				.data_ptr = (void*) &dspl.network.ecu.read.valves
 		},
 		{
-				.main_index = 0x2300,
+				.main_index = 0x2207,
 				.sub_index = 0,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_SIGNED16,
+				.type = CANOPEN_UNSIGNED8,
+				.data_ptr = (void*) &dspl.network.ecu.read.gear
+		},
+		{
+				.main_index = 0x2300,
+				.array_max_size = 2,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_ARRAY8,
 				.data_ptr = (void*) &dspl.network.l_keypad.read.x
 		},
 		{
 				.main_index = 0x2301,
-				.sub_index = 0,
+				.array_max_size = 2,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_SIGNED16,
+				.type = CANOPEN_ARRAY8,
 				.data_ptr = (void*) &dspl.network.l_keypad.read.y
 		},
 		{
 				.main_index = 0x2302,
-				.sub_index = 0,
+				.array_max_size = 2,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_SIGNED16,
+				.type = CANOPEN_ARRAY8,
 				.data_ptr = (void*) &dspl.network.l_keypad.read.z
 		},
 		{
 				.main_index = 0x2303,
-				.sub_index = 0,
+				.array_max_size = 2,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED16,
-				.data_ptr = (void*) &dspl.network.l_keypad.read.buttons
+				.type = CANOPEN_ARRAY8,
+				.data_ptr = (void*) &dspl.network.l_keypad.read.v
+		},
+		{
+				.main_index = 0x2304,
+				.array_max_size = KEYPAD_BUTTON_COUNT,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_ARRAY8,
+				.data_ptr = (void*) dspl.network.l_keypad.read.b
 		},
 		{
 				.main_index = 0x2400,
-				.sub_index = 0,
+				.array_max_size = 2,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_SIGNED16,
+				.type = CANOPEN_ARRAY8,
 				.data_ptr = (void*) &dspl.network.r_keypad.read.x
 		},
 		{
 				.main_index = 0x2401,
-				.sub_index = 0,
+				.array_max_size = 2,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_SIGNED16,
+				.type = CANOPEN_ARRAY8,
 				.data_ptr = (void*) &dspl.network.r_keypad.read.y
 		},
 		{
 				.main_index = 0x2402,
-				.sub_index = 0,
+				.array_max_size = 2,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_SIGNED16,
+				.type = CANOPEN_ARRAY8,
 				.data_ptr = (void*) &dspl.network.r_keypad.read.z
 		},
 		{
 				.main_index = 0x2403,
-				.sub_index = 0,
+				.array_max_size = 2,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED16,
-				.data_ptr = (void*) &dspl.network.r_keypad.read.buttons
+				.type = CANOPEN_ARRAY8,
+				.data_ptr = (void*) &dspl.network.r_keypad.read.v
+		},
+		{
+				.main_index = 0x2404,
+				.array_max_size = KEYPAD_BUTTON_COUNT,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_ARRAY8,
+				.data_ptr = (void*) dspl.network.r_keypad.read.b
 		},
 		{
 				.main_index = 0x2500,

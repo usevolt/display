@@ -18,9 +18,10 @@
 #if FM
 #define ECU_VALVE_COUNT		8
 #elif LM
-#define ECU_VALVE_COUNT		10
+#define ECU_VALVE_COUNT		11
 #endif
 
+#define ECU_GEAR_COUNT		3
 
 typedef struct {
 	EXTENDS(netdev_st);
@@ -32,6 +33,7 @@ typedef struct {
 		uint8_t stop;
 		int16_t pressure;
 		uint8_t implement;
+		uint8_t gear;
 		struct {
 #if FM
 			int16_t boom_lift_ma;
@@ -46,13 +48,14 @@ typedef struct {
 			int16_t boom_lift_ma;
 			int16_t boom_fold_ma;
 			int16_t boom_rotate_ma;
-			int16_t boom_telescope_ma;
 			int16_t drivefront_ma;
-			int16_t driveback_ma;
 			int16_t steerfront_ma;
-			int16_t steerback_ma;
 			int16_t left_leg_ma;
 			int16_t right_leg_ma;
+			int16_t boom_telescope_ma;
+			int16_t steerback_ma;
+			int16_t cab_rot_ma;
+			int16_t driveback_ma;
 #endif
 		} valves;
 	} read;
@@ -73,6 +76,7 @@ static inline void ecu_init(ecu_st *this) {
 	this->read.implement = 1;
 	this->read.stop = 0;
 	this->read.pressure = 0;
+	this->read.gear = 1;
 #if FM
 	this->read.valves.boom_lift_ma = 0;
 	this->read.valves.boom_fold_ma = 0;
@@ -93,6 +97,7 @@ static inline void ecu_init(ecu_st *this) {
 	this->read.valves.steerback_ma = 0;
 	this->read.valves.left_leg_ma = 0;
 	this->read.valves.right_leg_ma = 0;
+	this->read.valves.cab_rot_ma = 0;
 #endif
 
 }
@@ -116,6 +121,10 @@ static inline uint16_t ecu_get_pump_angle(ecu_st *this) {
 
 static inline uint8_t ecu_get_implement(ecu_st *this) {
 	return this->read.implement;
+}
+
+static inline uint8_t ecu_get_gear(ecu_st *this) {
+	return this->read.gear;
 }
 
 static inline bool ecu_get_stop(ecu_st *this) {
@@ -174,6 +183,10 @@ static inline int16_t ecu_get_steerback_ma(ecu_st *this) {
 	return this->read.valves.steerback_ma;
 }
 
+static inline int16_t ecu_get_cab_rot_ma(ecu_st *this) {
+	return this->read.valves.cab_rot_ma;
+}
+
 #endif
 
 static inline int16_t ecu_get_left_leg_ma(ecu_st *this) {
@@ -209,6 +222,8 @@ void ecu_set_driveback_params(valve_st *valve);
 
 void ecu_set_steerback_params(valve_st *valve);
 
+void ecu_set_cab_rot_params(valve_st *valve);
+
 #endif
 
 void ecu_set_left_leg_params(valve_st *valve);
@@ -218,6 +233,8 @@ void ecu_set_right_leg_params(valve_st *valve);
 void ecu_set_engine_power_usage(uint16_t value);
 
 void ecu_set_implement(uint8_t implement);
+
+void ecu_set_gear(uint8_t gear);
 
 
 void ecu_set_uw180s_wheels_feed_params(uint16_t speed_f,

@@ -19,15 +19,15 @@ void settings_general_show() {
 	uv_uiwindow_clear(window);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
-	uv_uiwindow_add(window, &this->window, 0, CONFIG_UI_TABWINDOW_HEADER_HEIGHT,
-			uv_uibb(window)->width, uv_uibb(window)->height - CONFIG_UI_TABWINDOW_HEADER_HEIGHT,
+	uv_uitabwindow_add(window, &this->window, 0, 0,
+			uv_uibb(window)->width, uv_uitabwindow_get_contentbb(window).height,
 			uv_uiwindow_step);
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0,
 			uv_uibb(&this->window)->width,
-			uv_uibb(&this->window)->height, 4, 1);
-	uv_uigridlayout_set_padding(&grid, 10, 40);
+			uv_uibb(&this->window)->height, 5, 1);
+	uv_uigridlayout_set_padding(&grid, 5,30);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 	// brightness
@@ -69,7 +69,7 @@ void settings_general_show() {
 	// heater
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->heater, 0, MSB_HEATER_SPEED_COUNT - 1,
-			msb_get_power_heater(&dspl.network.msb), &uv_uistyles[0]);
+			msb_get_heater(&dspl.network.msb), &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->heater);
 	uv_uislider_set_title(&this->heater, "Heater");
 	uv_uiwindow_add(&this->window, &this->heater, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
