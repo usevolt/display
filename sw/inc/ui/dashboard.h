@@ -26,16 +26,6 @@ typedef struct {
 	uv_uibutton_st cancel;
 	uv_uibutton_st ok;
 
-	uv_uiprogressbar_st rpm;
-	uv_uilabel_st rpm_3000;
-	uv_uilabel_st rpm_2000;
-	uv_uilabel_st rpm_1000;
-
-	uv_uiprogressbar_st pressure;
-	uv_uilabel_st pressure_200;
-	uv_uilabel_st pressure_100;
-	uv_uilabel_st pressure_0;
-
 	uv_uiwindow_st impl_window;
 	uv_uiobject_st *impl_buffer[IMPL_BUFFER_LEN];
 

@@ -26,9 +26,9 @@ void system_settings_show(void) {
 	uv_uiwindow_clear(&gui.windows.system.tabs);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
-	uv_uiwindow_add(&gui.windows.system.tabs, &this->window, 0, CONFIG_UI_TABWINDOW_HEADER_HEIGHT,
+	uv_uitabwindow_add(&gui.windows.system.tabs, &this->window, 0, 0,
 			uv_uibb(&gui.windows.system.tabs)->width,
-			uv_uibb(&gui.windows.system.tabs)->height - CONFIG_UI_TABWINDOW_HEADER_HEIGHT,
+			uv_uitabwindow_get_contentbb(&gui.windows.system.tabs).height,
 			uv_uiwindow_step);
 
 	uv_uigridlayout_st grid;
@@ -37,13 +37,13 @@ void system_settings_show(void) {
 	uv_uigridlayout_set_padding(&grid, 10, 20);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
-	uint8_t date_xoffset = 80;
+	uint8_t date_xoffset = 120;
 
 	// implement select
 	uv_uilabel_init(&this->impls_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER, C(0xFFFFFF),
 			C(0xFFFFFFFF), "Current implement");
 	uv_uiwindow_add(&this->window, &this->impls_label, bb.x, bb.y,
-			bb.width + date_xoffset, bb.height, uv_uilabel_step);
+			bb.width, bb.height, uv_uilabel_step);
 
 	uv_uilist_init(&this->impls_list, this->impl_names,
 			UW_IMPLEMENT_COUNT, &uv_uistyles[0]);
@@ -56,7 +56,7 @@ void system_settings_show(void) {
 	uv_uilist_select(&this->impls_list, dspl.user->active_implement);
 
 	uv_uiwindow_add(&this->window, &this->impls_list, bb.x, bb.y,
-			bb.width + date_xoffset, bb.height - UI_FONT_SMALL.char_height, uv_uilist_step);
+			bb.width, bb.height - UI_FONT_SMALL.char_height, uv_uilist_step);
 
 
 	// engine power usage
@@ -64,7 +64,7 @@ void system_settings_show(void) {
 	uv_uislider_init(&this->power_usage, 0, 100, dspl.user->engine_power_usage, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->power_usage);
 	uv_uislider_set_title(&this->power_usage, "Engine power\nusage");
-	uv_uiwindow_add(&this->window, &this->power_usage, bb.x, bb.y, bb.width, bb.height,
+	uv_uiwindow_add(&this->window, &this->power_usage, bb.x - date_xoffset / 2, bb.y, bb.width, bb.height,
 			uv_uislider_step);
 
 	// set time

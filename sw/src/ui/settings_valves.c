@@ -23,8 +23,8 @@ void settings_valves_show() {
 	uv_uiwindow_clear(window);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
-	uv_uiwindow_add(window, &this->window, 0, CONFIG_UI_TABWINDOW_HEADER_HEIGHT,
-			uv_uibb(window)->width, uv_uibb(window)->height - CONFIG_UI_TABWINDOW_HEADER_HEIGHT,
+	uv_uitabwindow_add(window, &this->window, 0, 0,
+			uv_uibb(window)->width, uv_uitabwindow_get_contentbb(window).height,
 			uv_uiwindow_step);
 
 	// grid layout is used to help with aligning the elements
@@ -32,11 +32,11 @@ void settings_valves_show() {
 #if FM
 	uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->window)->width,
 			uv_uibb(&this->window)->height, 3, 3);
-	uv_uigridlayout_set_padding(&grid, 20, 15);
+	uv_uigridlayout_set_padding(&grid, 5, 5);
 #elif LM
 	uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->window)->width,
 			uv_uibb(&this->window)->height, 4, 3);
-	uv_uigridlayout_set_padding(&grid, 10, 15);
+	uv_uigridlayout_set_padding(&grid, 5, 5);
 #endif
 	uv_bounding_box_st bb;
 
@@ -82,6 +82,7 @@ static void sliders_show(valve_st *valve) {
 
 	uv_uislider_init(&this->min_speed_p, 0, VALVE_MAX_CURRENT_MA / 2,
 			valve->min_speed_p, &uv_uistyles[0]);
+	uv_uislider_set_inc_step(&this->min_speed_p, 10);
 	uv_uiwindow_add(&this->window, &this->min_speed_p,
 			bb.x, bb.y, bb.width, bb.height / 2, uv_uislider_step);
 	uv_uilabel_init(&this->min_speed_p_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER, C(0xFFFFFF),
@@ -92,6 +93,7 @@ static void sliders_show(valve_st *valve) {
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->max_speed_p, VALVE_MIN_CURRENT_MA, VALVE_MAX_CURRENT_MA,
 			valve->max_speed_p, &uv_uistyles[0]);
+	uv_uislider_set_inc_step(&this->max_speed_p, 10);
 	uv_uiwindow_add(&this->window, &this->max_speed_p,
 			bb.x, bb.y, bb.width, bb.height / 2, uv_uislider_step);
 	uv_uilabel_init(&this->max_speed_p_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER, C(0xFFFFFF),
@@ -113,6 +115,7 @@ static void sliders_show(valve_st *valve) {
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->min_speed_n, 0, VALVE_MAX_CURRENT_MA / 2,
 			valve->min_speed_n, &uv_uistyles[0]);
+	uv_uislider_set_inc_step(&this->min_speed_n, 10);
 	uv_uiwindow_add(&this->window, &this->min_speed_n,
 			bb.x, bb.y, bb.width, bb.height / 2, uv_uislider_step);
 	uv_uilabel_init(&this->min_speed_n_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER, C(0xFFFFFF),
@@ -123,6 +126,7 @@ static void sliders_show(valve_st *valve) {
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->max_speed_n, VALVE_MIN_CURRENT_MA, VALVE_MAX_CURRENT_MA,
 			valve->max_speed_n, &uv_uistyles[0]);
+	uv_uislider_set_inc_step(&this->max_speed_n, 10);
 	uv_uiwindow_add(&this->window, &this->max_speed_n,
 			bb.x, bb.y, bb.width, bb.height / 2, uv_uislider_step);
 	uv_uilabel_init(&this->max_speed_n_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER, C(0xFFFFFF),

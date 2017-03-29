@@ -38,26 +38,26 @@ void login_show(void) {
 	}
 	uv_uilist_select(&this->users, usertoi(dspl.user));
 	uint16_t height = uv_uibb(&this->users)->height;
-	uv_uiwindow_add(&this->window, &this->users, LCD_W(0.1), uv_uibb(&this->window)->height / 2 - height / 2,
-			LCD_W(0.5), height, uv_uilist_step);
+	uv_uiwindow_add(&this->window, &this->users, 0, uv_uibb(&this->window)->height / 2 - height / 2,
+			uv_uibb(&this->window)->width / 2, height, uv_uilist_step);
 
 	uv_uibutton_init(&this->login, "Log In", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->login,
-			LCD_W(0.8) - BUTTON_W / 2,
+			uv_uibb(&this->window)->width - BUTTON_W,
 			uv_ui_get_bb(&this->window)->height / 2 - BUTTON_H / 2 - BUTTON_H - BUTTON_SPACE,
 			BUTTON_W, BUTTON_H, uv_uibutton_step);
 
 	uv_uibutton_init(&this->add_user, "Add user",
 			&uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->add_user,
-			LCD_W(0.8) - BUTTON_W / 2,
+			uv_uibb(&this->window)->width - BUTTON_W,
 			uv_uibb(&this->window)->height / 2 - BUTTON_H / 2,
 			BUTTON_W, BUTTON_H, uv_uibutton_step);
 
 	uv_uibutton_init(&this->delete_user, "Delete user",
 			&uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->delete_user,
-			LCD_W(0.8) - BUTTON_W / 2,
+			uv_uibb(&this->window)->width - BUTTON_W,
 			uv_uibb(&this->window)->height / 2 + BUTTON_H / 2 + BUTTON_SPACE,
 			BUTTON_W, BUTTON_H, uv_uibutton_step);
 

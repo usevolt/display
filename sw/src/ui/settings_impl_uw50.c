@@ -47,6 +47,7 @@ static void show_sliders(uw50_states_e state, char *label) {
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->max_speed_p, VALVE_MIN_CURRENT_MA, VALVE_MAX_CURRENT_MA,
 			v->max_speed_p, &uv_uistyles[0]);
+	uv_uislider_set_inc_step(&this->max_speed_p, 10);
 	uv_uislider_set_vertical(&this->max_speed_p);
 	uv_uislider_set_title(&this->max_speed_p, "Max speed\nforward (ma)");
 	uv_uiwindow_add(this->window, &this->max_speed_p, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
@@ -54,6 +55,7 @@ static void show_sliders(uw50_states_e state, char *label) {
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->max_speed_n, VALVE_MIN_CURRENT_MA, VALVE_MAX_CURRENT_MA,
 			v->max_speed_n, &uv_uistyles[0]);
+	uv_uislider_set_inc_step(&this->max_speed_n, 10);
 	uv_uislider_set_vertical(&this->max_speed_n);
 	uv_uislider_set_title(&this->max_speed_n, "Max speed\nforward (ma)");
 	uv_uiwindow_add(this->window, &this->max_speed_n, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
@@ -61,13 +63,13 @@ static void show_sliders(uw50_states_e state, char *label) {
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->acc, 0, 100, v->acc, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->acc);
-	uv_uislider_set_title(&this->acc, "Acceleration (%)");
+	uv_uislider_set_title(&this->acc, "Acceleration\n(%)");
 	uv_uiwindow_add(this->window, &this->acc, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->dec, 0, 100, v->dec, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->dec);
-	uv_uislider_set_title(&this->dec, "Deceleration (%)");
+	uv_uislider_set_title(&this->dec, "Deceleration\n(%)");
 	uv_uiwindow_add(this->window, &this->dec, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
 
 	bb = uv_uigridlayout_next(&grid);

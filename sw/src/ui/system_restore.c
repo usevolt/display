@@ -19,11 +19,10 @@ void system_restore_show(void) {
 	uv_uiwindow_clear(&gui.windows.system.tabs);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
-	uv_uiwindow_add(&gui.windows.system.tabs, &this->window,
-			uv_uibb(&gui.windows.system.tabs)->x,
-			CONFIG_UI_TABWINDOW_HEADER_HEIGHT,
+	uv_uitabwindow_add(&gui.windows.system.tabs, &this->window,
+			uv_uibb(&gui.windows.system.tabs)->x, 0,
 			uv_uibb(&gui.windows.system.tabs)->width,
-			uv_uibb(&gui.windows.system.tabs)->height - CONFIG_UI_TABWINDOW_HEADER_HEIGHT,
+			uv_uitabwindow_get_contentbb(&gui.windows.system.tabs).height,
 			uv_uiwindow_step);
 
 	uv_uigridlayout_st grid;

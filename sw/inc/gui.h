@@ -33,7 +33,7 @@
 #define VDD_MOVING_AVER_COUNT		4
 
 /// @brief: Main display buffer length
-#define DISPLAY_BUF_LEN			2
+#define DISPLAY_BUF_LEN			10
 
 
 /// @brief: Height of the topic-section. Not mandatory for all windows...
@@ -80,6 +80,17 @@ typedef struct {
 
 	uv_uiwindow_st main_window;
 	uv_uiobject_st *main_buffer[1];
+
+	uv_uiprogressbar_st rpm;
+	uv_uilabel_st rpm_3000;
+	uv_uilabel_st rpm_2000;
+	uv_uilabel_st rpm_1000;
+
+	uv_uiprogressbar_st pressure;
+	uv_uilabel_st pressure_200;
+	uv_uilabel_st pressure_100;
+	uv_uilabel_st pressure_0;
+
 
 	/// @brief: Window step function. The windows below can register
 	/// their own step functions here which will get called every step cycle
