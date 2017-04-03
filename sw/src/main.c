@@ -87,6 +87,9 @@ void dspl_init(dspl_st *me) {
 		}
 
 		counter--;
+
+		uv_lcd_double_buffer_swap();
+
 		uv_rtos_task_delay(1000);
 	}
 
