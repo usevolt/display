@@ -42,6 +42,7 @@ void system_restore_show(void) {
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->timer, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
 			uv_uistyles[0].window_c, "10");
+	uv_ui_hide(&this->timer);
 	uv_uiwindow_add(&this->window, &this->timer, bb.x, bb.y, bb.width, bb.height / 2, uv_uilabel_step);
 
 	bb = uv_uigridlayout_next(&grid);

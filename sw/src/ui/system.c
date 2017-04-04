@@ -85,15 +85,22 @@ void system_show_tab(void (*show_callb)(void)) {
 
 
 void system_step(uint16_t step_ms) {
+	bool ret = false;
+
 	if (uv_uibutton_clicked(&this->ok)) {
 		uv_memory_save();
 		home_show();
+		ret = true;
 	}
 	else if (uv_uibutton_clicked(&this->cancel)) {
 		home_show();
+		ret = true;
+	}
+	else {
+
 	}
 
-	if (uv_uitabwindow_tab_changed(&this->tabs)) {
+	if (!ret && uv_uitabwindow_tab_changed(&this->tabs)) {
 		if (uv_uitabwindow_tab(&this->tabs) == 0) {
 			system_settings_show();
 		}
@@ -106,18 +113,36 @@ void system_step(uint16_t step_ms) {
 		else if (uv_uitabwindow_tab(&this->tabs) == 3) {
 			system_restore_show();
 		}
+		else {
+
+		}
+		ret = true;
 	}
 
-	if (uv_uitabwindow_tab(&this->tabs) == 0) {
-		system_settings_step(step_ms);
+	if (!ret) {
+		if (uv_uitabwindow_tab(&this->tabs) == 0) {
+			system_settings_step(step_ms);
+		}
+		else if (uv_uitabwindow_tab(&this->tabs) == 1) {
+			system_network_step(step_ms);
+		}
+		else if (uv_uitabwindow_tab(&this->tabs) == 2) {
+			system_log_step(step_ms);
+		}
+		else if (uv_uitabwindow_tab(&this->tabs) == 3) {
+			system_restore_step(step_ms);
+		}
+		else {
+
+		}
 	}
-	else if (uv_uitabwindow_tab(&this->tabs) == 1) {
-		system_network_step(step_ms);
-	}
-	else if (uv_uitabwindow_tab(&this->tabs) == 2) {
-		system_log_step(step_ms);
-	}
-	else if (uv_uitabwindow_tab(&this->tabs) == 3) {
-		system_restore_step(step_ms);
+	if (ret) {
+		// stop keypad calibrations if they are ongoing
+		if (keypad_get_calib_on(&dspl.network.l_keypad)) {
+			keypad_calib_end(&dspl.network.l_keypad);
+		}
+		if (keypad_get_calib_on(&dspl.network.r_keypad)) {
+			keypad_calib_end(&dspl.network.r_keypad);
+		}
 	}
 }

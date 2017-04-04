@@ -62,13 +62,13 @@ static void show_sliders(uw100_states_e state, char *label) {
 	uv_uiwindow_add(this->window, &this->max_speed_n, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->acc, 0, 100, v->acc, &uv_uistyles[0]);
+	uv_uislider_init(&this->acc, VALVE_ACC_MIN, 100, v->acc, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->acc);
 	uv_uislider_set_title(&this->acc, "Acceleration\n(%)");
 	uv_uiwindow_add(this->window, &this->acc, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->dec, 0, 100, v->dec, &uv_uistyles[0]);
+	uv_uislider_init(&this->dec, VALVE_DEC_MIN, 100, v->dec, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->dec);
 	uv_uislider_set_title(&this->dec, "Deceleration\n(%)");
 	uv_uiwindow_add(this->window, &this->dec, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);

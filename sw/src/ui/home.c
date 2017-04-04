@@ -23,8 +23,6 @@ void home_show() {
 
 	uv_uiwindow_clear(&gui.main_window);
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
-	uv_uiwindow_set_contentbb(&this->window, uv_uibb(&gui.main_window)->width,
-			uv_uibb(&gui.main_window)->height * 1.5f);
 	uv_uiwindow_add(&gui.main_window, &this->window, 0, 0,
 			uv_ui_get_bb(&gui.main_window)->width, uv_ui_get_bb(&gui.main_window)->height,
 			uv_uiwindow_step);

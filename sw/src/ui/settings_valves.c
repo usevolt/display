@@ -23,20 +23,26 @@ void settings_valves_show() {
 	uv_uiwindow_clear(window);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
-	uv_uitabwindow_add(window, &this->window, 0, 0,
-			uv_uibb(window)->width, uv_uitabwindow_get_contentbb(window).height,
-			uv_uiwindow_step);
 
 	// grid layout is used to help with aligning the elements
 	uv_uigridlayout_st grid;
 #if FM
+	uv_uitabwindow_add(window, &this->window, 0, 0,
+			uv_uibb(window)->width, uv_uitabwindow_get_contentbb(window).height,
+			uv_uiwindow_step);
+
 	uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->window)->width,
 			uv_uibb(&this->window)->height, 3, 3);
 	uv_uigridlayout_set_padding(&grid, 5, 5);
 #elif LM
-	uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->window)->width,
-			uv_uibb(&this->window)->height, 4, 3);
-	uv_uigridlayout_set_padding(&grid, 5, 5);
+	uv_uiwindow_set_contentbb(&this->window, uv_uibb(window)->width, uv_uibb(window)->height * 1.3f);
+	uv_uitabwindow_add(window, &this->window, 0, 0,
+			uv_uibb(window)->width, uv_uitabwindow_get_contentbb(window).height,
+			uv_uiwindow_step);
+
+	uv_uigridlayout_init(&grid, 0, 0, uv_uiwindow_get_contentbb(&this->window).width,
+			uv_uiwindow_get_contentbb(&this->window).height, 3, 4);
+	uv_uigridlayout_set_padding(&grid, 10, 10);
 #endif
 	uv_bounding_box_st bb;
 
@@ -55,6 +61,8 @@ void settings_valves_show() {
 static void sliders_show(valve_st *valve) {
 	this->valve = valve;
 	uv_uiwindow_clear(&this->window);
+	uv_uiwindow_set_contentbb(&this->window, uv_uibb(&this->window)->width,
+			uv_uibb(&this->window)->height);
 
 	uv_uilabel_init(&this->topic, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
 			C(0xFFFFFFFF), (char*) valve->name);
@@ -103,7 +111,7 @@ static void sliders_show(valve_st *valve) {
 
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->acc, 0, 100,
+	uv_uislider_init(&this->acc, VALVE_ACC_MIN, 100,
 			valve->acc, &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->acc,
 			bb.x, bb.y, bb.width, bb.height / 2, uv_uislider_step);
@@ -136,7 +144,7 @@ static void sliders_show(valve_st *valve) {
 
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->dec, 0, 100,
+	uv_uislider_init(&this->dec, VALVE_DEC_MIN, 100,
 			valve->dec, &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->dec,
 			bb.x, bb.y, bb.width, bb.height / 2, uv_uislider_step);
