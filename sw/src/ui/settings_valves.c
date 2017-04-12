@@ -37,8 +37,7 @@ void settings_valves_show() {
 #elif LM
 	uv_uiwindow_set_contentbb(&this->window, uv_uibb(window)->width, uv_uibb(window)->height * 1.3f);
 	uv_uitabwindow_add(window, &this->window, 0, 0,
-			uv_uibb(window)->width, uv_uitabwindow_get_contentbb(window).height,
-			uv_uiwindow_step);
+			uv_uibb(window)->width, uv_uitabwindow_get_contentbb(window).height);
 
 	uv_uigridlayout_init(&grid, 0, 0, uv_uiwindow_get_contentbb(&this->window).width,
 			uv_uiwindow_get_contentbb(&this->window).height, 3, 4);
@@ -49,7 +48,7 @@ void settings_valves_show() {
 	for (int16_t i = 0; i < BASE_VALVE_COUNT; i++) {
 		uv_uibutton_init(&this->valves[i],(char*) dspl.user->base_valves[i].name, &uv_uistyles[0]);
 		bb = uv_uigridlayout_next(&grid);
-		uv_uiwindow_add(&this->window, &this->valves[i], bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+		uv_uiwindow_add(&this->window, &this->valves[i], bb.x, bb.y, bb.width, bb.height);
 	}
 
 	this->valve = NULL;
@@ -67,7 +66,7 @@ static void sliders_show(valve_st *valve) {
 	uv_uilabel_init(&this->topic, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
 			C(0xFFFFFFFF), (char*) valve->name);
 	uv_uiwindow_add(&this->window, &this->topic, 0, 0,
-			uv_uibb(&this->window)->width, 80, uv_uilabel_step);
+			uv_uibb(&this->window)->width, 80);
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, uv_uibb(&this->topic)->height,
@@ -81,77 +80,77 @@ static void sliders_show(valve_st *valve) {
 
 	uv_uibutton_init(&this->back, "Back", &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->back, bb.x, 10,
-			bb.width, 50, uv_uibutton_step);
+			bb.width, 50);
 
 	uv_uitogglebutton_init(&this->invert, valve->invert, "Invert Direction", &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->invert, bb.x + (bb.width + 20) * 2, 10,
-			bb.width, 50, uv_uitogglebutton_step);
+			bb.width, 50);
 
 
 	uv_uislider_init(&this->min_speed_p, 0, VALVE_MAX_CURRENT_MA / 2,
 			valve->min_speed_p, &uv_uistyles[0]);
 	uv_uislider_set_inc_step(&this->min_speed_p, 10);
 	uv_uiwindow_add(&this->window, &this->min_speed_p,
-			bb.x, bb.y, bb.width, bb.height / 2, uv_uislider_step);
+			bb.x, bb.y, bb.width, bb.height / 2);
 	uv_uilabel_init(&this->min_speed_p_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER, C(0xFFFFFF),
 			C(0xFFFFFFFF), "Forward min speed (mA)");
 	uv_uiwindow_add(&this->window, &this->min_speed_p_label,
-			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2, uv_uilabel_step);
+			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->max_speed_p, VALVE_MIN_CURRENT_MA, VALVE_MAX_CURRENT_MA,
 			valve->max_speed_p, &uv_uistyles[0]);
 	uv_uislider_set_inc_step(&this->max_speed_p, 10);
 	uv_uiwindow_add(&this->window, &this->max_speed_p,
-			bb.x, bb.y, bb.width, bb.height / 2, uv_uislider_step);
+			bb.x, bb.y, bb.width, bb.height / 2);
 	uv_uilabel_init(&this->max_speed_p_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER, C(0xFFFFFF),
 			C(0xFFFFFFFF), "Forward max speed (mA)");
 	uv_uiwindow_add(&this->window, &this->max_speed_p_label,
-			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2, uv_uilabel_step);
+			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2);
 
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->acc, VALVE_ACC_MIN, 100,
 			valve->acc, &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->acc,
-			bb.x, bb.y, bb.width, bb.height / 2, uv_uislider_step);
+			bb.x, bb.y, bb.width, bb.height / 2);
 	uv_uilabel_init(&this->acc_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER, C(0xFFFFFF),
 			C(0xFFFFFFFF), "Acceleration (%)");
 	uv_uiwindow_add(&this->window, &this->acc_label,
-			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2, uv_uilabel_step);
+			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->min_speed_n, 0, VALVE_MAX_CURRENT_MA / 2,
 			valve->min_speed_n, &uv_uistyles[0]);
 	uv_uislider_set_inc_step(&this->min_speed_n, 10);
 	uv_uiwindow_add(&this->window, &this->min_speed_n,
-			bb.x, bb.y, bb.width, bb.height / 2, uv_uislider_step);
+			bb.x, bb.y, bb.width, bb.height / 2);
 	uv_uilabel_init(&this->min_speed_n_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER, C(0xFFFFFF),
 			C(0xFFFFFFFF), "Backward min speed (mA)");
 	uv_uiwindow_add(&this->window, &this->min_speed_n_label,
-			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2, uv_uilabel_step);
+			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->max_speed_n, VALVE_MIN_CURRENT_MA, VALVE_MAX_CURRENT_MA,
 			valve->max_speed_n, &uv_uistyles[0]);
 	uv_uislider_set_inc_step(&this->max_speed_n, 10);
 	uv_uiwindow_add(&this->window, &this->max_speed_n,
-			bb.x, bb.y, bb.width, bb.height / 2, uv_uislider_step);
+			bb.x, bb.y, bb.width, bb.height / 2);
 	uv_uilabel_init(&this->max_speed_n_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER, C(0xFFFFFF),
 			C(0xFFFFFFFF), "Backward max speed (mA)");
 	uv_uiwindow_add(&this->window, &this->max_speed_n_label,
-			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2, uv_uilabel_step);
+			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2);
 
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->dec, VALVE_DEC_MIN, 100,
 			valve->dec, &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->dec,
-			bb.x, bb.y, bb.width, bb.height / 2, uv_uislider_step);
+			bb.x, bb.y, bb.width, bb.height / 2);
 	uv_uilabel_init(&this->dec_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER, C(0xFFFFFF),
 			C(0xFFFFFFFF), "Deceleration (%)");
 	uv_uiwindow_add(&this->window, &this->dec_label,
-			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2, uv_uilabel_step);
+			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2);
 
 }
 

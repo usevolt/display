@@ -268,6 +268,9 @@ extern unsigned int __data_section_table_end;
 extern unsigned int __bss_section_table;
 extern unsigned int __bss_section_table_end;
 
+extern void SystemInit (void);
+
+
 //*****************************************************************************
 // Reset entry point for your code.
 // Sets up a simple runtime environment and initializes the C/C++
@@ -303,9 +306,7 @@ ResetISR(void) {
 
 
 
-#if defined (__USE_CMSIS) || defined (__USE_LPCOPEN)
     SystemInit();
-#endif
 
 #if defined (__cplusplus)
     //

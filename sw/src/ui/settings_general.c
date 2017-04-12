@@ -20,8 +20,7 @@ void settings_general_show() {
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
 	uv_uitabwindow_add(window, &this->window, 0, 0,
-			uv_uibb(window)->width, uv_uitabwindow_get_contentbb(window).height,
-			uv_uiwindow_step);
+			uv_uibb(window)->width, uv_uitabwindow_get_contentbb(window).height);
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0,
@@ -35,7 +34,7 @@ void settings_general_show() {
 	uv_uislider_set_vertical(&this->brightness);
 	uv_uislider_set_title(&this->brightness, "Screen\nbrightness");
 	uv_uiwindow_add(&this->window, &this->brightness,
-			bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
+			bb.x, bb.y, bb.width, bb.height);
 
 	// volume
 	bb = uv_uigridlayout_next(&grid);
@@ -43,20 +42,20 @@ void settings_general_show() {
 	uv_uislider_set_vertical(&this->volume);
 	uv_uislider_set_title(&this->volume, "Volume");
 	uv_uiwindow_add(&this->window, &this->volume,
-			bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
+			bb.x, bb.y, bb.width, bb.height);
 
 	// drive lights
 	bb = uv_uigridlayout_next(&grid);
 	uv_uitogglebutton_init(&this->drive_lights, csb_get_drive_light(&dspl.network.csb),
 			"Drive Lights", &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->drive_lights, bb.x, bb.y,
-			bb.width, bb.height / 2 - 5, uv_uitogglebutton_step);
+			bb.width, bb.height / 2 - 5);
 
 	// work lights
 	uv_uitogglebutton_init(&this->work_lights, csb_get_work_light(&dspl.network.csb),
 			"Work Lights", &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->work_lights, bb.x, bb.y + bb.height / 2 + 5,
-			bb.width, bb.height / 2 - 5, uv_uitogglebutton_step);
+			bb.width, bb.height / 2 - 5);
 
 	// wiper
 	bb = uv_uigridlayout_next(&grid);
@@ -64,7 +63,7 @@ void settings_general_show() {
 			csb_get_wiper(&dspl.network.csb), &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->wiper);
 	uv_uislider_set_title(&this->wiper, "Wiper");
-	uv_uiwindow_add(&this->window, &this->wiper, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
+	uv_uiwindow_add(&this->window, &this->wiper, bb.x, bb.y, bb.width, bb.height);
 
 	// heater
 	bb = uv_uigridlayout_next(&grid);
@@ -72,7 +71,7 @@ void settings_general_show() {
 			msb_get_heater(&dspl.network.msb), &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->heater);
 	uv_uislider_set_title(&this->heater, "Heater");
-	uv_uiwindow_add(&this->window, &this->heater, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
+	uv_uiwindow_add(&this->window, &this->heater, bb.x, bb.y, bb.width, bb.height);
 
 }
 

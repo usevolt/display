@@ -26,11 +26,11 @@ void login_show(void) {
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
 	uv_uiwindow_add(&gui.main_window, &this->window, 0, 0,
-			uv_ui_get_bb(&gui.main_window)->width, uv_ui_get_bb(&gui.main_window)->height, uv_uiwindow_step);
+			uv_ui_get_bb(&gui.main_window)->width, uv_ui_get_bb(&gui.main_window)->height);
 
 	uv_uilabel_init(&this->topic, & UI_FONT_BIG, ALIGN_TOP_CENTER,
 			C(0xFFFFFF), C(0xFFFFFFFF), "Select driver");
-	uv_uiwindow_add(&this->window, &this->topic, uv_uibb(&this->window)->width / 2, 0, 0, 20, uv_uilabel_step);
+	uv_uiwindow_add(&this->window, &this->topic, uv_uibb(&this->window)->width / 2, 0, 0, 20);
 
 	uv_uilist_init(&this->users, this->users_buffer, USER_COUNT, &uv_uistyles[0]);
 	for (uint8_t i = 0; i < uv_vector_size(&dspl.users); i++) {
@@ -39,27 +39,27 @@ void login_show(void) {
 	uv_uilist_select(&this->users, usertoi(dspl.user));
 	uint16_t height = uv_uibb(&this->users)->height;
 	uv_uiwindow_add(&this->window, &this->users, 0, uv_uibb(&this->window)->height / 2 - height / 2,
-			uv_uibb(&this->window)->width / 2, height, uv_uilist_step);
+			uv_uibb(&this->window)->width / 2, height);
 
 	uv_uibutton_init(&this->login, "Log In", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->login,
 			uv_uibb(&this->window)->width - BUTTON_W,
 			uv_ui_get_bb(&this->window)->height / 2 - BUTTON_H / 2 - BUTTON_H - BUTTON_SPACE,
-			BUTTON_W, BUTTON_H, uv_uibutton_step);
+			BUTTON_W, BUTTON_H);
 
 	uv_uibutton_init(&this->add_user, "Add user",
 			&uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->add_user,
 			uv_uibb(&this->window)->width - BUTTON_W,
 			uv_uibb(&this->window)->height / 2 - BUTTON_H / 2,
-			BUTTON_W, BUTTON_H, uv_uibutton_step);
+			BUTTON_W, BUTTON_H);
 
 	uv_uibutton_init(&this->delete_user, "Delete user",
 			&uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->delete_user,
 			uv_uibb(&this->window)->width - BUTTON_W,
 			uv_uibb(&this->window)->height / 2 + BUTTON_H / 2 + BUTTON_SPACE,
-			BUTTON_W, BUTTON_H, uv_uibutton_step);
+			BUTTON_W, BUTTON_H);
 
 }
 

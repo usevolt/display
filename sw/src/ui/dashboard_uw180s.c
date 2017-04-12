@@ -37,51 +37,51 @@ void dashboard_uw180s_show() {
 	strcat(log_length_str, " cm");
 	uv_uibutton_init(&this->log_length, log_length_str, &uv_uistyles[0]);
 	uv_uiwindow_add(window, &this->log_length, bb.x - bb.width / 2, bb.y,
-						bb.width, bb.height * 0.8, uv_uibutton_step);
+						bb.width, bb.height * 0.8);
 
 	uv_uilabel_init(&this->log_type, &UI_FONT_BIG, ALIGN_TOP_CENTER,
 			C(0xFFFFFF), C(0xFFFFFFFF), "");
 	uv_uiwindow_add(window, &this->log_type, bb.x - bb.width / 2,
 			uv_uibb(&this->tree_type)->y + uv_uibb(&this->tree_type)->height + 5,
-			bb.width, bb.height, uv_uilabel_step);
+			bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->len_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER,
 			C(0xFFFFFF), C(0xFFFFFFFF), "Length (cm)");
 	uv_uiwindow_add(window, &this->len_label, bb.x, bb.y, bb.width,
-			UI_FONT_SMALL.char_height, uv_uilabel_step);
+			UI_FONT_SMALL.char_height);
 
 	uv_uidigit_init(&this->len, &UI_DIGIT_BIG, ALIGN_TOP_CENTER, C(0xFFFFFF),
 			uv_uistyles[0].window_c, "%03i", mb_get_length(&dspl.network.uw180s_mb) / 10);
 	uv_uidigit_set_scale(&this->len, 2.0f);
 	uv_uiwindow_add(window, &this->len, bb.x, bb.y + uv_uibb(&this->len_label)->height,
-			bb.width, bb.height - uv_uibb(&this->len_label)->height, uv_uidigit_step);
+			bb.width, bb.height - uv_uibb(&this->len_label)->height);
 
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->wid_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER,
 			C(0xFFFFFF), C(0xFFFFFFFF), "Diameter (mm)");
 	uv_uiwindow_add(window, &this->wid_label, bb.x, bb.y, bb.width,
-			UI_FONT_SMALL.char_height, uv_uilabel_step);
+			UI_FONT_SMALL.char_height);
 
 	uv_uidigit_init(&this->wid, &UI_DIGIT_BIG, ALIGN_TOP_CENTER, C(0xFFFFFF),
 			uv_uistyles[0].window_c, "%03i", 0);
 	uv_uidigit_set_scale(&this->wid, 2.0f);
 	uv_uiwindow_add(window, &this->wid, bb.x, bb.y + uv_uibb(&this->wid_label)->height,
-			bb.width, bb.height - uv_uibb(&this->wid_label)->height, uv_uidigit_step);
+			bb.width, bb.height - uv_uibb(&this->wid_label)->height);
 
 	uv_uigridlayout_next(&grid);
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->vol_label, &UI_FONT_SMALL, ALIGN_CENTER,
 			C(0xFFFFFF), C(0xFFFFFFFF), "Volume (m3)");
 	uv_uiwindow_add(window, &this->vol_label, bb.x - bb.width / 2, bb.y, bb.width,
-			UI_FONT_SMALL.char_height, uv_uilabel_step);
+			UI_FONT_SMALL.char_height);
 
 	uv_uidigit_init(&this->vol, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
 			uv_uistyles[0].window_c, "%i,%01u", 0);
 	uv_uidigit_set_divider(&this->vol, 1000);
 	uv_uiwindow_add(window, &this->vol, bb.x - bb.width / 2, bb.y + uv_uibb(&this->vol_label)->height,
-			bb.width, bb.height - uv_uibb(&this->vol_label)->height, uv_uilabel_step);
+			bb.width, bb.height - uv_uibb(&this->vol_label)->height);
 
 	this->active_len = 1;
 }

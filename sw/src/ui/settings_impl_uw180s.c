@@ -26,12 +26,12 @@ static void show_sliders(uw180s_state_e state, const char *label) {
 	this->state = state;
 
 	uv_uibutton_init(&this->back, "Back", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->back, BACK_X, BACK_Y, BACK_W, BACK_H, uv_uibutton_step);
+	uv_uiwindow_add(this->window, &this->back, BACK_X, BACK_Y, BACK_W, BACK_H);
 
 	strcpy(this->sliders.str, "UW180s ");
 	strcat(this->sliders.str, label);
 	uv_uilabel_init(&this->label, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF), C(0xFFFFFFFF), this->sliders.str);
-	uv_uiwindow_add(this->window, &this->label, LABEL_X, LABEL_Y, LABEL_W, LABEL_H, uv_uilabel_step);
+	uv_uiwindow_add(this->window, &this->label, LABEL_X, LABEL_Y, LABEL_W, LABEL_H);
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, uv_uibb(&this->back)->y + uv_uibb(&this->back)->height,
@@ -74,13 +74,13 @@ static void show_sliders(uw180s_state_e state, const char *label) {
 	uv_uislider_set_horizontal(&this->sliders.max_speed_p);
 	uv_uislider_set_title(&this->sliders.max_speed_p, "Max speed forward (ma)");
 	uv_uiwindow_add(this->window, &this->sliders.max_speed_p, bb.x, bb.y,
-			bb.width, bb.height, uv_uislider_step);
+			bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uitogglebutton_init(&this->sliders.invert, v->invert, "Invert", &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->sliders.invert, bb.x + bb.width / 4,
 			bb.y + bb.height + grid.vpadding / 2 - bb.width / 4,
-			bb.width / 2, bb.width / 2, uv_uitogglebutton_step);
+			bb.width / 2, bb.width / 2);
 
 	bb = uv_uigridlayout_next(&grid);
 	bb = uv_uigridlayout_next(&grid);
@@ -90,7 +90,7 @@ static void show_sliders(uw180s_state_e state, const char *label) {
 	uv_uislider_set_horizontal(&this->sliders.max_speed_n);
 	uv_uislider_set_title(&this->sliders.max_speed_n, "Max speed backward (ma)");
 	uv_uiwindow_add(this->window, &this->sliders.max_speed_n, bb.x, bb.y,
-			bb.width, bb.height, uv_uislider_step);
+			bb.width, bb.height);
 
 }
 
@@ -105,33 +105,33 @@ static void show_valves(void) {
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 	uv_uibutton_init(&this->back, "Back", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->back, BACK_X, BACK_Y, BACK_W, BACK_H, uv_uibutton_step);
+	uv_uiwindow_add(this->window, &this->back, BACK_X, BACK_Y, BACK_W, BACK_H);
 
 	uv_uilabel_init(&this->label, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF), C(0xFFFFFFFF), "UW180s valves");
-	uv_uiwindow_add(this->window, &this->label, LABEL_X, LABEL_Y, LABEL_W, LABEL_H, uv_uilabel_step);
+	uv_uiwindow_add(this->window, &this->label, LABEL_X, LABEL_Y, LABEL_W, LABEL_H);
 
 	uv_uibutton_init(&this->valves.wheels, "Wheels", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->valves.wheels, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(this->window, &this->valves.wheels, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->valves.wheels_feed, "Wheels feed", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->valves.wheels_feed, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(this->window, &this->valves.wheels_feed, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->valves.delimbers, "Delimbers", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->valves.delimbers, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(this->window, &this->valves.delimbers, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->valves.saw, "Saw", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->valves.saw, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(this->window, &this->valves.saw, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->valves.tilt, "Tilt", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->valves.tilt, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(this->window, &this->valves.tilt, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->valves.rotator, "Rotator", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->valves.rotator, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(this->window, &this->valves.rotator, bb.x, bb.y, bb.width, bb.height);
 }
 
 
@@ -149,19 +149,16 @@ static void show_mb() {
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 	uv_uibutton_init(&this->back, "Back", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->back, BACK_X, BACK_X,
-			BACK_W, BACK_H, uv_uibutton_step);
+	uv_uiwindow_add(this->window, &this->back, BACK_X, BACK_X, BACK_W, BACK_H);
 
 	uv_uilabel_init(&this->label, &UI_FONT_BIG, ALIGN_CENTER,
 			C(0xFFFFFF), C(0xFFFFFFFF), "UW180s Measurement");
-	uv_uiwindow_add(this->window, &this->label, LABEL_X, LABEL_Y,
-			LABEL_W, LABEL_H, uv_uilabel_step);
+	uv_uiwindow_add(this->window, &this->label, LABEL_X, LABEL_Y, LABEL_W, LABEL_H);
 
 	uv_uitogglebutton_init(&this->mb.enabled,
 			dspl.user->uw180s.mb_enabled, "Enabled", &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->mb.enabled,
-			uv_uibb(&gui.main_window)->width - BACK_W, BACK_Y,
-			BACK_W, BACK_H, uv_uitogglebutton_step);
+			uv_uibb(&gui.main_window)->width - BACK_W, BACK_Y, BACK_W, BACK_H);
 
 //	for (int i = 0; i < LOG_TYPE_COUNT; i++) {
 //		log_names[i] = dspl.user->uw180s.log_type_buffer[i].name;
@@ -185,13 +182,13 @@ static void show_mb() {
 	uv_uislider_init(&this->mb.log_len1, 0, 1000, dspl.user->uw180s.log_len1, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->mb.log_len1);
 	uv_uislider_set_title(&this->mb.log_len1, "Log length 1");
-	uv_uiwindow_add(this->window, &this->mb.log_len1, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
+	uv_uiwindow_add(this->window, &this->mb.log_len1, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->mb.log_len2, 0, 1000, dspl.user->uw180s.log_len2, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->mb.log_len2);
 	uv_uislider_set_title(&this->mb.log_len2, "Log length 2");
-	uv_uiwindow_add(this->window, &this->mb.log_len2, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
+	uv_uiwindow_add(this->window, &this->mb.log_len2, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->mb.len_calib, 0, UW180S_MB_LEN_CALIB_MAX,
@@ -199,7 +196,7 @@ static void show_mb() {
 	uv_uislider_set_vertical(&this->mb.len_calib);
 	uv_uislider_set_title(&this->mb.len_calib, "Length\nCalibration");
 	uv_uiwindow_add(this->window, &this->mb.len_calib,
-			bb.x, bb.y + 20, bb.width, bb.height, uv_uislider_step);
+			bb.x, bb.y + 20, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->mb.vol_calib, UW180S_MB_VOL_CALIB_MIN, UW180S_MB_VOL_CALIB_MAX,
@@ -207,14 +204,14 @@ static void show_mb() {
 	uv_uislider_set_vertical(&this->mb.vol_calib);
 	uv_uislider_set_title(&this->mb.vol_calib, "Volume\nCalibration");
 	uv_uiwindow_add(this->window, &this->mb.vol_calib,
-			bb.x, bb.y + 20, bb.width, bb.height, uv_uislider_step);
+			bb.x, bb.y + 20, bb.width, bb.height);
 
 	uv_uilabel_init(&this->mb.info_label, &UI_FONT_SMALL, ALIGN_CENTER,
 			C(0xFFFFFF), C(0xFFFFFFFF), "Note: Calibration values are\n"
 			"shared across all users");
 	uv_uiwindow_add(this->window, &this->mb.info_label,
 			uv_uibb(&this->mb.len_calib)->x, BACK_Y + BACK_H + 10,
-			bb.x + bb.width - uv_uibb(&this->mb.len_calib)->x, 30, uv_uilabel_step);
+			bb.x + bb.width - uv_uibb(&this->mb.len_calib)->x, 30);
 
 }
 
@@ -231,14 +228,14 @@ void settings_impl_uw180s_show(void) {
 
 
 	uv_uilabel_init(&this->label, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF), C(0xFFFFFFFF), "UW180s");
-	uv_uiwindow_add(this->window, &this->label, LABEL_X, LABEL_Y, LABEL_W, LABEL_H, uv_uilabel_step);
+	uv_uiwindow_add(this->window, &this->label, LABEL_X, LABEL_Y, LABEL_W, LABEL_H);
 
 	uv_uibutton_init(&this->main.measurement, "Log\nMeasurement", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->main.measurement, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(this->window, &this->main.measurement, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->main.valves, "Valve\nConfigurations", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->main.valves, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(this->window, &this->main.valves, bb.x, bb.y, bb.width, bb.height);
 
 }
 

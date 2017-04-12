@@ -71,7 +71,7 @@ void gui_init() {
 
 	uv_uiwindow_init(&this->main_window, this->main_buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
 	uv_uidisplay_add(&this->display, &this->main_window, PBAR_WIDTH + PBAR_LABEL_WIDTH, 0,
-			LCD_W(1) - ((PBAR_LABEL_WIDTH + PBAR_WIDTH) * 2), LCD_H(0.86), uv_uiwindow_step);
+			LCD_W(1) - ((PBAR_LABEL_WIDTH + PBAR_WIDTH) * 2), LCD_H(0.86));
 
 	uv_uiprogressbar_init(&this->rpm, 0, RPM_MAX, &uv_uistyles[0]);
 	uv_uiprogressbar_set_vertical(&this->rpm);
@@ -79,7 +79,7 @@ void gui_init() {
 	uv_uiprogressbar_set_title(&this->rpm, "RPM");
 	uv_uiprogressbar_set_value(&this->rpm, msb_get_rpm(&dspl.network.msb));
 	uv_uiwindow_add(&this->display, &this->rpm, 0, 0,
-			PBAR_WIDTH, uv_uibb(&this->main_window)->height, uv_uiprogressbar_step);
+			PBAR_WIDTH, uv_uibb(&this->main_window)->height);
 
 	uv_uilabel_init(&this->rpm_3000, &UI_FONT_SMALL, ALIGN_CENTER_LEFT,
 			C(0xFFFFFF), C(0xFFFFFFFF), "3000");
@@ -88,7 +88,7 @@ void gui_init() {
 			uv_uibb(&this->rpm)->y +
 			uv_lerpf(1.0f - 3000.0f / RPM_MAX, 0,
 					uv_uibb(&this->rpm)->height - this->rpm.style->font->char_height),
-			PBAR_LABEL_WIDTH, 0, uv_uilabel_step);
+			PBAR_LABEL_WIDTH, 0);
 
 	uv_uilabel_init(&this->rpm_2000, &UI_FONT_SMALL, ALIGN_CENTER_LEFT,
 			C(0xFFFFFF), C(0xFFFFFFFF), "2000");
@@ -97,7 +97,7 @@ void gui_init() {
 			uv_uibb(&this->rpm)->y +
 			uv_lerpf(1.0f - 2000.0f / RPM_MAX, 0,
 					uv_uibb(&this->rpm)->height - this->rpm.style->font->char_height),
-					PBAR_LABEL_WIDTH, 0, uv_uilabel_step);
+					PBAR_LABEL_WIDTH, 0);
 
 	uv_uilabel_init(&this->rpm_1000, &UI_FONT_SMALL, ALIGN_CENTER_LEFT,
 			C(0xFFFFFF), C(0xFFFFFFFF), "1000");
@@ -106,7 +106,7 @@ void gui_init() {
 			uv_uibb(&this->rpm)->y +
 			uv_lerpf(1.0f - 1000.0f / RPM_MAX, 0,
 					uv_uibb(&this->rpm)->height - this->rpm.style->font->char_height),
-					PBAR_LABEL_WIDTH, 0, uv_uilabel_step);
+					PBAR_LABEL_WIDTH, 0);
 
 	uv_uiprogressbar_init(&this->pressure, 0, PRESSURE_MAX, &uv_uistyles[0]);
 	uv_uiprogressbar_set_vertical(&this->pressure);
@@ -114,7 +114,7 @@ void gui_init() {
 	uv_uiprogressbar_set_value(&this->pressure, ecu_get_pressure(&dspl.network.ecu));
 	uv_uiwindow_add(&this->display, &this->pressure,
 			uv_uibb(&this->display)->width - PBAR_WIDTH - CONFIG_UI_PROGRESSBAR_WIDTH, 0,
-			PBAR_WIDTH, uv_uibb(&this->main_window)->height, uv_uiprogressbar_step);
+			PBAR_WIDTH, uv_uibb(&this->main_window)->height);
 
 	uv_uilabel_init(&this->pressure_200, &UI_FONT_SMALL, ALIGN_CENTER_RIGHT,
 			C(0xFFFFFF), C(0xFFFFFFFF), "200");
@@ -122,8 +122,7 @@ void gui_init() {
 			uv_uibb(&this->display)->width - PBAR_LABEL_X,
 			uv_uibb(&this->pressure)->y +
 			uv_lerpf(1.0f - 200.0f / PRESSURE_MAX, 0,
-					uv_uibb(&this->pressure)->height - this->rpm.style->font->char_height),
-			-4, 0, uv_uilabel_step);
+					uv_uibb(&this->pressure)->height - this->rpm.style->font->char_height), -4, 0);
 
 	uv_uilabel_init(&this->pressure_100, &UI_FONT_SMALL, ALIGN_CENTER_RIGHT,
 			C(0xFFFFFF), C(0xFFFFFFFF), "100");
@@ -131,8 +130,7 @@ void gui_init() {
 			uv_uibb(&this->display)->width - PBAR_LABEL_X,
 			uv_uibb(&this->pressure)->y +
 			uv_lerpf(1.0f - 100.0f / PRESSURE_MAX, 0,
-					uv_uibb(&this->pressure)->height - this->rpm.style->font->char_height),
-			-4, 0, uv_uilabel_step);
+					uv_uibb(&this->pressure)->height - this->rpm.style->font->char_height), -4, 0);
 
 
 	taskbar_init(&this->display);

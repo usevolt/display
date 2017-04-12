@@ -49,8 +49,9 @@ static uv_uistyle_st taskbar_style = {
 
 void taskbar_init(uv_uidisplay_st *display) {
 	uv_uiwindow_init(&this->taskbar, this->taskbar_buffer, &taskbar_style);
+	uv_uiwindow_set_transparent(this, false);
 	uv_uidisplay_add(display, &this->taskbar,
-			0, LCD_H(0.86f), LCD_W(1.0f), LCD_H(0.14f), uv_uiwindow_step);
+			0, LCD_H(0.86f), LCD_W(1.0f), LCD_H(0.14f));
 
 	show(TASKBAR_NO_ALERTS);
 
@@ -73,12 +74,12 @@ static void show(taskbar_state_e state) {
 		uv_uidigit_init(&this->hours, &UI_FONT_SMALL, ALIGN_CENTER,
 				C(0xFFFFFF), taskbar_style.window_c, "%u", dspl.hour_counter);
 		uv_uiwindow_add(&this->taskbar, &this->hours, bb.x, bb.y, bb.width,
-				bb.height - UI_FONT_SMALL.char_height, uv_uidigit_step);
+				bb.height - UI_FONT_SMALL.char_height);
 
 		uv_uilabel_init(&this->hours_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER,
 				C(0xFFFFFF), C(0xFFFFFFFF), "Hours");
 		uv_uiwindow_add(&this->taskbar, &this->hours_label,
-				bb.x, bb.y, bb.width, bb.height, uv_uilabel_step);
+				bb.x, bb.y, bb.width, bb.height);
 
 		// kubota warning lights
 		this->engine_visible = false;
@@ -90,7 +91,7 @@ static void show(taskbar_state_e state) {
 				C(0xFF0000), taskbar_style.window_c, "Water");
 		uv_ui_set_enabled(&this->engine_water, false);
 		uv_uiwindow_add(&this->taskbar, &this->engine_water, bb.x, bb.y,
-				bb.width, bb.height, uv_uilabel_step);
+				bb.width, bb.height);
 		uv_delay_init(ENGINE_LIGHT_DELAY_MS, &this->engine_delay);
 
 		bb = uv_uigridlayout_next(&engine_grid);
@@ -98,21 +99,21 @@ static void show(taskbar_state_e state) {
 				C(0xFF0000), taskbar_style.window_c, "Oil press");
 		uv_ui_set_enabled(&this->engine_oil_press, false);
 		uv_uiwindow_add(&this->taskbar, &this->engine_oil_press, bb.x, bb.y,
-				bb.width, bb.height, uv_uilabel_step);
+				bb.width, bb.height);
 
 		bb = uv_uigridlayout_next(&engine_grid);
 		uv_uilabel_init(&this->engine_alt, &UI_FONT_SMALL, ALIGN_CENTER,
 				C(0xFF0000), taskbar_style.window_c, "Alternator");
 		uv_ui_set_enabled(&this->engine_alt, false);
 		uv_uiwindow_add(&this->taskbar, &this->engine_alt, bb.x, bb.y,
-				bb.width, bb.height, uv_uilabel_step);
+				bb.width, bb.height);
 
 		bb = uv_uigridlayout_next(&engine_grid);
 		uv_uilabel_init(&this->engine_glow_plugs, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER,
 				C(0xFFFF00), taskbar_style.window_c, "Glow plugs");
 		uv_ui_set_enabled(&this->engine_glow_plugs, false);
 		uv_uiwindow_add(&this->taskbar, &this->engine_glow_plugs, bb.x, bb.y,
-				bb.width, bb.height, uv_uilabel_step);
+				bb.width, bb.height);
 
 
 		// emcy stop
@@ -121,13 +122,11 @@ static void show(taskbar_state_e state) {
 				taskbar_style.window_c, "!");
 		uv_uilabel_set_scale(&this->emcy_stop, 1.8f);
 		uv_ui_set_enabled(&this->emcy_stop, false);
-		uv_uiwindow_add(&this->taskbar, &this->emcy_stop, bb.x, bb.y, bb.width, 0,
-				uv_uilabel_step);
+		uv_uiwindow_add(&this->taskbar, &this->emcy_stop, bb.x, bb.y, bb.width, 0);
 		uv_uilabel_init(&this->emcy_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER,
 				C(0xFFFFFF), C(0xFFFFFFFF), "Stop");
 		uv_ui_set_enabled(&this->emcy_label, false);
-		uv_uiwindow_add(&this->taskbar, &this->emcy_label, bb.x, bb.y, bb.width, bb.height,
-				uv_uilabel_step);
+		uv_uiwindow_add(&this->taskbar, &this->emcy_label, bb.x, bb.y, bb.width, bb.height);
 		uv_delay_init(BG_ERROR_DELAY_MS, &this->emcy_delay);
 
 #if LM
@@ -136,16 +135,16 @@ static void show(taskbar_state_e state) {
 		uv_uidigit_init(&this->gear, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
 				taskbar_style.window_c, "%u", ecu_get_gear(&dspl.network.ecu));
 		uv_uiwindow_add(&this->taskbar, &this->gear, bb.x, bb.y, bb.width,
-				bb.height - UI_FONT_SMALL.char_height, uv_uidigit_step);
+				bb.height - UI_FONT_SMALL.char_height);
 
 		uv_uilabel_init(&this->gear_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER, C(0xFFFFFF),
 				C(0xFFFFFFFF), "gear");
 		uv_uiwindow_add(&this->taskbar, &this->gear_label, bb.x, bb.y + bb.height,
-				bb.width, 0, uv_uilabel_step);
+				bb.width, 0);
 
 		uv_uitoucharea_init(&this->gear_touch);
 		uv_uiwindow_add(&this->taskbar, &this->gear_touch, bb.x, bb.y,
-				bb.width, bb.height, uv_uitoucharea_step);
+				bb.width, bb.height);
 #elif FM
 		bb = uv_uigridlayout_next(&grid);
 #endif
@@ -154,16 +153,16 @@ static void show(taskbar_state_e state) {
 		uv_uilabel_init(&this->horn, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
 				taskbar_style.window_c, "Off");
 		uv_uiwindow_add(&this->taskbar, &this->horn, bb.x, bb.y, bb.width,
-				bb.height - UI_FONT_SMALL.char_height, uv_uilabel_step);
+				bb.height - UI_FONT_SMALL.char_height);
 
 		uv_uilabel_init(&this->horn_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER,
 				C(0xFFFFFF), C(0xFFFFFFFF), "Horn");
 		uv_uiwindow_add(&this->taskbar, &this->horn_label, bb.x, bb.y,
-				bb.width, bb.height, uv_uilabel_step);
+				bb.width, bb.height);
 
 		uv_uitoucharea_init(&this->horn_touch);
 		uv_uiwindow_add(&this->taskbar, &this->horn_touch, bb.x, bb.y,
-				bb.width, bb.height, uv_uitoucharea_step);
+				bb.width, bb.height);
 
 		bb = uv_uigridlayout_next(&grid);
 
@@ -176,7 +175,7 @@ static void show(taskbar_state_e state) {
 				VOLTAGE_WARNING_LIMIT, ERROR_COLOR);
 		uv_uiprogressbar_set_title(&this->voltage_level, "Bat V");
 		uv_uiwindow_add(&this->taskbar, &this->voltage_level, bb.x, bb.y,
-				bb.width, bb.height, uv_uiprogressbar_step);
+				bb.width, bb.height);
 
 		// Fuel level
 		bb = uv_uigridlayout_next(&grid);
@@ -187,7 +186,7 @@ static void show(taskbar_state_e state) {
 				FUEL_LEVEL_WARNING_LIMIT, ERROR_COLOR);
 		uv_uiprogressbar_set_title(&this->fuel_level, "Fuel L");
 		uv_uiwindow_add(&this->taskbar, &this->fuel_level, bb.x, bb.y,
-				bb.width, bb.height, uv_uiprogressbar_step);
+				bb.width, bb.height);
 
 		// Oil level
 		bb = uv_uigridlayout_next(&grid);
@@ -198,7 +197,7 @@ static void show(taskbar_state_e state) {
 				OIL_LEVEL_WARNING_LIMIT, ERROR_COLOR);
 		uv_uiprogressbar_set_title(&this->oil_level, "Oil L");
 		uv_uiwindow_add(&this->taskbar, &this->oil_level, bb.x, bb.y,
-				bb.width, bb.height, uv_uiprogressbar_step);
+				bb.width, bb.height);
 
 		// Oil temp
 		bb = uv_uigridlayout_next(&grid);
@@ -209,7 +208,7 @@ static void show(taskbar_state_e state) {
 				OIL_TEMP_WARNING_LIMIT, ERROR_COLOR);
 		uv_uiprogressbar_set_title(&this->otemp_bar, "Oil T");
 		uv_uiwindow_add(&this->taskbar, &this->otemp_bar, bb.x, bb.y,
-				bb.width, bb.height, uv_uiprogressbar_step);
+				bb.width, bb.height);
 
 
 		// Motor temp
@@ -221,7 +220,7 @@ static void show(taskbar_state_e state) {
 				MOTOR_TEMP_WARNING_LIMIT, ERROR_COLOR);
 		uv_uiprogressbar_set_title(&this->mtemp_bar, "Motor T");
 		uv_uiwindow_add(&this->taskbar, &this->mtemp_bar, bb.x, bb.y,
-				bb.width, bb.height, uv_uiprogressbar_step);
+				bb.width, bb.height);
 
 
 		uv_time_st t;
@@ -232,7 +231,7 @@ static void show(taskbar_state_e state) {
 				C(0xFFFFFF), taskbar_style.window_c, this->time);
 		uv_uiwindow_add(&this->taskbar, &this->clock,
 				uv_uibb(&this->taskbar)->width - CLOCK_WIDTH, 0,
-				CLOCK_WIDTH, uv_uibb(&this->taskbar)->height, uv_uilabel_step);
+				CLOCK_WIDTH, uv_uibb(&this->taskbar)->height);
 
 	}
 	else if (state == TASKBAR_ALERTS) {
@@ -242,8 +241,7 @@ static void show(taskbar_state_e state) {
 
 		uv_uitoucharea_init(&this->touch);
 		uv_uiwindow_add(&this->taskbar, &this->touch, 0, 0,
-				uv_uibb(&this->taskbar)->width, uv_uibb(&this->taskbar)->height,
-				uv_uitoucharea_step);
+				uv_uibb(&this->taskbar)->width, uv_uibb(&this->taskbar)->height);
 
 		log_entry_st entry;
 		log_get_nack(&entry, 0);
@@ -256,25 +254,24 @@ static void show(taskbar_state_e state) {
 		uv_uilabel_init(&this->icon_label, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF), C(0xFFFFFFFF), "!");
 		uv_uilabel_set_scale(&this->icon_label, 2);
 		uv_uiwindow_add(&this->taskbar, &this->icon_label, 0, 0,
-				40, uv_uibb(&this->taskbar)->height, uv_uilabel_step);
+				40, uv_uibb(&this->taskbar)->height);
 
 		uv_uilabel_init(&this->info_label, &UI_FONT_SMALL, ALIGN_CENTER_LEFT, C(0xFFFFFF),
 				C(0xFFFFFFFF), (char *) def->def);
 		uv_uiwindow_add(&this->taskbar, &this->info_label, uv_uibb(&this->icon_label)->width, 0,
-				uv_uibb(&this->taskbar)->width - 20 - 30, uv_uibb(&this->taskbar)->height,
-				uv_uilabel_step);
+				uv_uibb(&this->taskbar)->width - 20 - 30, uv_uibb(&this->taskbar)->height);
 
 		snprintf(this->count_str, TASKBAR_COUNT_STR_LEN, "1/%u", this->log_count);
 		uv_uilabel_init(&this->count_label, &UI_FONT_SMALL, ALIGN_CENTER_RIGHT, C(0xFFFFFF),
 				C(0xFFFFFFFF), this->count_str);
 		uv_uiwindow_add(&this->taskbar, &this->count_label, uv_uibb(&this->taskbar)->width - 100,
-				0, 100, uv_uibb(&this->taskbar)->height / 2, uv_uilabel_step);
+				0, 100, uv_uibb(&this->taskbar)->height / 2);
 
 		uv_uilabel_init(&this->click_label, &UI_FONT_SMALL, ALIGN_CENTER_RIGHT, C(0xFFFFFF),
 				C(0xFFFFFFFF), (log_get_type(&entry) == LOG_WARNING) ?
 						"Click to close" : "Click to go to the log");
 		uv_uiwindow_add(&this->taskbar, &this->click_label, uv_uibb(&this->taskbar)->width,
-				uv_uibb(&this->taskbar)->height / 2, 0, uv_uibb(&this->taskbar)->height / 2, uv_uilabel_step);
+				uv_uibb(&this->taskbar)->height / 2, 0, uv_uibb(&this->taskbar)->height / 2);
 
 	}
 }

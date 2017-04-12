@@ -26,8 +26,7 @@ void settings_implements_show(void) {
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
 	uv_uitabwindow_add(window, &this->window, 0, 0,
 			uv_uibb(window)->width,
-			uv_uitabwindow_get_contentbb(window).height,
-			uv_uiwindow_step);
+			uv_uitabwindow_get_contentbb(window).height);
 
 	if (dspl.user->implement) {
 		dspl.user->implement->callbacks->settings_show();
@@ -37,13 +36,12 @@ void settings_implements_show(void) {
 				C(0xFFFFFFFF), "Implement not selected.\n"
 						"Select implement from System settings.");
 		uv_uiwindow_add(&this->window, &this->info, 0, CONFIG_UI_TABWINDOW_HEADER_HEIGHT,
-				uv_uibb(&this->window)->width, uv_uibb(&this->window)->height, uv_uilabel_step);
+				uv_uibb(&this->window)->width, uv_uibb(&this->window)->height);
 
 		uv_uibutton_init(&this->goto_settings, "Go to settings", &uv_uistyles[0]);
 		uv_uiwindow_add(&this->window, &this->goto_settings,
 				uv_uibb(&this->window)->width / 2 - BW / 2,
-				uv_uibb(&this->window)->height / 2 + CONFIG_UI_TABWINDOW_HEADER_HEIGHT - BY / 2,
-				BW, BY, uv_uibutton_step);
+				uv_uibb(&this->window)->height / 2 + CONFIG_UI_TABWINDOW_HEADER_HEIGHT - BY / 2, BW, BY);
 	}
 }
 

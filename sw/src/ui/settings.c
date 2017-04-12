@@ -36,8 +36,7 @@ void settings_show() {
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
 	uv_uiwindow_add(&gui.main_window, &this->window, 0, 0,
-			uv_uibb(&gui.main_window)->width, uv_uibb(&gui.main_window)->height,
-			uv_uiwindow_step);
+			uv_uibb(&gui.main_window)->width, uv_uibb(&gui.main_window)->height);
 
 	TOPIC_INIT(&this->window, &this->topic, "Settings");
 
@@ -48,8 +47,7 @@ void settings_show() {
 	uv_uitabwindow_init(&this->tabs, SETTINGS_TAB_COUNT, &uv_uistyles[WINDOW_STYLE_INDEX],
 			this->tabs_buffer, this->tab_names);
 	uv_uiwindow_add(&this->window, &this->tabs, 0, TOPIC_HEIGHT + 10,
-			uv_uibb(&this->window)->width, uv_uibb(&this->window)->height - TOPIC_HEIGHT - 10,
-			uv_uitabwindow_step);
+			uv_uibb(&this->window)->width, uv_uibb(&this->window)->height - TOPIC_HEIGHT - 10);
 
 	// set the requested tab
 	uv_uitabwindow_set_tab(&this->tabs, 0);

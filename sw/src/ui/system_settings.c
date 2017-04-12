@@ -27,11 +27,10 @@ void system_settings_show(void) {
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
 	uv_uiwindow_set_contentbb(&this->window, uv_uibb(&gui.windows.system.tabs)->width,
-			uv_uibb(&gui.windows.system.tabs)->height * 1.7f);
+			uv_uibb(&gui.windows.system.tabs)->height * 1.8f);
 	uv_uitabwindow_add(&gui.windows.system.tabs, &this->window, 0, 0,
 			uv_uibb(&gui.windows.system.tabs)->width,
-			uv_uitabwindow_get_contentbb(&gui.windows.system.tabs).height,
-			uv_uiwindow_step);
+			uv_uitabwindow_get_contentbb(&gui.windows.system.tabs).height);
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0, uv_uiwindow_get_contentbb(&this->window).width,
@@ -43,7 +42,7 @@ void system_settings_show(void) {
 	uv_uilabel_init(&this->impls_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER, C(0xFFFFFF),
 			C(0xFFFFFFFF), "Current implement");
 	uv_uiwindow_add(&this->window, &this->impls_label, bb.x, bb.y,
-			bb.width, bb.height, uv_uilabel_step);
+			bb.width, bb.height);
 
 	uv_uilist_init(&this->impls_list, this->impl_names,
 			UW_IMPLEMENT_COUNT, &uv_uistyles[0]);
@@ -56,7 +55,7 @@ void system_settings_show(void) {
 	uv_uilist_select(&this->impls_list, dspl.user->active_implement);
 
 	uv_uiwindow_add(&this->window, &this->impls_list, bb.x, bb.y,
-			bb.width, bb.height - UI_FONT_SMALL.char_height, uv_uilist_step);
+			bb.width, bb.height - UI_FONT_SMALL.char_height);
 
 
 	// engine power usage
@@ -64,15 +63,13 @@ void system_settings_show(void) {
 	uv_uislider_init(&this->power_usage, 0, 100, dspl.user->engine_power_usage, &uv_uistyles[0]);
 	uv_uislider_set_horizontal(&this->power_usage);
 	uv_uislider_set_title(&this->power_usage, "Engine power\nusage (%)");
-	uv_uiwindow_add(&this->window, &this->power_usage, bb.x, bb.y, bb.width, bb.height,
-			uv_uislider_step);
+	uv_uiwindow_add(&this->window, &this->power_usage, bb.x, bb.y, bb.width, bb.height);
 
 	// Joystick calibration
 	bb = uv_uigridlayout_next(&grid);
 	uv_uitogglebutton_init(&this->calib_start, false,
 			"Joystick\nCalibration", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->calib_start, bb.x, bb.y, bb.width / 2, bb.height,
-			uv_uitogglebutton_step);
+	uv_uiwindow_add(&this->window, &this->calib_start, bb.x, bb.y + bb.height / 6, bb.width / 2, bb.height / 3);
 
 	int16_t calib_x = bb.x + bb.width / 2 + 5;
 	int16_t calib_w = bb.width * 1.5f;
@@ -88,13 +85,13 @@ void system_settings_show(void) {
 					"x middle\n"
 					"x min");
 	uv_uiwindow_add(&this->window, &this->calib_labels1, calib_x, bb.y,
-			calib_w / 3, bb.height, uv_uilabel_step);
+			calib_w / 3, bb.height);
 	uv_uilabel_init(&this->calib_values1, &UI_FONT_SMALL, ALIGN_TOP_LEFT,
 			C(0xFFFFFF), uv_uistyles[0].window_c, this->calib_values1_str);
 	uv_uiwindow_add(&this->window, &this->calib_values1,
 			calib_x + calib_w / 3 - calib_values_w, bb.y + UI_FONT_SMALL.char_height,
-			calib_values_w, bb.height - UI_FONT_SMALL.char_height * 3, uv_uilabel_step);
-	snprintf(this->calib_values1_str, CALIB_LINE_LEN, "0\n0\n0\n \n \n255\n9\n0");
+			calib_values_w, bb.height - UI_FONT_SMALL.char_height * 3);
+	snprintf(this->calib_values1_str, CALIB_LINE_LEN, "0\n0\n0\n \n \n0\n0\n0");
 
 	uv_uilabel_init(&this->calib_labels2, &UI_FONT_SMALL, ALIGN_TOP_LEFT,
 			C(0xFFFFFF), C(0xFFFFFFFF), " \ny max\n"
@@ -106,13 +103,13 @@ void system_settings_show(void) {
 					"y middle\n"
 					"y min");
 	uv_uiwindow_add(&this->window, &this->calib_labels2, calib_x + calib_w / 3, bb.y,
-			calib_w / 3, bb.height, uv_uilabel_step);
+			calib_w / 3, bb.height);
 	uv_uilabel_init(&this->calib_values2, &UI_FONT_SMALL, ALIGN_TOP_LEFT,
 			C(0xFFFFFF), uv_uistyles[0].window_c, this->calib_values2_str);
 	uv_uiwindow_add(&this->window, &this->calib_values2,
 			calib_x + calib_w * 2 / 3 - calib_values_w, bb.y + UI_FONT_SMALL.char_height,
-			calib_values_w, bb.height - UI_FONT_SMALL.char_height * 3, uv_uilabel_step);
-	snprintf(this->calib_values2_str, CALIB_LINE_LEN, "0\n0\n0\n \n \n255\n9\n0");
+			calib_values_w, bb.height - UI_FONT_SMALL.char_height * 3);
+	snprintf(this->calib_values2_str, CALIB_LINE_LEN, "0\n0\n0\n \n \n0\n0\n0");
 
 	uv_uilabel_init(&this->calib_labels3, &UI_FONT_SMALL, ALIGN_TOP_LEFT,
 			C(0xFFFFFF), C(0xFFFFFFFF), " \nz max\n"
@@ -124,13 +121,13 @@ void system_settings_show(void) {
 					"z middle\n"
 					"z min");
 	uv_uiwindow_add(&this->window, &this->calib_labels3, calib_x + calib_w * 2 / 3,
-			bb.y, calib_w / 3, bb.height, uv_uilabel_step);
+			bb.y, calib_w / 3, bb.height);
 	uv_uilabel_init(&this->calib_values3, &UI_FONT_SMALL, ALIGN_TOP_LEFT,
 			C(0xFFFFFF), uv_uistyles[0].window_c, this->calib_values3_str);
 	uv_uiwindow_add(&this->window, &this->calib_values3,
 			calib_x + calib_w - calib_values_w, bb.y + UI_FONT_SMALL.char_height,
-			calib_values_w, bb.height - UI_FONT_SMALL.char_height * 3, uv_uilabel_step);
-	snprintf(this->calib_values3_str, CALIB_LINE_LEN, "0\n0\n0\n \n \n255\n9\n0");
+			calib_values_w, bb.height - UI_FONT_SMALL.char_height * 3);
+	snprintf(this->calib_values3_str, CALIB_LINE_LEN, "0\n0\n0\n \n \n0\n0\n0");
 
 
 
@@ -138,7 +135,7 @@ void system_settings_show(void) {
 			C(0xFFFFFF), C(0xFFFFFFFF), "To calibrate the joysticks,\n"
 					"rotate through all of their axes and thumb switches");
 	uv_uiwindow_add(&this->window, &this->calib_help, calib_x, bb.y + bb.height,
-			calib_w, 0, uv_uilabel_step);
+			calib_w, 0);
 
 
 	bb = uv_uigridlayout_next(&grid);
@@ -150,7 +147,7 @@ void system_settings_show(void) {
 	uv_uilabel_init(&this->time, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER, C(0xFFFFFF),
 			C(0xFFFFFFFF), "Date and time");
 	uv_uiwindow_add(&this->window, &this->time,
-			bb.x + bb.width / 2, bb.y + bb.height, bb.width, 0, uv_uilabel_step);
+			bb.x + bb.width / 2, bb.y + bb.height, bb.width, 0);
 
 	int16_t fw = UI_FONT_BIG.char_width;
 	int16_t fh = UI_FONT_BIG.char_height;
@@ -158,8 +155,7 @@ void system_settings_show(void) {
 	uv_uilabel_init(&this->date_label, &UI_FONT_BIG, ALIGN_CENTER_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->datestr);
 	uv_uiwindow_add(&this->window, &this->date_label,
-			bb.x + bb.width / 2, bb.y + bb.height / 2 - fh / 2, bb.width,
-			fh, uv_uilabel_step);
+			bb.x + bb.width / 2, bb.y + bb.height / 2 - fh / 2, bb.width, fh);
 
 	int16_t datex = uv_uibb(&this->date_label)->x;
 	int16_t datey = uv_uibb(&this->date_label)->y + uv_uibb(&this->date_label)->height / 2;
@@ -167,62 +163,56 @@ void system_settings_show(void) {
 	uv_uibutton_init(&this->sec_inc, "+", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->sec_inc,
 			datex + fw * 17, datey - fh * 2 - 8,
-			fw * 2, fh * 1.5, uv_uibutton_step);
+			fw * 2, fh * 1.5);
 	uv_uibutton_init(&this->sec_dec, "-", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->sec_dec,
 			datex + fw * 17, datey + fh / 2 + 8,
-			fw * 2, fh * 1.5,
-			uv_uibutton_step);
+			fw * 2, fh * 1.5);
 
 	uv_uibutton_init(&this->min_inc, "+", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->min_inc,
 			datex + fw * 14, datey - fh * 2 - 8,
-			fw * 2, fh * 1.5, uv_uibutton_step);
+			fw * 2, fh * 1.5);
 	uv_uibutton_init(&this->min_dec, "-", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->min_dec,
 			datex + fw * 14, datey + fh / 2 + 8,
-			fw * 2, fh * 1.5,
-			uv_uibutton_step);
+			fw * 2, fh * 1.5);
 
 	uv_uibutton_init(&this->hour_inc, "+", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->hour_inc,
 			datex + fw * 11, datey - fh * 2 - 8,
-			fw * 2, fh * 1.5, uv_uibutton_step);
+			fw * 2, fh * 1.5);
 	uv_uibutton_init(&this->hour_dec, "-", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->hour_dec,
 			datex + fw * 11, datey + fh / 2 + 8,
-			fw * 2, fh * 1.5,
-			uv_uibutton_step);
+			fw * 2, fh * 1.5);
 
 	uv_uibutton_init(&this->day_inc, "+", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->day_inc,
 			datex + fw * 8, datey - fh * 2 - 8,
-			fw * 2, fh * 1.5, uv_uibutton_step);
+			fw * 2, fh * 1.5);
 	uv_uibutton_init(&this->day_dec, "-", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->day_dec,
 			datex + fw * 8, datey + fh / 2 + 8,
-			fw * 2, fh * 1.5,
-			uv_uibutton_step);
+			fw * 2, fh * 1.5);
 
 	uv_uibutton_init(&this->month_inc, "+", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->month_inc,
 			datex + fw * 5, datey - fh * 2 - 8,
-			fw * 2, fh * 1.5, uv_uibutton_step);
+			fw * 2, fh * 1.5);
 	uv_uibutton_init(&this->month_dec, "-", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->month_dec,
 			datex + fw * 5, datey + fh / 2 + 8,
-			fw * 2, fh * 1.5,
-			uv_uibutton_step);
+			fw * 2, fh * 1.5);
 
 	uv_uibutton_init(&this->year_inc, "+", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->year_inc,
 			datex, datey - fh * 2 - 8,
-			fw * 4, fh * 1.5, uv_uibutton_step);
+			fw * 4, fh * 1.5);
 	uv_uibutton_init(&this->year_dec, "-", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->year_dec,
 			datex, datey + fh / 2 + 8,
-			fw * 4, fh * 1.5,
-			uv_uibutton_step);
+			fw * 4, fh * 1.5);
 }
 
 

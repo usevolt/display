@@ -32,11 +32,11 @@ static void show_sliders(uw50_states_e state, char *label) {
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 	uv_uibutton_init(&this->back, "Back", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->back, bb.x, bb.y, bb.width, BACK_H, uv_uibutton_step);
+	uv_uiwindow_add(this->window, &this->back, bb.x, bb.y, bb.width, BACK_H);
 	bb = uv_uigridlayout_next(&grid);
 
 	uv_uilabel_init(&this->label, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF), C(0xFFFFFFFF), label);
-	uv_uiwindow_add(this->window, &this->label, bb.x, bb.y, bb.width, BACK_H, uv_uilabel_step);
+	uv_uiwindow_add(this->window, &this->label, bb.x, bb.y, bb.width, BACK_H);
 	uv_uigridlayout_next(&grid);
 
 	uv_uigridlayout_init(&grid, 0, uv_uibb(&this->back)->y + uv_uibb(&this->back)->height,
@@ -50,7 +50,7 @@ static void show_sliders(uw50_states_e state, char *label) {
 	uv_uislider_set_inc_step(&this->max_speed_p, 10);
 	uv_uislider_set_vertical(&this->max_speed_p);
 	uv_uislider_set_title(&this->max_speed_p, "Max speed\nforward (ma)");
-	uv_uiwindow_add(this->window, &this->max_speed_p, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
+	uv_uiwindow_add(this->window, &this->max_speed_p, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->max_speed_n, VALVE_MIN_CURRENT_MA, VALVE_MAX_CURRENT_MA,
@@ -58,24 +58,24 @@ static void show_sliders(uw50_states_e state, char *label) {
 	uv_uislider_set_inc_step(&this->max_speed_n, 10);
 	uv_uislider_set_vertical(&this->max_speed_n);
 	uv_uislider_set_title(&this->max_speed_n, "Max speed\nforward (ma)");
-	uv_uiwindow_add(this->window, &this->max_speed_n, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
+	uv_uiwindow_add(this->window, &this->max_speed_n, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->acc, VALVE_ACC_MIN, 100, v->acc, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->acc);
 	uv_uislider_set_title(&this->acc, "Acceleration\n(%)");
-	uv_uiwindow_add(this->window, &this->acc, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
+	uv_uiwindow_add(this->window, &this->acc, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->dec, VALVE_DEC_MIN, 100, v->dec, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->dec);
 	uv_uislider_set_title(&this->dec, "Deceleration\n(%)");
-	uv_uiwindow_add(this->window, &this->dec, bb.x, bb.y, bb.width, bb.height, uv_uislider_step);
+	uv_uiwindow_add(this->window, &this->dec, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uitogglebutton_init(&this->invert, v->invert, "Invert", &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->invert, bb.x, bb.y + bb.height / 5,
-			bb.width, bb.height / 2, uv_uitogglebutton_step);
+			bb.width, bb.height / 2);
 }
 
 void settings_impl_uw50_show(void) {
@@ -91,22 +91,22 @@ void settings_impl_uw50_show(void) {
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 	uv_uibutton_init(&this->back, "Back", &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->back, bb.x, bb.y, bb.width, BACK_H, uv_uibutton_step);
+	uv_uiwindow_add(this->window, &this->back, bb.x, bb.y, bb.width, BACK_H);
 	bb = uv_uigridlayout_next(&grid);
 
 	uv_uilabel_init(&this->label, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF), C(0xFFFFFFFF), "UW50");
-	uv_uiwindow_add(this->window, &this->label, bb.x, bb.y, bb.width, BACK_H, uv_uilabel_step);
+	uv_uiwindow_add(this->window, &this->label, bb.x, bb.y, bb.width, BACK_H);
 	uv_uigridlayout_next(&grid);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->saw, "Saw", &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->saw, bb.x + bb.width / 2 + grid.hpadding,
-			bb.y, bb.width, bb.height, uv_uibutton_step);
+			bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->tilt, "Tilt", &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->tilt, bb.x + bb.width / 2 + grid.hpadding,
-			bb.y, bb.width, bb.height, uv_uibutton_step);
+			bb.y, bb.width, bb.height);
 
 }
 

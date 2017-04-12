@@ -27,8 +27,7 @@ void system_log_show(void) {
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
 	uv_uitabwindow_add(&gui.windows.system.tabs, &this->window, 0, 0,
 			uv_uibb(&gui.windows.system.tabs)->width,
-			uv_uitabwindow_get_contentbb(&gui.windows.system.tabs).height,
-			uv_uiwindow_step);
+			uv_uitabwindow_get_contentbb(&gui.windows.system.tabs).height);
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->window)->width,
@@ -44,34 +43,34 @@ void system_log_show(void) {
 
 	uv_uilist_init(&this->entry_list, this->entry_strs, SYSTEM_LOG_ENTRIES_PER_PAGE, &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->entry_list, bb.x, bb.y,
-			bb.width, uv_uibb(&this->window)->height - bb.y, uv_uilist_step);
+			bb.width, uv_uibb(&this->window)->height - bb.y);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->info_label, &UI_FONT_SMALL, ALIGN_CENTER,
 			C(0xFFFFFF), C(0xFFFFFFFF), "\x11\x16 Select a log entry to acknowledge");
-	uv_uiwindow_add(&this->window, &this->info_label, bb.x, bb.y, bb.width, bb.height, uv_uilabel_step);
+	uv_uiwindow_add(&this->window, &this->info_label, bb.x, bb.y, bb.width, bb.height);
 	uv_ui_set_enabled(&this->info_label, false);
 
 	bb = uv_uigridlayout_next(&grid);
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->ack, "Acknowledge", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->ack, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(&this->window, &this->ack, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	bb = uv_uigridlayout_next(&grid);
 	strcpy(this->page_str, "");
 	uv_uilabel_init(&this->page_label, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF), uv_uistyles[0].window_c,
 			this->page_str);
-	uv_uiwindow_add(&this->window, &this->page_label, bb.x, bb.y, bb.width, bb.height, uv_uilabel_step);
+	uv_uiwindow_add(&this->window, &this->page_label, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->prev_page, "Previous page", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->prev_page, bb.x, bb.y, bb.width / 2 - 5, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(&this->window, &this->prev_page, bb.x, bb.y, bb.width / 2 - 5, bb.height);
 
 	uv_uibutton_init(&this->next_page, "Next page", &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->next_page, bb.x + bb.width / 2 + 5,
-			bb.y, bb.width / 2 - 5, bb.height, uv_uibutton_step);
+			bb.y, bb.width / 2 - 5, bb.height);
 
 	show_page(this->page);
 }

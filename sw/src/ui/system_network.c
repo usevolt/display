@@ -20,8 +20,7 @@ void system_network_show(void) {
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
 	uv_uitabwindow_add(&gui.windows.system.tabs, &this->window, 0, 0,
 			uv_uibb(&gui.windows.system.tabs)->width,
-			uv_uitabwindow_get_contentbb(&gui.windows.system.tabs).height,
-			uv_uiwindow_step);
+			uv_uitabwindow_get_contentbb(&gui.windows.system.tabs).height);
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->window)->width,
@@ -32,35 +31,35 @@ void system_network_show(void) {
 
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->msb, "MSB", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->msb, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(&this->window, &this->msb, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->csb, "CSB", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->csb, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(&this->window, &this->csb, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->ecu, "ECU", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->ecu, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(&this->window, &this->ecu, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->l_keypad, "Left Keypad", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->l_keypad, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(&this->window, &this->l_keypad, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->r_keypad, "Right Keypad", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->r_keypad, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(&this->window, &this->r_keypad, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->pedal, "Pedal", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->pedal, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(&this->window, &this->pedal, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->uw180s, "UW180s", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->uw180s, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(&this->window, &this->uw180s, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->uw180s_mb, "UW180s MB", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->uw180s_mb, bb.x, bb.y, bb.width, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(&this->window, &this->uw180s_mb, bb.x, bb.y, bb.width, bb.height);
 
 }
 
@@ -337,55 +336,55 @@ static void show(devices_e dev) {
 
 
 	uv_uibutton_init(&this->back, "Back", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->back, bb.x, bb.y, bb.width * 2, bb.height, uv_uibutton_step);
+	uv_uiwindow_add(&this->window, &this->back, bb.x, bb.y, bb.width * 2, bb.height);
 
 	uv_uilabel_init(&this->name, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
 			C(0xFFFFFFFF), (char*) labels[dev].name);
 	uv_uiwindow_add(&this->window, &this->name, uv_uibb(&this->window)->width / 2,
-			bb.y, 0, bb.height, uv_uilabel_step);
+			bb.y, 0, bb.height);
+
+	float labelscale = 1.6f;
+	float valuescale = 2.0f - labelscale;
 
 	uv_uilabel_init(&this->row1_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			C(0xFFFFFFFF), (char*) netdev_label);
 	uv_uiwindow_add(&this->window, &this->row1_topics, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width * 1.7f, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
-			uv_uilabel_step);
+			bb.width * labelscale, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row1_values, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->row1_val_str);
-	uv_uiwindow_add(&this->window, &this->row1_values, bb.x + bb.width * 0.7f, bb.y + bb.height + grid.vpadding,
-			bb.width * 0.3f, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
-			uv_uilabel_step);
+	uv_uiwindow_add(&this->window, &this->row1_values, bb.x + bb.width * (labelscale - 1.0f),
+			bb.y + bb.height + grid.vpadding, bb.width * valuescale,
+			uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding);
 
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row2_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			C(0xFFFFFFFF), (char*) labels[dev].row2);
 	uv_uiwindow_add(&this->window, &this->row2_topics, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width * 1.7f, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
-			uv_uilabel_step);
+			bb.width * labelscale, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row2_values, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->row2_val_str);
-	uv_uiwindow_add(&this->window, &this->row2_values, bb.x + bb.width * 0.7f, bb.y + bb.height + grid.vpadding,
-			bb.width * 0.3f, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
-			uv_uilabel_step);
+	uv_uiwindow_add(&this->window, &this->row2_values, bb.x + bb.width * (labelscale - 1.0f),
+			bb.y + bb.height + grid.vpadding, bb.width * valuescale,
+			uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding);
 
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row3_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			C(0xFFFFFFFF), (char*) labels[dev].row3);
 	uv_uiwindow_add(&this->window, &this->row3_topics, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width * 1.7f, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
-			uv_uilabel_step);
+			bb.width * labelscale, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row3_values, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->row3_val_str);
-	uv_uiwindow_add(&this->window, &this->row3_values, bb.x + bb.width * 0.7f, bb.y + bb.height + grid.vpadding,
-			bb.width * 0.3f, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding,
-			uv_uilabel_step);
+	uv_uiwindow_add(&this->window, &this->row3_values, bb.x + bb.width * (labelscale - 1.0f),
+			bb.y + bb.height + grid.vpadding, bb.width * valuescale,
+			uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding);
 
 	update(dev);
 }

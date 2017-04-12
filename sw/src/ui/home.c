@@ -24,8 +24,7 @@ void home_show() {
 	uv_uiwindow_clear(&gui.main_window);
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
 	uv_uiwindow_add(&gui.main_window, &this->window, 0, 0,
-			uv_ui_get_bb(&gui.main_window)->width, uv_ui_get_bb(&gui.main_window)->height,
-			uv_uiwindow_step);
+			uv_ui_get_bb(&gui.main_window)->width, uv_ui_get_bb(&gui.main_window)->height);
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0,
@@ -36,22 +35,22 @@ void home_show() {
 
 	uv_uibutton_init(&this->dashboard, "Dashboard", &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->dashboard, bb.x, bb.y,
-			bb.width, bb.height, uv_uibutton_step);
+			bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->settings, "Settings", &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->settings, bb.x, bb.y,
-			bb.width, bb.height, uv_uibutton_step);
+			bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->system, "System", &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->system, bb.x, bb.y,
-			bb.width, bb.height, uv_uibutton_step);
+			bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->logout, "Log out", &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->logout, bb.x, bb.y,
-			bb.width, bb.height, uv_uibutton_step);
+			bb.width, bb.height);
 
 }
 

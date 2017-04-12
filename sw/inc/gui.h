@@ -43,14 +43,14 @@
 	uv_uilabel_init(this_ptr, &UI_FONT_BIG, ALIGN_CENTER, \
 		C(0xFFFFFF), C(0xFFFFFFFF), text); \
 	uv_uiwindow_add(parent_ptr, this_ptr, \
-			uv_uibb(parent_ptr)->width / 2, 0, 0, TOPIC_HEIGHT, uv_uilabel_step)
+			uv_uibb(parent_ptr)->width / 2, 0, 0, TOPIC_HEIGHT)
 
 
 /// @brief: Initializes the cancel button. Macro for quick and same kind
 /// initialization for all windows
 #define CANCEL_INIT(parent_ptr, this_ptr)		\
 	uv_uibutton_init((this_ptr), "Cancel", &uv_uistyles[CANCEL_OK_BUTTON_STYLE_INDEX]); \
-	uv_uiwindow_add((parent_ptr), (this_ptr), 0, 0, 200, TOPIC_HEIGHT, uv_uibutton_step)
+	uv_uiwindow_add((parent_ptr), (this_ptr), 0, 0, 200, TOPIC_HEIGHT)
 
 /// @brief: Initializes the OK button. Macro for quick and same kind
 /// initialization for all windows
@@ -58,7 +58,7 @@
 	uv_uibutton_init((this_ptr), "OK", &uv_uistyles[CANCEL_OK_BUTTON_STYLE_INDEX]); \
 	uv_uiwindow_add((parent_ptr), (this_ptr), \
 	uv_uibb(parent_ptr)->width - 200, 0, \
-	200, TOPIC_HEIGHT, uv_uibutton_step)
+	200, TOPIC_HEIGHT)
 
 
 
