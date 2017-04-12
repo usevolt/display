@@ -154,17 +154,17 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.dec = 25,
 				.invert = false
 		},
-		{
-				.name = "Drive Back",
-				.setter = ecu_set_driveback_params,
-				.min_speed_p = 230,
-				.max_speed_p = 890,
-				.min_speed_n = 230,
-				.max_speed_n = 890,
-				.acc = 30,
-				.dec = 25,
-				.invert = false
-		},
+//		{
+//				.name = "Drive Back",
+//				.setter = ecu_set_driveback_params,
+//				.min_speed_p = 230,
+//				.max_speed_p = 890,
+//				.min_speed_n = 230,
+//				.max_speed_n = 890,
+//				.acc = 30,
+//				.dec = 25,
+//				.invert = false
+//		},
 		{
 				.name = "Steer Front",
 				.setter = ecu_set_steerfront_params,

@@ -76,7 +76,7 @@
 #if FM
 #define BASE_VALVE_COUNT			7
 #elif LM
-#define BASE_VALVE_COUNT			11
+#define BASE_VALVE_COUNT			10
 #endif
 
 /// @brief: Vehicle's implement valve count. Implement valve settings

@@ -26,7 +26,11 @@ static void user_init(userdata_st *this) {
 	uw100_init(&this->uw100);
 	uw50_init(&this->uw50);
 	if (this->active_implement >= IMPL_COUNT) {
+#if FM
 		this->active_implement = IMPL_UW180S;
+#elif LM
+		this->active_implement = IMPL_UW100;
+#endif
 	}
 	switch (this->active_implement) {
 	case IMPL_UW100:
@@ -61,8 +65,24 @@ static void user_reset(userdata_st *user) {
 	uw180s_reset(&user->uw180s);
 	uw100_reset(&user->uw100);
 	uw50_reset(&user->uw50);
-	user->implement = (void *) &user->uw180s;
+#if FM
 	user->active_implement = IMPL_UW180S;
+#elif LM
+	user->active_implement = IMPL_UW100;
+#endif
+
+	switch (user->active_implement) {
+	case IMPL_UW100:
+		user->implement = (implement_st*) &user->uw100;
+		break;
+	case IMPL_UW50:
+		user->implement = (implement_st*) &user->uw50;
+		break;
+	case IMPL_UW180S:
+	default:
+		user->implement = (implement_st*) &user->uw180s;
+		break;
+	}
 
 }
 
