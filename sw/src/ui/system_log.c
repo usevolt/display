@@ -25,6 +25,7 @@ void system_log_show(void) {
 	uv_uiwindow_clear(&gui.windows.system.tabs);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
+	uv_uiwindow_set_step_callb(&this->window, &system_log_step);
 	uv_uitabwindow_add(&gui.windows.system.tabs, &this->window, 0, 0,
 			uv_uibb(&gui.windows.system.tabs)->width,
 			uv_uitabwindow_get_contentbb(&gui.windows.system.tabs).height);
@@ -95,7 +96,7 @@ static void show_page(int8_t page) {
 
 }
 
-void system_log_step(uint16_t step_ms) {
+void system_log_step(const uint16_t step_ms) {
 
 	if (uv_uibutton_clicked(&this->ack)) {
 		uv_ui_set_enabled(&this->info_label, uv_uilist_get_selected(&this->entry_list) == -1);

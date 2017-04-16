@@ -17,11 +17,10 @@
 #define BUTH		175
 
 
-void home_show() {
-
-	gui.step_callb = home_step;
+void home_show(void) {
 
 	uv_uiwindow_clear(&gui.main_window);
+	uv_uiwindow_set_step_callb(&gui.main_window, home_step);
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
 	uv_uiwindow_add(&gui.main_window, &this->window, 0, 0,
 			uv_ui_get_bb(&gui.main_window)->width, uv_ui_get_bb(&gui.main_window)->height);
@@ -57,7 +56,7 @@ void home_show() {
 
 
 
-void home_step(uint16_t step_ms) {
+void home_step(const uint16_t step_ms) {
 	if (uv_uibutton_clicked(&this->dashboard)) {
 		dashboard_show();
 	}

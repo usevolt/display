@@ -13,9 +13,10 @@
 #include <uv_utilities.h>
 
 
+#define ALERT_CLICK_CYCLE_MS			10
 #define ALERT_NOTIFY_CYCLE_MS			50
-#define ALERT_WARNING_CYCLE_MS			500
-#define ALERT_FATAL_WARNING_CYCLE_MS	300
+#define ALERT_WARNING_CYCLE_MS			300
+#define ALERT_FATAL_WARNING_CYCLE_MS	150
 
 
 
@@ -25,6 +26,8 @@
 
 typedef enum {
 	ALERT_NONE = 0,
+	/// @brief: One time beep as a click sound
+	ALERT_CLICK,
 	/// @brief: Short double beep only to notify settings etc.
 	ALERT_NOTIFY,
 	/// @brief: Warning is a short multiple beep sequence
@@ -39,7 +42,6 @@ typedef enum {
 
 
 typedef struct {
-	uint16_t volume;
 	alerts_e current_alert;
 	int delay;
 	int second_delay;

@@ -19,6 +19,7 @@ void system_restore_show(void) {
 	uv_uiwindow_clear(&gui.windows.system.tabs);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
+	uv_uiwindow_set_step_callb(&this->window, &system_restore_step);
 	uv_uitabwindow_add(&gui.windows.system.tabs, &this->window,
 			uv_uibb(&gui.windows.system.tabs)->x, 0,
 			uv_uibb(&gui.windows.system.tabs)->width,
@@ -39,12 +40,13 @@ void system_restore_show(void) {
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->timer, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
-			uv_uistyles[0].window_c, "10");
+			uv_uistyles[0].window_c, this->timer_value);
+	strcpy(this->timer_value, "10");
 	uv_ui_hide(&this->timer);
 	uv_uiwindow_add(&this->window, &this->timer, bb.x, bb.y, bb.width, bb.height / 2);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->restore, "Restore system defaults", &uv_uistyles[0]);
+	uv_uibutton_init(&this->restore, "Restore System Defaults", &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->restore, bb.x + bb.width / 4, bb.y - bb.height / 2,
 			bb.width / 2, bb.height * 1.5f);
 
@@ -54,8 +56,12 @@ void system_restore_show(void) {
 extern uv_errors_e __uv_clear_previous_non_volatile_data();
 
 
-void system_restore_step(uint16_t step_ms) {
+void system_restore_step(const uint16_t step_ms) {
 	if (uv_uibutton_is_down(&this->restore)) {
+		if ((this->delay % 1000) == 0) {
+			uv_ui_show(&this->timer);
+			uv_ui_refresh(&this->timer);
+		}
 		if (uv_delay(step_ms, &this->delay)) {
 			uv_memory_clear();
 			uv_system_reset(false);
@@ -63,7 +69,6 @@ void system_restore_step(uint16_t step_ms) {
 		}
 		else {
 			sprintf(this->timer_value, "%u", this->delay / 1000 + 1);
-			uv_uilabel_set_text(&this->timer, this->timer_value);
 
 			if (this->delay / 1000 < 5) {
 				uv_uilabel_set_color(&this->timer, C(0xFF0000));
@@ -71,7 +76,7 @@ void system_restore_step(uint16_t step_ms) {
 		}
 	}
 	else {
-		uv_uilabel_set_text(&this->timer, "");
+		uv_ui_hide(&this->timer);
 		uv_uilabel_set_color(&this->timer, C(0xFFFFFF));
 		uv_delay_init(RESTORE_DELAY_S * 1000, &this->delay);
 	}

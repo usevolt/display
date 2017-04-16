@@ -26,6 +26,7 @@ void system_settings_show(void) {
 	uv_uiwindow_clear(&gui.windows.system.tabs);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
+	uv_uiwindow_set_step_callb(&this->window, &system_settings_step);
 	uv_uiwindow_set_contentbb(&this->window, uv_uibb(&gui.windows.system.tabs)->width,
 			uv_uibb(&gui.windows.system.tabs)->height * 1.8f);
 	uv_uitabwindow_add(&gui.windows.system.tabs, &this->window, 0, 0,
@@ -218,7 +219,7 @@ void system_settings_show(void) {
 
 
 
-void system_settings_step(uint16_t step_ms) {
+void system_settings_step(const uint16_t step_ms) {
 	if (uv_uilist_get_selected(&this->impls_list) != dspl.user->active_implement) {
 		implement_set(uv_uilist_get_selected(&this->impls_list));
 	}

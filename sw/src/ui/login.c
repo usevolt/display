@@ -22,7 +22,7 @@
 void login_show(void) {
 
 	uv_uiwindow_clear(&gui.main_window);
-	gui.step_callb = login_step;
+	uv_uiwindow_set_step_callb(&gui.main_window, login_step);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
 	uv_uiwindow_add(&gui.main_window, &this->window, 0, 0,
@@ -66,7 +66,7 @@ void login_show(void) {
 
 
 
-void login_step(uint16_t step_ms) {
+void login_step(const uint16_t step_ms) {
 	if (uv_uibutton_clicked(&this->login)) {
 		users_set(uv_uilist_at(&this->users, uv_uilist_get_selected(&this->users)));
 

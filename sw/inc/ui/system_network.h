@@ -63,7 +63,7 @@ typedef struct {
 
 void system_network_show(void);
 
-void system_network_step(uint16_t step_ms);
+void system_network_step(const uint16_t step_ms);
 
 
 #endif /* UI_SYSTEM_NETWORK_H_ */

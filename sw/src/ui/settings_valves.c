@@ -23,6 +23,7 @@ void settings_valves_show() {
 	uv_uiwindow_clear(window);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
+	uv_uiwindow_set_step_callb(&this->window, settings_valves_step);
 
 	// grid layout is used to help with aligning the elements
 	uv_uigridlayout_st grid;
@@ -157,7 +158,7 @@ static void sliders_show(valve_st *valve) {
 
 
 
-void settings_valves_step(uint16_t step_ms) {
+void settings_valves_step(const uint16_t step_ms) {
 
 	if (!this->valve) {
 		for (int16_t i = 0; i < BASE_VALVE_COUNT; i++) {

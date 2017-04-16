@@ -46,7 +46,9 @@
 #define CONFIG_PWM						1
 #define CONFIG_PWM_FREQ					10000
 #define CONFIG_PWM0_2					1
-#define CONFIG_PWM1_3					1
+#define CONFIG_PWM0_2_IO_CONF()			do { LPC_IOCON->P1_3 = 0b011; } while (0)
+#define CONFIG_PWM1_4					1
+#define CONFIG_PWM1_4_IO_CONF()			do { LPC_IOCON->P3_27 = 0b010; } while (0)
 
 
 #define HOME_BUTTON_STYLE_INDEX						0
@@ -68,6 +70,7 @@
 #define CONFIG_UI_PROGRESSBAR_SPACE					3
 #define CONFIG_UI_PROGRESSBAR_HEIGHT				30
 #define CONFIG_UI_WINDOW_SCROLLBAR_WIDTH			7
+#define CONFIG_UI_TREEVIEW_ITEM_HEIGHT				60
 
 
 #define CONFIG_UI_STYLES_COUNT					1

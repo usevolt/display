@@ -22,11 +22,11 @@ static const char* tab_names[] = {
 };
 
 
-void system_show() {
+void system_show(void) {
 
 	uv_uiwindow_clear(&gui.main_window);
+	uv_uiwindow_set_step_callb(&gui.main_window, &system_step);
 
-	gui.step_callb = system_step;
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
 	uv_uiwindow_add(&gui.main_window, &this->window, 0, 0,
@@ -82,7 +82,7 @@ void system_show_tab(void (*show_callb)(void)) {
 
 
 
-void system_step(uint16_t step_ms) {
+void system_step(const uint16_t step_ms) {
 	bool ret = false;
 
 	if (uv_uibutton_clicked(&this->ok)) {
@@ -115,24 +115,6 @@ void system_step(uint16_t step_ms) {
 
 		}
 		ret = true;
-	}
-
-	if (!ret) {
-		if (uv_uitabwindow_tab(&this->tabs) == 0) {
-			system_settings_step(step_ms);
-		}
-		else if (uv_uitabwindow_tab(&this->tabs) == 1) {
-			system_network_step(step_ms);
-		}
-		else if (uv_uitabwindow_tab(&this->tabs) == 2) {
-			system_log_step(step_ms);
-		}
-		else if (uv_uitabwindow_tab(&this->tabs) == 3) {
-			system_restore_step(step_ms);
-		}
-		else {
-
-		}
 	}
 	if (ret) {
 		// stop keypad calibrations if they are ongoing

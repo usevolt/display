@@ -91,11 +91,6 @@ typedef struct {
 	uv_uilabel_st pressure_100;
 	uv_uilabel_st pressure_0;
 
-
-	/// @brief: Window step function. The windows below can register
-	/// their own step functions here which will get called every step cycle
-	void (*step_callb)(uint16_t step_ms);
-
 	/// @brief: Union which holds all the other windows
 	union {
 		// todo: Add new windows here...

@@ -24,6 +24,7 @@ void settings_implements_show(void) {
 	uv_uiwindow_clear(window);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
+	uv_uiwindow_set_step_callb(&this->window, &settings_implements_step);
 	uv_uitabwindow_add(window, &this->window, 0, 0,
 			uv_uibb(window)->width,
 			uv_uitabwindow_get_contentbb(window).height);

@@ -15,8 +15,7 @@
 
 void dashboard_show(void) {
 	uv_uiwindow_clear(&gui.main_window);
-
-	gui.step_callb = dashboard_step;
+	uv_uiwindow_set_step_callb(&gui.main_window, &dashboard_step);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
 	uv_uiwindow_add(&gui.main_window, &this->window, 0, 0,

@@ -267,7 +267,6 @@ void user_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv
 		if (users_count()) {
 			printf("Active user: %s\n", this->user->username);
 		}
-
 	}
 	else if (strcmp(argv[0].str, "add") == 0 && args >= 2) {
 		if (!users_add(argv[1].str)) {

@@ -26,11 +26,10 @@ static const char* tab_names[] = {
 };
 
 
-void settings_show() {
+void settings_show(void) {
 
 	uv_uiwindow_clear(&gui.main_window);
-
-	gui.step_callb = settings_step;
+	uv_uiwindow_set_step_callb(&gui.main_window, &settings_step);
 
 	this->tab_names = tab_names;
 
@@ -46,6 +45,7 @@ void settings_show() {
 
 	uv_uitabwindow_init(&this->tabs, SETTINGS_TAB_COUNT, &uv_uistyles[WINDOW_STYLE_INDEX],
 			this->tabs_buffer, this->tab_names);
+	uv_uiwindow_set_step_callb(&this->tabs, settings_step);
 	uv_uiwindow_add(&this->window, &this->tabs, 0, TOPIC_HEIGHT + 10,
 			uv_uibb(&this->window)->width, uv_uibb(&this->window)->height - TOPIC_HEIGHT - 10);
 
@@ -56,9 +56,10 @@ void settings_show() {
 }
 
 
-void settings_step(uint16_t step_ms) {
+void settings_step(const uint16_t step_ms) {
 
 	if (uv_uitabwindow_tab_changed(&this->tabs)) {
+		printf("changing tab\n");
 
 		if (uv_uitabwindow_tab(&this->tabs) == 0) {
 			settings_general_show();
@@ -73,13 +74,13 @@ void settings_step(uint16_t step_ms) {
 
 	switch (uv_uitabwindow_tab(&this->tabs)) {
 	case 0:
-		settings_general_step(step_ms);
+//		settings_general_step(step_ms);
 		break;
 	case 1:
-		settings_valves_step(step_ms);
+//		settings_valves_step(step_ms);
 		break;
 	case 2:
-		settings_implements_step(step_ms);
+//		settings_implements_step(step_ms);
 		break;
 	default:
 		break;

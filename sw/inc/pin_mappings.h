@@ -16,7 +16,7 @@
 
 #define LCD_BACKLIGHT		PWM0_2
 
-#define BUZZER				PWM1_3
+#define BUZZER				PWM1_4
 
 #define FLASH_CS			PIO0_19
 #define FLASH_RESET			PIO0_16

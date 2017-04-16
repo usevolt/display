@@ -113,7 +113,7 @@ void dspl_init(dspl_st *me) {
 
 	// init PWM and start with full duty cycle (LCD off)
 	uv_pwm_set(LCD_BACKLIGHT, DUTY_CYCLE(1));
-	uv_pwm_set(BUZZER, DUTY_CYCLE(1));
+	uv_pwm_set(BUZZER, DUTY_CYCLE(0));
 
 	uv_eeprom_init_circular_buffer(sizeof(log_entry_st));
 

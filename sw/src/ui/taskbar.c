@@ -28,7 +28,7 @@
 
 #define CLOCK_WIDTH			(UI_FONT_BIG.char_width * 5 + 5)
 
-static void show(taskbar_state_e state);
+static void show(const taskbar_state_e state);
 
 
 
@@ -49,6 +49,7 @@ static uv_uistyle_st taskbar_style = {
 
 void taskbar_init(uv_uidisplay_st *display) {
 	uv_uiwindow_init(&this->taskbar, this->taskbar_buffer, &taskbar_style);
+	uv_uiwindow_set_step_callb(&this->taskbar, &taskbar_step);
 	uv_uiwindow_set_transparent(this, false);
 	uv_uidisplay_add(display, &this->taskbar,
 			0, LCD_H(0.86f), LCD_W(1.0f), LCD_H(0.14f));
@@ -57,7 +58,7 @@ void taskbar_init(uv_uidisplay_st *display) {
 
 }
 
-static void show(taskbar_state_e state) {
+static void show(const taskbar_state_e state) {
 
 	this->state = state;
 	uv_uiwindow_clear(&this->taskbar);
@@ -276,7 +277,7 @@ static void show(taskbar_state_e state) {
 	}
 }
 
-void taskbar_step(uint16_t step_ms) {
+void taskbar_step(const uint16_t step_ms) {
 
 	if (this->state == TASKBAR_NO_ALERTS) {
 

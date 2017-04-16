@@ -50,6 +50,9 @@ static const backlight_point_st backlight_points[] = {
 #define BACKLIGHT_POINT_COUNT	(sizeof(backlight_points) / sizeof(backlight_point_st))
 
 
+static void display_touch_callback(const uv_touch_st *touch);
+
+
 /// @brief: Returns the supply voltage as millivolts
 int16_t get_vdd_mv() {
 	int i = uv_adc_read_average(VDD_SENSE, 10);
@@ -60,6 +63,11 @@ int16_t get_vdd_mv() {
 	return uv_moving_aver_step(&this->vdd_mv, i);
 }
 
+static void display_touch_callback(const uv_touch_st *touch) {
+	if ((touch->action == TOUCH_PRESSED) && (dspl.user->volume.touch)) {
+		alert_play(&dspl.alert, ALERT_CLICK);
+	}
+}
 
 void gui_init() {
 	this->backlight_curr = 50;
@@ -67,6 +75,7 @@ void gui_init() {
 
 	gui_set_backlight(this->backlight_curr);
 	uv_uidisplay_init(&this->display, this->display_buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
+	uv_uidisplay_set_touch_callb(&this->display, &display_touch_callback);
 
 
 	uv_uiwindow_init(&this->main_window, this->main_buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
@@ -138,8 +147,6 @@ void gui_init() {
 	uv_rtos_task_create(gui_step, "gui", UV_RTOS_MIN_STACK_SIZE * 16,
 			NULL, UV_RTOS_IDLE_PRIORITY + 1, NULL);
 
-	this->step_callb = NULL;
-
 	// by default show the login screen
 	login_show();
 }
@@ -185,13 +192,6 @@ void gui_step(void *nullptr) {
 		int p = PWM_MAX_VALUE - (this->backlight_curr * pwm_max_val / 0xFFFF);
 //		printf("voltage: %i, pwm: %i\n", vdd, p);
 		uv_pwm_set(LCD_BACKLIGHT, p);
-
-		// active window step function
-		if (this->step_callb)
-			this->step_callb(step_ms);
-
-		// taskbar step function
-		taskbar_step(step_ms);
 
 		uv_uiprogressbar_set_value(&this->rpm, msb_get_rpm(&dspl.network.msb));
 		uv_uiprogressbar_set_value(&this->pressure, ecu_get_pressure(&dspl.network.ecu));

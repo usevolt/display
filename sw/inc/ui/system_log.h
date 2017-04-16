@@ -42,7 +42,7 @@ typedef struct {
 
 void system_log_show(void);
 
-void system_log_step(uint16_t step_ms);
+void system_log_step(const uint16_t step_ms);
 
 
 #endif /* UI_SYSTEM_LOG_H_ */

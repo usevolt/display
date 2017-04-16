@@ -22,6 +22,9 @@ static void user_init(userdata_st *this) {
 	if (this->engine_power_usage > 100) {
 		this->engine_power_usage = 100;
 	}
+	if (this->volume.volume > 100) {
+		this->volume.volume = 100;
+	}
 	uw180s_init(&this->uw180s);
 	uw100_init(&this->uw100);
 	uw50_init(&this->uw50);
@@ -55,6 +58,11 @@ static void user_reset(userdata_st *user) {
 	strcpy(user->username, "Usewood");
 
 	user->engine_power_usage = 50;
+
+	user->volume.volume = 100;
+	user->volume.notifications = true;
+	user->volume.touch = true;
+	user->volume.warnings = true;
 
 	// base valves
 	for (uint16_t i = 0; i < BASE_VALVE_COUNT; i++) {

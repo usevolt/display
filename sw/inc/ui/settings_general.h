@@ -11,22 +11,31 @@
 
 #include <uv_ui.h>
 
-#define SETTINGS_GENERAL_BUFFER_LEN	6
+#define SETTINGS_GENERAL_BUFFER_LEN	4
 
 
 
 typedef struct {
 
-	uv_uiwindow_st window;
+	uv_uitreeview_st treeview;
 	uv_uiobject_st *buffer[SETTINGS_GENERAL_BUFFER_LEN];
+	uv_uiwindow_st window;
+	union {
+		struct {
+			uv_uislider_st brightness;
+			uv_uitogglebutton_st drive_lights;
+			uv_uitogglebutton_st work_lights;
+			uv_uislider_st wiper;
+			uv_uislider_st heater;
+		} general;
 
-	uv_uislider_st brightness;
-	uv_uislider_st volume;
+		struct {
+			uv_uislider_st volume;
 
-	uv_uitogglebutton_st drive_lights;
-	uv_uitogglebutton_st work_lights;
-	uv_uislider_st wiper;
-	uv_uislider_st heater;
+		} volume;
+	};
+
+
 
 } settings_general_st;
 

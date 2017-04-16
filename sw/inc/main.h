@@ -44,6 +44,12 @@ typedef struct {
 		implement_st *implement;
 		/// @brief: Tells the currently selected implement
 		impl_type_e active_implement;
+		struct {
+			uint8_t volume;
+			bool touch;
+			bool notifications;
+			bool warnings;
+		} volume;
 } userdata_st;
 
 
