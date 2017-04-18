@@ -54,6 +54,6 @@ void system_show(void);
 /// *system_log_show* or similar show-functions which will be called.
 void system_show_tab(void (*show_callb)(void));
 
-void system_step(const uint16_t step_ms);
+uv_uiobject_ret_e system_step(const uint16_t step_ms);
 
 #endif /* UI_SYSTEM_H_ */

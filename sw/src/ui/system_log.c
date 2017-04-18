@@ -25,7 +25,7 @@ void system_log_show(void) {
 	uv_uiwindow_clear(&gui.windows.system.tabs);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
-	uv_uiwindow_set_step_callb(&this->window, &system_log_step);
+	uv_uiwindow_set_stepcallback(&this->window, &system_log_step);
 	uv_uitabwindow_add(&gui.windows.system.tabs, &this->window, 0, 0,
 			uv_uibb(&gui.windows.system.tabs)->width,
 			uv_uitabwindow_get_contentbb(&gui.windows.system.tabs).height);
@@ -96,7 +96,8 @@ static void show_page(int8_t page) {
 
 }
 
-void system_log_step(const uint16_t step_ms) {
+uv_uiobject_ret_e system_log_step(const uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
 	if (uv_uibutton_clicked(&this->ack)) {
 		uv_ui_set_enabled(&this->info_label, uv_uilist_get_selected(&this->entry_list) == -1);
@@ -105,14 +106,21 @@ void system_log_step(const uint16_t step_ms) {
 		if (i > -1) {
 			log_ack(this->page * SYSTEM_LOG_ENTRIES_PER_PAGE + i);
 			show_page(this->page);
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 	}
 	else if (uv_uibutton_clicked(&this->next_page)) {
 		show_page(this->page + 1);
+		ret = UIOBJECT_RETURN_KILLED;
 	}
 	else if (uv_uibutton_clicked(&this->prev_page)) {
 		show_page(this->page - 1);
+		ret = UIOBJECT_RETURN_KILLED;
 	}
+	else {
+
+	}
+	return ret;
 
 }
 

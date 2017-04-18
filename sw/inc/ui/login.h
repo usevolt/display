@@ -35,6 +35,6 @@ typedef struct {
 void login_show(void);
 
 
-void login_step(const uint16_t step_ms);
+uv_uiobject_ret_e login_step(const uint16_t step_ms);
 
 #endif /* UI_LOGIN_H_ */

@@ -44,7 +44,7 @@ typedef struct {
 
 void settings_valves_show();
 
-void settings_valves_step(const uint16_t step_ms);
+uv_uiobject_ret_e settings_valves_step(const uint16_t step_ms);
 
 
 #endif /* UI_SETTINGS_VALVES_H_ */

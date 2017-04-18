@@ -10,6 +10,7 @@
 
 #include <uv_utilities.h>
 #include <stdbool.h>
+#include <uv_ui.h>
 #include "vehicle.h"
 
 
@@ -18,9 +19,9 @@
 /// what functions will be used for UI.
 typedef struct {
 	void (*dashboard_show)(void);
-	void (*dasboard_step)(uint16_t step_ms);
+	uv_uiobject_ret_e (*dasboard_step)(uint16_t step_ms);
 	void (*settings_show)(void);
-	void (*settings_step)(uint16_t step_ms);
+	uv_uiobject_ret_e (*settings_step)(uint16_t step_ms);
 } implement_callbs_st;
 
 /// @brief: Struct which describes a implements valve configurations

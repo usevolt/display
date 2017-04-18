@@ -39,7 +39,7 @@ typedef struct {
 void settings_implements_show(void);
 
 
-void settings_implements_step(uint16_t step_ms);
+uv_uiobject_ret_e settings_implements_step(uint16_t step_ms);
 
 
 #endif /* UI_SETTINGS_IMPLEMENTS_H_ */

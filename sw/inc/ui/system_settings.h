@@ -63,6 +63,6 @@ typedef struct {
 
 void system_settings_show(void);
 
-void system_settings_step(const uint16_t step_ms);
+uv_uiobject_ret_e system_settings_step(const uint16_t step_ms);
 
 #endif /* UI_SYSTEM_SETTINGS_H_ */

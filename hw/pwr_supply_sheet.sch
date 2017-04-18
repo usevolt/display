@@ -231,49 +231,11 @@ F 3 "" H 8600 3600 50  0000 C CNN
 $EndComp
 Wire Wire Line
 	2400 3850 2150 3850
-$Comp
-L 10K R2
-U 1 1 57B83930
-P 4100 3800
-F 0 "R2" V 4108 3858 45  0000 L CNN
-F 1 "10K" V 4192 3858 45  0000 L CNN
-F 2 "multicomp:Multicomp-RESC1608X60N" H 4130 3950 20  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/1788326.pdf?_ga=1.214208087.1948984246.1460023966" H 4069 3839 60  0001 C CNN
-F 4 "9330399" H 4469 4239 60  0001 C CNN "1st Source Part Number"
-F 5 "Farnell" H 4369 4139 60  0001 C CNN "1st Source"
-F 6 "MC0063W0603110K" H 4269 4039 60  0001 C CNN "Manufacturer Part Number"
-F 7 "MULTICOMP" H 4169 3939 60  0001 C CNN "Manufacturer"
-	1    4100 3800
-	0    1    1    0   
-$EndComp
-$Comp
-L 1K R3
-U 1 1 57B83997
-P 4100 4100
-F 0 "R3" V 4108 4158 45  0000 L CNN
-F 1 "1K" V 4192 4158 45  0000 L CNN
-F 2 "multicomp:Multicomp-RESC1608X60N" H 4130 4250 20  0001 C CNN
-F 3 "" H 4069 4139 60  0001 C CNN
-F 4 "9330380" H 4469 4539 60  0001 C CNN "1st Source Part Number"
-F 5 "Farnell" H 4369 4439 60  0001 C CNN "1st Source"
-F 6 "MC0063W060311K" H 4269 4339 60  0001 C CNN "Manufacturer Part Number"
-F 7 "MULTICOMP" H 4169 4239 60  0001 C CNN "Manufacturer"
-	1    4100 4100
-	0    1    1    0   
-$EndComp
-Connection ~ 4100 4300
 Wire Wire Line
 	3400 3700 4550 3700
 Wire Wire Line
 	4550 3700 4550 3750
 Connection ~ 3400 3700
-Connection ~ 4100 3700
-Text HLabel 4300 3400 2    60   Input ~ 0
-VDD_SENSE
-Wire Wire Line
-	4300 3400 4300 4000
-Wire Wire Line
-	4300 4000 4100 4000
 Text HLabel 7050 3600 2    60   Input ~ 0
 +5V
 Wire Wire Line
@@ -396,4 +358,28 @@ F 9 "1457504" H 3800 4390 60  0001 C CNN "1st Source Part Number"
 	1    3400 4050
 	0    1    1    0   
 $EndComp
+$Comp
+L FUSE_MC36211_350MA F201
+U 1 1 58F5D8A5
+P 2600 3550
+F 0 "F201" H 2600 3754 45  0000 C CNN
+F 1 "FUSE_MC36211_350MA" H 2600 3670 45  0000 C CNN
+F 2 "usevolt:FUSE_MC36211" H 2630 3700 20  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/1678471.pdf?_ga=1.218604761.1948984246.1460023966" H 2720 3570 60  0001 C CNN
+F 4 "Farnell" H 3020 3870 60  0001 C CNN "1st Source"
+F 5 "MC36211" H 2920 3770 60  0001 C CNN "Manufacturer Part Number"
+F 6 "MC36211" H 3120 3970 60  0001 C CNN "1st Source Part Number"
+F 7 "Multicomp" H 2820 3670 60  0001 C CNN "Manufacturer"
+	1    2600 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2400 3550 2200 3550
+Wire Wire Line
+	2200 3550 2200 3850
+Connection ~ 2200 3850
+Text HLabel 2950 3550 2    60   Output ~ 0
+VLCD
+Wire Wire Line
+	2950 3550 2800 3550
 $EndSCHEMATC

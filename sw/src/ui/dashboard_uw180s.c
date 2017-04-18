@@ -88,7 +88,8 @@ void dashboard_uw180s_show() {
 
 
 
-void dashboard_uw180s_step(uint16_t step_ms) {
+uv_uiobject_ret_e dashboard_uw180s_step(uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
 	uv_uidigit_set_value(&this->len, mb_get_length(&dspl.network.uw180s_mb) / 10);
 	uv_uidigit_set_value(&this->wid, mb_get_width(&dspl.network.uw180s_mb));
@@ -113,4 +114,5 @@ void dashboard_uw180s_step(uint16_t step_ms) {
 			ecu_set_uw180s_log_length(dspl.user->uw180s.log_len1);
 		}
 	}
+	return ret;
 }

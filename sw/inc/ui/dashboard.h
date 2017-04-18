@@ -43,7 +43,7 @@ typedef struct {
 void dashboard_show(void);
 
 
-void dashboard_step(uint16_t step_ms);
+uv_uiobject_ret_e dashboard_step(uint16_t step_ms);
 
 
 #endif /* UI_DASHBOARD_H_ */

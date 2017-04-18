@@ -111,19 +111,21 @@ void settings_impl_uw50_show(void) {
 }
 
 
-void settings_impl_uw50_step(uint16_t step_ms) {
+uv_uiobject_ret_e settings_impl_uw50_step(uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
+
 	if (this->state == UW50_STATE_NONE) {
 		if (uv_uibutton_clicked(&this->back)) {
 			settings_implements_show();
-			return;
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 		else if (uv_uibutton_clicked(&this->saw)) {
 			show_sliders(UW50_STATE_SAW, uv_uibutton_get_text(&this->saw));
-			return;
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 		else if (uv_uibutton_clicked(&this->tilt)) {
 			show_sliders(UW50_STATE_TILT, uv_uibutton_get_text(&this->tilt));
-			return;
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 	}
 	else {
@@ -182,8 +184,9 @@ void settings_impl_uw50_step(uint16_t step_ms) {
 		}
 		else if (uv_uibutton_clicked(&this->back)) {
 			settings_impl_uw50_show();
-			return;
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 	}
+	return ret;
 }
 

@@ -19,7 +19,7 @@ void system_restore_show(void) {
 	uv_uiwindow_clear(&gui.windows.system.tabs);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
-	uv_uiwindow_set_step_callb(&this->window, &system_restore_step);
+	uv_uiwindow_set_stepcallback(&this->window, &system_restore_step);
 	uv_uitabwindow_add(&gui.windows.system.tabs, &this->window,
 			uv_uibb(&gui.windows.system.tabs)->x, 0,
 			uv_uibb(&gui.windows.system.tabs)->width,
@@ -56,7 +56,9 @@ void system_restore_show(void) {
 extern uv_errors_e __uv_clear_previous_non_volatile_data();
 
 
-void system_restore_step(const uint16_t step_ms) {
+uv_uiobject_ret_e system_restore_step(const uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
+
 	if (uv_uibutton_is_down(&this->restore)) {
 		if ((this->delay % 1000) == 0) {
 			uv_ui_show(&this->timer);
@@ -65,7 +67,7 @@ void system_restore_step(const uint16_t step_ms) {
 		if (uv_delay(step_ms, &this->delay)) {
 			uv_memory_clear();
 			uv_system_reset(false);
-			return;
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 		else {
 			sprintf(this->timer_value, "%u", this->delay / 1000 + 1);
@@ -80,6 +82,7 @@ void system_restore_step(const uint16_t step_ms) {
 		uv_uilabel_set_color(&this->timer, C(0xFFFFFF));
 		uv_delay_init(RESTORE_DELAY_S * 1000, &this->delay);
 	}
+	return ret;
 
 }
 

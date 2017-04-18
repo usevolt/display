@@ -240,7 +240,9 @@ void settings_impl_uw180s_show(void) {
 }
 
 
-void settings_impl_uw180s_step(uint16_t step_ms) {
+uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
+
 	void (*set_params)(uint16_t,
 			uint16_t, bool) = NULL;
 
@@ -301,7 +303,7 @@ void settings_impl_uw180s_step(uint16_t step_ms) {
 		}
 		if (uv_uibutton_clicked(&this->back)) {
 			show_valves();
-			return;
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 	}
 	else if (this->state == UW180S_STATE_VALVES) {
@@ -348,11 +350,12 @@ void settings_impl_uw180s_step(uint16_t step_ms) {
 	else {
 		if (uv_uibutton_clicked(&this->main.measurement)) {
 			show_mb();
-			return;
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 		else if (uv_uibutton_clicked(&this->main.valves)) {
 			show_valves();
-			return;
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 	}
+	return ret;
 }

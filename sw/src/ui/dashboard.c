@@ -15,7 +15,7 @@
 
 void dashboard_show(void) {
 	uv_uiwindow_clear(&gui.main_window);
-	uv_uiwindow_set_step_callb(&gui.main_window, &dashboard_step);
+	uv_uiwindow_set_stepcallback(&gui.main_window, &dashboard_step);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
 	uv_uiwindow_add(&gui.main_window, &this->window, 0, 0,
@@ -40,20 +40,21 @@ void dashboard_show(void) {
 }
 
 
-void dashboard_step(uint16_t step_ms) {
-
+uv_uiobject_ret_e dashboard_step(uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
 	if (uv_uibutton_clicked(&this->cancel)) {
 		home_show();
-		return;
+		ret = UIOBJECT_RETURN_KILLED;
 	}
 	else if (uv_uibutton_clicked(&this->ok)) {
 		uv_memory_save();
 		home_show();
-		return;
+		ret = UIOBJECT_RETURN_KILLED;
 	}
 	// active implement dasboard step
 	if (dspl.user->implement && dspl.user->implement->callbacks->dasboard_step) {
 		dspl.user->implement->callbacks->dasboard_step(step_ms);
 	}
+	return ret;
 }

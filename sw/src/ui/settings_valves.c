@@ -23,7 +23,7 @@ void settings_valves_show() {
 	uv_uiwindow_clear(window);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
-	uv_uiwindow_set_step_callb(&this->window, settings_valves_step);
+	uv_uiwindow_set_stepcallback(&this->window, &settings_valves_step);
 
 	// grid layout is used to help with aligning the elements
 	uv_uigridlayout_st grid;
@@ -158,7 +158,8 @@ static void sliders_show(valve_st *valve) {
 
 
 
-void settings_valves_step(const uint16_t step_ms) {
+uv_uiobject_ret_e settings_valves_step(const uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
 	if (!this->valve) {
 		for (int16_t i = 0; i < BASE_VALVE_COUNT; i++) {
@@ -166,7 +167,8 @@ void settings_valves_step(const uint16_t step_ms) {
 				if (strcmp(dspl.user->base_valves[i].name,
 						uv_uibutton_get_text(&this->valves[i])) == 0) {
 					sliders_show(&dspl.user->base_valves[i]);
-					return;
+					ret = UIOBJECT_RETURN_KILLED;
+					break;
 				}
 			}
 		}
@@ -174,71 +176,74 @@ void settings_valves_step(const uint16_t step_ms) {
 	else {
 		if (uv_uibutton_clicked(&this->back)) {
 			settings_valves_show();
-			return;
+			ret = UIOBJECT_RETURN_KILLED;
 		}
-		uv_uilabel_set_text(&this->topic, (char*) this->valve->name);
-		if (uv_uislider_value_changed(&this->max_speed_n)) {
-			if (uv_uislider_get_max_value(&this->min_speed_n) > uv_uislider_get_value(&this->max_speed_n)) {
-				uv_uislider_set_max_value(&this->min_speed_n, uv_uislider_get_value(&this->max_speed_n));
+		if (ret != UIOBJECT_RETURN_KILLED) {
+			uv_uilabel_set_text(&this->topic, (char*) this->valve->name);
+			if (uv_uislider_value_changed(&this->max_speed_n)) {
+				if (uv_uislider_get_max_value(&this->min_speed_n) > uv_uislider_get_value(&this->max_speed_n)) {
+					uv_uislider_set_max_value(&this->min_speed_n, uv_uislider_get_value(&this->max_speed_n));
+				}
+				else {
+					uv_uislider_set_max_value(&this->min_speed_n,
+							uv_mini(uv_uislider_get_value(&this->max_speed_n), VALVE_MAX_CURRENT_MA / 2));
+				}
+				this->valve->max_speed_n = uv_uislider_get_value(&this->max_speed_n);
+				this->valve->setter(this->valve);
 			}
 			else {
-				uv_uislider_set_max_value(&this->min_speed_n,
-						uv_mini(uv_uislider_get_value(&this->max_speed_n), VALVE_MAX_CURRENT_MA / 2));
+				uv_uislider_set_value(&this->max_speed_n, this->valve->max_speed_n);
 			}
-			this->valve->max_speed_n = uv_uislider_get_value(&this->max_speed_n);
-			this->valve->setter(this->valve);
-		}
-		else {
-			uv_uislider_set_value(&this->max_speed_n, this->valve->max_speed_n);
-		}
-		if (uv_uislider_value_changed(&this->max_speed_p)) {
-			if (uv_uislider_get_max_value(&this->min_speed_p) > uv_uislider_get_value(&this->max_speed_p)) {
-				uv_uislider_set_max_value(&this->min_speed_p, uv_uislider_get_value(&this->max_speed_p));
+			if (uv_uislider_value_changed(&this->max_speed_p)) {
+				if (uv_uislider_get_max_value(&this->min_speed_p) > uv_uislider_get_value(&this->max_speed_p)) {
+					uv_uislider_set_max_value(&this->min_speed_p, uv_uislider_get_value(&this->max_speed_p));
+				}
+				else {
+					uv_uislider_set_max_value(&this->min_speed_p,
+							uv_mini(uv_uislider_get_value(&this->max_speed_p), VALVE_MAX_CURRENT_MA / 2));
+				}
+				this->valve->max_speed_p = uv_uislider_get_value(&this->max_speed_p);
+				this->valve->setter(this->valve);
 			}
 			else {
-				uv_uislider_set_max_value(&this->min_speed_p,
-						uv_mini(uv_uislider_get_value(&this->max_speed_p), VALVE_MAX_CURRENT_MA / 2));
+				uv_uislider_set_value(&this->max_speed_p, this->valve->max_speed_p);
 			}
-			this->valve->max_speed_p = uv_uislider_get_value(&this->max_speed_p);
-			this->valve->setter(this->valve);
-		}
-		else {
-			uv_uislider_set_value(&this->max_speed_p, this->valve->max_speed_p);
-		}
-		if (uv_uislider_value_changed(&this->min_speed_n)) {
-			this->valve->min_speed_n = uv_uislider_get_value(&this->min_speed_n);
-			this->valve->setter(this->valve);
-		}
-		else {
-			uv_uislider_set_value(&this->min_speed_n, this->valve->min_speed_n);
-		}
-		if (uv_uislider_value_changed(&this->min_speed_p)) {
-			this->valve->min_speed_p = uv_uislider_get_value(&this->min_speed_p);
-			this->valve->setter(this->valve);
-		}
-		else {
-			uv_uislider_set_value(&this->min_speed_p, this->valve->min_speed_p);
-		}
-		if (uv_uislider_value_changed(&this->acc)) {
-			this->valve->acc = uv_uislider_get_value(&this->acc);
-			this->valve->setter(this->valve);
-		}
-		else {
-			uv_uislider_set_value(&this->acc, this->valve->acc);
-		}
-		if (uv_uislider_value_changed(&this->dec)) {
-			this->valve->dec = uv_uislider_get_value(&this->dec);
-			this->valve->setter(this->valve);
-		}
-		else {
-			uv_uislider_set_value(&this->dec, this->valve->dec);
-		}
-		if (uv_uitogglebutton_clicked(&this->invert)) {
-			this->valve->invert = uv_uitogglebutton_get_state(&this->invert);
-			this->valve->setter(this->valve);
-		}
-		else {
-			uv_uitogglebutton_set_state(&this->invert, this->valve->invert);
+			if (uv_uislider_value_changed(&this->min_speed_n)) {
+				this->valve->min_speed_n = uv_uislider_get_value(&this->min_speed_n);
+				this->valve->setter(this->valve);
+			}
+			else {
+				uv_uislider_set_value(&this->min_speed_n, this->valve->min_speed_n);
+			}
+			if (uv_uislider_value_changed(&this->min_speed_p)) {
+				this->valve->min_speed_p = uv_uislider_get_value(&this->min_speed_p);
+				this->valve->setter(this->valve);
+			}
+			else {
+				uv_uislider_set_value(&this->min_speed_p, this->valve->min_speed_p);
+			}
+			if (uv_uislider_value_changed(&this->acc)) {
+				this->valve->acc = uv_uislider_get_value(&this->acc);
+				this->valve->setter(this->valve);
+			}
+			else {
+				uv_uislider_set_value(&this->acc, this->valve->acc);
+			}
+			if (uv_uislider_value_changed(&this->dec)) {
+				this->valve->dec = uv_uislider_get_value(&this->dec);
+				this->valve->setter(this->valve);
+			}
+			else {
+				uv_uislider_set_value(&this->dec, this->valve->dec);
+			}
+			if (uv_uitogglebutton_clicked(&this->invert)) {
+				this->valve->invert = uv_uitogglebutton_get_state(&this->invert);
+				this->valve->setter(this->valve);
+			}
+			else {
+				uv_uitogglebutton_set_state(&this->invert, this->valve->invert);
+			}
 		}
 	}
+	return ret;
 }

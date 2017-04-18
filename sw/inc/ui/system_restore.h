@@ -33,7 +33,7 @@ typedef struct {
 
 void system_restore_show(void);
 
-void system_restore_step(const uint16_t step_ms);
+uv_uiobject_ret_e system_restore_step(const uint16_t step_ms);
 
 
 #endif /* UI_SYSTEM_RESTORE_H_ */

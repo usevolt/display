@@ -42,7 +42,7 @@ typedef struct {
 	};
 } settings_uw100_st;
 void settings_impl_uw100_show(void);
-void settings_impl_uw100_step(uint16_t step_ms);
+uv_uiobject_ret_e settings_impl_uw100_step(uint16_t step_ms);
 
 
 #endif /* UI_SETTINGS_IMPL_UW100_H_ */

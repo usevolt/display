@@ -22,7 +22,7 @@
 void login_show(void) {
 
 	uv_uiwindow_clear(&gui.main_window);
-	uv_uiwindow_set_step_callb(&gui.main_window, login_step);
+	uv_uiwindow_set_stepcallback(&gui.main_window, &login_step);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
 	uv_uiwindow_add(&gui.main_window, &this->window, 0, 0,
@@ -66,12 +66,15 @@ void login_show(void) {
 
 
 
-void login_step(const uint16_t step_ms) {
+uv_uiobject_ret_e login_step(const uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
+
 	if (uv_uibutton_clicked(&this->login)) {
 		users_set(uv_uilist_at(&this->users, uv_uilist_get_selected(&this->users)));
 
 		// show home page
 		home_show();
+		ret = UIOBJECT_RETURN_KILLED;
 	}
 	else if (uv_uibutton_clicked(&this->add_user)) {
 		char str[USERNAME_MAX_LEN];
@@ -83,7 +86,7 @@ void login_step(const uint16_t step_ms) {
 			users_add(str);
 			uv_ui_refresh(&gui.display);
 			login_show();
-			return;
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 		else {
 			uv_ui_refresh(&gui.display);
@@ -94,6 +97,11 @@ void login_step(const uint16_t step_ms) {
 			uv_uilist_pop_back(&this->users, NULL);
 		}
 	}
+	else {
+
+	}
+
+	return ret;
 
 
 }

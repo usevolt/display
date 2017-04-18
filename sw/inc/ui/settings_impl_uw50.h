@@ -45,7 +45,7 @@ typedef struct {
 void settings_impl_uw50_show(void);
 
 
-void settings_impl_uw50_step(uint16_t step_ms);
+uv_uiobject_ret_e settings_impl_uw50_step(uint16_t step_ms);
 
 
 #endif /* UI_SETTINGS_IMPL_UW50_H_ */

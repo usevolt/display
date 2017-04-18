@@ -109,15 +109,17 @@ void settings_impl_uw100_show(void) {
 }
 
 
-void settings_impl_uw100_step(uint16_t step_ms) {
+uv_uiobject_ret_e settings_impl_uw100_step(uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
+
 	if (this->state == UW100_STATE_NONE) {
 		if (uv_uibutton_clicked(&this->rotator)) {
 			show_sliders(UW100_STATE_ROTATOR, uv_uibutton_get_text(&this->rotator));
-			return;
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 		else if (uv_uibutton_clicked(&this->open)) {
 			show_sliders(UW100_STATE_OPEN, uv_uibutton_get_text(&this->open));
-			return;
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 	}
 	else {
@@ -176,8 +178,9 @@ void settings_impl_uw100_step(uint16_t step_ms) {
 		}
 		else if (uv_uibutton_clicked(&this->back)) {
 			settings_impl_uw100_show();
-			return;
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 	}
+	return ret;
 }
 

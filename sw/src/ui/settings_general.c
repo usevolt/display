@@ -14,9 +14,9 @@
 
 
 void general_show(void);
-void general_step(const uint16_t step_ms);
+uv_uiobject_ret_e general_step(const uint16_t step_ms);
 void volume_show(void);
-void volume_step(const uint16_t step_ms);
+uv_uiobject_ret_e volume_step(const uint16_t step_ms);
 
 const uv_uitreeobject_st treeobjects[] = {
 		{
@@ -53,7 +53,7 @@ void general_show(void) {
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
 	uv_uiwindow_set_contentbb(&this->window, uv_uibb(&this->treeview)->width,
 			uv_uibb(&this->treeview)->height);
-	uv_uiwindow_set_step_callb(&this->window, &general_step);
+	uv_uiwindow_set_stepcallback(&this->window, &general_step);
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0,
@@ -110,7 +110,7 @@ void general_show(void) {
 void volume_show(void) {
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
-	uv_uiwindow_set_step_callb(&this->window, &volume_step);
+	uv_uiwindow_set_stepcallback(&this->window, &volume_step);
 	uv_uiwindow_set_contentbb(&this->window, uv_uibb(&this->treeview)->width,
 			uv_uibb(&this->treeview)->height);
 
@@ -135,7 +135,9 @@ void volume_show(void) {
 
 
 
-void general_step(const uint16_t step_ms) {
+uv_uiobject_ret_e general_step(const uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
+
 	// brightness
 	if (uv_uislider_value_changed(&this->general.brightness)) {
 		gui_set_backlight(uv_uislider_get_value(&this->general.brightness));
@@ -177,9 +179,12 @@ void general_step(const uint16_t step_ms) {
 		msb_set_heater(&dspl.network.msb,
 				uv_uislider_get_value(&this->general.heater));
 	}
+	return ret;
 }
 
-void volume_step(const uint16_t step_ms) {
+uv_uiobject_ret_e volume_step(const uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
+
 	// volume
 	if (uv_uislider_value_changed(&this->volume)) {
 		alert_set_volume(&dspl.alert, uv_uislider_get_value(&this->volume));
@@ -187,6 +192,7 @@ void volume_step(const uint16_t step_ms) {
 	else {
 		uv_uislider_set_value(&this->volume, alert_get_volume(&dspl.alert));
 	}
+	return ret;
 }
 
 

@@ -49,7 +49,7 @@ static uv_uistyle_st taskbar_style = {
 
 void taskbar_init(uv_uidisplay_st *display) {
 	uv_uiwindow_init(&this->taskbar, this->taskbar_buffer, &taskbar_style);
-	uv_uiwindow_set_step_callb(&this->taskbar, &taskbar_step);
+	uv_uiwindow_set_stepcallback(&this->taskbar, &taskbar_step);
 	uv_uiwindow_set_transparent(this, false);
 	uv_uidisplay_add(display, &this->taskbar,
 			0, LCD_H(0.86f), LCD_W(1.0f), LCD_H(0.14f));
@@ -277,138 +277,148 @@ static void show(const taskbar_state_e state) {
 	}
 }
 
-void taskbar_step(const uint16_t step_ms) {
+uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
 	if (this->state == TASKBAR_NO_ALERTS) {
 
 		if (log_get_nack_count()) {
 			show(TASKBAR_ALERTS);
-			return;
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 
-		if (uv_delay(step_ms, &this->engine_delay)) {
-			uv_delay_init(ENGINE_LIGHT_DELAY_MS, &this->engine_delay);
-			if (ecu_get_engine_shut_down(&dspl.network.ecu)) {
-				this->engine_visible = true;
+		if (ret != UIOBJECT_RETURN_KILLED) {
+			if (uv_delay(step_ms, &this->engine_delay)) {
+				uv_delay_init(ENGINE_LIGHT_DELAY_MS, &this->engine_delay);
+				if (ecu_get_engine_shut_down(&dspl.network.ecu)) {
+					this->engine_visible = true;
+				}
+				else {
+					this->engine_visible = !this->engine_visible;
+				}
+				uv_ui_set_enabled(&this->engine_water,
+						msb_get_power_engine_water(&dspl.network.msb) ? this->engine_visible : false);
+				uv_ui_set_enabled(&this->engine_oil_press,
+						msb_get_power_engine_oil_press(&dspl.network.msb) ? this->engine_visible : false);
+				uv_ui_set_enabled(&this->engine_alt,
+						msb_get_alt(&dspl.network.msb) ? this->engine_visible : false);
+				uv_ui_set_enabled(&this->engine_glow_plugs,
+						msb_get_power_glow_plugs(&dspl.network.msb) ? this->engine_visible : false);
+			}
+
+			if (msb_get_emcy_stop(&dspl.network.msb)) {
+				uv_ui_set_enabled(&this->emcy_label, true);
+				if (uv_delay(step_ms, &this->emcy_delay)) {
+					uv_delay_init(BG_ERROR_DELAY_MS, &this->emcy_delay);
+					uv_ui_set_enabled(&this->emcy_stop, !uv_ui_get_enabled(&this->emcy_stop));
+				}
 			}
 			else {
-				this->engine_visible = !this->engine_visible;
+				uv_ui_set_enabled(&this->emcy_stop, false);
+				uv_ui_set_enabled(&this->emcy_label, false);
+				this->emcy_delay = 0;
 			}
-			uv_ui_set_enabled(&this->engine_water,
-					msb_get_power_engine_water(&dspl.network.msb) ? this->engine_visible : false);
-			uv_ui_set_enabled(&this->engine_oil_press,
-					msb_get_power_engine_oil_press(&dspl.network.msb) ? this->engine_visible : false);
-			uv_ui_set_enabled(&this->engine_alt,
-					msb_get_alt(&dspl.network.msb) ? this->engine_visible : false);
-			uv_ui_set_enabled(&this->engine_glow_plugs,
-					msb_get_power_glow_plugs(&dspl.network.msb) ? this->engine_visible : false);
-		}
 
-		if (msb_get_emcy_stop(&dspl.network.msb)) {
-			uv_ui_set_enabled(&this->emcy_label, true);
-			if (uv_delay(step_ms, &this->emcy_delay)) {
-				uv_delay_init(BG_ERROR_DELAY_MS, &this->emcy_delay);
-				uv_ui_set_enabled(&this->emcy_stop, !uv_ui_get_enabled(&this->emcy_stop));
+	#if LM
+			if (uv_uitoucharea_clicked(&this->gear_touch, NULL, NULL)) {
+				ecu_set_gear(ecu_get_gear(&dspl.network.ecu) % ECU_GEAR_COUNT + 1);
 			}
-		}
-		else {
-			uv_ui_set_enabled(&this->emcy_stop, false);
-			uv_ui_set_enabled(&this->emcy_label, false);
-			this->emcy_delay = 0;
-		}
+			uv_uidigit_set_value(&this->gear, ecu_get_gear(&dspl.network.ecu));
+	#endif
 
-#if LM
-		if (uv_uitoucharea_clicked(&this->gear_touch, NULL, NULL)) {
-			ecu_set_gear(ecu_get_gear(&dspl.network.ecu) % ECU_GEAR_COUNT + 1);
-		}
-		uv_uidigit_set_value(&this->gear, ecu_get_gear(&dspl.network.ecu));
-#endif
-
-		msb_set_horn(&dspl.network.msb,
-				uv_uitoucharea_is_down(&this->horn_touch, NULL, NULL));
-		if (uv_uitoucharea_is_down(&this->horn_touch, NULL, NULL)) {
-			uv_uilabel_set_text(&this->horn, "On");
-		}
-		else {
-			uv_uilabel_set_text(&this->horn, "Off");
-		}
+			msb_set_horn(&dspl.network.msb,
+					uv_uitoucharea_is_down(&this->horn_touch, NULL, NULL));
+			if (uv_uitoucharea_is_down(&this->horn_touch, NULL, NULL)) {
+				uv_uilabel_set_text(&this->horn, "On");
+			}
+			else {
+				uv_uilabel_set_text(&this->horn, "Off");
+			}
 
 
-		uv_uiprogressbar_set_value(&this->voltage_level, msb_get_voltage(&dspl.network.msb));
-		uv_uiprogressbar_set_value(&this->fuel_level, msb_get_fuel_level(&dspl.network.msb));
-		uv_uiprogressbar_set_value(&this->oil_level, msb_get_oil_level(&dspl.network.msb));
-		uv_uiprogressbar_set_value(&this->otemp_bar, msb_get_oil_temp(&dspl.network.msb));
-		uv_uiprogressbar_set_value(&this->mtemp_bar, msb_get_motor_temp(&dspl.network.msb));
+			uv_uiprogressbar_set_value(&this->voltage_level, msb_get_voltage(&dspl.network.msb));
+			uv_uiprogressbar_set_value(&this->fuel_level, msb_get_fuel_level(&dspl.network.msb));
+			uv_uiprogressbar_set_value(&this->oil_level, msb_get_oil_level(&dspl.network.msb));
+			uv_uiprogressbar_set_value(&this->otemp_bar, msb_get_oil_temp(&dspl.network.msb));
+			uv_uiprogressbar_set_value(&this->mtemp_bar, msb_get_motor_temp(&dspl.network.msb));
 
-		if (uv_delay(step_ms, &this->delay)) {
-			uv_time_st t;
-			uv_rtc_get_time(&t);
-			snprintf(this->time, TASKBAR_TIME_LEN,
-					"%02u:%02u", t.hour, t.min);
-			uv_ui_refresh(&this->clock);
-			uv_delay_init(100, &this->delay);
+			if (uv_delay(step_ms, &this->delay)) {
+				uv_time_st t;
+				uv_rtc_get_time(&t);
+				snprintf(this->time, TASKBAR_TIME_LEN,
+						"%02u:%02u", t.hour, t.min);
+				uv_ui_refresh(&this->clock);
+				uv_delay_init(100, &this->delay);
+			}
 		}
 	}
 	else {
 		uint16_t c = log_get_nack_count();
 		if (this->log_count != c || c == 0) {
 			show(TASKBAR_NO_ALERTS);
-			return;
+			ret = UIOBJECT_RETURN_KILLED;
 		}
-		this->log_count = c;
+		if (ret != UIOBJECT_RETURN_KILLED) {
+			this->log_count = c;
 
-		log_entry_st entry;
-		log_get_nack(&entry, 0);
+			log_entry_st entry;
+			log_get_nack(&entry, 0);
 
-		if (uv_delay(step_ms, &this->bg_delay)) {
-			uv_delay_init((log_get_type(&entry) == LOG_WARNING) ?
-					BG_WARNING_DELAY_MS : BG_ERROR_DELAY_MS, &this->bg_delay);
-			if (taskbar_style.window_c != WARNING_COLOR &&
-					taskbar_style.window_c != ERROR_COLOR) {
-				taskbar_style.window_c = (log_get_type(&entry) == LOG_ERROR) ? ERROR_COLOR : WARNING_COLOR;
-			}
-			else {
-				taskbar_style.window_c = WINDOW_COLOR;
-			}
-			uv_ui_refresh(&this->taskbar);
-		}
-
-		if (uv_uitoucharea_pressed(&this->touch, NULL, NULL)) {
-			taskbar_style.window_c = PRESSED_COLOR;
-			uv_delay_init((log_get_type(&entry) == LOG_WARNING) ?
-					BG_WARNING_DELAY_MS : BG_ERROR_DELAY_MS, &this->bg_delay);
-			uv_ui_refresh(&this->taskbar);
-		}
-		else if (uv_uitoucharea_is_down(&this->touch, NULL, NULL)) {
-			taskbar_style.window_c = PRESSED_COLOR;
-			uv_delay_init((log_get_type(&entry) == LOG_WARNING) ?
-					BG_WARNING_DELAY_MS : BG_ERROR_DELAY_MS, &this->bg_delay);
-		}
-		else if (uv_uitoucharea_released(&this->touch, NULL, NULL)) {
-			taskbar_style.window_c = WINDOW_COLOR;
-			uv_ui_refresh(&this->taskbar);
-		}
-		else if (uv_uitoucharea_clicked(&this->touch, NULL, NULL)) {
-			// warning logs can be acknowledged by clicking
-			if (log_get_type(&entry) == LOG_WARNING) {
-				log_ack(0);
-				this->log_count = log_get_nack_count();
-				if (this->log_count) {
-					show(TASKBAR_ALERTS);
+			if (uv_delay(step_ms, &this->bg_delay)) {
+				uv_delay_init((log_get_type(&entry) == LOG_WARNING) ?
+						BG_WARNING_DELAY_MS : BG_ERROR_DELAY_MS, &this->bg_delay);
+				if (taskbar_style.window_c != WARNING_COLOR &&
+						taskbar_style.window_c != ERROR_COLOR) {
+					taskbar_style.window_c = (log_get_type(&entry) == LOG_ERROR) ? ERROR_COLOR : WARNING_COLOR;
 				}
 				else {
-					show(TASKBAR_NO_ALERTS);
+					taskbar_style.window_c = WINDOW_COLOR;
+				}
+				uv_ui_refresh(&this->taskbar);
+			}
+
+			if (uv_uitoucharea_pressed(&this->touch, NULL, NULL)) {
+				taskbar_style.window_c = PRESSED_COLOR;
+				uv_delay_init((log_get_type(&entry) == LOG_WARNING) ?
+						BG_WARNING_DELAY_MS : BG_ERROR_DELAY_MS, &this->bg_delay);
+				uv_ui_refresh(&this->taskbar);
+			}
+			else if (uv_uitoucharea_is_down(&this->touch, NULL, NULL)) {
+				taskbar_style.window_c = PRESSED_COLOR;
+				uv_delay_init((log_get_type(&entry) == LOG_WARNING) ?
+						BG_WARNING_DELAY_MS : BG_ERROR_DELAY_MS, &this->bg_delay);
+			}
+			else if (uv_uitoucharea_released(&this->touch, NULL, NULL)) {
+				taskbar_style.window_c = WINDOW_COLOR;
+				uv_ui_refresh(&this->taskbar);
+			}
+			else if (uv_uitoucharea_clicked(&this->touch, NULL, NULL)) {
+				// warning logs can be acknowledged by clicking
+				if (log_get_type(&entry) == LOG_WARNING) {
+					log_ack(0);
+					this->log_count = log_get_nack_count();
+					if (this->log_count) {
+						show(TASKBAR_ALERTS);
+					}
+					else {
+						show(TASKBAR_NO_ALERTS);
+					}
+					ret = UIOBJECT_RETURN_KILLED;
+				}
+				// error logs need to be acknowledged from the settings
+				else {
+					system_show_tab(system_log_show);
+					show(TASKBAR_ALERTS);
+					ret = UIOBJECT_RETURN_KILLED;
 				}
 			}
-			// error logs need to be acknowledged from the settings
 			else {
-				system_show_tab(system_log_show);
-				show(TASKBAR_ALERTS);
+
 			}
 		}
-
 	}
 
+	return ret;
 }
 
 

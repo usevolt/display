@@ -22,6 +22,8 @@ void dashboard_uw100_show() {
 
 }
 
-void dashboard_uw100_step(uint16_t step_ms) {
+uv_uiobject_ret_e dashboard_uw100_step(uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
+	return ret;
 }

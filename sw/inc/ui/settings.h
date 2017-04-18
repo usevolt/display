@@ -47,6 +47,6 @@ typedef struct {
 
 void settings_show(void);
 
-void settings_step(const uint16_t step_ms);
+uv_uiobject_ret_e settings_step(const uint16_t step_ms);
 
 #endif /* UI_SETTINGS_H_ */

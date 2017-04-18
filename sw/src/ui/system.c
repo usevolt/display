@@ -25,7 +25,7 @@ static const char* tab_names[] = {
 void system_show(void) {
 
 	uv_uiwindow_clear(&gui.main_window);
-	uv_uiwindow_set_step_callb(&gui.main_window, &system_step);
+	uv_uiwindow_set_stepcallback(&gui.main_window, &system_step);
 
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
@@ -82,41 +82,44 @@ void system_show_tab(void (*show_callb)(void)) {
 
 
 
-void system_step(const uint16_t step_ms) {
-	bool ret = false;
+uv_uiobject_ret_e system_step(const uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
 	if (uv_uibutton_clicked(&this->ok)) {
 		uv_memory_save();
 		home_show();
-		ret = true;
+		ret = UIOBJECT_RETURN_KILLED;
 	}
 	else if (uv_uibutton_clicked(&this->cancel)) {
 		home_show();
-		ret = true;
+		ret = UIOBJECT_RETURN_KILLED;
 	}
 	else {
 
 	}
 
-	if (!ret && uv_uitabwindow_tab_changed(&this->tabs)) {
+	if ((ret != UIOBJECT_RETURN_KILLED) && uv_uitabwindow_tab_changed(&this->tabs)) {
 		if (uv_uitabwindow_tab(&this->tabs) == 0) {
 			system_settings_show();
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 		else if (uv_uitabwindow_tab(&this->tabs) == 1) {
 			system_network_show();
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 		else if (uv_uitabwindow_tab(&this->tabs) == 2) {
 			system_log_show();
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 		else if (uv_uitabwindow_tab(&this->tabs) == 3) {
 			system_restore_show();
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 		else {
 
 		}
-		ret = true;
 	}
-	if (ret) {
+	if (ret == UIOBJECT_RETURN_KILLED) {
 		// stop keypad calibrations if they are ongoing
 		if (keypad_get_calib_on(&dspl.network.l_keypad)) {
 			keypad_calib_end(&dspl.network.l_keypad);
@@ -125,4 +128,6 @@ void system_step(const uint16_t step_ms) {
 			keypad_calib_end(&dspl.network.r_keypad);
 		}
 	}
+
+	return ret;
 }

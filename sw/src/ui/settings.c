@@ -29,7 +29,7 @@ static const char* tab_names[] = {
 void settings_show(void) {
 
 	uv_uiwindow_clear(&gui.main_window);
-	uv_uiwindow_set_step_callb(&gui.main_window, &settings_step);
+	uv_uiwindow_set_stepcallback(&gui.main_window, &settings_step);
 
 	this->tab_names = tab_names;
 
@@ -45,7 +45,7 @@ void settings_show(void) {
 
 	uv_uitabwindow_init(&this->tabs, SETTINGS_TAB_COUNT, &uv_uistyles[WINDOW_STYLE_INDEX],
 			this->tabs_buffer, this->tab_names);
-	uv_uiwindow_set_step_callb(&this->tabs, settings_step);
+	uv_uiwindow_set_stepcallback(&this->tabs, &settings_step);
 	uv_uiwindow_add(&this->window, &this->tabs, 0, TOPIC_HEIGHT + 10,
 			uv_uibb(&this->window)->width, uv_uibb(&this->window)->height - TOPIC_HEIGHT - 10);
 
@@ -56,51 +56,46 @@ void settings_show(void) {
 }
 
 
-void settings_step(const uint16_t step_ms) {
+uv_uiobject_ret_e settings_step(const uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
 	if (uv_uitabwindow_tab_changed(&this->tabs)) {
 		printf("changing tab\n");
 
 		if (uv_uitabwindow_tab(&this->tabs) == 0) {
 			settings_general_show();
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 		else if (uv_uitabwindow_tab(&this->tabs) == 1) {
 			settings_valves_show();
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 		else if (uv_uitabwindow_tab(&this->tabs) == 2) {
 			settings_implements_show();
+			ret = UIOBJECT_RETURN_KILLED;
 		}
 	}
 
-	switch (uv_uitabwindow_tab(&this->tabs)) {
-	case 0:
-//		settings_general_step(step_ms);
-		break;
-	case 1:
-//		settings_valves_step(step_ms);
-		break;
-	case 2:
-//		settings_implements_step(step_ms);
-		break;
-	default:
-		break;
-	}
+	if (ret != UIOBJECT_RETURN_KILLED) {
 
-	if (uv_uibutton_clicked(&this->ok)) {
-		uv_errors_e e = uv_memory_save();
-		if (e) {
-			log_add(LOG_MEMORY_SAVE_FAILED, (int32_t) e);
+		if (uv_uibutton_clicked(&this->ok)) {
+			uv_errors_e e = uv_memory_save();
+			if (e) {
+				log_add(LOG_MEMORY_SAVE_FAILED, (int32_t) e);
+			}
+			// save ecu params
+			ecu_save_params();
+			home_show();
+			ret = UIOBJECT_RETURN_KILLED;
 		}
-		// save ecu params
-		ecu_save_params();
-		home_show();
-	}
-	else if (uv_uibutton_clicked(&this->cancel)) {
-		uv_memory_load();
-		network_update(&dspl.network);
+		else if (uv_uibutton_clicked(&this->cancel)) {
+			uv_memory_load();
+			network_update(&dspl.network);
 
-		home_show();
+			home_show();
+			ret = UIOBJECT_RETURN_KILLED;
+		}
 	}
-
+	return ret;
 }
 

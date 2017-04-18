@@ -72,7 +72,7 @@ typedef struct {
 void settings_impl_uw180s_show(void);
 
 
-void settings_impl_uw180s_step(uint16_t step_ms);
+uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms);
 
 
 #endif /* UI_SETTINGS_IMPL_UW180S_H_ */

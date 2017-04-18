@@ -18,7 +18,7 @@ void system_network_show(void) {
 	uv_uiwindow_clear(&gui.windows.system.tabs);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
-	uv_uiwindow_set_step_callb(&this->window, &system_network_step);
+	uv_uiwindow_set_stepcallback(&this->window, &system_network_step);
 	uv_uitabwindow_add(&gui.windows.system.tabs, &this->window, 0, 0,
 			uv_uibb(&gui.windows.system.tabs)->width,
 			uv_uitabwindow_get_contentbb(&gui.windows.system.tabs).height);
@@ -391,7 +391,9 @@ static void show(devices_e dev) {
 }
 
 
-void system_network_step(const uint16_t step_ms) {
+uv_uiobject_ret_e system_network_step(const uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
+
 	if (this->dev == DEV_NONE) {
 		if (uv_uibutton_clicked(&this->msb)) {
 			show(MSB);
@@ -421,9 +423,12 @@ void system_network_step(const uint16_t step_ms) {
 	else {
 		if (uv_uibutton_clicked(&this->back)) {
 			system_network_show();
-			return;
+			ret = UIOBJECT_RETURN_KILLED;
 		}
-		update(this->dev);
+		else {
+			update(this->dev);
+		}
 	}
+	return ret;
 }
 

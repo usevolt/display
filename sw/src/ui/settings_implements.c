@@ -24,7 +24,7 @@ void settings_implements_show(void) {
 	uv_uiwindow_clear(window);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
-	uv_uiwindow_set_step_callb(&this->window, &settings_implements_step);
+	uv_uiwindow_set_stepcallback(&this->window, &settings_implements_step);
 	uv_uitabwindow_add(window, &this->window, 0, 0,
 			uv_uibb(window)->width,
 			uv_uitabwindow_get_contentbb(window).height);
@@ -47,12 +47,14 @@ void settings_implements_show(void) {
 }
 
 
-void settings_implements_step(uint16_t step_ms) {
+uv_uiobject_ret_e settings_implements_step(uint16_t step_ms) {
+	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
 	// if active implement settings dialog is visible, call it's step function.
 	// otherwise continue with this module's step function.
 	if (dspl.user->implement) {
-		dspl.user->implement->callbacks->settings_step(step_ms);
+		ret = dspl.user->implement->callbacks->settings_step(step_ms);
 	}
+	return ret;
 }
 
