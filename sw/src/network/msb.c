@@ -27,7 +27,7 @@ void msb_update(void *me) {
 
 void msb_set_heater(void *me, uint8_t value) {
 	if (value) {
-		value = 100;
+		value = 2;
 	}
 	this->read.heater = value;
 	if (uv_canopen_sdo_write(this->super.node_id,

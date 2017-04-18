@@ -39,11 +39,11 @@ typedef struct {
 /// to linearily interpolate value from these points.
 static const backlight_point_st backlight_points[] = {
 		{10000, 1000},
-		{12000, 700},
-		{13000, 650},
-		{14000, 500},
-		{15000, 400},
-		{16000, 200},
+		{12000, 1000},
+		{13000, 900},
+		{14000, 800},
+		{15000, 600},
+		{16000, 400},
 		{17000, 0}
 
 };
@@ -62,7 +62,7 @@ int16_t get_vdd_mv() {
 
 
 void gui_init() {
-	this->backlight_curr = 50;
+	this->backlight_curr = 100;
 	uv_moving_aver_init(&this->vdd_mv, VDD_MOVING_AVER_COUNT);
 
 	gui_set_backlight(this->backlight_curr);
