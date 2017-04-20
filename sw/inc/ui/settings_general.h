@@ -12,12 +12,17 @@
 #include <uv_ui.h>
 
 #define SETTINGS_GENERAL_BUFFER_LEN	4
+#define SETTINGS_GENERAL_TREEBUFFER_LEN	3
 
 
 
 typedef struct {
 
 	uv_uitreeview_st treeview;
+	uv_uitreeobject_st *treebuffer[SETTINGS_GENERAL_TREEBUFFER_LEN];
+	uv_uitreeobject_st driving_obj;
+	uv_uitreeobject_st volume_obj;
+
 	uv_uiobject_st *buffer[SETTINGS_GENERAL_BUFFER_LEN];
 	uv_uiwindow_st window;
 	union {

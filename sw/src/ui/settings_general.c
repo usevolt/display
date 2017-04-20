@@ -12,34 +12,27 @@
 
 #define this (&gui.windows.settings.general)
 
+#define DRIVING_HEIGHT	400
+#define VOLUME_HEIGHT	400
 
-void general_show(void);
-uv_uiobject_ret_e general_step(const uint16_t step_ms);
+void driving_show(void);
+uv_uiobject_ret_e driving_step(const uint16_t step_ms);
 void volume_show(void);
 uv_uiobject_ret_e volume_step(const uint16_t step_ms);
-
-const uv_uitreeobject_st treeobjects[] = {
-		{
-				.name = "Driving",
-				.window = &this->window,
-				.show_callb = &general_show,
-		},
-		{
-				.name = "Volume",
-				.window = &this->window,
-				.show_callb = &volume_show
-		}
-};
-
 
 
 void settings_general_show(void) {
 	uv_uiwindow_st *window = (uv_uiwindow_st *) &gui.windows.settings.tabs;
 	uv_uiwindow_clear(window);
 
-	uv_uitreeview_init(&this->treeview, treeobjects,
-			sizeof(treeobjects) / sizeof(uv_uitreeobject_st),
+	uv_uitreeview_init(&this->treeview, this->treebuffer,
 			&UI_FONT_BIG, &uv_uistyles[0]);
+	uv_uitreeobject_init(&this->driving_obj, "Driving", &this->window, &driving_show);
+	uv_uitreeview_add(&this->treeview, &this->driving_obj,
+			uv_uiwindow_get_contentbb(&this->treeview).width, DRIVING_HEIGHT);
+	uv_uitreeobject_init(&this->volume_obj, "Volume", &this->window, &volume_show);
+	uv_uitreeview_add(&this->treeview, &this->volume_obj,
+			uv_uiwindow_get_contentbb(&this->treeview).width, VOLUME_HEIGHT);
 	uv_uitreeview_set_active(&this->treeview, 0);
 
 	uv_uitabwindow_add(window, &this->treeview, 0, 0,
@@ -48,12 +41,12 @@ void settings_general_show(void) {
 
 
 
-void general_show(void) {
+void driving_show(void) {
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
 	uv_uiwindow_set_contentbb(&this->window, uv_uibb(&this->treeview)->width,
 			uv_uibb(&this->treeview)->height);
-	uv_uiwindow_set_stepcallback(&this->window, &general_step);
+	uv_uiwindow_set_stepcallback(&this->window, &driving_step);
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0,
@@ -135,7 +128,7 @@ void volume_show(void) {
 
 
 
-uv_uiobject_ret_e general_step(const uint16_t step_ms) {
+uv_uiobject_ret_e driving_step(const uint16_t step_ms) {
 	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
 	// brightness
