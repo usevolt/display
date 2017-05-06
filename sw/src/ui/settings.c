@@ -60,7 +60,6 @@ uv_uiobject_ret_e settings_step(const uint16_t step_ms) {
 	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
 	if (uv_uitabwindow_tab_changed(&this->tabs)) {
-		printf("changing tab\n");
 
 		if (uv_uitabwindow_tab(&this->tabs) == 0) {
 			settings_general_show();
