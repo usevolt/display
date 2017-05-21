@@ -328,6 +328,7 @@ static void show(devices_e dev) {
 	this->dev = dev;
 
 	uv_uiwindow_clear(&this->window);
+	uv_uiwindow_set_stepcallback(&this->window, &system_network_step);
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->window)->width,
@@ -418,6 +419,9 @@ uv_uiobject_ret_e system_network_step(const uint16_t step_ms) {
 		}
 		else if (uv_uibutton_clicked(&this->uw180s_mb)) {
 			show(UW180S_MB);
+		}
+		else {
+
 		}
 	}
 	else {

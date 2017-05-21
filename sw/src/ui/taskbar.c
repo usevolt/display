@@ -280,6 +280,7 @@ static void show(const taskbar_state_e state) {
 uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
+
 	if (this->state == TASKBAR_NO_ALERTS) {
 
 		if (log_get_nack_count()) {

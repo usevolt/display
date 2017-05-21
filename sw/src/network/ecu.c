@@ -296,6 +296,9 @@ void ecu_set_gear(uint8_t gear) {
 
 void ecu_set_uw180s_wheels_feed_params(uint16_t speed_f,
 		uint16_t speed_b, bool invert) {
+	speed_f *= 2;
+	speed_b *= 2;
+
 	dspl.user->uw180s.wheels_feed.max_speed_p = speed_f;
 	dspl.user->uw180s.wheels_feed.max_speed_n = speed_b;
 	dspl.user->uw180s.wheels_feed.invert = invert;

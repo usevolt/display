@@ -21,7 +21,7 @@
 #define CONFIG_TARGET_LPC1785			1
 
 
-
+#define CONFIG_UV_BOOTLOADER			1
 
 
 #define CONFIG_LOG_ERRORS				1
