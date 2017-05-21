@@ -22,7 +22,7 @@
 
 
 
-
+#define CONFIG_UV_BOOTLOADER			1
 
 #define CONFIG_LOG_ERRORS				1
 #define CONFIG_INFORMATIVE_ERRORS		0
