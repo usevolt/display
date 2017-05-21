@@ -29,8 +29,7 @@ void settings_valves_show() {
 	uv_uigridlayout_st grid;
 #if FM
 	uv_uitabwindow_add(window, &this->window, 0, 0,
-			uv_uibb(window)->width, uv_uitabwindow_get_contentbb(window).height,
-			uv_uiwindow_step);
+			uv_uibb(window)->width, uv_uitabwindow_get_contentbb(window).height);
 
 	uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->window)->width,
 			uv_uibb(&this->window)->height, 3, 3);
