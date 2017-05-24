@@ -13,12 +13,15 @@
 #define this (&gui.windows.settings.general)
 
 
+uv_uiobject_ret_e settings_general_step(const uint16_t step_ms);
+
 
 void settings_general_show() {
 	uv_uiwindow_st *window = (uv_uiwindow_st *) &gui.windows.settings.tabs;
 	uv_uiwindow_clear(window);
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
+	uv_uiwindow_set_stepcallback(&this->window, &settings_general_step);
 	uv_uitabwindow_add(window, &this->window, 0, 0,
 			uv_uibb(window)->width, uv_uitabwindow_get_contentbb(window).height);
 
@@ -77,7 +80,7 @@ void settings_general_show() {
 
 
 
-void settings_general_step(uint16_t step_ms) {
+uv_uiobject_ret_e settings_general_step(const uint16_t step_ms) {
 	// volume
 	if (uv_uislider_value_changed(&this->volume)) {
 		alert_set_volume(&dspl.alert, uv_uislider_get_value(&this->volume));
@@ -120,6 +123,8 @@ void settings_general_step(uint16_t step_ms) {
 	if (uv_uislider_value_changed(&this->heater)) {
 		msb_set_heater(&dspl.network.msb, uv_uislider_get_value(&this->heater));
 	}
+
+	return UIOBJECT_RETURN_ALIVE;
 }
 
 
