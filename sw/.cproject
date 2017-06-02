@@ -361,6 +361,52 @@
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
+		<cconfiguration id="com.crt.advproject.config.exe.debug.1414014574">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.crt.advproject.config.exe.debug.1414014574" moduleId="org.eclipse.cdt.core.settings" name="cm">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GNU_ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="axf" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="Usewood Combi Master build" errorParsers="org.eclipse.cdt.core.CWDLocator;org.eclipse.cdt.core.GmakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser" id="com.crt.advproject.config.exe.debug.1414014574" name="cm" parent="com.crt.advproject.config.exe.debug" postannouncebuildStep="Performing post-build steps" postbuildStep="arm-none-eabi-size &quot;${BuildArtifactFileName}&quot;; # arm-none-eabi-objcopy -v -O binary &quot;${BuildArtifactFileName}&quot; &quot;${BuildArtifactFileBaseName}.bin&quot; ; # checksum -p ${TargetChip} -d &quot;${BuildArtifactFileBaseName}.bin&quot;;  ">
+					<folderInfo id="com.crt.advproject.config.exe.debug.1414014574." name="/" resourcePath="">
+						<toolChain id="com.crt.advproject.toolchain.exe.debug.761245841" name="NXP MCU Tools" superClass="com.crt.advproject.toolchain.exe.debug">
+							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="com.crt.advproject.platform.exe.debug.1133021988" name="ARM-based MCU (Debug)" superClass="com.crt.advproject.platform.exe.debug"/>
+							<builder arguments="" buildPath="${workspace_loc:/uw_display}" command="make" id="com.crt.advproject.builder.exe.debug.338248017" incrementalBuildTarget="cm" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="com.crt.advproject.builder.exe.debug"/>
+							<tool id="com.crt.advproject.cpp.exe.debug.309615257" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.exe.debug"/>
+							<tool id="com.crt.advproject.gcc.exe.debug.1596423282" name="MCU C Compiler" superClass="com.crt.advproject.gcc.exe.debug">
+								<option id="gnu.c.compiler.option.preprocessor.def.symbols.204481918" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="__REDLIB__"/>
+									<listOptionValue builtIn="false" value="CM=1"/>
+								</option>
+								<inputType id="com.crt.advproject.compiler.input.1694462414" superClass="com.crt.advproject.compiler.input"/>
+							</tool>
+							<tool id="com.crt.advproject.gas.exe.debug.1247951621" name="MCU Assembler" superClass="com.crt.advproject.gas.exe.debug">
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1656585297" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+								<inputType id="com.crt.advproject.assembler.input.1532513016" name="Additional Assembly Source Files" superClass="com.crt.advproject.assembler.input"/>
+							</tool>
+							<tool id="com.crt.advproject.link.cpp.exe.debug.310413843" name="MCU C++ Linker" superClass="com.crt.advproject.link.cpp.exe.debug"/>
+							<tool id="com.crt.advproject.link.exe.debug.2023587091" name="MCU Linker" superClass="com.crt.advproject.link.exe.debug">
+								<option id="com.crt.advproject.link.gcc.multicore.slave.205420089" name="Multicore configuration" superClass="com.crt.advproject.link.gcc.multicore.slave"/>
+								<option id="com.crt.advproject.link.gcc.multicore.master.userobjs.1330221011" name="Slave Objects (not visible)" superClass="com.crt.advproject.link.gcc.multicore.master.userobjs" valueType="userObjs"/>
+								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.391411639" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="uw_display.com.crt.advproject.projecttype.exe.138933382" name="Executable" projectType="com.crt.advproject.projecttype.exe"/>
@@ -443,6 +489,7 @@
 		<configuration configurationName="fm">
 			<resource resourceType="PROJECT" workspacePath="/uw_display"/>
 		</configuration>
+		<configuration configurationName="cm"/>
 		<configuration configurationName="Release">
 			<resource resourceType="PROJECT" workspacePath="/uw_display"/>
 		</configuration>
@@ -456,10 +503,13 @@
 		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.debug.1018973033.1110698918.695105500;com.crt.advproject.config.exe.debug.1018973033.1110698918.695105500.;com.crt.advproject.gcc.exe.debug.395583099;com.crt.advproject.compiler.input.178129249">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfile"/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.debug.1018973033;com.crt.advproject.config.exe.debug.1018973033.;com.crt.advproject.gcc.exe.debug.1120205501;com.crt.advproject.compiler.input.97094434">
+		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.release.2110929645;com.crt.advproject.config.exe.release.2110929645.;com.crt.advproject.gcc.exe.release.790320520;com.crt.advproject.compiler.input.445091363">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfile"/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.release.2110929645;com.crt.advproject.config.exe.release.2110929645.;com.crt.advproject.gcc.exe.release.790320520;com.crt.advproject.compiler.input.445091363">
+		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.debug.1018973033.1110698918.695105500.712009430;com.crt.advproject.config.exe.debug.1018973033.1110698918.695105500.712009430.;com.crt.advproject.gcc.exe.debug.75492513;com.crt.advproject.compiler.input.1207107035">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfile"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.debug.1414014574;com.crt.advproject.config.exe.debug.1414014574.;com.crt.advproject.gcc.exe.debug.1596423282;com.crt.advproject.compiler.input.1694462414">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfile"/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.debug.1018973033.1110698918.695105500;com.crt.advproject.config.exe.debug.1018973033.1110698918.695105500.;com.crt.advproject.gas.exe.debug.699432497;com.crt.advproject.assembler.input.1753736186">
@@ -468,13 +518,22 @@
 		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.debug.1018973033.1110698918.696871054;com.crt.advproject.config.exe.debug.1018973033.1110698918.696871054.;com.crt.advproject.gcc.exe.debug.1636059519;com.crt.advproject.compiler.input.253451344">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfile"/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.debug.1018973033;com.crt.advproject.config.exe.debug.1018973033.;com.crt.advproject.gas.exe.debug.21213079;com.crt.advproject.assembler.input.972454036">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfile"/>
-		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.debug.1018973033.1110698918.696871054;com.crt.advproject.config.exe.debug.1018973033.1110698918.696871054.;com.crt.advproject.gas.exe.debug.120250103;com.crt.advproject.assembler.input.390008127">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfile"/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.release.2110929645;com.crt.advproject.config.exe.release.2110929645.;com.crt.advproject.gas.exe.release.1130107423;com.crt.advproject.assembler.input.2146906846">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfile"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.debug.1018973033;com.crt.advproject.config.exe.debug.1018973033.;com.crt.advproject.gcc.exe.debug.1120205501;com.crt.advproject.compiler.input.97094434">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfile"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.debug.1018973033;com.crt.advproject.config.exe.debug.1018973033.;com.crt.advproject.gas.exe.debug.21213079;com.crt.advproject.assembler.input.972454036">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfile"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.debug.1414014574;com.crt.advproject.config.exe.debug.1414014574.;com.crt.advproject.gas.exe.debug.1247951621;com.crt.advproject.assembler.input.1532513016">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfile"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.crt.advproject.config.exe.debug.1018973033.1110698918.695105500.712009430;com.crt.advproject.config.exe.debug.1018973033.1110698918.695105500.712009430.;com.crt.advproject.gas.exe.debug.1500731962;com.crt.advproject.assembler.input.1764471799">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfile"/>
 		</scannerConfigBuildInfo>
 	</storageModule>

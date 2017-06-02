@@ -68,7 +68,7 @@ default:
 	@echo "\n**************************"
 	@echo "Error: Target not defined."
 	@echo "**************************\n"
-	@echo " Please use either 'make fm' or 'make lm'"
+	@echo " Please use either 'make fm', 'make lm' or 'make cm'"
 
 
 fm:	CFLAGS += -DFM -D__UV_PROJECT_NAME=$(APP_NAME)_FM_$(GIT_VERSION)
@@ -80,6 +80,11 @@ fm: $(BINARY)
 lm:	CFLAGS += -DLM -D__UV_PROJECT_NAME=$(APP_NAME)_LM_$(GIT_VERSION)
 lm: LDFLAGS += -DLM
 lm: $(BINARY)
+	$(MAKE) post-build
+	
+cm:	CFLAGS += -DCM -D__UV_PROJECT_NAME=$(APP_NAME)_CM_$(GIT_VERSION)
+cm: LDFLAGS += -DCM
+cm: $(BINARY)
 	$(MAKE) post-build
 
 $(BINARY): $(OBJECTS)
