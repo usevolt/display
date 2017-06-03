@@ -259,17 +259,17 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.dec = 30,
 				.invert = false
 		},
-		{
-				.name = "Boom Telescope",
-				.setter = ecu_set_boom_telescope_params,
-				.min_speed_p = 160,
-				.max_speed_p = 600,
-				.min_speed_n = 273,
-				.max_speed_n = 600,
-				.acc = 25,
-				.dec = 30,
-				.invert = false
-		},
+//		{
+//				.name = "Boom Telescope",
+//				.setter = ecu_set_boom_telescope_params,
+//				.min_speed_p = 160,
+//				.max_speed_p = 600,
+//				.min_speed_n = 273,
+//				.max_speed_n = 600,
+//				.acc = 25,
+//				.dec = 30,
+//				.invert = false
+//		},
 		{
 				.name = "Drive Front",
 				.setter = ecu_set_drivefront_params,

@@ -291,13 +291,13 @@ void ecu_set_driveback_params(valve_st *valve) {
 
 void ecu_set_telescope_params(valve_st *valve) {
 	uv_errors_e e = ERR_NONE;
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2008, 1, 2, &valve->max_speed_p));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2008, 2, 2, &valve->min_speed_p));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2008, 3, 2, &valve->max_speed_n));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2008, 4, 2, &valve->min_speed_n));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2008, 5, 2, &valve->acc));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2008, 6, 2, &valve->dec));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2008, 7, 1, &valve->invert));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x200B, 1, 2, &valve->max_speed_p));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x200B, 2, 2, &valve->min_speed_p));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x200B, 3, 2, &valve->max_speed_n));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x200B, 4, 2, &valve->min_speed_n));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x200B, 5, 2, &valve->acc));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x200B, 6, 2, &valve->dec));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x200B, 7, 1, &valve->invert));
 	if (e) {
 		netdev_set_transmit_failure(&dspl.network.ecu);
 	}

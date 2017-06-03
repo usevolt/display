@@ -144,6 +144,26 @@ static const data_st labels[] = {
 						"Right Leg (mA)\n"
 						"Cabin Rotate (mA)"
 		},
+#elif CM
+		{
+				.name = "ECU",
+				.row2 = "Controls moved\n"
+						"Engine shut down\n"
+						"Pump angle (ppt)\n"
+						"Implement\n"
+						"Legs Down\n"
+						"Pressure (bar)",
+				.row3 = "Boom Lift (mA)\n"
+						"Boom Fold (mA)\n"
+						"Boom Rotate (mA)\n"
+						"Drive Front (mA)\n"
+						"Drive Back (mA)\n"
+						"Steer Front (mA)\n"
+						"Body Telescope (mA)\n"
+						"Left Leg (mA)\n"
+						"Right Leg (mA)\n"
+						"Cabin Rotate (mA)"
+		},
 #endif
 		// L_KEYPAD
 		{
@@ -257,6 +277,19 @@ static void update(devices_e dev) {
 				ecu_get_driveback_ma(&dspl.network.ecu),
 				ecu_get_steerfront_ma(&dspl.network.ecu),
 				ecu_get_steerback_ma(&dspl.network.ecu),
+				ecu_get_left_leg_ma(&dspl.network.ecu),
+				ecu_get_right_leg_ma(&dspl.network.ecu),
+				ecu_get_cab_rot_ma(&dspl.network.ecu));
+#elif CM
+		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
+				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
+				ecu_get_boom_lift_ma(&dspl.network.ecu),
+				ecu_get_boom_fold_ma(&dspl.network.ecu),
+				ecu_get_boom_rotate_ma(&dspl.network.ecu),
+				ecu_get_drivefront_ma(&dspl.network.ecu),
+				ecu_get_driveback_ma(&dspl.network.ecu),
+				ecu_get_steer_ma(&dspl.network.ecu),
+				ecu_get_telescope_ma(&dspl.network.ecu),
 				ecu_get_left_leg_ma(&dspl.network.ecu),
 				ecu_get_right_leg_ma(&dspl.network.ecu),
 				ecu_get_cab_rot_ma(&dspl.network.ecu));
