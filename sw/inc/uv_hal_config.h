@@ -45,10 +45,10 @@
 
 #define CONFIG_PWM						1
 #define CONFIG_PWM_FREQ					10000
-#define CONFIG_PWM0_2					1
-#define CONFIG_PWM0_2_IO_CONF()			do { LPC_IOCON->P1_3 = 0b011; } while (0)
-#define CONFIG_PWM1_4					1
-#define CONFIG_PWM1_4_IO_CONF()			do { LPC_IOCON->P3_27 = 0b010; } while (0)
+#define CONFIG_PWM1_1					1
+#define CONFIG_PWM1_1_IO_CONF()			do { LPC_IOCON->P3_24 = 0b010; } while (0)
+#define CONFIG_PWM1_2					1
+#define CONFIG_PWM1_2_IO_CONF()			do { LPC_IOCON->P3_25 = 0b010; } while (0)
 
 
 #define HOME_BUTTON_STYLE_INDEX						0

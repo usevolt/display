@@ -342,30 +342,6 @@ F 9 "1457504" H 3800 4390 60  0001 C CNN "1st Source Part Number"
 	0    1    1    0   
 $EndComp
 $Comp
-L FUSE_MC36211_350MA F201
-U 1 1 58F5D8A5
-P 2600 3550
-F 0 "F201" H 2600 3754 45  0000 C CNN
-F 1 "FUSE_MC36211_350MA" H 2600 3670 45  0000 C CNN
-F 2 "usevolt:FUSE_MC36211" H 2630 3700 20  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/1678471.pdf?_ga=1.218604761.1948984246.1460023966" H 2720 3570 60  0001 C CNN
-F 4 "Farnell" H 3020 3870 60  0001 C CNN "1st Source"
-F 5 "MC36211" H 2920 3770 60  0001 C CNN "Manufacturer Part Number"
-F 6 "MC36211" H 3120 3970 60  0001 C CNN "1st Source Part Number"
-F 7 "Multicomp" H 2820 3670 60  0001 C CNN "Manufacturer"
-	1    2600 3550
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2400 3550 2200 3550
-Wire Wire Line
-	2200 3550 2200 3850
-Connection ~ 2200 3850
-Text HLabel 2950 3550 2    60   Output ~ 0
-VLCD
-Wire Wire Line
-	2950 3550 2800 3550
-$Comp
 L INDUCTOR_SDR1005-101KL L?
 U 1 1 58FFA1B5
 P 6500 3850

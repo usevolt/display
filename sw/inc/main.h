@@ -55,8 +55,6 @@ typedef struct {
 
 typedef struct _dspl_st {
 
-	int step_delay;
-
 	uint16_t hour_counter;
 	uint16_t sec_counter;
 	uint8_t last_sec;
