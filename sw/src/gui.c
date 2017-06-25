@@ -125,7 +125,7 @@ void gui_step(void *nullptr) {
 
 	while (true) {
 
-		uv_pwm_set(LCD_BACKLIGHT, DUTY_CYCLE((float) this->backlight / 100));
+		uv_pwm_set(LCD_BACKLIGHT, DUTY_CYCLE(((float) 100 - this->backlight * this->backlight / 100) / 100));
 
 		uv_uiprogressbar_set_value(&this->rpm, msb_get_rpm(&dspl.network.msb));
 		uv_uiprogressbar_set_value(&this->pressure, ecu_get_pressure(&dspl.network.ecu));
