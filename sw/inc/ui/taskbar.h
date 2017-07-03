@@ -47,7 +47,7 @@ typedef struct {
 			uv_uilabel_st emcy_label;
 			int emcy_delay;
 
-#if LM
+#if (LM || CM)
 			uv_uitoucharea_st gear_touch;
 			uv_uidigit_st gear;
 			uv_uilabel_st gear_label;

@@ -130,7 +130,7 @@ static void show(const taskbar_state_e state) {
 		uv_uiwindow_add(&this->taskbar, &this->emcy_label, bb.x, bb.y, bb.width, bb.height);
 		uv_delay_init(BG_ERROR_DELAY_MS, &this->emcy_delay);
 
-#if LM
+#if (LM || CM)
 		// gear
 		bb = uv_uigridlayout_next(&grid);
 		uv_uidigit_init(&this->gear, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
@@ -280,6 +280,7 @@ static void show(const taskbar_state_e state) {
 uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
+
 	if (this->state == TASKBAR_NO_ALERTS) {
 
 		if (log_get_nack_count()) {
@@ -319,12 +320,12 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 				this->emcy_delay = 0;
 			}
 
-	#if LM
+#if (LM || CM)
 			if (uv_uitoucharea_clicked(&this->gear_touch, NULL, NULL)) {
 				ecu_set_gear(ecu_get_gear(&dspl.network.ecu) % ECU_GEAR_COUNT + 1);
 			}
 			uv_uidigit_set_value(&this->gear, ecu_get_gear(&dspl.network.ecu));
-	#endif
+#endif
 
 			msb_set_horn(&dspl.network.msb,
 					uv_uitoucharea_is_down(&this->horn_touch, NULL, NULL));

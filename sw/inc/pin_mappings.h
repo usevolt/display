@@ -12,16 +12,8 @@
 #include <uv_pwm.h>
 
 
-#define LED_PIN				PIO2_31
+#define LCD_BACKLIGHT		PWM1_1
 
-#define LCD_BACKLIGHT		PWM0_2
-
-#define BUZZER				PWM1_4
-
-#define FLASH_CS			PIO0_19
-#define FLASH_RESET			PIO0_16
-
-#define VDD_SENSE			ADC_4
-
+#define BUZZER				PWM1_2
 
 #endif /* PIN_MAPPINGS_H_ */

@@ -21,7 +21,6 @@
 #define CONFIG_TARGET_LPC1785			1
 
 
-
 #define CONFIG_UV_BOOTLOADER			1
 
 #define CONFIG_LOG_ERRORS				1
@@ -36,7 +35,7 @@
 #define CONFIG_EEPROM_RING_BUFFER_END_ADDR	4024
 
 
-#define CONFIG_SPI0						1
+#define CONFIG_SPI0						0
 
 
 #define CONFIG_WDT						0
@@ -45,10 +44,10 @@
 
 #define CONFIG_PWM						1
 #define CONFIG_PWM_FREQ					10000
-#define CONFIG_PWM0_2					1
-#define CONFIG_PWM0_2_IO_CONF()			do { LPC_IOCON->P1_3 = 0b011; } while (0)
-#define CONFIG_PWM1_4					1
-#define CONFIG_PWM1_4_IO_CONF()			do { LPC_IOCON->P3_27 = 0b010; } while (0)
+#define CONFIG_PWM1_1					1
+#define CONFIG_PWM1_1_IO_CONF()			do { LPC_IOCON->P3_24 = 0b010; } while (0)
+#define CONFIG_PWM1_2					1
+#define CONFIG_PWM1_2_IO_CONF()			do { LPC_IOCON->P3_25 = 0b010; } while (0)
 
 
 #define HOME_BUTTON_STYLE_INDEX						0
@@ -207,11 +206,6 @@
 
 
 
-
-/* Enables FreeRTOS implementation.
- * Note: RTOS is not available for Cortex-M0 based
- * MCU's and thus should be disabled when compiling
- * for them.*/
 #define CONFIG_RTOS						1
 #define CONFIG_RTOS_HEAP_SIZE			26000
 
@@ -226,102 +220,18 @@
 
 
 
-/* Enables the UART modules.
- * Note: Refer to the MCU's datasheet for available UARTs.
- */
-#define CONFIG_UART0					1
+#define CONFIG_UART0					0
 #define CONFIG_UART1					0
 #define CONFIG_UART2					0
 #define CONFIG_UART3					0
 #define CONFIG_UART4					0
 
-/*
- * on LPC178x UART pins are multiplexed.
- * Use these to select which pins are configured as RX and TX for each UART.
- */
-#if (!CONFIG_TARGET_LPC11CXX)
-#define CONFIG_UART0_TX_PIO0_0			0
-#define CONFIG_UART0_TX_PIO0_2			1
-
-#define CONFIG_UART0_RX_PIO0_1			0
-#define CONFIG_UART0_RX_PIO0_3			1
-
-#define CONFIG_UART1_TX_PIO0_15			0
-#define CONFIG_UART1_TX_PIO2_0			0
-#define CONFIG_UART1_TX_PIO3_16			0
-
-#define CONFIG_UART1_RX_PIO0_16			0
-#define CONFIG_UART1_RX_PIO2_1			0
-#define CONFIG_UART1_RX_PIO3_17			0
-
-#define CONFIG_UART2_TX_PIO0_10			0
-#define CONFIG_UART2_TX_PIO2_8			0
-#define CONFIG_UART2_TX_PIO4_22			0
-
-#define CONFIG_UART2_RX_PIO0_11			0
-#define CONFIG_UART2_RX_PIO2_9			0
-#define CONFIG_UART2_RX_PIO4_23			0
-
-#define CONFIG_UART3_TX_PIO0_0			0
-#define CONFIG_UART3_TX_PIO0_2			0
-#define CONFIG_UART3_TX_PIO4_28			0
-
-#define CONFIG_UART3_RX_PIO0_1			0
-#define CONFIG_UART3_RX_PIO0_3			0
-#define CONFIG_UART3_RX_PIO4_29			0
-
-#define CONFIG_UART4_TX_PIO0_22			0
-#define CONFIG_UART4_TX_PIO1_29			0
-#define CONFIG_UART4_TX_PIO5_4			0
-
-#define CONFIG_UART4_RX_PIO2_9			0
-#define CONFIG_UART4_RX_PIO5_3			0
-#endif
-
-/* Configurations for each UART data transfer.
- * These same configurations apply for each UART used.
- * Example: If CONFIG_UARTx_ENABLE is 1,
- * then corresponding CONFIG_UARTx_DATA_*_BYTES etc.
- * should be set.
- */
-
-/*
- * The receive buffer size for each enabled UART module
- */
-#define CONFIG_UART0_RX_BUFFER_SIZE		10
-
-/*
- * The baud rate for each enabled UART module
- */
-#define CONFIG_UART0_BAUDRATE			115200
-/*
- * The number of data bytes in transmission
- */
-#define CONFIG_UART0_DATA_8_BYTES		1
-#define CONFIG_UART0_DATA_7_BYTES		0
-#define CONFIG_UART0_DATA_6_BYTES		0
-#define CONFIG_UART0_DATA_5_BYTES		0
-
-/*
- * Parity bit: set NONE if parity checking is not used,
- * or if it's used, define either ODD or EVEN parity.
- */
-#define CONFIG_UART0_PARITY_NONE		1
-#define CONFIG_UART0_PARITY_ODD			0
-#define CONFIG_UART0_PARITY_EVEN		0
-
-/*
- * The number of stop bytes in a one frame (byte).
- */
-#define CONFIG_UART0_STOP_BITS_1		1
-#define CONFIG_UART0_STOP_BITS_2		0
 
 
 
 
 
-
-#define CONFIG_TERMINAL_UART				1
+#define CONFIG_TERMINAL_UART				0
 #define CONFIG_TERMINAL_CAN					1
 #define CONFIG_TERMINAL_BUFFER_SIZE			200
 #define CONFIG_TERMINAL_ARG_COUNT			9
@@ -335,34 +245,19 @@
 #define CONFIG_CAN1_TX_PIN					PIO0_1
 #define CONFIG_CAN1_RX_PIN					PIO0_0
 #define CONFIG_CAN2							0
-
 #define CONFIG_CAN_LOG						0
 #define CONFIG_CAN_ERROR_LOG				0
-/*
- * Defines the corresponding CAN channel's baud rate
- */
 #define CONFIG_CAN1_BAUDRATE				250000
-#define CONFIG_CAN2_BAUDRATE				250000
-
-/* Defines the corresponding CAN channel's
- * transmit buffer size in CAN messages
- */
 #define CONFIG_CAN1_TX_BUFFER_SIZE			200
-#define CONFIG_CAN2_TX_BUFFER_SIZE			3
-
-/* Defines the corresponding CAN channel's
- * receive buffer size in CAN messages
- */
-#define CONFIG_CAN1_RX_BUFFER_SIZE			20
-#define CONFIG_CAN2_RX_BUFFER_SIZE			3
+#define CONFIG_CAN1_RX_BUFFER_SIZE			50
+#define CONFIG_CAN2_BAUDRATE				250000
+#define CONFIG_CAN2_TX_BUFFER_SIZE			1
+#define CONFIG_CAN2_RX_BUFFER_SIZE			1
 
 
 
 
 
-/*
- * Enabled or disables the CANopen module.
- */
 #define CONFIG_CANOPEN								1
 #define CONFIG_CANOPEN_LOG							0
 #define CONFIG_CANOPEN_CHANNEL						CAN1
@@ -559,6 +454,10 @@
 #define CONFIG_CANOPEN_RXPDO7_MAPPING4_SUB_INDEX	8
 #define CONFIG_CANOPEN_RXPDO7_MAPPING4_LEN			2
 #elif LM
+#define CONFIG_CANOPEN_RXPDO7_MAPPING4_MAIN_INDEX	0x2207
+#define CONFIG_CANOPEN_RXPDO7_MAPPING4_SUB_INDEX	0
+#define CONFIG_CANOPEN_RXPDO7_MAPPING4_LEN			1
+#elif CM
 #define CONFIG_CANOPEN_RXPDO7_MAPPING4_MAIN_INDEX	0x2207
 #define CONFIG_CANOPEN_RXPDO7_MAPPING4_SUB_INDEX	0
 #define CONFIG_CANOPEN_RXPDO7_MAPPING4_LEN			1

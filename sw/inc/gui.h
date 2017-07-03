@@ -26,11 +26,6 @@
 /// @brief: P-factor for backlight control
 #define BACKLIGHT_KP				0.1f
 #define BACKLIGHT_KP_MAX			10000
-/// @brief: The values which the ADC output values has to be multiplied to get the
-/// VDD supply voltage. Depends on the used resistors in the voltage divider.
-#define VDD_VOLTAGE_DIV_VAL 		11
-/// @brief: Supply voltage running average count
-#define VDD_MOVING_AVER_COUNT		4
 
 /// @brief: Main display buffer length
 #define DISPLAY_BUF_LEN			10
@@ -66,12 +61,8 @@
 
 /// @brief: Singleton structure representing the graphical user interface
 typedef struct {
-	/// @brief: Backlight target brightness as a 16-bit value
-	uint16_t backlight_trg;
-	/// @brief: Backlight current brightness as a 16-bit value
-	uint16_t backlight_curr;
-	/// @brief: Running average of the supply voltage as millivolts
-	uv_moving_aver_st vdd_mv;
+	/// @brief: Backlight brightness as a value from 0...100
+	uint16_t backlight;
 
 	/// @brief: Display is the main object of the UI
 	uv_uidisplay_st display;

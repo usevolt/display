@@ -29,6 +29,7 @@ BINARY := display
 
 # List of include directories
 INCLUDEDIRS := 	-I"inc/" \
+				-I"hal/include/" \
 				-I"hal/uv_hal/inc" \
 				-I"hal/CMSIS_CORE_LPC177x_8x/inc"\
 				-I"hal/uv_hal/freertos/include" \
@@ -48,12 +49,8 @@ CC := arm-none-eabi-gcc
 SOURCES := $(shell find $(SOURCEDIR) -name '*.c')
 GIT_VERSION := $(shell git describe --abbrev=4 --dirty --always --tags)
 APP_NAME := $(shell basename `git rev-parse --show-toplevel`)
-FULL_NAME := wrongname
 
-
-CFLAGS := -DDEBUG -D__CODE_RED -D$(CORE) -D__NEWLIB__ $(INCLUDEDIRS) -$(O) -g3 -Wall -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=$(MCPU) -mthumb
-
-
+CFLAGS := -D$(CORE) $(INCLUDEDIRS) -$(O) -g3 -Wall -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=$(MCPU) -mthumb
 LDFLAGS := -nostdlib -Xlinker -Map="$(BUILDDIR)/$(APP_NAME).map" -Xlinker --cref -Xlinker --gc-sections -mcpu=$(MCPU) -mthumb -T "$(APP_NAME).ld" -D__UV_APP_VERSION=\"$(GIT_VERSION)\"
 
 
@@ -68,7 +65,7 @@ default:
 	@echo "\n**************************"
 	@echo "Error: Target not defined."
 	@echo "**************************\n"
-	@echo " Please use either 'make fm' or 'make lm'"
+	@echo " Please use either 'make fm', 'make lm' or 'make cm'"
 
 
 fm:	CFLAGS += -DFM -D__UV_PROJECT_NAME=$(APP_NAME)_FM_$(GIT_VERSION)
@@ -80,6 +77,11 @@ fm: $(BINARY)
 lm:	CFLAGS += -DLM -D__UV_PROJECT_NAME=$(APP_NAME)_LM_$(GIT_VERSION)
 lm: LDFLAGS += -DLM
 lm: $(BINARY)
+	$(MAKE) post-build
+	
+cm:	CFLAGS += -DCM -D__UV_PROJECT_NAME=$(APP_NAME)_CM_$(GIT_VERSION)
+cm: LDFLAGS += -DCM
+cm: $(BINARY)
 	$(MAKE) post-build
 
 $(BINARY): $(OBJECTS)

@@ -19,6 +19,8 @@
 #define ECU_VALVE_COUNT		8
 #elif LM
 #define ECU_VALVE_COUNT		11
+#elif CM
+#define ECU_VALVE_COUNT		11
 #endif
 
 #define ECU_GEAR_COUNT		3
@@ -54,6 +56,18 @@ typedef struct {
 			int16_t right_leg_ma;
 			int16_t boom_telescope_ma;
 			int16_t steerback_ma;
+			int16_t cab_rot_ma;
+			int16_t driveback_ma;
+#elif CM
+			int16_t boom_lift_ma;
+			int16_t boom_fold_ma;
+			int16_t boom_rotate_ma;
+			int16_t drivefront_ma;
+			int16_t steer_ma;
+			int16_t left_leg_ma;
+			int16_t right_leg_ma;
+			int16_t boom_telescope_ma;
+			int16_t telescope_ma;
 			int16_t cab_rot_ma;
 			int16_t driveback_ma;
 #endif
@@ -95,6 +109,18 @@ static inline void ecu_init(ecu_st *this) {
 	this->read.valves.driveback_ma = 0;
 	this->read.valves.steerfront_ma = 0;
 	this->read.valves.steerback_ma = 0;
+	this->read.valves.left_leg_ma = 0;
+	this->read.valves.right_leg_ma = 0;
+	this->read.valves.cab_rot_ma = 0;
+#elif CM
+	this->read.valves.boom_lift_ma = 0;
+	this->read.valves.boom_fold_ma = 0;
+	this->read.valves.boom_rotate_ma = 0;
+	this->read.valves.boom_telescope_ma = 0;
+	this->read.valves.drivefront_ma = 0;
+	this->read.valves.driveback_ma = 0;
+	this->read.valves.steer_ma = 0;
+	this->read.valves.telescope_ma = 0;
 	this->read.valves.left_leg_ma = 0;
 	this->read.valves.right_leg_ma = 0;
 	this->read.valves.cab_rot_ma = 0;
@@ -186,6 +212,31 @@ static inline int16_t ecu_get_steerback_ma(ecu_st *this) {
 static inline int16_t ecu_get_cab_rot_ma(ecu_st *this) {
 	return this->read.valves.cab_rot_ma;
 }
+#elif CM
+
+static inline int16_t ecu_get_boom_telescope_ma(ecu_st *this) {
+	return this->read.valves.boom_telescope_ma;
+}
+
+static inline int16_t ecu_get_drivefront_ma(ecu_st *this) {
+	return this->read.valves.drivefront_ma;
+}
+
+static inline int16_t ecu_get_steer_ma(ecu_st *this) {
+	return this->read.valves.steer_ma;
+}
+
+static inline int16_t ecu_get_driveback_ma(ecu_st *this) {
+	return this->read.valves.driveback_ma;
+}
+
+static inline int16_t ecu_get_telescope_ma(ecu_st *this) {
+	return this->read.valves.telescope_ma;
+}
+
+static inline int16_t ecu_get_cab_rot_ma(ecu_st *this) {
+	return this->read.valves.cab_rot_ma;
+}
 
 #endif
 
@@ -221,6 +272,20 @@ void ecu_set_steerfront_params(valve_st *valve);
 void ecu_set_driveback_params(valve_st *valve);
 
 void ecu_set_steerback_params(valve_st *valve);
+
+void ecu_set_cab_rot_params(valve_st *valve);
+
+#elif CM
+
+void ecu_set_boom_telescope_params(valve_st *valve);
+
+void ecu_set_drivefront_params(valve_st *valve);
+
+void ecu_set_steer_params(valve_st *valve);
+
+void ecu_set_driveback_params(valve_st *valve);
+
+void ecu_set_telescope_params(valve_st *valve);
 
 void ecu_set_cab_rot_params(valve_st *valve);
 

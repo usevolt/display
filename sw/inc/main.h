@@ -55,8 +55,6 @@ typedef struct {
 
 typedef struct _dspl_st {
 
-	int step_delay;
-
 	uint16_t hour_counter;
 	uint16_t sec_counter;
 	uint8_t last_sec;
@@ -73,9 +71,9 @@ typedef struct _dspl_st {
 	/// other CAN network devices
 	network_st network;
 
-	uv_data_start_t data_start;
-
 	alert_st alert;
+
+	uv_data_start_t data_start;
 
 	userdata_st userdata[USER_COUNT];
 

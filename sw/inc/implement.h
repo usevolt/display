@@ -91,18 +91,8 @@ typedef struct {
 	bool mb_enabled;
 	int16_t len_calib;
 	int16_t vol_calib;
-	/// @brief: Stores all log types defined by user
-	log_type_st log_type_buffer[LOG_TYPE_COUNT];
-	uv_vector_st log_types;
-	/// @brief: Stores tree types defined by user
-	tree_type_st tree_type_buffer[TREE_TYPE_COUNT];
-	uv_vector_st tree_types;
-	/// @brief: Stores log counts sorted by tree types
-	uint32_t log_counts[TREE_TYPE_COUNT][LOG_TYPE_COUNT];
-
 	int16_t log_len1;
 	int16_t log_len2;
-
 } uw180s_st;
 /// @brief: Uw180s factory settings
 extern const uw180s_st uw180s;
@@ -112,16 +102,11 @@ static inline void uw180s_reset(uw180s_st *this);
 
 static inline void uw180s_init(uw180s_st *this) {
 	implement_init(this, &uw180s);
-	if (uv_vector_size(&this->log_types) > LOG_TYPE_COUNT) {
-		uw180s_reset(this);
-	}
 }
 
 static inline void uw180s_reset(uw180s_st *this) {
 	*this = uw180s;
 	uw180s_init(this);
-	uv_vector_init(&this->log_types, this->log_type_buffer,
-			LOG_TYPE_COUNT, sizeof(log_type_st));
 }
 
 

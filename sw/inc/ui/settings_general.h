@@ -11,44 +11,36 @@
 
 #include <uv_ui.h>
 
-#define SETTINGS_GENERAL_BUFFER_LEN	4
-#define SETTINGS_GENERAL_TREEBUFFER_LEN	3
-
+#define SETTINGS_GENERAL_BUFFER_LEN	6
+#define SETTINGS_GENERAL_TREEVIEW_LEN 3
 
 
 typedef struct {
 
-	uv_uitreeview_st treeview;
-	uv_uitreeobject_st *treebuffer[SETTINGS_GENERAL_TREEBUFFER_LEN];
-	uv_uitreeobject_st driving_obj;
-	uv_uitreeobject_st volume_obj;
 
-	uv_uiobject_st *buffer[SETTINGS_GENERAL_BUFFER_LEN];
 	uv_uiwindow_st window;
-	union {
-		struct {
-			uv_uislider_st brightness;
-			uv_uitogglebutton_st drive_lights;
-			uv_uitogglebutton_st work_lights;
-			uv_uislider_st wiper;
-			uv_uislider_st heater;
-		} general;
+	uv_uiobject_st *buffer[SETTINGS_GENERAL_BUFFER_LEN];
 
-		struct {
-			uv_uislider_st volume;
+	uv_uitreeview_st treeview;
+	uv_uitreeobject_st *objbuffer[SETTINGS_GENERAL_TREEVIEW_LEN];
+	struct {
+	uv_uitreeobject_st general;
+	uv_uitreeobject_st volume;
+	} treeobjs;
 
-		} volume;
-	};
+	uv_uislider_st brightness;
+	uv_uislider_st volume;
 
-
+	uv_uitogglebutton_st drive_lights;
+	uv_uitogglebutton_st work_lights;
+	uv_uislider_st wiper;
+	uv_uislider_st heater;
 
 } settings_general_st;
 
 
 /// @brief: Shows this window
 void settings_general_show();
-
-void settings_general_step(uint16_t step_ms);
 
 
 #endif /* UI_SETTINGS_GENERAL_H_ */

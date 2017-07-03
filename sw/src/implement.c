@@ -103,9 +103,6 @@ const uw180s_st uw180s = {
 		.vol_calib = 0,
 		.log_len1 = 300,
 		.log_len2 = 500,
-		.log_type_buffer = {
-				REPEAT(LOG_TYPE_COUNT, LOG_TYPE_INIT)
-		}
 };
 
 

@@ -11,7 +11,6 @@
 #include <canopen.h>
 #include <commands.h>
 #include "LPC177x_8x.h"
-#include <cr_section_macros.h>
 #include <main.h>
 #include <uv_rtos.h>
 #include <uv_terminal.h>
@@ -47,11 +46,6 @@ void dspl_init(dspl_st *me) {
 
 	uv_set_int_priority(INT_SYSTICK, 31);
 	uv_set_int_priority(INT_UART0, 30);
-
-	// init GPIO's
-	uv_gpio_init_output(LED_PIN, false);
-	uv_gpio_init_output(FLASH_CS, false);
-	uv_gpio_init_output(FLASH_RESET, true);
 
 
 	// read hour counter value from EEPROM
@@ -133,13 +127,10 @@ void dspl_init(dspl_st *me) {
 
 	alert_init(&this->alert);
 
-	uv_delay_init(1000, &this->step_delay);
-
 	uv_canopen_set_can_callback(can_callback);
 
 	// the display lives it's own life. It is allowed to boot itself up into operational mode
 	uv_canopen_set_state(CANOPEN_OPERATIONAL);
-
 
 }
 
@@ -167,11 +158,6 @@ void dspl_step(void *me) {
 			}
 		}
 		this->last_sec = time.sec;
-
-		if (uv_delay(step_ms, &this->step_delay)) {
-			uv_gpio_toggle(LED_PIN);
-			uv_delay_init(1000, &this->step_delay);
-		}
 
 		uv_rtos_task_delay(step_ms);
 	}

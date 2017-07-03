@@ -42,6 +42,14 @@ void settings_valves_show() {
 	uv_uigridlayout_init(&grid, 0, 0, uv_uiwindow_get_contentbb(&this->window).width,
 			uv_uiwindow_get_contentbb(&this->window).height, 3, 4);
 	uv_uigridlayout_set_padding(&grid, 10, 10);
+#elif CM
+	uv_uiwindow_set_contentbb(&this->window, uv_uibb(window)->width, uv_uibb(window)->height * 1.3f);
+	uv_uitabwindow_add(window, &this->window, 0, 0,
+			uv_uibb(window)->width, uv_uitabwindow_get_contentbb(window).height);
+
+	uv_uigridlayout_init(&grid, 0, 0, uv_uiwindow_get_contentbb(&this->window).width,
+			uv_uiwindow_get_contentbb(&this->window).height, 3, 4);
+	uv_uigridlayout_set_padding(&grid, 10, 10);
 #endif
 	uv_bounding_box_st bb;
 
