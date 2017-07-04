@@ -12,6 +12,8 @@
 
 #define this (&gui.windows.settings.general)
 
+#define GENERAL_HEIGHT	200
+#define VOLUME_HEIGHT	200
 
 uv_uiobject_ret_e settings_general_step(const uint16_t step_ms);
 
@@ -24,21 +26,31 @@ void settings_general_show() {
 	uv_uiwindow_st *window = (uv_uiwindow_st *) &gui.windows.settings.tabs;
 	uv_uiwindow_clear(window);
 
-	uv_uitreeobject_init(&this->treeobjs.general, "General", &this->window, &show_general_callb);
-	uv_uitreeobject_init(&this->treeobjs.volume, "Volume", &this->window, &show_volume_callb);
 	uv_uitreeview_init(&this->treeview, this->objbuffer, &UI_FONT_BIG, &uv_uistyles[0]);
 	uv_uitabwindow_add(window, &this->treeview, 0, 0,
 			uv_uibb(window)->width, uv_uiwindow_get_contentbb(window).height);
 
+
+	uv_uitreeobject_init(&this->treeobjs.general, "General", &show_general_callb);
+	uv_uitreeobject_init(&this->treeobjs.volume, "Volume", &show_volume_callb);
+	uv_uitreeview_add(&this->treeview, &this->treeobjs.general);
+	uv_uitreeview_add(&this->treeview, &this->treeobjs.volume);
+	uv_uitreeview_set_active(&this->treeview, &this->treeobjs.general);
+
+}
+
+
+void show_general_callb(void) {
+	printf("showing general\n");
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
 	uv_uiwindow_set_stepcallback(&this->window, &settings_general_step);
-	uv_uitabwindow_add(window, &this->window, 0, 0,
-			uv_uibb(window)->width, uv_uitabwindow_get_contentbb(window).height);
+	uv_uitreeobject_add(&this->treeview, &this->treeobjs.general, &this->window,
+			uv_uibb(&this->treeview)->width, GENERAL_HEIGHT);
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0,
 			uv_uibb(&this->window)->width,
-			uv_uibb(&this->window)->height, 5, 1);
+			uv_uibb(&this->window)->height, 4, 1);
 	uv_uigridlayout_set_padding(&grid, 5,30);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
@@ -47,14 +59,6 @@ void settings_general_show() {
 	uv_uislider_set_vertical(&this->brightness);
 	uv_uislider_set_title(&this->brightness, "Screen\nbrightness");
 	uv_uiwindow_add(&this->window, &this->brightness,
-			bb.x, bb.y, bb.width, bb.height);
-
-	// volume
-	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->volume, 0, 100, alert_get_volume(&dspl.alert), &uv_uistyles[0]);
-	uv_uislider_set_vertical(&this->volume);
-	uv_uislider_set_title(&this->volume, "Volume");
-	uv_uiwindow_add(&this->window, &this->volume,
 			bb.x, bb.y, bb.width, bb.height);
 
 	// drive lights
@@ -88,12 +92,27 @@ void settings_general_show() {
 
 }
 
-
-void show_general_callb(void) {
-
-}
-
 void show_volume_callb(void) {
+	printf("showing volume\n");
+	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
+	uv_uiwindow_set_stepcallback(&this->window, &settings_general_step);
+	uv_uitreeobject_add(&this->treeview, &this->treeobjs.volume, &this->window,
+			uv_uibb(&this->treeview)->width, GENERAL_HEIGHT);
+
+	uv_uigridlayout_st grid;
+	uv_uigridlayout_init(&grid, 0, 0,
+			uv_uibb(&this->window)->width,
+			uv_uibb(&this->window)->height, 5, 1);
+	uv_uigridlayout_set_padding(&grid, 5,30);
+	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
+
+
+	// volume
+	uv_uislider_init(&this->volume, 0, 100, alert_get_volume(&dspl.alert), &uv_uistyles[0]);
+	uv_uislider_set_vertical(&this->volume);
+	uv_uislider_set_title(&this->volume, "Volume");
+	uv_uiwindow_add(&this->window, &this->volume,
+			bb.x, bb.y, bb.width, bb.height);
 
 }
 
