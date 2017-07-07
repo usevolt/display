@@ -11,7 +11,6 @@
 #include <canopen.h>
 #include <commands.h>
 #include "LPC177x_8x.h"
-#include <cr_section_macros.h>
 #include <main.h>
 #include <uv_rtos.h>
 #include <uv_terminal.h>
@@ -147,6 +146,11 @@ void dspl_step(void *me) {
 		uv_terminal_step();
 
 		alert_step(&this->alert, step_ms);
+
+		canopen_emcy_msg_st emcy;
+		if (uv_canopen_emcy_get(&emcy)) {
+			network_receive_emcy(&this->network, &emcy);
+		}
 
 		uv_time_st time;
 		uv_rtc_get_time(&time);

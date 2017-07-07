@@ -17,7 +17,19 @@
 void ecu_step(ecu_st *this, unsigned int step_ms) {
 	netdev_step(this, step_ms);
 
+	if (this->legs_down_warning && (!this->read.legs_down)) {
+		log_ack_type(LOG_LEGS_DOWN);
+	}
 }
+
+void ecu_emcy(ecu_st *this, const canopen_emcy_msg_st *emcy) {
+	if ((emcy->error_code == CANOPEN_EMCY_DEVICE_SPECIFIC) &&
+			(emcy->data == EMCY_ECU_LEGS_DOWN)) {
+		log_add(LOG_LEGS_DOWN, 0);
+		this->legs_down_warning = true;
+	}
+}
+
 
 #define this ((ecu_st*)me)
 
@@ -386,13 +398,13 @@ void ecu_set_gear(uint8_t gear) {
 
 void ecu_set_uw180s_wheels_feed_params(uint16_t speed_f,
 		uint16_t speed_b, bool invert) {
-	speed_f *= 2;
-	speed_b *= 2;
 
 	dspl.user->uw180s.wheels_feed.max_speed_p = speed_f;
 	dspl.user->uw180s.wheels_feed.max_speed_n = speed_b;
 	dspl.user->uw180s.wheels_feed.invert = invert;
 	uv_errors_e e = ERR_NONE;
+	speed_f *= 2;
+	speed_b *= 2;
 	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2011, 1, 2, &speed_f));
 	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2011, 2, 2, &speed_b));
 	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2013, 1, 1, &invert));

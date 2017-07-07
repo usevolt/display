@@ -123,6 +123,11 @@ const log_entry_def_st log_entry_defs[] = {
 				.type = LOG_BAT_V_ERROR | LOG_ERROR,
 				.def = "Battery voltage critically low",
 				.param_def = "voltage: "
+		},
+		{
+				.type = LOG_LEGS_DOWN | LOG_WARNING,
+				.def = "Driving is not allowed when support legs are down",
+				.param_def = " "
 		}
 };
 
@@ -154,6 +159,14 @@ const log_entry_def_st *log_entry_get_definition(log_entry_e type) {
 
 
 void log_add(log_entry_e type, int32_t data) {
+	// if older entries of this type were found, acknowledge them
+	for (int i = 0; i < log_get_nack_count(); i++) {
+		log_entry_st entry;
+		log_get_nack(&entry, i);
+		if (entry.type == type) {
+			log_ack(i);
+		}
+	}
 	log_entry_st entry = {
 			.data = data,
 			.type = type,
@@ -193,10 +206,19 @@ void log_ack(uint16_t index) {
 		i++;
 		e = uv_eeprom_at((void*) &entry, &addr, i);
 	}
-	return;
-
-
 }
+
+void log_ack_type(log_entry_e type) {
+	log_entry_st entry;
+	for (int i = 0; i < log_get_nack_count(); i++) {
+		log_get_nack(&entry, i);
+		if (entry.type == type) {
+			log_ack(i);
+			break;
+		}
+	}
+}
+
 
 uint16_t log_get_nack_count() {
 	return this->nack_count;
@@ -250,7 +272,6 @@ bool log_get(log_entry_st *dest, uint16_t index) {
 	uv_errors_e e = uv_eeprom_at((unsigned char *) dest, NULL, index);
 	return e ? false : true;
 }
-
 
 void log_clear(void) {
 	unsigned char p = 0;

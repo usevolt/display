@@ -122,7 +122,7 @@ const canopen_object_st obj_dict[] = {
 				.sub_index = 0,
 				.permissions = CANOPEN_WO,
 				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.ecu.read.stop
+				.data_ptr = (void*) &dspl.network.ecu.read.legs_down
 		},
 		{
 				.main_index = 0x2205,
