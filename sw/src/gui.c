@@ -38,7 +38,7 @@ static void display_touch_callback(const uv_touch_st *touch) {
 }
 
 void gui_init() {
-	this->backlight = 50;
+	this->backlight = 80;
 	gui_set_backlight(this->backlight);
 
 	uv_uidisplay_init(&this->display, this->display_buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
