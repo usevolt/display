@@ -19,9 +19,9 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 		{
 				.name = "Boom Lift",
 				.setter = ecu_set_boom_lift_params,
-				.min_speed_p = 240,
+				.min_speed_p = 230,
 				.max_speed_p = 730,
-				.min_speed_n = 240,
+				.min_speed_n = 280,
 				.max_speed_n = 715,
 				.acc = 40,
 				.dec = 46,
@@ -30,9 +30,9 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 		{
 				.name = "Boom Fold",
 				.setter = ecu_set_boom_fold_params,
-				.min_speed_p = 300,
+				.min_speed_p = 240,
 				.max_speed_p = 720,
-				.min_speed_n = 260,
+				.min_speed_n = 290,
 				.max_speed_n = 720,
 				.acc = 40,
 				.dec = 40,
