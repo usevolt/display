@@ -84,8 +84,8 @@ const uw180s_st uw180s = {
 				.invert = false
 		},
 		.tilt = {
-				.max_speed_p = 600,
-				.max_speed_n = 600,
+				.max_speed_p = 200,
+				.max_speed_n = 200,
 				.invert = false
 		},
 		.wheels = {
@@ -153,18 +153,18 @@ const uw100_st uw100 = {
 				.callbacks = &uw100_callbacks,
 		},
 		.rotator = {
-				.max_speed_p = 600,
-				.max_speed_n = 600,
+				.max_speed_p = 300,
+				.max_speed_n = 300,
 				.invert = false,
-				.acc = 30,
-				.dec = 30
+				.acc = 100,
+				.dec = 100
 		},
 		.open = {
 				.max_speed_p = 600,
 				.max_speed_n = 600,
 				.invert = false,
-				.acc = 30,
-				.dec = 30
+				.acc = 100,
+				.dec = 100
 		}
 };
 
