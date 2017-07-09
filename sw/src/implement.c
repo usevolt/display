@@ -48,6 +48,7 @@ void implement_init(void *me, const void *initializer) {
 	this->callbacks = ((implement_st*)initializer)->callbacks;
 }
 
+#undef this
 
 const implement_callbs_st uw180s_callbacks = {
 		.dasboard_step = dashboard_uw180s_step,
@@ -109,6 +110,14 @@ const uw180s_st uw180s = {
 };
 
 
+void uw180s_init(uw180s_st *this) {
+	implement_init(this, &uw180s);
+	if (uv_vector_size(&this->log_types) > LOG_TYPE_COUNT) {
+		uw180s_reset(this);
+	}
+	ecu_set_uw180s_log_length(this->log_len1);
+}
+
 
 
 const implement_callbs_st uw50_callbacks = {
@@ -167,6 +176,7 @@ const uw100_st uw100 = {
 				.dec = 100
 		}
 };
+
 
 
 

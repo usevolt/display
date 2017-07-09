@@ -110,12 +110,7 @@ extern const uw180s_st uw180s;
 static inline void uw180s_reset(uw180s_st *this);
 
 
-static inline void uw180s_init(uw180s_st *this) {
-	implement_init(this, &uw180s);
-	if (uv_vector_size(&this->log_types) > LOG_TYPE_COUNT) {
-		uw180s_reset(this);
-	}
-}
+void uw180s_init(uw180s_st *this);
 
 static inline void uw180s_reset(uw180s_st *this) {
 	*this = uw180s;
