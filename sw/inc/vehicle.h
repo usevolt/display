@@ -51,8 +51,8 @@
 
 #define PRESSURE_MAX				250
 
-#define VOLTAGE_MAX					15000
-#define VOLTAGE_MIN					10000
+#define VOLTAGE_MAX					14000
+#define VOLTAGE_MIN					11000
 
 #define UW180S_MB_LEN_CALIB_MAX		300
 #define UW180S_MB_VOL_CALIB_MIN		-100

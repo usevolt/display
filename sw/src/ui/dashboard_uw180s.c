@@ -84,6 +84,7 @@ void dashboard_uw180s_show() {
 			bb.width, bb.height - uv_uibb(&this->vol_label)->height);
 
 	this->active_len = 1;
+	ecu_set_uw180s_log_length(dspl.user->uw180s.log_len1);
 }
 
 

@@ -252,7 +252,7 @@ static void update(devices_e dev) {
 				ecu_get_engine_shut_down(&dspl.network.ecu),
 				ecu_get_pump_angle(&dspl.network.ecu),
 				ecu_get_implement(&dspl.network.ecu),
-				ecu_get_stop(&dspl.network.ecu),
+				ecu_get_legs_down(&dspl.network.ecu),
 				ecu_get_pressure(&dspl.network.ecu));
 		uv_ui_refresh(&this->row2_values);
 #if FM

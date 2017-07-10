@@ -146,6 +146,11 @@ void dspl_step(void *me) {
 
 		alert_step(&this->alert, step_ms);
 
+		canopen_emcy_msg_st emcy;
+		if (uv_canopen_emcy_get(&emcy)) {
+			network_receive_emcy(&this->network, &emcy);
+		}
+
 		uv_time_st time;
 		uv_rtc_get_time(&time);
 		if (this->last_sec != time.sec) {

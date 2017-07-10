@@ -100,9 +100,7 @@ extern const uw180s_st uw180s;
 static inline void uw180s_reset(uw180s_st *this);
 
 
-static inline void uw180s_init(uw180s_st *this) {
-	implement_init(this, &uw180s);
-}
+void uw180s_init(uw180s_st *this);
 
 static inline void uw180s_reset(uw180s_st *this) {
 	*this = uw180s;

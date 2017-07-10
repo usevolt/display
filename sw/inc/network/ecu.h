@@ -15,6 +15,12 @@
 #include "vehicle.h"
 
 
+
+typedef enum {
+	EMCY_ECU_LEGS_DOWN = 0
+} ecu_emcy_e;
+
+
 #if FM
 #define ECU_VALVE_COUNT		8
 #elif LM
@@ -28,11 +34,13 @@
 typedef struct {
 	EXTENDS(netdev_st);
 
+	bool legs_down_warning;
+
 	struct {
 		uint8_t controls_moved;
 		uint8_t engine_shut_down;
 		uint16_t pump_angle;
-		uint8_t stop;
+		uint8_t legs_down;
 		int16_t pressure;
 		uint8_t implement;
 		uint8_t gear;
@@ -84,11 +92,12 @@ static inline void ecu_init(ecu_st *this) {
 	netdev_init(this, ecu_update);
 	netdev_set_node_id(this, ECU_NODE_ID);
 	netdev_set_disconnected_type(this, LOG_ECU_DISCONNECTED);
+	this->legs_down_warning = false;
 	this->read.controls_moved = 0;
 	this->read.engine_shut_down = 0;
 	this->read.pump_angle = 0;
 	this->read.implement = 1;
-	this->read.stop = 0;
+	this->read.legs_down = 0;
 	this->read.pressure = 0;
 	this->read.gear = 1;
 #if FM
@@ -132,6 +141,8 @@ static inline void ecu_init(ecu_st *this) {
 
 void ecu_step(ecu_st *this, unsigned int step_ms);
 
+void ecu_emcy(ecu_st *this, const canopen_emcy_msg_st *emcy);
+
 
 static inline bool ecu_get_controls_moved(ecu_st *this) {
 	return this->read.controls_moved;
@@ -153,8 +164,8 @@ static inline uint8_t ecu_get_gear(ecu_st *this) {
 	return this->read.gear;
 }
 
-static inline bool ecu_get_stop(ecu_st *this) {
-	return this->read.stop;
+static inline bool ecu_get_legs_down(ecu_st *this) {
+	return this->read.legs_down;
 }
 
 static inline int16_t ecu_get_pressure(ecu_st *this) {

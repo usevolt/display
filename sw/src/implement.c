@@ -48,6 +48,7 @@ void implement_init(void *me, const void *initializer) {
 	this->callbacks = ((implement_st*)initializer)->callbacks;
 }
 
+#undef this
 
 const implement_callbs_st uw180s_callbacks = {
 		.dasboard_step = dashboard_uw180s_step,
@@ -74,18 +75,18 @@ const uw180s_st uw180s = {
 				.invert = false
 		},
 		.rotator = {
-				.max_speed_p = 300,
-				.max_speed_n = 300,
+				.max_speed_p = 350,
+				.max_speed_n = 350,
 				.invert = false
 		},
 		.saw = {
 				.max_speed_p = 600,
-				.max_speed_n = 600,
+				.max_speed_n = 350,
 				.invert = false
 		},
 		.tilt = {
-				.max_speed_p = 600,
-				.max_speed_n = 600,
+				.max_speed_p = 250,
+				.max_speed_n = 250,
 				.invert = false
 		},
 		.wheels = {
@@ -105,6 +106,11 @@ const uw180s_st uw180s = {
 		.log_len2 = 500,
 };
 
+
+void uw180s_init(uw180s_st *this) {
+	implement_init(this, &uw180s);
+	ecu_set_uw180s_log_length(this->log_len1);
+}
 
 
 
@@ -150,20 +156,21 @@ const uw100_st uw100 = {
 				.callbacks = &uw100_callbacks,
 		},
 		.rotator = {
-				.max_speed_p = 600,
-				.max_speed_n = 600,
+				.max_speed_p = 300,
+				.max_speed_n = 300,
 				.invert = false,
-				.acc = 30,
-				.dec = 30
+				.acc = 100,
+				.dec = 100
 		},
 		.open = {
 				.max_speed_p = 600,
 				.max_speed_n = 600,
 				.invert = false,
-				.acc = 30,
-				.dec = 30
+				.acc = 100,
+				.dec = 100
 		}
 };
+
 
 
 

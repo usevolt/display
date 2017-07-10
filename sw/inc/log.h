@@ -44,7 +44,8 @@ enum {
 	LOG_OIL_TEMP_WARNING,
 	LOG_OIL_TEMP_ERROR,
 	LOG_BAT_V_WARNING,
-	LOG_BAT_V_ERROR
+	LOG_BAT_V_ERROR,
+	LOG_LEGS_DOWN
 };
 typedef uint8_t log_entry_e;
 
@@ -104,6 +105,9 @@ static inline log_entry_type_e log_get_type(log_entry_st *entry) {
 
 /// @brief: Acknowledges an active **index**'th warning or error message. 0 is the most recent message.
 void log_ack(uint16_t index);
+
+/// @brief: ACknowledges the most recent log entry with the typ of **type**
+void log_ack_type(log_entry_e type);
 
 /// @brief: Returns how many entries are not acknowledged
 uint16_t log_get_nack_count();

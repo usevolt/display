@@ -33,16 +33,26 @@ void network_init(network_st *this) {
 	uw180s_ecu_init(&this->uw180s_ecu);
 }
 
+void network_receive_emcy(network_st *this, const canopen_emcy_msg_st *emcy) {
+	if (emcy->node_id == ((netdev_st*) &this->ecu)->node_id) {
+		ecu_emcy(&this->ecu, emcy);
+	}
+}
+
+
 void network_receive_message(network_st *this, uv_can_message_st *msg) {
-	if (msg->type == CAN_STD && (msg->id & ~0xFF) == CANOPEN_HEARTBEAT_ID) {
-		netdev_receive_heartbeat(&this->msb, msg);
-		netdev_receive_heartbeat(&this->csb, msg);
-		netdev_receive_heartbeat(&this->l_keypad, msg);
-		netdev_receive_heartbeat(&this->r_keypad, msg);
-		netdev_receive_heartbeat(&this->pedal, msg);
-		netdev_receive_heartbeat(&this->ecu, msg);
-		netdev_receive_heartbeat(&this->uw180s_ecu, msg);
-		netdev_receive_heartbeat(&this->uw180s_mb, msg);
+	if (((msg->id & ~0xFF) == CANOPEN_HEARTBEAT_ID) ||
+			((msg->id & ~0xFF) == CANOPEN_TXPDO1_ID)) {
+		if (msg->type == CAN_STD) {
+			netdev_receive_heartbeat(&this->msb, msg);
+			netdev_receive_heartbeat(&this->csb, msg);
+			netdev_receive_heartbeat(&this->l_keypad, msg);
+			netdev_receive_heartbeat(&this->r_keypad, msg);
+			netdev_receive_heartbeat(&this->pedal, msg);
+			netdev_receive_heartbeat(&this->ecu, msg);
+			netdev_receive_heartbeat(&this->uw180s_ecu, msg);
+			netdev_receive_heartbeat(&this->uw180s_mb, msg);
+		}
 	}
 }
 

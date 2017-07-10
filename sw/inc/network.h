@@ -41,6 +41,8 @@ typedef struct {
 
 void network_init(network_st *this);
 
+void network_receive_emcy(network_st *this, const canopen_emcy_msg_st *emcy);
+
 void network_receive_message(network_st *this, uv_can_message_st *msg);
 
 /// @brief: Updates the all modified parameters to the CAN network devices
