@@ -119,6 +119,14 @@ const uv_command_st terminal_commands[] = {
 				.instructions = "Shows the given UI window on the display.\n"
 						"Usage: show <\"login\"/\"home\"/...>",
 				.callback = show_callb
+		},
+		{
+				.id = CMD_SCREENSHOT,
+				.str = "screenshot",
+				.instructions = "Prints raw display data to stdout in bitmap format.\n"
+						"To save the screenshot, save it first as a text file and then run\n"
+						"'xxd -r -p file.txt > file.bmp', to convert it to readable bmp file.",
+				.callback = screenshot_callb
 		}
 };
 
@@ -323,6 +331,10 @@ void show_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv
 	}
 }
 
+void screenshot_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
+	printf("current display buffer address: 0x%x, buffer len: 0x%x\n", (unsigned int) lcd,
+			CONFIG_LCD_PIXELS_PER_LINE * CONFIG_LCD_LINES_PER_PANEL * sizeof(LCD_PIXEL_TYPE));
+}
 
 
 
