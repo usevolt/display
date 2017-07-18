@@ -11,11 +11,14 @@ extension="${filename##*.}"
 filename="${dirname}/${filename%.*}"
 bin=".bin"
 bmp=".bmp"
+png=".png"
 
 xxd -p $filename$bin &>"temp.txt" && \
 cat "bmp_800x480_template.txt" "temp.txt" &>"temp2.txt" && \
 xxd -r -p "temp2.txt" &> $filename$bmp && \
+convert $filename$bmp $filename$png && \
 rm -rf temp.txt && \
 rm -rf temp2.txt && \
 rm -rf $filename$bin && \
-echo "$filename$bin succesfully converted to bitmap"
+rm -rf $filename$bmp && \
+echo "$filename$bin succesfully converted to PNG"

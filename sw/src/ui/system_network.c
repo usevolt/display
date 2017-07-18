@@ -13,70 +13,41 @@
 
 #define this (&gui.windows.system.windows.sys_network)
 
+#define OBJ_HEIGHT	160
 
-void system_network_show(void) {
-	uv_uiwindow_clear(&gui.windows.system.tabs);
-
-	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[0]);
-	uv_uiwindow_set_stepcallback(&this->window, &system_network_step);
-	uv_uitabwindow_add(&gui.windows.system.tabs, &this->window, 0, 0,
-			uv_uibb(&gui.windows.system.tabs)->width,
-			uv_uitabwindow_get_contentbb(&gui.windows.system.tabs).height);
-
-	uv_uigridlayout_st grid;
-	uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->window)->width,
-			uv_uibb(&this->window)->height, 3, 3);
-	uv_uigridlayout_set_padding(&grid, 20, 10);
-
-	this->dev = DEV_NONE;
-
-	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->msb, "MSB", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->msb, bb.x, bb.y, bb.width, bb.height);
-
-	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->csb, "CSB", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->csb, bb.x, bb.y, bb.width, bb.height);
-
-	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->ecu, "ECU", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->ecu, bb.x, bb.y, bb.width, bb.height);
-
-	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->l_keypad, "Left Keypad", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->l_keypad, bb.x, bb.y, bb.width, bb.height);
-
-	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->r_keypad, "Right Keypad", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->r_keypad, bb.x, bb.y, bb.width, bb.height);
-
-	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->pedal, "Pedal", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->pedal, bb.x, bb.y, bb.width, bb.height);
-
-	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->uw180s, "UW180s", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->uw180s, bb.x, bb.y, bb.width, bb.height);
-
-	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->uw180s_mb, "UW180s MB", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->uw180s_mb, bb.x, bb.y, bb.width, bb.height);
-
-}
+static void show(uv_uitreeobject_st *obj);
 
 typedef struct {
 	const char *name;
 	const char *row2;
 	const char *row3;
 } data_st;
+static const data_st labels[];
+
+
+void system_network_show(void) {
+	uv_uiwindow_clear(&gui.windows.system.tabs);
+
+	uv_uitreeview_init(&this->treeview, this->treeviewbuffer, &uv_uistyles[0]);
+	uv_uitabwindow_add(&gui.windows.system.tabs, &this->treeview, 0, 0,
+			uv_uibb(&gui.windows.system.tabs)->width,
+			uv_uitabwindow_get_contentbb(&gui.windows.system.tabs).height);
+
+	this->dev = DEV_COUNT;
+
+	for (int i = 0; i < DEV_COUNT; i++) {
+		uv_uitreeobject_init(&this->objs[i], this->buffer,
+				labels[i].name, &show, &uv_uistyles[0]);
+		uv_uitreeobject_set_step_callback(&this->objs[i], system_network_step);
+		uv_uitreeview_add(&this->treeview, &this->objs[i], OBJ_HEIGHT, false);
+	}
+}
 
 static const char netdev_label[] =
 		"Connected\n"
 		"Node ID";
 
-static const data_st labels[] = {
-		// DEV_NONE
-		{},
+static const data_st labels[DEV_COUNT] = {
 		// MSB
 		{
 				.name = "MSB",
@@ -357,115 +328,65 @@ static void update(devices_e dev) {
 }
 
 
-static void show(devices_e dev) {
-	this->dev = dev;
+static void show(uv_uitreeobject_st *obj) {
+	this->dev = ((unsigned int) obj - (unsigned int) &this->objs[0]) / sizeof(this->objs[0]);
 
-	uv_uiwindow_clear(&this->window);
-	uv_uiwindow_set_stepcallback(&this->window, &system_network_step);
+	uv_uitreeobject_clear(obj);
 
 	uv_uigridlayout_st grid;
-	uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->window)->width,
-			uv_uibb(&this->window)->height, 6, 4);
-	uv_uigridlayout_set_padding(&grid, 5, 5);
+	uv_uigridlayout_init(&grid, 0, 0, uv_uitreeobject_get_content_bb(obj).width,
+			uv_uitreeobject_get_content_bb(obj).height, 6, 4);
+	uv_uigridlayout_set_padding(&grid, 6, 1);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
-
-	uv_uibutton_init(&this->back, "Back", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->back, bb.x, bb.y, bb.width * 2, bb.height);
-
-	uv_uilabel_init(&this->name, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
-			C(0xFFFFFFFF), (char*) labels[dev].name);
-	uv_uiwindow_add(&this->window, &this->name, uv_uibb(&this->window)->width / 2,
-			bb.y, 0, bb.height);
 
 	float labelscale = 1.6f;
 	float valuescale = 2.0f - labelscale;
 
 	uv_uilabel_init(&this->row1_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			C(0xFFFFFFFF), (char*) netdev_label);
-	uv_uiwindow_add(&this->window, &this->row1_topics, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width * labelscale, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding);
+	uv_uitreeobject_add(obj, &this->row1_topics, bb.x, bb.y,
+			bb.width * labelscale, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row1_values, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->row1_val_str);
-	uv_uiwindow_add(&this->window, &this->row1_values, bb.x + bb.width * (labelscale - 1.0f),
-			bb.y + bb.height + grid.vpadding, bb.width * valuescale,
-			uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding);
+	uv_uitreeobject_add(obj, &this->row1_values, bb.x + bb.width * (labelscale - 1.0f),
+			bb.y, bb.width * valuescale, bb.height);
 
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row2_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
-			C(0xFFFFFFFF), (char*) labels[dev].row2);
-	uv_uiwindow_add(&this->window, &this->row2_topics, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width * labelscale, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding);
+			C(0xFFFFFFFF), (char*) labels[this->dev].row2);
+	uv_uitreeobject_add(obj, &this->row2_topics, bb.x, bb.y, bb.width * labelscale, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row2_values, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->row2_val_str);
-	uv_uiwindow_add(&this->window, &this->row2_values, bb.x + bb.width * (labelscale - 1.0f),
-			bb.y + bb.height + grid.vpadding, bb.width * valuescale,
-			uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding);
+	uv_uitreeobject_add(obj, &this->row2_values, bb.x + bb.width * (labelscale - 1.0f),
+			bb.y, bb.width * valuescale, bb.height);
 
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row3_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
-			C(0xFFFFFFFF), (char*) labels[dev].row3);
-	uv_uiwindow_add(&this->window, &this->row3_topics, bb.x, bb.y + bb.height + grid.vpadding,
-			bb.width * labelscale, uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding);
+			C(0xFFFFFFFF), (char*) labels[this->dev].row3);
+	uv_uitreeobject_add(obj, &this->row3_topics, bb.x, bb.y, bb.width * labelscale, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row3_values, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->row3_val_str);
-	uv_uiwindow_add(&this->window, &this->row3_values, bb.x + bb.width * (labelscale - 1.0f),
-			bb.y + bb.height + grid.vpadding, bb.width * valuescale,
-			uv_uibb(&this->window)->height - bb.y - bb.height - grid.vpadding);
+	uv_uitreeobject_add(obj, &this->row3_values, bb.x + bb.width * (labelscale - 1.0f),
+			bb.y, bb.width * valuescale, bb.height);
 
-	update(dev);
+	update(this->dev);
 }
 
 
 uv_uiobject_ret_e system_network_step(const uint16_t step_ms) {
 	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
-	if (this->dev == DEV_NONE) {
-		if (uv_uibutton_clicked(&this->msb)) {
-			show(MSB);
-		}
-		else if (uv_uibutton_clicked(&this->csb)) {
-			show(CSB);
-		}
-		else if (uv_uibutton_clicked(&this->ecu)) {
-			show(ECU);
-		}
-		else if (uv_uibutton_clicked(&this->r_keypad)) {
-			show(R_KEYPAD);
-		}
-		else if (uv_uibutton_clicked(&this->l_keypad)) {
-			show(L_KEYPAD);
-		}
-		else if (uv_uibutton_clicked(&this->pedal)) {
-			show(PEDAL);
-		}
-		else if (uv_uibutton_clicked(&this->uw180s)) {
-			show(UW180S_ECU);
-		}
-		else if (uv_uibutton_clicked(&this->uw180s_mb)) {
-			show(UW180S_MB);
-		}
-		else {
+	update(this->dev);
 
-		}
-	}
-	else {
-		if (uv_uibutton_clicked(&this->back)) {
-			system_network_show();
-			ret = UIOBJECT_RETURN_KILLED;
-		}
-		else {
-			update(this->dev);
-		}
-	}
 	return ret;
 }
 

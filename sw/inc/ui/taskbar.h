@@ -15,6 +15,7 @@
 /// @brief: taskbar buffer length
 #define TASKBAR_BUF_LEN			20
 #define TASKBAR_TIME_LEN		6
+#define TASKBAR_DATE_LEN		12
 #define TASKBAR_COUNT_STR_LEN	16
 #define TASKBAR_HOUR_STR_LEN	8
 
@@ -66,8 +67,10 @@ typedef struct {
 
 			uv_uiprogressbar_st mtemp_bar;
 
-			uv_uidigit_st clock;
+			uv_uilabel_st clock;
 			char time[TASKBAR_TIME_LEN];
+			uv_uilabel_st cal;
+			char date[TASKBAR_DATE_LEN];
 		};
 		struct {
 			uv_uitoucharea_st touch;
@@ -96,6 +99,8 @@ typedef struct {
 void taskbar_init(uv_uidisplay_st *display);
 
 uv_uiobject_ret_e taskbar_step(const uint16_t step_ms);
+
+void taskbar_update_clock(void);
 
 
 

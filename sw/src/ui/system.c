@@ -15,9 +15,9 @@
 #define this (&gui.windows.system)
 
 static const char* tab_names[] = {
-		"System\nSettings",
 		"Network\nDiagnostics",
 		"Log",
+		"System\nCalibration",
 		"System\nRestore"
 };
 
@@ -25,10 +25,10 @@ static const char* tab_names[] = {
 void system_show(void) {
 
 	uv_uiwindow_clear(&gui.main_window);
-	uv_uiwindow_set_stepcallback(&gui.main_window, &system_step);
 
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
+	uv_uiwindow_set_stepcallback(&this->window, &system_step);
 	uv_uiwindow_add(&gui.main_window, &this->window, 0, 0,
 			uv_uibb(&gui.main_window)->width, uv_uibb(&gui.main_window)->height);
 
@@ -50,25 +50,27 @@ void system_show(void) {
 
 	uv_uitabwindow_init(&this->tabs, sizeof(tab_names) / sizeof(const char *),
 			&uv_uistyles[0], this->tabs_buffer, tab_names);
+
+
 	uv_uiwindow_add(&this->window, &this->tabs, 0, TOPIC_HEIGHT + 10,
 			uv_uibb(&this->window)->width,
-			uv_uibb(&this->window)->height - TOPIC_HEIGHT - 10 - uv_uibb(&this->about)->height - 12);
+			uv_uibb(&this->window)->height - TOPIC_HEIGHT - 10 - UI_FONT_SMALL.char_height - 10);
 
 	// set the requested tab
 	uv_uitabwindow_set_tab(&this->tabs, 0);
-	system_settings_show();
+	system_network_show();
 
 }
 
 void system_show_tab(void (*show_callb)(void)) {
 	system_show();
-	if (show_callb == system_settings_show) {
+	if (show_callb == system_network_show) {
 		uv_uitabwindow_set_tab(&this->tabs, 0);
 	}
-	else if (show_callb == system_network_show) {
+	else if (show_callb == system_log_show) {
 		uv_uitabwindow_set_tab(&this->tabs, 1);
 	}
-	else if (show_callb == system_log_show) {
+	else if (show_callb == system_calib_show) {
 		uv_uitabwindow_set_tab(&this->tabs, 2);
 	}
 	else if (show_callb == system_restore_show) {
@@ -100,15 +102,15 @@ uv_uiobject_ret_e system_step(const uint16_t step_ms) {
 
 	if ((ret != UIOBJECT_RETURN_KILLED) && uv_uitabwindow_tab_changed(&this->tabs)) {
 		if (uv_uitabwindow_tab(&this->tabs) == 0) {
-			system_settings_show();
-			ret = UIOBJECT_RETURN_KILLED;
-		}
-		else if (uv_uitabwindow_tab(&this->tabs) == 1) {
 			system_network_show();
 			ret = UIOBJECT_RETURN_KILLED;
 		}
-		else if (uv_uitabwindow_tab(&this->tabs) == 2) {
+		else if (uv_uitabwindow_tab(&this->tabs) == 1) {
 			system_log_show();
+			ret = UIOBJECT_RETURN_KILLED;
+		}
+		else if (uv_uitabwindow_tab(&this->tabs) == 2) {
+			system_calib_show();
 			ret = UIOBJECT_RETURN_KILLED;
 		}
 		else if (uv_uitabwindow_tab(&this->tabs) == 3) {

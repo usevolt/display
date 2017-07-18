@@ -12,20 +12,20 @@
 #include <uv_ui.h>
 #include "vehicle.h"
 
-#define SETTINGS_VALVES_BUFFER_LEN	17
+#define SETTINGS_VALVES_BUFFER_LEN	16
 
 /// @brief: Valve configuration screen
 typedef struct {
-	uv_uiwindow_st window;
-	uv_uiobject_st *buffer[SETTINGS_VALVES_BUFFER_LEN];
+	uv_uitreeview_st treeview;
+	uv_uitreeobject_st *treebuffer[BASE_VALVE_COUNT];
 
-	uv_uibutton_st valves[BASE_VALVE_COUNT];
+
+	uv_uitreeobject_st valves[BASE_VALVE_COUNT];
+	uv_uiobject_st *buffer[SETTINGS_VALVES_BUFFER_LEN];
 
 	/// @brief: Reference to the currently active valve
 	valve_st *valve;
 
-	uv_uilabel_st topic;
-	uv_uibutton_st back;
 	uv_uilabel_st min_speed_p_label;
 	uv_uislider_st min_speed_p;
 	uv_uilabel_st max_speed_p_label;

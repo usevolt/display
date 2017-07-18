@@ -29,11 +29,11 @@ static const char* tab_names[] = {
 void settings_show(void) {
 
 	uv_uiwindow_clear(&gui.main_window);
-	uv_uiwindow_set_stepcallback(&gui.main_window, &settings_step);
 
 	this->tab_names = tab_names;
 
 	uv_uiwindow_init(&this->window, this->buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
+	uv_uiwindow_set_stepcallback(&this->window, &settings_step);
 	uv_uiwindow_add(&gui.main_window, &this->window, 0, 0,
 			uv_uibb(&gui.main_window)->width, uv_uibb(&gui.main_window)->height);
 
@@ -45,7 +45,6 @@ void settings_show(void) {
 
 	uv_uitabwindow_init(&this->tabs, SETTINGS_TAB_COUNT, &uv_uistyles[WINDOW_STYLE_INDEX],
 			this->tabs_buffer, this->tab_names);
-	uv_uiwindow_set_stepcallback(&this->tabs, &settings_step);
 	uv_uiwindow_add(&this->window, &this->tabs, 0, TOPIC_HEIGHT + 10,
 			uv_uibb(&this->window)->width, uv_uibb(&this->window)->height - TOPIC_HEIGHT - 10);
 
