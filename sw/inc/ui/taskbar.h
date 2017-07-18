@@ -13,7 +13,7 @@
 
 
 /// @brief: taskbar buffer length
-#define TASKBAR_BUF_LEN			20
+#define TASKBAR_BUF_LEN			21
 #define TASKBAR_TIME_LEN		6
 #define TASKBAR_DATE_LEN		12
 #define TASKBAR_COUNT_STR_LEN	16

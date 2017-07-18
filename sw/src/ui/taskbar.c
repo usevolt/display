@@ -55,8 +55,14 @@ void taskbar_init(uv_uidisplay_st *display) {
 	uv_uiwindow_set_transparent(this, false);
 	uv_uidisplay_add(display, &this->taskbar,
 			0, LCD_H(0.86f), LCD_W(1.0f), LCD_H(0.14f));
+	this->log_count = log_get_nack_count();
 
-	show(TASKBAR_NO_ALERTS);
+	if (this->log_count == 0) {
+		show(TASKBAR_NO_ALERTS);
+	}
+	else {
+		show(TASKBAR_ALERTS);
+	}
 
 }
 
@@ -294,7 +300,6 @@ static void show(const taskbar_state_e state) {
 uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
-
 	if (this->state == TASKBAR_NO_ALERTS) {
 
 		if (log_get_nack_count()) {
@@ -372,6 +377,7 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 	}
 	else {
 		uint16_t c = log_get_nack_count();
+
 		if (this->log_count != c || c == 0) {
 			show(TASKBAR_NO_ALERTS);
 			ret = UIOBJECT_RETURN_KILLED;
