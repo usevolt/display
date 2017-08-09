@@ -70,13 +70,13 @@ const uw180s_st uw180s = {
 				.callbacks = &uw180s_callbacks,
 		},
 		.delimbers = {
-				.max_speed_p = 600,
-				.max_speed_n = 600,
+				.max_speed_p = 500,
+				.max_speed_n = 500,
 				.invert = false
 		},
 		.rotator = {
-				.max_speed_p = 350,
-				.max_speed_n = 350,
+				.max_speed_p = 400,
+				.max_speed_n = 400,
 				.invert = false
 		},
 		.saw = {
@@ -85,8 +85,8 @@ const uw180s_st uw180s = {
 				.invert = false
 		},
 		.tilt = {
-				.max_speed_p = 250,
-				.max_speed_n = 250,
+				.max_speed_p = 280,
+				.max_speed_n = 280,
 				.invert = false
 		},
 		.wheels = {
@@ -100,9 +100,9 @@ const uw180s_st uw180s = {
 				.invert = false
 		},
 		.mb_enabled = true,
-		.len_calib = 15,
+		.len_calib = 225,
 		.vol_calib = 0,
-		.log_len1 = 300,
+		.log_len1 = 310,
 		.log_len2 = 500,
 };
 
