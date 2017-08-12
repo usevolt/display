@@ -528,6 +528,8 @@ void ecu_set_uw100_rotator_params(uint16_t speed_f,
 
 void ecu_set_uw50_saw_params(uint16_t speed_f,
 		uint16_t speed_b, uint16_t acc, uint16_t dec, bool invert) {
+	speed_f *= 2;
+	speed_b *= 2;
 	dspl.user->uw50.saw.max_speed_p = speed_f;
 	dspl.user->uw50.saw.max_speed_n = speed_b;
 	dspl.user->uw50.saw.acc = acc;
