@@ -56,8 +56,8 @@ typedef struct {
 typedef struct _dspl_st {
 
 	uint16_t hour_counter;
-	uint16_t sec_counter;
-	uint8_t last_sec;
+	uint16_t min_counter;
+	uint8_t last_min;
 
 	int canopen_heartbeat;
 

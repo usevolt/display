@@ -117,9 +117,9 @@ void dspl_init(dspl_st *me) {
 
 	uv_time_st time;
 	uv_rtc_get_time(&time);
-	this->last_sec = time.sec;
+	this->last_min = time.min;
 	// init sec counter to half an hour in startup
-	this->sec_counter = 60 * 30;
+	this->min_counter = 30;
 
 	users_init();
 
@@ -153,16 +153,16 @@ void dspl_step(void *me) {
 
 		uv_time_st time;
 		uv_rtc_get_time(&time);
-		if (this->last_sec != time.sec) {
-			this->sec_counter++;
-			if (this->sec_counter == 60 * 60) {
+		if (this->last_min != time.min) {
+			this->min_counter++;
+			if (this->min_counter == 60) {
 				this->hour_counter++;
 				uv_eeprom_write((unsigned char*) &this->hour_counter,
 						sizeof(this->hour_counter), HOUR_COUNTER_EEPROM_ADDR);
-				this->sec_counter = 0;
+				this->min_counter = 0;
 			}
 		}
-		this->last_sec = time.sec;
+		this->last_min = time.min;
 
 		uv_rtos_task_delay(step_ms);
 	}
