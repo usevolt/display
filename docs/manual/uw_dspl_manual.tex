@@ -1,6 +1,7 @@
 \documentclass[12pt,a4paper,english]{uvmanual}
 \special{papersize=210mm,297mm}
 
+
 \title{Usewood touchscreen user manual}
 
 
@@ -8,6 +9,8 @@
 
 
 \begin{document}
+
+
 %	
 % Create the title page.
 % First the logo. Check its language.
@@ -53,13 +56,13 @@
 % title in the main language, thesis type, examiner).
 
 
-%
+
 % Add the table of contents, optionally also the lists of figures,
 % tables and codes.
-%
+
 
 \renewcommand\contentsname{Table of content}         % Set Finnish name
-\setcounter{tocdepth}{3}                      % How many header level are included
+\setcounter{tocdepth}{2}                      % How many header level are included
 \tableofcontents                              % Create TOC
 
 % Leave the backside of abbreviation list empty in twoside mode
@@ -78,8 +81,8 @@
 
 This user manual provides the user with necessary information to use Usewood touchscreen supplied in Usewood small forestry machines (\href{http://usewood.fi/index.php/en/small-harvesters/forest-master}{Usewood Forest Master}, \href{http://usewood.fi/index.php/en/small-harvesters/log-master-en}{Usewood Log Master} and \href{http://usewood.fi/index.php/en/small-harvesters/combi-master}{Usewood Combi Master}). The main purpose of the touchscreen is to provide the machine operator an interface for configuring and monitoring the machine. Knowing how to use the touchscreen is vital, since many machine parameters can be adjusted only via the touchscreen. Not configuring the machine properly can lead in a unintended stress on the machine which might shorten it's lifetime or cause a safety hazard.
 
-\warning{\textbf{General Warning Symbol}\\
-General warning symbols are shown in the manual to indicate important points relating to safety. Whenever you come across the symbol, pay close attention to the potential risk of accident, read the section indicated by the symbol carefully, and inform other people of the matter.}
+\warning{General Warning Symbol}
+{General warning symbols are shown in the manual to indicate important points relating to safety. Whenever you come across the symbol, pay close attention to the potential risk of accident, read the section indicated by the symbol carefully, and inform other people of the matter.}
 
 \chapter{Task bar}\label{ch:taskbar}
 The task bar shows useful process data and it's visible in all screens. Taskbar is also used to display warning and error messages to the user.
@@ -140,11 +143,11 @@ The task bar shows useful process data and it's visible in all screens. Taskbar 
 
 \end{itemize}
 
-\warning{Letting the battery voltage drop too low or the hydraulic oil temperature or engine temperature get too high might cause permanent damage to the machine. User should monitor these constantly to prevent unnecessary damage to the machine.}
+\warning{Warning}{Letting the battery voltage drop too low or the hydraulic oil temperature or engine temperature get too high might cause permanent damage to the machine. User should monitor these constantly to prevent unnecessary damage to the machine.}
 
 \chapter{Log in}\label{ch:login}
 
-Log in screen is shown when the system is powered. It shows a list of users available on the machine. By default the user which was used last time is selected. Selecting a different user causes the touchscreen to load user specific parameters to the forestry machine. On the left side of the screen is the list of all drivers added to the system. The default driver is named \textit{Usewood} and up to 4 drivers can be added.
+Log in screen is shown when the system is powered. It shows a list of users available on the machine. By default the user which was used last time is selected. Selecting a different user causes the touchscreen to load user specific parameters to the forestry machine. On the left side of the screen is the list of all drivers added to the system. The default driver is named \textbf{Usewood} and up to 4 drivers can be added.
 
 \fig{img/login.png}{Log in screen}{login}
 
@@ -241,7 +244,7 @@ Settings menu is used to change the user specific parameters. Changing the setti
 
 which all will be defined in the coming sections.
 
-\warning{When the machine cannot be broken by setting the parameters to wrong values, it is however possible to decrease the performance and life time of the machine. Settings are designed so that all parameters in the machine can be configured. Thus it is the user's responsibility to ensure correct operation of the machine after configuring the parameters.}
+\warning{Warning}{When the machine cannot be broken by setting the parameters to wrong values, it is however possible to decrease the performance and life time of the machine. Settings are designed so that all parameters in the machine can be configured. Thus it is the user's responsibility to ensure correct operation of the machine after configuring the parameters.}
 
 \section{General}\label{ch:settings_general}
 
@@ -287,9 +290,9 @@ General settings are an exception to all other settings since they are not saved
 
 Hydraulic valve configurations is one of the most important things every user should calibrate. Valve configurations provide a way to individually configure each hydraulic valve in the machine according to the user's liking. 
 
-\warning{Good and throughout valve configuration greatly enhances the machine's driving experience. However, bad configuration can make the machine hard to operate or even dangerous. Always use caution when configuring the hydarulic valves.}
+\warning{Warning}{Good and throughout valve configuration greatly enhances the machine's driving experience. However, bad configuration can make the machine hard to operate or even dangerous. Always use caution when configuring the hydarulic valves.}
 
-Each valve has same set of parameters. The base machine valves are machine dependent and on \textit{Usewood Forest Master} available valves are:
+Each valve has same set of parameters. The base machine valves are machine dependent and on \textbf{Usewood Forest Master} available valves are:
 
 \begin{itemize}
  \item Boom lift
@@ -340,12 +343,12 @@ Tapping any of the valve names bring up that valve's configuration screen. \auto
 
  \item \textbf{Backward min speed}
  \begin{itemize}
-  \item Same as \textit{Forward min speed} but in opposite direction.
+  \item Same as \textbf{Forward min speed} but in opposite direction.
  \end{itemize}
 
  \item \textbf{Backward max speed}
  \begin{itemize}
-  \item Same as \textit{Forward max spee} but in opposite direction.
+  \item Same as \textbf{Forward max spee} but in opposite direction.
  \end{itemize}
 
  \item \textbf{Deceleration}
@@ -355,9 +358,9 @@ Tapping any of the valve names bring up that valve's configuration screen. \auto
 
 \end{itemize}
 
-\warning{The minimum speeds should be configured carefully. Too big minimum speed values will cause the valves to supply too much oil flow even when the driver controls the machine very carefully.}
+\warning{Warning}{The minimum speeds should be configured carefully. Too big minimum speed values will cause the valves to supply too much oil flow even when the driver controls the machine very carefully.}
 
-\warning{The deceleration should be configured very carefully. Too small value will cause the machine to move even after the driver has stopped controlling it, which might cause a severe risk of damaging the vehicle of even injury to the driver.}
+\warning{Warning}{The deceleration should be configured very carefully. Too small value will cause the machine to move even after the driver has stopped controlling it, which might cause a severe risk of damaging the vehicle of even injury to the driver.}
 
 \section{Implement settings}\label{ch:settings_implement}
 
@@ -420,7 +423,7 @@ Implement settings are used to configure the settings in the currently selected 
 \FloatBarrier
 \subsection{UW180s valve settings}\label{ch:settings_uw180s_valves}
 
-Valve settings work in a similar manner as base machine valve configurations in \autoref{ch:settings_valves}, except they might not implement as many configurable parameters. Usually at least \textit{Maximum speed} and \textbf{Inverse direction} is implemented.
+Valve settings work in a similar manner as base machine valve configurations in \autoref{ch:settings_valves}, except they might not implement as many configurable parameters. Usually at least \textbf{Maximum speed} and \textbf{Inverse direction} is implemented.
 
 \fig{img/settings_uw180s_valves}{UW180s valve settings screen}{settings_uw180s_valves}
 
@@ -460,7 +463,7 @@ Valve settings work in a similar manner as base machine valve configurations in 
 
 \chapter{System}\label{ch:system}
 
-System menu is organized in the same manner as \textit{Settings} shown in \autoref{ch:settings}. \textbf{OK} button saves the changes to system settings and returns to the \textit{Home} screen and \textbf{Cancel} button reverts the changes.
+System menu is organized in the same manner as \textbf{Settings} shown in \autoref{ch:settings}. \textbf{OK} button saves the changes to system settings and returns to the \textbf{Home} screen and \textbf{Cancel} button reverts the changes.
 
 \section{Settings}\label{ch:system_settings}
 
@@ -473,7 +476,7 @@ System settings are settings which affect the whole system. They are shared acro
 \begin{itemize}
  \item \textbf{Current Implement}
  \begin{itemize}
-  \item Chooses the current implement physically connected to the machine's boom. Possible values are \textit{UW180s} harvester head, \textit{UW100} grapple and \textit{UW50} brushwood cutter.
+  \item Chooses the current implement physically connected to the machine's boom. Possible values are \textbf{UW180s} harvester head, \textbf{UW100} grapple and \textbf{UW50} brushwood cutter.
  \end{itemize}
 
  \item \textbf{Engine power usage}
@@ -483,7 +486,7 @@ System settings are settings which affect the whole system. They are shared acro
 
  \item \textbf{Joystick Calibration}
  \begin{itemize}
-  \item When pressed, the joystick calibration is started. This procedure cannot be undone. The joysticks are calibrated by moving through all axes (X, Y and thumb switch) and finally pressing the \textit{Joystick Calibration} again. Calibration needs to be done usually only when old joysticks are replaced with new ones.
+  \item When pressed, the joystick calibration is started. This procedure cannot be undone. The joysticks are calibrated by moving through all axes (X, Y and thumb switch) and finally pressing the \textbf{Joystick Calibration} again. Calibration needs to be done usually only when old joysticks are replaced with new ones.
  \end{itemize}
 
  \item \textbf{Date and time}
@@ -494,9 +497,9 @@ System settings are settings which affect the whole system. They are shared acro
 \end{itemize}
 
 
-\warning{Failure to calibrate joysticks will cause the machine to be unusable.}
+\warning{Warning}{Failure to calibrate joysticks will cause the machine to be unusable.}
 
-\warning{If date and time resets every time the touchscreen is started, the RTC battery inside the touchscreen has run empty. Please replace the battery with CR2032 type battery or contact Usewood customer service.}
+\warning{Warning}{If date and time resets every time the touchscreen is started, the RTC battery inside the touchscreen has run empty. Please replace the battery with CR2032 type battery or contact Usewood customer service.}
 
 \section{Diagnostics}\label{ch:system_diagnostics}
 
@@ -543,18 +546,18 @@ While most of the data shown in this screen is useful only when the machine malf
 
 \fig{img/system_diagnostics_msb}{MSB diagnostics screen}{system_diagnostics_msb}
 
-\textit{MSB} gives most of the data shown in the task bar. The \textit{MSB diagnostics} screen can be used to check the actual numerical values of the battery voltage, fuel level, hydraulic oil level, hydraulic oil temperature, motor temperature and engine RPM.
+\textbf{MSB} gives most of the data shown in the task bar. The \textbf{MSB diagnostics} screen can be used to check the actual numerical values of the battery voltage, fuel level, hydraulic oil level, hydraulic oil temperature, motor temperature and engine RPM.
 
 \FloatBarrier
 \subsection{ECU diagnostics}\label{ch:system_diagnostics_ecu}
 
 \fig{img/system_diagnostics_ecu}{ECU diagnostics screen}{system_diagnostics_ecu}
 
-\textit{ECU diagnostics} screen can be used to see hydraulic valve control current for each individual valve. This is useful for investigating problems related to hydraulic valve control.
+\textbf{ECU diagnostics} screen can be used to see hydraulic valve control current for each individual valve. This is useful for investigating problems related to hydraulic valve control.
 
 \section{Log}\label{ch:system_log}
 
-\textit{Log} shows a log of currently active error and warning messages. Error and warning messages also appear on the taskbar and warning messages can be acknowledged by tapping on them. However, error messages need to be acknowledged from this \textit{System Log} screen. 
+\textbf{Log} shows a log of currently active error and warning messages. Error and warning messages also appear on the taskbar and warning messages can be acknowledged by tapping on them. However, error messages need to be acknowledged from this \textbf{System Log} screen. 
 
 \fig{img/system_log}{Log screen}{system_log}
 
@@ -574,7 +577,7 @@ While most of the data shown in this screen is useful only when the machine malf
 
 \section{System restore}\label{ch:system_restore}
 
-\textit{System Restore} restores the factory default parameters. This permanently deletes all user specific data from the system.
+\textbf{System Restore} restores the factory default parameters. This permanently deletes all user specific data from the system.
 
 \fig{img/system_restore}{System restore screen}{system_restore}
 
