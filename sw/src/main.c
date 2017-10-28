@@ -47,6 +47,17 @@ void dspl_init(dspl_st *me) {
 	uv_set_int_priority(INT_SYSTICK, 31);
 	uv_set_int_priority(INT_UART0, 30);
 
+#if CONFIG_TARGET_LPC1785
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + CSB_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + FSB_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + ESB_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + LKEYPAD_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + RKEYPAD_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + ECU_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + UW180S_MB_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + UW180S_ECU_NODE_ID, CAN_STD);
+#endif
+
 
 	// read hour counter value from EEPROM
 	uv_eeprom_read((unsigned char*) &this->hour_counter,

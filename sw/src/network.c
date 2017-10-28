@@ -23,8 +23,9 @@ void network_init(network_st *this) {
 
 	uv_rtos_task_create(network_task, "network",
 			UV_RTOS_MIN_STACK_SIZE * 10, this, UV_RTOS_IDLE_PRIORITY + 1, NULL);
-	msb_init(&this->msb);
+	esb_init(&this->esb);
 	csb_init(&this->csb);
+	fsb_init(&this->fsb);
 	rkeypad_init(&this->r_keypad);
 	lkeypad_init(&this->l_keypad);
 	ecu_init(&this->ecu);
@@ -44,8 +45,9 @@ void network_receive_message(network_st *this, uv_can_message_st *msg) {
 	if (((msg->id & ~0xFF) == CANOPEN_HEARTBEAT_ID) ||
 			((msg->id & ~0xFF) == CANOPEN_TXPDO1_ID)) {
 		if (msg->type == CAN_STD) {
-			netdev_receive_heartbeat(&this->msb, msg);
+			netdev_receive_heartbeat(&this->esb, msg);
 			netdev_receive_heartbeat(&this->csb, msg);
+			netdev_receive_heartbeat(&this->fsb, msg);
 			netdev_receive_heartbeat(&this->l_keypad, msg);
 			netdev_receive_heartbeat(&this->r_keypad, msg);
 			netdev_receive_heartbeat(&this->pedal, msg);
@@ -63,20 +65,19 @@ static void network_task(void *me) {
 	int16_t step_ms = 20;
 	while (true) {
 
-		int cur_state = (uv_can_get_error_state(CAN1) == CAN_ERROR_ACTIVE);
+		int cur_state = (uv_can_get_error_state(CAN0) == CAN_ERROR_ACTIVE);
 
 
 		int state = uv_moving_aver_step(&this->can_state, cur_state);
-
-//		printf("cur_state: %u, state: %u\n ", cur_state, state);
 
 		// log an error when the error state has been entered
 		if (!state) {
 			if (this->can_last_state != state) {
 				log_add(LOG_CAN_BUS_OFF, 0);
 			}
-			netdev_clear_disconnect_delay(&this->msb);
+			netdev_clear_disconnect_delay(&this->esb);
 			netdev_clear_disconnect_delay(&this->csb);
+			netdev_clear_disconnect_delay(&this->fsb);
 			netdev_clear_disconnect_delay(&this->l_keypad);
 			netdev_clear_disconnect_delay(&this->r_keypad);
 			netdev_clear_disconnect_delay(&this->pedal);
@@ -93,8 +94,9 @@ static void network_task(void *me) {
 					break;
 				}
 			}
-			msb_step(&this->msb, step_ms);
+			esb_step(&this->esb, step_ms);
 			csb_step(&this->csb, step_ms);
+			fsb_step(&this->fsb, step_ms);
 			pedal_step(&this->pedal, step_ms);
 			ecu_step(&this->ecu, step_ms);
 			keypad_step(&this->l_keypad, step_ms);
@@ -109,10 +111,13 @@ static void network_task(void *me) {
 
 				uint8_t update_step_ms = 10;
 
-				msb_update(&this->msb);
+				esb_update(&this->esb);
 				uv_rtos_task_delay(update_step_ms);
 
 				csb_update(&this->csb);
+				uv_rtos_task_delay(update_step_ms);
+
+				fsb_update(&this->fsb);
 				uv_rtos_task_delay(update_step_ms);
 
 				pedal_update(&this->pedal);

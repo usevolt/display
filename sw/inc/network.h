@@ -11,11 +11,12 @@
 #include <uv_utilities.h>
 #include <uv_rtos.h>
 #include <uv_filters.h>
-#include "msb.h"
 #include "csb.h"
+#include "fsb.h"
 #include "pedal.h"
 #include "keypads.h"
 #include "ecu.h"
+#include "network/esb.h"
 #include "uw180s_mb.h"
 #include "uw180s_ecu.h"
 /// @file: Provides the interface for communicating to the CAN network.
@@ -24,8 +25,9 @@
 
 typedef struct {
 	bool updating;
-	msb_st msb;
+	esb_st esb;
 	csb_st csb;
+	fsb_st fsb;
 	keypad_st r_keypad;
 	keypad_st l_keypad;
 	ecu_st ecu;

@@ -53,7 +53,7 @@ void gui_init() {
 	uv_uiprogressbar_set_vertical(&this->rpm);
 	uv_uiprogressbar_set_limit(&this->rpm, UI_PROGRESSBAR_LIMIT_OVER, RPM_WARNING_LIMIT, C(0xFF0000));
 	uv_uiprogressbar_set_title(&this->rpm, "RPM");
-	uv_uiprogressbar_set_value(&this->rpm, msb_get_rpm(&dspl.network.msb));
+	uv_uiprogressbar_set_value(&this->rpm, esb_get_rpm(&dspl.network.esb));
 	uv_uiwindow_add(&this->display, &this->rpm, 0, 0,
 			PBAR_WIDTH, uv_uibb(&this->main_window)->height);
 
@@ -127,7 +127,7 @@ void gui_step(void *nullptr) {
 
 		uv_pwm_set(LCD_BACKLIGHT, DUTY_CYCLE(((float) 100 - this->backlight * this->backlight / 100) / 100));
 
-		uv_uiprogressbar_set_value(&this->rpm, msb_get_rpm(&dspl.network.msb));
+		uv_uiprogressbar_set_value(&this->rpm, esb_get_rpm(&dspl.network.esb));
 		uv_uiprogressbar_set_value(&this->pressure, ecu_get_pressure(&dspl.network.ecu));
 
 		// display step function

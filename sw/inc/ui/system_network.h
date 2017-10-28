@@ -11,11 +11,12 @@
 #include <uv_utilities.h>
 #include <uv_ui.h>
 
-#define SYSTEM_NETWORK_BUFFER_LEN			8
+#define SYSTEM_NETWORK_BUFFER_LEN			9
 #define SYSTEM_NETWORK_ROW_VALUE_LEN		40
 
 enum {
-	MSB = 0,
+	ESB = 0,
+	FSB,
 	CSB,
 	ECU,
 	L_KEYPAD,

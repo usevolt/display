@@ -35,8 +35,13 @@ const log_entry_def_st log_entry_defs[] = {
 				.param_def = "node ID: "
 		},
 		{
-				.type = LOG_MSB_DISCONNECTED | LOG_WARNING,
-				.def = "MSB disconnected",
+				.type = LOG_ESB_DISCONNECTED | LOG_WARNING,
+				.def = "ESB disconnected",
+				.param_def = ""
+		},
+		{
+				.type = LOG_FSB_DISCONNECTED | LOG_WARNING,
+				.def = "FSB disconnected",
 				.param_def = ""
 		},
 		{

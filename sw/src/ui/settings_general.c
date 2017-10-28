@@ -78,29 +78,35 @@ void show_general_callb(uv_uitreeobject_st *obj) {
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 	// drive lights
-	uv_uitogglebutton_init(&this->general.drive_lights, csb_get_drive_light(&dspl.network.csb),
+	uv_output_state_e state = uv_canopen_sdo_read8(CSB_NODE_ID,
+			CSB_DRIVE_LIGHT_STATUS_INDEX, CSB_DRIVE_LIGHT_STATUS_SUBINDEX);
+	uv_uitogglebutton_init(&this->general.drive_lights, (state == OUTPUT_STATE_ON),
 			"Drive Lights", &uv_uistyles[0]);
 	uv_uitreeobject_add(&this->generalobj, &this->general.drive_lights, bb.x, bb.y,
 			bb.width, bb.height / 2 - 5);
 
 	// work lights
-	uv_uitogglebutton_init(&this->general.work_lights, csb_get_work_light(&dspl.network.csb),
+	state = uv_canopen_sdo_read8(CSB_NODE_ID,
+			CSB_WORK_LIGHT_STATUS_INDEX, CSB_WORK_LIGHT_STATUS_SUBINDEX);
+	uv_uitogglebutton_init(&this->general.work_lights, (state == OUTPUT_STATE_ON),
 			"Work Lights", &uv_uistyles[0]);
 	uv_uitreeobject_add(&this->generalobj, &this->general.work_lights, bb.x, bb.y + bb.height / 2 + 5,
 			bb.width, bb.height / 2 - 5);
 
 	// wiper
 	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->general.wiper, 0, CSB_WIPER_SPEED_COUNT - 1,
-			csb_get_wiper(&dspl.network.csb), &uv_uistyles[0]);
+	uint8_t speed = uv_canopen_sdo_read8(CSB_NODE_ID,
+			CSB_WIPER_SPEED_INDEX, CSB_WIPER_SPEED_SUBINDEX);
+	uv_uislider_init(&this->general.wiper, 0, CSB_WIPER_MAX_SPEED - 1, speed, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->general.wiper);
 	uv_uislider_set_title(&this->general.wiper, "Wiper");
 	uv_uitreeobject_add(&this->generalobj, &this->general.wiper, bb.x, bb.y, bb.width, bb.height);
 
 	// heater
 	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->general.heater, 0, MSB_HEATER_SPEED_COUNT - 1,
-			msb_get_heater(&dspl.network.msb), &uv_uistyles[0]);
+	speed = uv_canopen_sdo_read8(FSB_NODE_ID,
+			FSB_HEATER_SPEED_INDEX, FSB_HEATER_SPEED_SUBINDEX);
+	uv_uislider_init(&this->general.heater, 0, FSB_HEATER_MAX_SPEED, speed, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->general.heater);
 	uv_uislider_set_title(&this->general.heater, "Heater");
 	uv_uitreeobject_add(&this->generalobj, &this->general.heater, bb.x, bb.y, bb.width, bb.height);
@@ -260,29 +266,36 @@ uv_uiobject_ret_e settings_general_step(const uint16_t step_ms) {
 
 	// drive lights
 	if (uv_uitogglebutton_clicked(&this->general.drive_lights)) {
-		csb_set_drive_light(&dspl.network.csb, uv_uitogglebutton_get_state(&this->general.drive_lights));
-	}
-	else {
-		uv_uitogglebutton_set_state(&this->general.drive_lights, csb_get_drive_light(&dspl.network.csb));
+		uv_output_state_e state = (uv_uitogglebutton_get_state(&this->general.drive_lights)) ?
+				OUTPUT_STATE_ON : OUTPUT_STATE_OFF;
+		uv_canopen_sdo_write(CSB_NODE_ID, CSB_DRIVE_LIGHT_STATUS_INDEX,
+				CSB_DRIVE_LIGHT_STATUS_SUBINDEX,
+				CANOPEN_TYPE_LEN(CSB_DRIVE_LIGHT_STATUS_TYPE), &state);
 	}
 
 	// work lights
 	if (uv_uitogglebutton_clicked(&this->general.work_lights)) {
-		csb_set_work_light(&dspl.network.csb, uv_uitogglebutton_get_state(&this->general.work_lights));
-		msb_set_crane_light(&dspl.network.msb, uv_uitogglebutton_get_state(&this->general.work_lights));
-	}
-	else {
-		uv_uitogglebutton_set_state(&this->general.work_lights, csb_get_work_light(&dspl.network.csb));
+		uv_output_state_e state = (uv_uitogglebutton_get_state(&this->general.work_lights)) ?
+				OUTPUT_STATE_ON : OUTPUT_STATE_OFF;
+		uv_canopen_sdo_write(CSB_NODE_ID, CSB_WORK_LIGHT_STATUS_INDEX,
+				CSB_WORK_LIGHT_STATUS_SUBINDEX,
+				CANOPEN_TYPE_LEN(CSB_WORK_LIGHT_STATUS_TYPE), &state);
 	}
 
 	// wiper
 	if (uv_uislider_value_changed(&this->general.wiper)) {
-		csb_set_wiper(&dspl.network.csb, uv_uislider_get_value(&this->general.wiper));
+		uint8_t speed = uv_uislider_get_value(&this->general.wiper);
+		uv_canopen_sdo_write(CSB_NODE_ID,
+				CSB_WIPER_SPEED_INDEX, CSB_WIPER_SPEED_SUBINDEX,
+				CANOPEN_TYPE_LEN(CSB_WIPER_SPEED_TYPE), & speed);
 	}
 
 	// heater
 	if (uv_uislider_value_changed(&this->general.heater)) {
-		msb_set_heater(&dspl.network.msb, uv_uislider_get_value(&this->general.heater));
+		uint8_t speed = uv_uislider_get_value(&this->general.heater);
+		uv_canopen_sdo_write(FSB_NODE_ID,
+				FSB_HEATER_SPEED_INDEX, FSB_HEATER_SPEED_SUBINDEX,
+				CANOPEN_TYPE_LEN(FSB_HEATER_SPEED_TYPE), & speed);
 	}
 
 	// power usage

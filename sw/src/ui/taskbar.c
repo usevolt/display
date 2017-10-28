@@ -6,10 +6,11 @@
  */
 
 
+#include <esb.h>
 #include "taskbar.h"
 #include "gui.h"
-#include "msb.h"
 #include "system.h"
+#include "network.h"
 
 #define this (&gui.taskbar)
 
@@ -183,7 +184,7 @@ static void show(const taskbar_state_e state) {
 		// voltage
 		bb = uv_uigridlayout_next(&grid);
 		uv_uiprogressbar_init(&this->voltage_level, VOLTAGE_MIN, VOLTAGE_MAX, &uv_uistyles[0]);
-		uv_uiprogressbar_set_value(&this->voltage_level, msb_get_voltage(&dspl.network.msb));
+		uv_uiprogressbar_set_value(&this->voltage_level, esb_get_voltage(&dspl.network.esb));
 		uv_uiprogressbar_set_vertical(&this->voltage_level);
 		uv_uiprogressbar_set_limit(&this->voltage_level, UI_PROGRESSBAR_LIMIT_UNDER,
 				VOLTAGE_WARNING_LIMIT, ERROR_COLOR);
@@ -194,7 +195,7 @@ static void show(const taskbar_state_e state) {
 		// Fuel level
 		bb = uv_uigridlayout_next(&grid);
 		uv_uiprogressbar_init(&this->fuel_level, 0, 100, &uv_uistyles[0]);
-		uv_uiprogressbar_set_value(&this->fuel_level, msb_get_fuel_level(&dspl.network.msb));
+		uv_uiprogressbar_set_value(&this->fuel_level, esb_get_fuel_level(&dspl.network.esb));
 		uv_uiprogressbar_set_vertical(&this->fuel_level);
 		uv_uiprogressbar_set_limit(&this->fuel_level, UI_PROGRESSBAR_LIMIT_UNDER,
 				FUEL_LEVEL_WARNING_LIMIT, ERROR_COLOR);
@@ -205,7 +206,7 @@ static void show(const taskbar_state_e state) {
 		// Oil level
 		bb = uv_uigridlayout_next(&grid);
 		uv_uiprogressbar_init(&this->oil_level, 20, 100, &uv_uistyles[0]);
-		uv_uiprogressbar_set_value(&this->oil_level, msb_get_oil_level(&dspl.network.msb));
+		uv_uiprogressbar_set_value(&this->oil_level, esb_get_oil_level(&dspl.network.esb));
 		uv_uiprogressbar_set_vertical(&this->oil_level);
 		uv_uiprogressbar_set_limit(&this->oil_level, UI_PROGRESSBAR_LIMIT_UNDER,
 				OIL_LEVEL_WARNING_LIMIT, ERROR_COLOR);
@@ -216,7 +217,7 @@ static void show(const taskbar_state_e state) {
 		// Oil temp
 		bb = uv_uigridlayout_next(&grid);
 		uv_uiprogressbar_init(&this->otemp_bar, 0, 100, &uv_uistyles[0]);
-		uv_uiprogressbar_set_value(&this->otemp_bar, msb_get_oil_temp(&dspl.network.msb));
+		uv_uiprogressbar_set_value(&this->otemp_bar, esb_get_oil_temp(&dspl.network.esb));
 		uv_uiprogressbar_set_vertical(&this->otemp_bar);
 		uv_uiprogressbar_set_limit(&this->otemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
 				OIL_TEMP_WARNING_LIMIT, ERROR_COLOR);
@@ -229,7 +230,7 @@ static void show(const taskbar_state_e state) {
 		bb = uv_uigridlayout_next(&grid);
 		uv_uiprogressbar_init(&this->mtemp_bar, 50, 100, &uv_uistyles[0]);
 		uv_uiprogressbar_set_vertical(&this->mtemp_bar);
-		uv_uiprogressbar_set_value(&this->mtemp_bar, msb_get_motor_temp(&dspl.network.msb));
+		uv_uiprogressbar_set_value(&this->mtemp_bar, esb_get_motor_temp(&dspl.network.esb));
 		uv_uiprogressbar_set_limit(&this->mtemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
 				MOTOR_TEMP_WARNING_LIMIT, ERROR_COLOR);
 		uv_uiprogressbar_set_title(&this->mtemp_bar, "Motor T");
@@ -317,16 +318,16 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 					this->engine_visible = !this->engine_visible;
 				}
 				uv_ui_set_enabled(&this->engine_water,
-						msb_get_power_engine_water(&dspl.network.msb) ? this->engine_visible : false);
+						esb_get_motor_water(&dspl.network.esb) ? this->engine_visible : false);
 				uv_ui_set_enabled(&this->engine_oil_press,
-						msb_get_power_engine_oil_press(&dspl.network.msb) ? this->engine_visible : false);
+						esb_get_motor_oil_press(&dspl.network.esb) ? this->engine_visible : false);
 				uv_ui_set_enabled(&this->engine_alt,
-						msb_get_alt(&dspl.network.msb) ? this->engine_visible : false);
+						esb_get_alt_l(&dspl.network.esb) ? this->engine_visible : false);
 				uv_ui_set_enabled(&this->engine_glow_plugs,
-						msb_get_power_glow_plugs(&dspl.network.msb) ? this->engine_visible : false);
+						esb_get_glow_plugs(&dspl.network.esb) ? this->engine_visible : false);
 			}
 
-			if (msb_get_emcy_stop(&dspl.network.msb)) {
+			if (fsb_get_emcy(&dspl.network.fsb)) {
 				uv_ui_set_enabled(&this->emcy_label, true);
 				if (uv_delay(step_ms, &this->emcy_delay)) {
 					uv_delay_init(BG_ERROR_DELAY_MS, &this->emcy_delay);
@@ -346,21 +347,28 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 			uv_uidigit_set_value(&this->gear, ecu_get_gear(&dspl.network.ecu));
 #endif
 
-			msb_set_horn(&dspl.network.msb,
-					uv_uitoucharea_is_down(&this->horn_touch, NULL, NULL));
-			if (uv_uitoucharea_is_down(&this->horn_touch, NULL, NULL)) {
+			if (uv_uitoucharea_pressed(&this->horn_touch, NULL, NULL)) {
 				uv_uilabel_set_text(&this->horn, "On");
+				uv_output_state_e value = OUTPUT_STATE_ON;
+				uv_canopen_sdo_write(FSB_NODE_ID,
+						FSB_HORN_STATUS_INDEX, FSB_HORN_STATUS_SUBINDEX,
+						CANOPEN_TYPE_LEN(FSB_HORN_STATUS_TYPE), &value);
 			}
-			else {
+			else if (uv_uitoucharea_clicked(&this->horn_touch, NULL, NULL) ||
+					uv_uitoucharea_drag_released(&this->horn_touch, NULL, NULL)) {
+				uv_output_state_e value = OUTPUT_STATE_OFF;
+				uv_canopen_sdo_write(FSB_NODE_ID,
+						FSB_HORN_STATUS_INDEX, FSB_HORN_STATUS_SUBINDEX,
+						CANOPEN_TYPE_LEN(FSB_HORN_STATUS_TYPE), &value);
 				uv_uilabel_set_text(&this->horn, "Off");
 			}
 
 
-			uv_uiprogressbar_set_value(&this->voltage_level, msb_get_voltage(&dspl.network.msb));
-			uv_uiprogressbar_set_value(&this->fuel_level, msb_get_fuel_level(&dspl.network.msb));
-			uv_uiprogressbar_set_value(&this->oil_level, msb_get_oil_level(&dspl.network.msb));
-			uv_uiprogressbar_set_value(&this->otemp_bar, msb_get_oil_temp(&dspl.network.msb));
-			uv_uiprogressbar_set_value(&this->mtemp_bar, msb_get_motor_temp(&dspl.network.msb));
+			uv_uiprogressbar_set_value(&this->voltage_level, esb_get_voltage(&dspl.network.esb));
+			uv_uiprogressbar_set_value(&this->fuel_level, esb_get_fuel_level(&dspl.network.esb));
+			uv_uiprogressbar_set_value(&this->oil_level, esb_get_oil_level(&dspl.network.esb));
+			uv_uiprogressbar_set_value(&this->otemp_bar, esb_get_oil_temp(&dspl.network.esb));
+			uv_uiprogressbar_set_value(&this->mtemp_bar, esb_get_motor_temp(&dspl.network.esb));
 
 			if (uv_delay(step_ms, &this->delay)) {
 				uv_time_st t;
@@ -412,7 +420,7 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 				uv_delay_init((log_get_type(&entry) == LOG_WARNING) ?
 						BG_WARNING_DELAY_MS : BG_ERROR_DELAY_MS, &this->bg_delay);
 			}
-			else if (uv_uitoucharea_released(&this->touch, NULL, NULL)) {
+			else if (uv_uitoucharea_drag_released(&this->touch, NULL, NULL)) {
 				taskbar_style.window_c = WINDOW_COLOR;
 				uv_ui_refresh(&this->taskbar);
 			}

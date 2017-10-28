@@ -43,37 +43,80 @@ void system_network_show(void) {
 	}
 }
 
+const char *get_output_state_str(uv_output_state_e state) {
+	if (state == OUTPUT_STATE_OFF) {
+		return "OFF";
+	}
+	else if (state == OUTPUT_STATE_ON) {
+		return "ON";
+	}
+	else if (state == OUTPUT_STATE_FAULT) {
+		return "FAULT";
+	}
+	else if (state== OUTPUT_STATE_OVERLOAD) {
+		return "OVERL";
+	}
+	else {
+		return "";
+	}
+}
+
 static const char netdev_label[] =
 		"Connected\n"
 		"Node ID";
 
 static const data_st labels[DEV_COUNT] = {
-		// MSB
+		// ESB
 		{
-				.name = "MSB",
-				.row2 = "Fuel level (%)\n"
-						"Oil level (%)\n"
-						"Oil temp (C)\n"
-						"Motor temp (C)\n"
-						"Rpm\n"
-						"Voltage (mV)",
-				.row3 = "Glow plugs\n"
-						"Starter\n"
-						"Engine water\n"
-						"Crane lights\n"
-						"Engine oil press\n"
-						"Aux\n"
+				.name = "ESB",
+				.row2 = "Total Current\n"
+						"Glow State\n"
+						"Starter State\n"
+						"AC State\n"
+						"MStart1 State\n"
+						"MStart2 State\n"
+						"Pump State\n"
+						"Alt IG State",
+				.row3 = "RPM\n"
+						"Alt L\n"
+						"Motor Water\n"
+						"Motor Oil\n"
+						"Motor Temp (C)\n"
+						"Oil Temp (C)\n"
+						"Oil Level (%)\n"
+						"Fuel Level (%)\n"
+						"Voltage (mV)"
+		},
+		// FSB
+		{
+				.name = "FSB",
+				.row2 = "Total Current\n"
+						"Horn State\n"
+						"Radio State\n"
+						"Aux State\n"
+						"Heater State",
+				.row3 = "Ignition key\n"
+						"Heater Speed\n"
+						"EMCY switch\n"
+						"Bat Voltage\n"
+						"Eber Fan"
 		},
 		// CSB
 		{
 				.name = "CSB",
-				.row2 = "Drive light\n"
-						"Work light\n"
-						"Cabin light\n"
-						"Beacon\n"
-						"Wiper\n"
-						"Oil Cooler",
-				.row3 = ""
+				.row2 = "Total Current\n"
+						"Work Light State\n"
+						"Drive Light State\n"
+						"Back Light State\n"
+						"In Light State\n"
+						"Beacon State\n"
+						"Wiper State\n"
+						"Cooler State\n"
+						"Oil Cooler State",
+				.row3 = "Wiper Speed\n"
+						"Cooler P\n"
+						"Work Light Current\n"
+						"Drive Light Current"
 		},
 		// ECU
 #if FM
@@ -182,38 +225,131 @@ static void update_netdev(void *dev) {
 }
 
 static void update(devices_e dev) {
-	if (dev == MSB) {
+	if (dev == ESB) {
 		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i",
-				msb_get_fuel_level(&dspl.network.msb),
-				msb_get_oil_level(&dspl.network.msb),
-				msb_get_oil_temp(&dspl.network.msb),
-				msb_get_motor_temp(&dspl.network.msb),
-				msb_get_rpm(&dspl.network.msb),
-				msb_get_voltage(&dspl.network.msb));
+				"%i\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
+				uv_canopen_sdo_read16(ESB_NODE_ID,
+					ESB_TOTAL_CURRENT_INDEX, ESB_TOTAL_CURRENT_SUBINDEX),
+				get_output_state_str(uv_canopen_sdo_read8(ESB_NODE_ID,
+						ESB_GLOW_STATUS_INDEX, ESB_GLOW_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(ESB_NODE_ID,
+						ESB_STARTER_STATUS_INDEX, ESB_STARTER_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(ESB_NODE_ID,
+						ESB_AC_STATUS_INDEX, ESB_AC_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(ESB_NODE_ID,
+						ESB_ENGINE_START1_STATUS_INDEX, ESB_ENGINE_START1_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(ESB_NODE_ID,
+						ESB_ENGINE_START2_STATUS_INDEX, ESB_ENGINE_START2_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(ESB_NODE_ID,
+						ESB_PUMP_STATUS_INDEX, ESB_PUMP_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(ESB_NODE_ID,
+						ESB_ALT_IG_STATUS_INDEX, ESB_ALT_IG_STATUS_SUBINDEX)));
 		uv_ui_refresh(&this->row2_values);
-		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i",
-				msb_get_power_glow_plugs(&dspl.network.msb),
-				msb_get_power_starter(&dspl.network.msb),
-				msb_get_power_engine_water(&dspl.network.msb),
-				msb_get_power_crane_light(&dspl.network.msb),
-				msb_get_power_engine_oil_press(&dspl.network.msb),
-				msb_get_power_aux(&dspl.network.msb));
+		snprintf(this->row3_val_str, SYSTEM_NETWORK_BUFFER_LEN,
+				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
+				uv_canopen_sdo_read16(ESB_NODE_ID,
+						ESB_RPM_INDEX, ESB_RPM_SUBINDEX),
+				uv_canopen_sdo_read8(ESB_NODE_ID,
+						ESB_ALT_L_INDEX, ESB_ALT_L_SUBINDEX),
+				uv_canopen_sdo_read8(ESB_NODE_ID,
+						ESB_MOTOR_WATER_TEMP_INDEX, ESB_MOTOR_WATER_TEMP_SUBINDEX),
+				uv_canopen_sdo_read8(ESB_NODE_ID,
+						ESB_MOTOR_OIL_PRESS_INDEX, ESB_MOTOR_OIL_PRESS_SUBINDEX),
+				uv_canopen_sdo_read8(ESB_NODE_ID,
+						ESB_MOTOR_TEMP_INDEX, ESB_MOTOR_TEMP_SUBINDEX),
+				uv_canopen_sdo_read8(ESB_NODE_ID,
+						ESB_OIL_TEMP_INDEX, ESB_OIL_TEMP_SUBINDEX),
+				uv_canopen_sdo_read8(ESB_NODE_ID,
+						ESB_OIL_LEVEL_INDEX, ESB_OIL_LEVEL_SUBINDEX),
+				uv_canopen_sdo_read8(ESB_NODE_ID,
+						ESB_FUEL_LEVEL_INDEX, ESB_FUEL_LEVEL_SUBINDEX),
+				uv_canopen_sdo_read16(ESB_NODE_ID,
+						ESB_VDD_INDEX, ESB_VDD_SUBINDEX));
 		uv_ui_refresh(&this->row3_values);
-		update_netdev(&dspl.network.msb);
+		update_netdev(&dspl.network.esb);
+	}
+	else if (dev == FSB) {
+		snprintf(this->row2_val_str, SYSTEM_NETWORK_BUFFER_LEN,
+				"%i\n%s\n%s\n%s\n%s",
+				uv_canopen_sdo_read16(FSB_NODE_ID,
+						FSB_TOTAL_CURRENT_INDEX, FSB_TOTAL_CURRENT_SUBINDEX),
+				get_output_state_str(uv_canopen_sdo_read8(FSB_NODE_ID,
+						FSB_HORN_STATUS_INDEX, FSB_HORN_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(FSB_NODE_ID,
+						FSB_RADIO_STATUS_INDEX, FSB_RADIO_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(FSB_NODE_ID,
+						FSB_AUX_STATUS_INDEX, FSB_AUX_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(FSB_NODE_ID,
+						FSB_HEATERBAT_STATUS_INDEX, FSB_HEATERBAT_STATUS_SUBINDEX)));
+		uv_ui_refresh(&this->row2_values);
+		fsb_ignkey_states_e ignkey_state = uv_canopen_sdo_read8(FSB_NODE_ID,
+				FSB_IGNKEY_INDEX, FSB_IGNKEY_SUBINDEX);
+		const char *ignkey;
+		if (ignkey_state == FSB_IGNKEY_STATE_OFF) {
+			ignkey = "OFF";
+		}
+		else if (ignkey_state == FSB_IGNKEY_STATE_ON) {
+			ignkey = "ON";
+		}
+		else if (ignkey_state == FSB_IGNKEY_STATE_PREHEAT) {
+			ignkey = "PREHEAT";
+		}
+		else if (ignkey_state == FSB_IGNKEY_STATE_START) {
+			ignkey = "START";
+		}
+		else {
+			ignkey = "";
+		}
+		snprintf(this->row3_val_str, SYSTEM_NETWORK_BUFFER_LEN,
+				"%s\n%i\n%i\n%i\n%i",
+				ignkey,
+				uv_canopen_sdo_read8(FSB_NODE_ID,
+						FSB_HEATER_SPEED_INDEX, FSB_HEATER_SPEED_SUBINDEX),
+				uv_canopen_sdo_read8(FSB_NODE_ID,
+						FSB_EMCY_INDEX, FSB_EMCY_SUBINDEX),
+				uv_canopen_sdo_read16(FSB_NODE_ID,
+						FSB_BAT_INDEX, FSB_BAT_SUBINDEX),
+				uv_canopen_sdo_read8(FSB_NODE_ID,
+						FSB_EBERFAN_INDEX, FSB_EBERFAN_SUBINDEX));
+		uv_ui_refresh(&this->row3_values);
+
+		update_netdev(&dspl.network.fsb);
+
 	}
 	else if (dev == CSB) {
-		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i",
-				csb_get_drive_light(&dspl.network.csb),
-				csb_get_work_light(&dspl.network.csb),
-				csb_get_cabin_light(&dspl.network.csb),
-				csb_get_beacon(&dspl.network.csb),
-				csb_get_wiper(&dspl.network.csb),
-				csb_get_oil_cooler(&dspl.network.csb));
-		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN, " ");
+		snprintf(this->row2_val_str, SYSTEM_NETWORK_BUFFER_LEN,
+				"%i\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
+				uv_canopen_sdo_read16(CSB_NODE_ID,
+						CSB_TOTAL_CURRENT_INDEX, CSB_TOTAL_CURRENT_SUBINDEX),
+				get_output_state_str(uv_canopen_sdo_read8(CSB_NODE_ID,
+						CSB_WORK_LIGHT_STATUS_INDEX, CSB_WORK_LIGHT_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(CSB_NODE_ID,
+						CSB_DRIVE_LIGHT_STATUS_INDEX, CSB_DRIVE_LIGHT_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(CSB_NODE_ID,
+						CSB_BACK_LIGHT_STATUS_INDEX, CSB_BACK_LIGHT_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(CSB_NODE_ID,
+						CSB_IN_LIGHT_STATUS_INDEX, CSB_IN_LIGHT_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(CSB_NODE_ID,
+						CSB_BEACON_STATUS_INDEX, CSB_BEACON_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(CSB_NODE_ID,
+						CSB_WIPER_STATUS_INDEX, CSB_WIPER_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(CSB_NODE_ID,
+						CSB_COOLER_STATUS_INDEX, CSB_COOLER_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(CSB_NODE_ID,
+						CSB_OILCOOLER_STATUS_INDEX, CSB_OILCOOLER_STATUS_SUBINDEX)));
+		uv_ui_refresh(&this->row2_values);
+		snprintf(this->row3_val_str, SYSTEM_NETWORK_BUFFER_LEN,
+				"%i\n%i\n%i\n%i",
+				uv_canopen_sdo_read8(CSB_NODE_ID,
+						CSB_WIPER_SPEED_INDEX, CSB_WIPER_SPEED_SUBINDEX),
+				uv_canopen_sdo_read8(CSB_NODE_ID,
+						CSB_COOLER_P_INDEX, CSB_COOLER_P_SUBINDEX),
+				uv_canopen_sdo_read16(CSB_NODE_ID,
+						CSB_WORK_LIGHT_CURRENT_INDEX, CSB_WORK_LIGHT_CURRENT_SUBINDEX),
+				uv_canopen_sdo_read16(CSB_NODE_ID,
+						CSB_DRIVE_LIGHT_CURRENT_INDEX, CSB_DRIVE_LIGHT_CURRENT_SUBINDEX));
 		uv_ui_refresh(&this->row3_values);
+
 		update_netdev(&dspl.network.csb);
 	}
 	else if (dev == ECU) {
@@ -325,18 +461,22 @@ static void update(devices_e dev) {
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(&dspl.network.uw180s_mb);
 	}
+	else {
+
+	}
 }
 
 
 static void show(uv_uitreeobject_st *obj) {
 	this->dev = ((unsigned int) obj - (unsigned int) &this->objs[0]) / sizeof(this->objs[0]);
 
+
 	uv_uitreeobject_clear(obj);
 
 	uv_uigridlayout_st grid;
-	uv_uigridlayout_init(&grid, 0, 0, uv_uitreeobject_get_content_bb(obj).width,
-			uv_uitreeobject_get_content_bb(obj).height, 6, 4);
-	uv_uigridlayout_set_padding(&grid, 6, 1);
+	uv_uigridlayout_init(&grid, 0, 0, uv_uitreeobject_get_content_bb(obj).width - 7,
+			uv_uitreeobject_get_content_bb(obj).height, 6, 1);
+	uv_uigridlayout_set_padding(&grid, 1, 1);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 
@@ -379,6 +519,7 @@ static void show(uv_uitreeobject_st *obj) {
 			bb.y, bb.width * valuescale, bb.height);
 
 	update(this->dev);
+
 }
 
 

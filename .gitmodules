@@ -1,3 +1,6 @@
 [submodule "sw/hal"]
 	path = sw/hal
 	url = ssh://u33867@sftp.shellit.org/home/u33867/version_control/public/hal
+[submodule "sw/uw_can"]
+	path = sw/uw_can
+	url = ssh://u33867@sftp.shellit.org/home/u33867/version_control/uw/uw_can
