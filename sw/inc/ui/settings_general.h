@@ -39,8 +39,8 @@ typedef struct {
 		} general;
 		struct {
 			uv_uislider_st brightness;
-			uv_uislider_st volume;
-		} display;
+			uv_uislider_st oilcooler_trigger;
+		} system;
 		struct {
 			uv_uilist_st impls_list;
 			char *impl_names[UW_IMPLEMENT_COUNT];

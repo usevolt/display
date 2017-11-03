@@ -79,7 +79,7 @@ uv_uiobject_ret_e settings_step(const uint16_t step_ms) {
 		if (uv_uibutton_clicked(&this->ok)) {
 			uv_errors_e e = uv_memory_save();
 			if (e) {
-				log_add(LOG_MEMORY_SAVE_FAILED, (int32_t) e);
+				log_add(LOG_MEMORY_SAVE_FAILED);
 			}
 			// save ecu params
 			ecu_save_params();

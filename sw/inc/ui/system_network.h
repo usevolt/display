@@ -11,7 +11,7 @@
 #include <uv_utilities.h>
 #include <uv_ui.h>
 
-#define SYSTEM_NETWORK_BUFFER_LEN			9
+#define SYSTEM_NETWORK_BUFFER_LEN			10
 #define SYSTEM_NETWORK_ROW_VALUE_LEN		40
 
 enum {

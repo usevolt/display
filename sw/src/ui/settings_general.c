@@ -18,13 +18,13 @@
 #define IMPLEMENT_HEIGHT	200
 
 uv_uiobject_ret_e settings_general_step(const uint16_t step_ms);
-uv_uiobject_ret_e settings_volume_step(const uint16_t step_ms);
+uv_uiobject_ret_e settings_system_step(const uint16_t step_ms);
 uv_uiobject_ret_e settings_implement_step(const uint16_t step_ms);
 uv_uiobject_ret_e settings_date_step(const uint16_t step_ms);
 
 
 void show_general_callb(uv_uitreeobject_st *obj);
-void show_display_callb(uv_uitreeobject_st *obj);
+void show_system_callb(uv_uitreeobject_st *obj);
 void show_implement_callb(uv_uitreeobject_st *obj);
 void show_date_callb(uv_uitreeobject_st *obj);
 
@@ -52,8 +52,8 @@ void settings_general_show(void) {
 			&show_general_callb, &uv_uistyles[0]);
 	uv_uitreeview_add(&this->treeview, &this->generalobj, GENERAL_HEIGHT, false);
 
-	uv_uitreeobject_init(&this->displayobj, this->buffer, "Display",
-			&show_display_callb, &uv_uistyles[0]);
+	uv_uitreeobject_init(&this->displayobj, this->buffer, "System",
+			&show_system_callb, &uv_uistyles[0]);
 	uv_uitreeview_add(&this->treeview, &this->displayobj, DISPLAY_HEIGHT, false);
 
 	uv_uitreeobject_init(&this->implementobj, this->buffer, "Select Implement",
@@ -97,9 +97,10 @@ void show_general_callb(uv_uitreeobject_st *obj) {
 	bb = uv_uigridlayout_next(&grid);
 	uint8_t speed = uv_canopen_sdo_read8(CSB_NODE_ID,
 			CSB_WIPER_SPEED_INDEX, CSB_WIPER_SPEED_SUBINDEX);
-	uv_uislider_init(&this->general.wiper, 0, CSB_WIPER_MAX_SPEED - 1, speed, &uv_uistyles[0]);
+	uv_uislider_init(&this->general.wiper, 0, CSB_WIPER_MAX_SPEED, speed, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->general.wiper);
 	uv_uislider_set_title(&this->general.wiper, "Wiper");
+	uv_uislider_set_inc_step(&this->general.wiper, CSB_WIPER_MAX_SPEED / 10);
 	uv_uitreeobject_add(&this->generalobj, &this->general.wiper, bb.x, bb.y, bb.width, bb.height);
 
 	// heater
@@ -120,9 +121,9 @@ void show_general_callb(uv_uitreeobject_st *obj) {
 
 }
 
-void show_display_callb(uv_uitreeobject_st *obj) {
+void show_system_callb(uv_uitreeobject_st *obj) {
 	uv_uitreeobject_clear(&this->displayobj);
-	uv_uitreeobject_set_step_callback(&this->displayobj, &settings_volume_step);
+	uv_uitreeobject_set_step_callback(&this->displayobj, &settings_system_step);
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0,
@@ -132,18 +133,20 @@ void show_display_callb(uv_uitreeobject_st *obj) {
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 	// brightness
-	uv_uislider_init(&this->display.brightness, 1, 100, gui_get_backlight(), &uv_uistyles[0]);
-	uv_uislider_set_horizontal(&this->display.brightness);
-	uv_uislider_set_title(&this->display.brightness, "Screen\nbrightness");
-	uv_uitreeobject_add(&this->displayobj, &this->display.brightness,
+	uv_uislider_init(&this->system.brightness, 1, 100, gui_get_backlight(), &uv_uistyles[0]);
+	uv_uislider_set_horizontal(&this->system.brightness);
+	uv_uislider_set_title(&this->system.brightness, "Screen\nbrightness");
+	uv_uitreeobject_add(&this->displayobj, &this->system.brightness,
 			bb.x, bb.y, bb.width, bb.height);
 
 	// volume
 	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->display.volume, 0, 100, alert_get_volume(&dspl.alert), &uv_uistyles[0]);
-	uv_uislider_set_horizontal(&this->display.volume);
-	uv_uislider_set_title(&this->display.volume, "Volume");
-	uv_uitreeobject_add(&this->displayobj, &this->display.volume,
+	uv_uislider_init(&this->system.oilcooler_trigger, 0, 90,
+			uv_canopen_sdo_read8(CSB_NODE_ID, CSB_OILCOOLER_TRIGGER_INDEX, CSB_OILCOOLER_TRIGGER_SUBINDEX),
+			&uv_uistyles[0]);
+	uv_uislider_set_horizontal(&this->system.oilcooler_trigger);
+	uv_uislider_set_title(&this->system.oilcooler_trigger, "Oil Cooler\ntrigger temp");
+	uv_uitreeobject_add(&this->displayobj, &this->system.oilcooler_trigger,
 			bb.x, bb.y, bb.width, bb.height);
 
 }
@@ -309,23 +312,22 @@ uv_uiobject_ret_e settings_general_step(const uint16_t step_ms) {
 }
 
 
-uv_uiobject_ret_e settings_volume_step(const uint16_t step_ms) {
+uv_uiobject_ret_e settings_system_step(const uint16_t step_ms) {
 	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
 	// brightness
-	if (uv_uislider_value_changed(&this->display.brightness)) {
-		gui_set_backlight(uv_uislider_get_value(&this->display.brightness));
+	if (uv_uislider_value_changed(&this->system.brightness)) {
+		gui_set_backlight(uv_uislider_get_value(&this->system.brightness));
 	}
 	else {
-		uv_uislider_set_value(&this->display.brightness, gui_get_backlight());
+		uv_uislider_set_value(&this->system.brightness, gui_get_backlight());
 	}
 
-	// volume
-	if (uv_uislider_value_changed(&this->display.volume)) {
-		alert_set_volume(&dspl.alert, uv_uislider_get_value(&this->display.volume));
-	}
-	else {
-		uv_uislider_set_value(&this->display.volume, alert_get_volume(&dspl.alert));
+	// oil cooler trigger temp
+	if (uv_uislider_value_changed(&this->system.oilcooler_trigger)) {
+		uv_canopen_sdo_write8(CSB_NODE_ID,
+				CSB_OILCOOLER_TRIGGER_INDEX, CSB_OILCOOLER_TRIGGER_SUBINDEX,
+				uv_uislider_get_value(&this->system.oilcooler_trigger));
 	}
 
 

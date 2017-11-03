@@ -45,17 +45,25 @@ void can_callback(void *me, uv_can_message_st *msg) {
 void dspl_init(dspl_st *me) {
 
 	uv_set_int_priority(INT_SYSTICK, 31);
-	uv_set_int_priority(INT_UART0, 30);
 
 #if CONFIG_TARGET_LPC1785
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + ECU_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + CSB_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + FSB_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + ESB_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + LKEYPAD_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + RKEYPAD_NODE_ID, CAN_STD);
-	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + ECU_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + UW180S_MB_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + UW180S_ECU_NODE_ID, CAN_STD);
+
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + ECU_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + CSB_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + FSB_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + ESB_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + LKEYPAD_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + RKEYPAD_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + UW180S_MB_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + UW180S_ECU_NODE_ID, CAN_STD);
 #endif
 
 
@@ -184,7 +192,7 @@ int main(void) {
 
 	uv_init(&dspl);
 
-	uv_rtos_task_create(dspl_step, "dspl_step", UV_RTOS_MIN_STACK_SIZE * 8,
+	uv_rtos_task_create(dspl_step, "dspl_step", UV_RTOS_MIN_STACK_SIZE * 5,
 			&dspl, UV_RTOS_IDLE_PRIORITY + 2, NULL);
 
 	uv_rtos_start_scheduler();

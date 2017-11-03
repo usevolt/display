@@ -25,7 +25,7 @@ void ecu_step(ecu_st *this, unsigned int step_ms) {
 void ecu_emcy(ecu_st *this, const canopen_emcy_msg_st *emcy) {
 	if ((emcy->error_code == CANOPEN_EMCY_DEVICE_SPECIFIC) &&
 			(emcy->data == EMCY_ECU_LEGS_DOWN)) {
-		log_add(LOG_LEGS_DOWN, 0);
+		log_add(LOG_LEGS_DOWN);
 		this->legs_down_warning = true;
 	}
 }

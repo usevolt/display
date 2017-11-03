@@ -116,7 +116,8 @@ static const data_st labels[DEV_COUNT] = {
 				.row3 = "Wiper Speed\n"
 						"Cooler P\n"
 						"Work Light Current\n"
-						"Drive Light Current"
+						"Drive Light Current\n"
+						"OilC trigger temp"
 		},
 		// ECU
 #if FM
@@ -245,7 +246,7 @@ static void update(devices_e dev) {
 				get_output_state_str(uv_canopen_sdo_read8(ESB_NODE_ID,
 						ESB_ALT_IG_STATUS_INDEX, ESB_ALT_IG_STATUS_SUBINDEX)));
 		uv_ui_refresh(&this->row2_values);
-		snprintf(this->row3_val_str, SYSTEM_NETWORK_BUFFER_LEN,
+		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
 				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
 				uv_canopen_sdo_read16(ESB_NODE_ID,
 						ESB_RPM_INDEX, ESB_RPM_SUBINDEX),
@@ -269,7 +270,7 @@ static void update(devices_e dev) {
 		update_netdev(&dspl.network.esb);
 	}
 	else if (dev == FSB) {
-		snprintf(this->row2_val_str, SYSTEM_NETWORK_BUFFER_LEN,
+		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
 				"%i\n%s\n%s\n%s\n%s",
 				uv_canopen_sdo_read16(FSB_NODE_ID,
 						FSB_TOTAL_CURRENT_INDEX, FSB_TOTAL_CURRENT_SUBINDEX),
@@ -300,7 +301,7 @@ static void update(devices_e dev) {
 		else {
 			ignkey = "";
 		}
-		snprintf(this->row3_val_str, SYSTEM_NETWORK_BUFFER_LEN,
+		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
 				"%s\n%i\n%i\n%i\n%i",
 				ignkey,
 				uv_canopen_sdo_read8(FSB_NODE_ID,
@@ -317,7 +318,8 @@ static void update(devices_e dev) {
 
 	}
 	else if (dev == CSB) {
-		snprintf(this->row2_val_str, SYSTEM_NETWORK_BUFFER_LEN,
+
+		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
 				"%i\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
 				uv_canopen_sdo_read16(CSB_NODE_ID,
 						CSB_TOTAL_CURRENT_INDEX, CSB_TOTAL_CURRENT_SUBINDEX),
@@ -338,8 +340,9 @@ static void update(devices_e dev) {
 				get_output_state_str(uv_canopen_sdo_read8(CSB_NODE_ID,
 						CSB_OILCOOLER_STATUS_INDEX, CSB_OILCOOLER_STATUS_SUBINDEX)));
 		uv_ui_refresh(&this->row2_values);
-		snprintf(this->row3_val_str, SYSTEM_NETWORK_BUFFER_LEN,
-				"%i\n%i\n%i\n%i",
+
+		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
+				"%i\n%i\n%i\n%i\n%i",
 				uv_canopen_sdo_read8(CSB_NODE_ID,
 						CSB_WIPER_SPEED_INDEX, CSB_WIPER_SPEED_SUBINDEX),
 				uv_canopen_sdo_read8(CSB_NODE_ID,
@@ -347,7 +350,9 @@ static void update(devices_e dev) {
 				uv_canopen_sdo_read16(CSB_NODE_ID,
 						CSB_WORK_LIGHT_CURRENT_INDEX, CSB_WORK_LIGHT_CURRENT_SUBINDEX),
 				uv_canopen_sdo_read16(CSB_NODE_ID,
-						CSB_DRIVE_LIGHT_CURRENT_INDEX, CSB_DRIVE_LIGHT_CURRENT_SUBINDEX));
+						CSB_DRIVE_LIGHT_CURRENT_INDEX, CSB_DRIVE_LIGHT_CURRENT_SUBINDEX),
+				uv_canopen_sdo_read8(CSB_NODE_ID,
+						CSB_OILCOOLER_TRIGGER_INDEX, CSB_OILCOOLER_TRIGGER_SUBINDEX));
 		uv_ui_refresh(&this->row3_values);
 
 		update_netdev(&dspl.network.csb);

@@ -47,41 +47,9 @@ typedef struct {
 
 void keypad_update(void *me);
 
+void rkeypad_init(keypad_st *this);
 
-static inline void rkeypad_init(keypad_st *this) {
-	netdev_init(this, keypad_update);
-	netdev_set_node_id(this, RKEYPAD_NODE_ID);
-	netdev_set_disconnected_type(this, LOG_RKEYPAD_DISCONNECTED);
-	this->read.x = 0;
-	this->read.x_err = 0;
-	memset(this->read.x_calib, 0, sizeof(this->read.x_calib[0]) * 3);
-	this->read.y = 0;
-	this->read.y_err = 0;
-	memset(this->read.y_calib, 0, sizeof(this->read.y_calib[0]) * 3);
-	this->read.z = 0;
-	this->read.z_err = 0;
-	memset(this->read.z_calib, 0, sizeof(this->read.z_calib[0]) * 3);
-	this->read.v = 0;
-	this->read.v_err = 0;
-	for (int i = 0; i < KEYPAD_BUTTON_COUNT; i++) {
-		this->read.b[i] = 0;
-	}
-	this->calib = false;
-}
-
-
-static inline void lkeypad_init(keypad_st *this) {
-	netdev_init(this, keypad_update);
-	netdev_set_node_id(this, LKEYPAD_NODE_ID);
-	netdev_set_disconnected_type(this, LOG_LKEYPAD_DISCONNECTED);
-	this->read.x = 0;
-	this->read.y = 0;
-	this->read.z = 0;
-	this->read.v = 0;
-	for (int i = 0; i < KEYPAD_BUTTON_COUNT; i++) {
-		this->read.b[i] = 0;
-	}
-}
+void lkeypad_init(keypad_st *this);
 
 static inline int8_t keypad_get_x(keypad_st *this) {
 	return this->read.x;

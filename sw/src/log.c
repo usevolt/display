@@ -27,113 +27,283 @@ const log_entry_def_st log_entry_defs[] = {
 		{
 				.type = LOG_MEMORY_SAVE_FAILED | LOG_WARNING,
 				.def = "Saving data to flash memory failed",
-				.param_def = "uv_memory_save return: "
 		},
 		{
 				.type = LOG_NETDEV_DISCONNECTED | LOG_WARNING,
 				.def = "Netdev disconnected",
-				.param_def = "node ID: "
 		},
 		{
 				.type = LOG_ESB_DISCONNECTED | LOG_WARNING,
 				.def = "ESB disconnected",
-				.param_def = ""
 		},
 		{
 				.type = LOG_FSB_DISCONNECTED | LOG_WARNING,
 				.def = "FSB disconnected",
-				.param_def = ""
 		},
 		{
 				.type = LOG_CSB_DISCONNECTED | LOG_WARNING,
 				.def = "CSB disconnected",
-				.param_def = ""
 		},
 		{
 				.type = LOG_ECU_DISCONNECTED | LOG_WARNING,
 				.def = "ECU disconnected",
-				.param_def = ""
 		},
 		{
 				.type = LOG_LKEYPAD_DISCONNECTED | LOG_WARNING,
 				.def = "Left keypad disconnected",
-				.param_def = ""
 		},
 		{
 				.type = LOG_RKEYPAD_DISCONNECTED | LOG_WARNING,
 				.def = "Right keypad disconnected",
-				.param_def = ""
 		},
 		{
 				.type = LOG_PEDAL_DISCONNECTED | LOG_WARNING,
 				.def = "Pedal disconnected",
-				.param_def = ""
 		},
 		{
 				.type = LOG_UW180S_ECU_DISCONNECTED | LOG_WARNING,
 				.def = "UW180s ECU disconnected",
-				.param_def = ""
 		},
 		{
 				.type = LOG_UW180S_MB_DISCONNECTED | LOG_WARNING,
 				.def = "UW180s MB disconnected",
-				.param_def = ""
-		},
-		{
-				.type = LOG_CAN_BUS_OFF | LOG_WARNING,
-				.def = "CAN-bus: No connection",
-				.param_def = ""
-		},
-		{
-				.type = LOG_OIL_LEVEL_WARNING | LOG_WARNING,
-				.def = "Oil level low",
-				.param_def = "level: "
-		},
-		{
-				.type = LOG_OIL_LEVEL_ERROR | LOG_ERROR,
-				.def = "Oil level critically low",
-				.param_def = "level: "
-		},
-		{
-				.type = LOG_FUEL_LEVEL_WARNING | LOG_WARNING,
-				.def = "Fuel level low",
-				.param_def = "level: "
-		},
-		{
-				.type = LOG_MOTOR_TEMP_WARNING | LOG_WARNING,
-				.def = "Motor temperature high",
-				.param_def = "temp: "
-		},
-		{
-				.type = LOG_MOTOR_TEMP_ERROR | LOG_ERROR,
-				.def = "Motor temperature critically high",
-				.param_def = "temp: "
-		},
-		{
-				.type = LOG_OIL_TEMP_WARNING | LOG_WARNING,
-				.def = "Oil temperature high",
-				.param_def = "temp: "
-		},
-		{
-				.type = LOG_OIL_TEMP_ERROR | LOG_ERROR,
-				.def = "Oil level critically high",
-				.param_def = "temp: "
-		},
-		{
-				.type = LOG_BAT_V_WARNING | LOG_WARNING,
-				.def = "Battery voltage low",
-				.param_def = "voltage: "
-		},
-		{
-				.type = LOG_BAT_V_ERROR | LOG_ERROR,
-				.def = "Battery voltage critically low",
-				.param_def = "voltage: "
 		},
 		{
 				.type = LOG_LEGS_DOWN | LOG_WARNING,
 				.def = "Driving is not allowed when support legs are down",
-				.param_def = " "
-		}
+		},
+		{
+				.type = LOG_ESB_GLOW_OVERLOAD | LOG_WARNING,
+				.def = "Glow Plugs overload",
+		},
+		{
+				.type = LOG_ESB_GLOW_OVERLOAD | LOG_ERROR,
+				.def = "Glow Plugs short circuit or faulty",
+		},
+		{
+				.type = LOG_ESB_STARTER_OVERLOAD | LOG_WARNING,
+				.def = "Starter overload",
+		},
+		{
+				.type = LOG_ESB_STARTER_FAULT | LOG_ERROR,
+				.def = "Starter short circuit",
+		},
+		{
+				.type = LOG_ESB_AC_OVERLOAD | LOG_WARNING,
+				.def = "AC compressor overload",
+		},
+		{
+				.type = LOG_ESB_AC_FAULT | LOG_ERROR,
+				.def = "AC compressor short circuit",
+		},
+		{
+				.type = LOG_ESB_ENGINE_STOP_OVERLOAD| LOG_WARNING,
+				.def = "Engine stop solenoid overload",
+		},
+		{
+				.type = LOG_ESB_ENGINE_STOP_FAULT| LOG_ERROR,
+				.def = "Engine stop solenoid short circuit",
+		},
+		{
+				.type = LOG_ESB_BEACON_OVERLOAD | LOG_WARNING,
+				.def = "Beacon overload",
+		},
+		{
+				.type = LOG_ESB_BEACON_FAULT | LOG_ERROR,
+				.def = "Beacon short circuit",
+		},
+		{
+				.type = LOG_ESB_PUMP_OVERLOAD | LOG_WARNING,
+				.def = "Hydraulic pump solenoid overload",
+		},
+		{
+				.type = LOG_ESB_PUMP_FAULT | LOG_ERROR,
+				.def = "Hydraulic pump solenoid short circuit",
+		},
+		{
+				.type = LOG_ESB_ALT_IG_OVERLOAD | LOG_WARNING,
+				.def = "Alternator IG overload",
+		},
+		{
+				.type = LOG_ESB_ALT_IG_FAULT | LOG_ERROR,
+				.def = "Alternator IG short circuit",
+		},
+		{
+				.type = LOG_ESB_MTEMP_WARNING | LOG_WARNING,
+				.def = "Motor temperature high",
+		},
+		{
+				.type = LOG_ESB_MTEMP_ERROR | LOG_ERROR,
+				.def = "Motor temperature critically high",
+		},
+		{
+				.type = LOG_ESB_MTEMP_SENSOR_FAULT | LOG_WARNING,
+				.def = "Motor temperature sensor fault",
+		},
+		{
+				.type = LOG_ESB_OTEMP_WARNING | LOG_WARNING,
+				.def = "Hydraulic Oil temperature high",
+		},
+		{
+				.type = LOG_ESB_OTEMP_ERROR | LOG_ERROR,
+				.def = "Hydraulic Oil temperature critically high",
+		},
+		{
+				.type = LOG_ESB_OTEMP_SENSOR_FAULT | LOG_WARNING,
+				.def = "Hydraulic Oil temperature sensor fault",
+		},
+		{
+				.type = LOG_ESB_OLEVEL_WARNING | LOG_WARNING,
+				.def = "Hydraulic Oil level low",
+		},
+		{
+				.type = LOG_ESB_OLEVEL_ERROR | LOG_ERROR,
+				.def = "Hydraulic Oil level critically low",
+		},
+		{
+				.type = LOG_ESB_OLEVEL_SENSOR_FAULT | LOG_WARNING,
+				.def = "Hydraulic Oil level sensor fault",
+		},
+		{
+				.type = LOG_ESB_FLEVEL_WARNING | LOG_WARNING,
+				.def = "Fuel level low",
+		},
+		{
+				.type = LOG_ESB_FLEVEL_ERROR | LOG_ERROR,
+				.def = "Fuel level critically low",
+		},
+		{
+				.type = LOG_ESB_FLEVEL_FAULT | LOG_WARNING,
+				.def = "Fuel level sensor fault",
+		},
+		{
+				.type = LOG_ESB_VDD_LOW_WARNING | LOG_WARNING,
+				.def = "Battery voltage low",
+		},
+		{
+				.type = LOG_ESB_ENGINE_STOP_MISMATCH | LOG_WARNING,
+				.def = "Engine stop solenoid mismatch. Please restart the engine.",
+		},
+		{
+				.type = LOG_ESB_ENGINE_PROTECTION_SHUTDOWN | LOG_ERROR,
+				.def = "Engine protection shutdown. Check engine oil pressure & cooling liquid temperature",
+		},
+		{
+				.type = LOG_FSB_HORN_OVERCURRENT | LOG_WARNING,
+				.def = "Horn overload",
+		},
+		{
+				.type = LOG_FSB_HORN_FAULT | LOG_ERROR,
+				.def = "Horn short circuit",
+		},
+		{
+				.type = LOG_FSB_RADIO_OVERCURRENT | LOG_WARNING,
+				.def = "Radio supply overload",
+		},
+		{
+				.type = LOG_FSB_RADIO_FAULT | LOG_ERROR,
+				.def = "Radio short circuit",
+		},
+		{
+				.type = LOG_FSB_AUX_OVERCURRENT | LOG_WARNING,
+				.def = "Aux jack overload",
+		},
+		{
+				.type = LOG_FSB_AUX_FAULT | LOG_ERROR,
+				.def = "Aux jack short circuit",
+		},
+		{
+				.type = LOG_FSB_HEATERVDD_OVERCURRENT | LOG_WARNING,
+				.def = "Heater VDD supply overload",
+		},
+		{
+				.type = LOG_FSB_HEATERVDD_FAULT | LOG_ERROR,
+				.def = "Heater VDD supply short circuit",
+		},
+		{
+				.type = LOG_FSB_HEATERBAT_OVERCURRENT | LOG_WARNING,
+				.def = "Heater BAT supply overload",
+		},
+		{
+				.type = LOG_FSB_HEATERBAT_FAULT | LOG_ERROR,
+				.def = "Heater BAT supply short circuit",
+		},
+		{
+				.type = LOG_FSB_BATFUSE_FAULT | LOG_ERROR,
+				.def = "Battery fuse burned",
+		},
+		{
+				.type = LOG_FSB_IGNKEY_FAULT | LOG_WARNING,
+				.def = "Ignition key state error",
+		},
+		{
+				.type = LOG_FSB_EMCY_NOTIFY | LOG_WARNING,
+				.def = "Release emergency switch before starting the engine"
+		},
+		{
+				.type = LOG_CSB_WORK_LIGHT_OVERCURRENT | LOG_WARNING,
+				.def = "Work Light overload",
+		},
+		{
+				.type = LOG_CSB_WORK_LIGHT_FAULT | LOG_ERROR,
+				.def = "Work Light short circuit",
+		},
+		{
+				.type = LOG_CSB_DRIVE_LIGHT_OVERCURRENT | LOG_WARNING,
+				.def = "Drive Light overload",
+		},
+		{
+				.type = LOG_CSB_DRIVE_LIGHT_FAULT | LOG_ERROR,
+				.def = "Drive Light short circuit",
+		},
+		{
+				.type = LOG_CSB_BACK_LIGHT_OVERCURRENT | LOG_WARNING,
+				.def = "Back Light overload",
+		},
+		{
+				.type = LOG_CSB_BACK_LIGHT_FAULT| LOG_ERROR,
+				.def = "Back Light short circuit",
+		},
+		{
+				.type = LOG_CSB_IN_LIGHT_OVERCURRENT | LOG_WARNING,
+				.def = "In Light overload",
+		},
+		{
+				.type = LOG_CSB_IN_LIGHT_FAULT | LOG_ERROR,
+				.def = "In Light short circuit",
+		},
+		{
+				.type = LOG_CSB_BEACON_OVERCURRENT | LOG_WARNING,
+				.def = "Beacon overload",
+		},
+		{
+				.type = LOG_CSB_BEACON_FAULT | LOG_ERROR,
+				.def = "Beacon short circuit",
+		},
+		{
+				.type = LOG_CSB_WIPER_OVERCURRENT | LOG_WARNING,
+				.def = "Wiper overload",
+		},
+		{
+				.type = LOG_CSB_WIPER_FAULT | LOG_ERROR,
+				.def = "Wiper short circuit",
+		},
+		{
+				.type = LOG_CSB_COOLER_OVERCURRENT | LOG_WARNING,
+				.def = "Cooler overload",
+		},
+		{
+				.type = LOG_CSB_COOLER_FAULT | LOG_ERROR,
+				.def = "Cooler short circuit",
+		},
+		{
+				.type = LOG_CSB_OILCOOLER_OVERCURRENT | LOG_WARNING,
+				.def = "Oil Cooler overload",
+		},
+		{
+				.type = LOG_CSB_OILCOOLER_FAULT | LOG_ERROR,
+				.def = "Oil Cooler short circuit",
+		},
 };
 
 
@@ -163,7 +333,7 @@ const log_entry_def_st *log_entry_get_definition(log_entry_e type) {
 
 
 
-void log_add(log_entry_e type, int32_t data) {
+void log_add(log_entry_e type) {
 	// if older entries of this type were found, acknowledge them
 	for (int i = 0; i < log_get_nack_count(); i++) {
 		log_entry_st entry;
@@ -173,7 +343,6 @@ void log_add(log_entry_e type, int32_t data) {
 		}
 	}
 	log_entry_st entry = {
-			.data = data,
 			.type = type,
 			.ack = false
 	};

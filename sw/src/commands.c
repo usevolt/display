@@ -208,15 +208,9 @@ void logshow_callb(void *me, unsigned int cmd, unsigned int args, argument_st *a
 		}
 		const log_entry_def_st *def = log_entry_get_definition(entry.type);
 		uv_time_st *tim = &entry.time;
-		printf("%u: %u-%u-%u %u:%u:%u ack: %u %s",
+		printf("%u: %u-%u-%u %u:%u:%u ack: %u %s\n",
 				i, tim->year, tim->month, tim->day,
 				tim->hour, tim->min, tim->sec, entry.ack, def->def);
-		if (strlen(def->param_def)) {
-			printf(": %s %i\n", def->param_def, (int) entry.data);
-		}
-		else {
-			printf("\n");
-		}
 		i++;
 	}
 }

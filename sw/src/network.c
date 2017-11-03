@@ -42,9 +42,11 @@ void network_receive_emcy(network_st *this, const canopen_emcy_msg_st *emcy) {
 
 
 void network_receive_message(network_st *this, uv_can_message_st *msg) {
-	if (((msg->id & ~0xFF) == CANOPEN_HEARTBEAT_ID) ||
-			((msg->id & ~0xFF) == CANOPEN_TXPDO1_ID)) {
-		if (msg->type == CAN_STD) {
+	if (msg->type == CAN_STD) {
+		uint16_t id_type = msg->id & (~0xFF);
+
+		if ((id_type == CANOPEN_HEARTBEAT_ID) ||
+				(id_type == CANOPEN_TXPDO1_ID)) {
 			netdev_receive_heartbeat(&this->esb, msg);
 			netdev_receive_heartbeat(&this->csb, msg);
 			netdev_receive_heartbeat(&this->fsb, msg);
@@ -65,81 +67,72 @@ static void network_task(void *me) {
 	int16_t step_ms = 20;
 	while (true) {
 
-		int cur_state = (uv_can_get_error_state(CAN0) == CAN_ERROR_ACTIVE);
-
-
-		int state = uv_moving_aver_step(&this->can_state, cur_state);
-
-		// log an error when the error state has been entered
-		if (!state) {
-			if (this->can_last_state != state) {
-				log_add(LOG_CAN_BUS_OFF, 0);
-			}
-			netdev_clear_disconnect_delay(&this->esb);
-			netdev_clear_disconnect_delay(&this->csb);
-			netdev_clear_disconnect_delay(&this->fsb);
-			netdev_clear_disconnect_delay(&this->l_keypad);
-			netdev_clear_disconnect_delay(&this->r_keypad);
-			netdev_clear_disconnect_delay(&this->pedal);
-			netdev_clear_disconnect_delay(&this->ecu);
-			netdev_clear_disconnect_delay(&this->uw180s_ecu);
-			netdev_clear_disconnect_delay(&this->uw180s_mb);
+		esb_step(&this->esb, step_ms);
+		csb_step(&this->csb, step_ms);
+		fsb_step(&this->fsb, step_ms);
+		pedal_step(&this->pedal, step_ms);
+		ecu_step(&this->ecu, step_ms);
+		keypad_step(&this->l_keypad, step_ms);
+		keypad_step(&this->r_keypad, step_ms);
+		if (ecu_get_implement(&this->ecu) == IMPL_UW180S) {
+			mb_step(&this->uw180s_mb, step_ms);
+			uw180s_ecu_step(&this->uw180s_ecu, step_ms);
 		}
-		else {
-			for (int i = 0; i < log_get_nack_count(); i++) {
-				log_entry_st e;
-				log_get_nack(&e, i);
-				if (e.type == LOG_CAN_BUS_OFF) {
-					log_ack(i);
-					break;
-				}
+
+		if(this->updating) {
+			this->updating = false;
+
+			uint8_t update_step_ms = 10;
+
+			esb_update(&this->esb);
+			uv_rtos_task_delay(update_step_ms);
+
+			csb_update(&this->csb);
+			uv_rtos_task_delay(update_step_ms);
+
+			fsb_update(&this->fsb);
+			uv_rtos_task_delay(update_step_ms);
+
+			pedal_update(&this->pedal);
+			uv_rtos_task_delay(update_step_ms);
+
+			ecu_update(&this->ecu);
+			uv_rtos_task_delay(update_step_ms);
+
+			keypad_update(&this->l_keypad);
+			uv_rtos_task_delay(update_step_ms);
+
+			keypad_update(&this->r_keypad);
+			uv_rtos_task_delay(update_step_ms);
+
+			mb_update(&this->uw180s_mb);
+			uv_rtos_task_delay(update_step_ms);
+
+			uw180s_ecu_update(&this->uw180s_ecu);
+		}
+
+		canopen_emcy_msg_st emcy;
+		if (uv_canopen_emcy_get(&emcy)) {
+			if ((emcy.node_id == ESB_NODE_ID) &&
+					(emcy.data < ESB_EMCY_COUNT)) {
+				uint8_t i = emcy.data - ESB_EMCY_GLOW_OVERLOAD;
+				log_add(LOG_ESB_GLOW_OVERLOAD + i);
 			}
-			esb_step(&this->esb, step_ms);
-			csb_step(&this->csb, step_ms);
-			fsb_step(&this->fsb, step_ms);
-			pedal_step(&this->pedal, step_ms);
-			ecu_step(&this->ecu, step_ms);
-			keypad_step(&this->l_keypad, step_ms);
-			keypad_step(&this->r_keypad, step_ms);
-			if (ecu_get_implement(&this->ecu) == IMPL_UW180S) {
-				mb_step(&this->uw180s_mb, step_ms);
-				uw180s_ecu_step(&this->uw180s_ecu, step_ms);
+			else if ((emcy.node_id == FSB_NODE_ID) &&
+					(emcy.data < FSB_EMCY_COUNT)) {
+				uint8_t i = emcy.data - FSB_EMCY_HORN_OVERCURRENT;
+				log_add(LOG_FSB_HORN_OVERCURRENT + i);
 			}
+			else if ((emcy.node_id == CSB_NODE_ID) &&
+					(emcy.data < CSB_EMCY_COUNT)) {
+				uint8_t i = emcy.data - CSB_EMCY_WORK_LIGHT_OVERCURRENT;
+				log_add(LOG_CSB_WORK_LIGHT_OVERCURRENT + i);
+			}
+			else {
 
-			if(this->updating) {
-				this->updating = false;
-
-				uint8_t update_step_ms = 10;
-
-				esb_update(&this->esb);
-				uv_rtos_task_delay(update_step_ms);
-
-				csb_update(&this->csb);
-				uv_rtos_task_delay(update_step_ms);
-
-				fsb_update(&this->fsb);
-				uv_rtos_task_delay(update_step_ms);
-
-				pedal_update(&this->pedal);
-				uv_rtos_task_delay(update_step_ms);
-
-				ecu_update(&this->ecu);
-				uv_rtos_task_delay(update_step_ms);
-
-				keypad_update(&this->l_keypad);
-				uv_rtos_task_delay(update_step_ms);
-
-				keypad_update(&this->r_keypad);
-				uv_rtos_task_delay(update_step_ms);
-
-				mb_update(&this->uw180s_mb);
-				uv_rtos_task_delay(update_step_ms);
-
-				uw180s_ecu_update(&this->uw180s_ecu);
 			}
 		}
 
-		this->can_last_state = state;
 
 		uv_rtos_task_delay(step_ms);
 	}

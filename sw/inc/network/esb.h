@@ -20,6 +20,7 @@ typedef struct {
 
 	// READ
 	struct {
+		uint16_t total_current;
 		uint8_t fuel_level;
 		uint8_t oil_level;
 		int8_t oil_temp;

@@ -165,7 +165,98 @@ const canopen_object_st obj_dict[] = {
 				.permissions = CANOPEN_WO,
 				.type = CANOPEN_SIGNED16,
 				.data_ptr = (void*) &dspl.network.uw180s_mb.read.volume
-		}
+		},
+		{
+				.main_index = 0x2700,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED16,
+				.data_ptr = (void*) &dspl.network.esb.read.total_current
+		},
+		{
+				.main_index = 0x2701,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED16,
+				.data_ptr = (void*) &dspl.network.esb.read.rpm
+		},
+		{
+				.main_index = 0x2702,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED8,
+				.data_ptr = (void*) &dspl.network.esb.read.alt_l
+		},
+		{
+				.main_index = 0x2703,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED8,
+				.data_ptr = (void*) &dspl.network.esb.read.motor_water
+		},
+		{
+				.main_index = 0x2704,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED8,
+				.data_ptr = (void*) &dspl.network.esb.read.motor_oil_press
+		},
+		{
+				.main_index = 0x2705,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED8,
+				.data_ptr = (void*) &dspl.network.esb.read.motor_temp
+		},
+		{
+				.main_index = 0x2706,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED8,
+				.data_ptr = (void*) &dspl.network.esb.read.oil_temp
+		},
+		{
+				.main_index = 0x2707,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED8,
+				.data_ptr = (void*) &dspl.network.esb.read.oil_level
+		},
+		{
+				.main_index = 0x2708,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED8,
+				.data_ptr = (void*) &dspl.network.esb.read.fuel_level
+		},
+		{
+				.main_index = 0x2709,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED16,
+				.data_ptr = (void*) &dspl.network.esb.read.voltage
+		},
+		{
+				.main_index = 0x2800,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED16,
+				.data_ptr = (void*) &dspl.network.fsb.read.total_current
+		},
+		{
+				.main_index = 0x2801,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED8,
+				.data_ptr = (void*) &dspl.network.fsb.read.ignkey
+		},
+		{
+				.main_index = 0x2802,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED8,
+				.data_ptr = (void*) &dspl.network.fsb.read.emcy
+		},
 };
 
 

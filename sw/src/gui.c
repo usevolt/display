@@ -111,7 +111,7 @@ void gui_init() {
 
 	taskbar_init(&this->display);
 
-	uv_rtos_task_create(gui_step, "gui", UV_RTOS_MIN_STACK_SIZE * 16,
+	uv_rtos_task_create(gui_step, "gui", UV_RTOS_MIN_STACK_SIZE * 20,
 			NULL, UV_RTOS_IDLE_PRIORITY + 1, NULL);
 
 	// by default show the login screen
