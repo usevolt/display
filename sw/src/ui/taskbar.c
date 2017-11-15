@@ -11,6 +11,7 @@
 #include "gui.h"
 #include "system.h"
 #include "network.h"
+#include "tr.h"
 
 #define this (&gui.taskbar)
 
@@ -92,7 +93,7 @@ static void show(const taskbar_state_e state) {
 				bb.height - UI_FONT_SMALL.char_height);
 
 		uv_uilabel_init(&this->hours_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER,
-				C(0xFFFFFF), C(0xFFFFFFFF), "Hours");
+				C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_TASKBAR_LABELHOURS));
 		uv_uiwindow_add(&this->taskbar, &this->hours_label,
 				bb.x, bb.y, bb.width, bb.height);
 
@@ -103,7 +104,7 @@ static void show(const taskbar_state_e state) {
 		uv_uigridlayout_init(&engine_grid, bb.x, bb.y, bb.width, bb.height, 1, 4);
 		bb = uv_uigridlayout_next(&engine_grid);
 		uv_uilabel_init(&this->engine_water, &UI_FONT_SMALL, ALIGN_TOP_CENTER,
-				C(0xFF0000), taskbar_style.window_c, "Water");
+				C(0xFF0000), taskbar_style.window_c, uv_str(STR_TASKBAR_LABELWATER));
 		uv_ui_set_enabled(&this->engine_water, false);
 		uv_uiwindow_add(&this->taskbar, &this->engine_water, bb.x, bb.y,
 				bb.width, bb.height);
@@ -111,21 +112,21 @@ static void show(const taskbar_state_e state) {
 
 		bb = uv_uigridlayout_next(&engine_grid);
 		uv_uilabel_init(&this->engine_oil_press, &UI_FONT_SMALL, ALIGN_CENTER,
-				C(0xFF0000), taskbar_style.window_c, "Oil press");
+				C(0xFF0000), taskbar_style.window_c, uv_str(STR_TASKBAR_LABELOILPRESS));
 		uv_ui_set_enabled(&this->engine_oil_press, false);
 		uv_uiwindow_add(&this->taskbar, &this->engine_oil_press, bb.x, bb.y,
 				bb.width, bb.height);
 
 		bb = uv_uigridlayout_next(&engine_grid);
 		uv_uilabel_init(&this->engine_alt, &UI_FONT_SMALL, ALIGN_CENTER,
-				C(0xFF0000), taskbar_style.window_c, "Alternator");
+				C(0xFF0000), taskbar_style.window_c, uv_str(STR_TASKBAR_LABELALTERNATOR));
 		uv_ui_set_enabled(&this->engine_alt, false);
 		uv_uiwindow_add(&this->taskbar, &this->engine_alt, bb.x, bb.y,
 				bb.width, bb.height);
 
 		bb = uv_uigridlayout_next(&engine_grid);
 		uv_uilabel_init(&this->engine_glow_plugs, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER,
-				C(0xFFFF00), taskbar_style.window_c, "Glow plugs");
+				C(0xFFFF00), taskbar_style.window_c, uv_str(STR_TASKBAR_LABELGLOW));
 		uv_ui_set_enabled(&this->engine_glow_plugs, false);
 		uv_uiwindow_add(&this->taskbar, &this->engine_glow_plugs, bb.x, bb.y,
 				bb.width, bb.height);
@@ -139,7 +140,7 @@ static void show(const taskbar_state_e state) {
 		uv_ui_set_enabled(&this->emcy_stop, false);
 		uv_uiwindow_add(&this->taskbar, &this->emcy_stop, bb.x, bb.y, bb.width, 0);
 		uv_uilabel_init(&this->emcy_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER,
-				C(0xFFFFFF), C(0xFFFFFFFF), "Stop");
+				C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_TASKBAR_LABELSTOP));
 		uv_ui_set_enabled(&this->emcy_label, false);
 		uv_uiwindow_add(&this->taskbar, &this->emcy_label, bb.x, bb.y, bb.width, bb.height);
 		uv_delay_init(BG_ERROR_DELAY_MS, &this->emcy_delay);
@@ -153,7 +154,7 @@ static void show(const taskbar_state_e state) {
 				bb.height - UI_FONT_SMALL.char_height);
 
 		uv_uilabel_init(&this->gear_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER, C(0xFFFFFF),
-				C(0xFFFFFFFF), "gear");
+				C(0xFFFFFFFF), uv_str(STR_TASKBAR_LABELGEAR));
 		uv_uiwindow_add(&this->taskbar, &this->gear_label, bb.x, bb.y + bb.height,
 				bb.width, 0);
 
@@ -171,7 +172,7 @@ static void show(const taskbar_state_e state) {
 				bb.height - UI_FONT_SMALL.char_height);
 
 		uv_uilabel_init(&this->horn_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER,
-				C(0xFFFFFF), C(0xFFFFFFFF), "Horn");
+				C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_TASKBAR_HORN));
 		uv_uiwindow_add(&this->taskbar, &this->horn_label, bb.x, bb.y,
 				bb.width, bb.height);
 
@@ -188,7 +189,7 @@ static void show(const taskbar_state_e state) {
 		uv_uiprogressbar_set_vertical(&this->voltage_level);
 		uv_uiprogressbar_set_limit(&this->voltage_level, UI_PROGRESSBAR_LIMIT_UNDER,
 				VOLTAGE_WARNING_LIMIT, ERROR_COLOR);
-		uv_uiprogressbar_set_title(&this->voltage_level, "Bat V");
+		uv_uiprogressbar_set_title(&this->voltage_level, uv_str(STR_TASKBAR_BATV));
 		uv_uiwindow_add(&this->taskbar, &this->voltage_level, bb.x, bb.y,
 				bb.width, bb.height);
 
@@ -199,7 +200,7 @@ static void show(const taskbar_state_e state) {
 		uv_uiprogressbar_set_vertical(&this->fuel_level);
 		uv_uiprogressbar_set_limit(&this->fuel_level, UI_PROGRESSBAR_LIMIT_UNDER,
 				FUEL_LEVEL_WARNING_LIMIT, ERROR_COLOR);
-		uv_uiprogressbar_set_title(&this->fuel_level, "Fuel L");
+		uv_uiprogressbar_set_title(&this->fuel_level, uv_str(STR_TASKBAR_FUELL));
 		uv_uiwindow_add(&this->taskbar, &this->fuel_level, bb.x, bb.y,
 				bb.width, bb.height);
 
@@ -210,7 +211,7 @@ static void show(const taskbar_state_e state) {
 		uv_uiprogressbar_set_vertical(&this->oil_level);
 		uv_uiprogressbar_set_limit(&this->oil_level, UI_PROGRESSBAR_LIMIT_UNDER,
 				OIL_LEVEL_WARNING_LIMIT, ERROR_COLOR);
-		uv_uiprogressbar_set_title(&this->oil_level, "Oil L");
+		uv_uiprogressbar_set_title(&this->oil_level, uv_str(STR_TASKBAR_OILL));
 		uv_uiwindow_add(&this->taskbar, &this->oil_level, bb.x, bb.y,
 				bb.width, bb.height);
 
@@ -221,7 +222,7 @@ static void show(const taskbar_state_e state) {
 		uv_uiprogressbar_set_vertical(&this->otemp_bar);
 		uv_uiprogressbar_set_limit(&this->otemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
 				OIL_TEMP_WARNING_LIMIT, ERROR_COLOR);
-		uv_uiprogressbar_set_title(&this->otemp_bar, "Oil T");
+		uv_uiprogressbar_set_title(&this->otemp_bar, uv_str(STR_TASKBAR_OILT));
 		uv_uiwindow_add(&this->taskbar, &this->otemp_bar, bb.x, bb.y,
 				bb.width, bb.height);
 
@@ -233,7 +234,7 @@ static void show(const taskbar_state_e state) {
 		uv_uiprogressbar_set_value(&this->mtemp_bar, esb_get_motor_temp(&dspl.network.esb));
 		uv_uiprogressbar_set_limit(&this->mtemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
 				MOTOR_TEMP_WARNING_LIMIT, ERROR_COLOR);
-		uv_uiprogressbar_set_title(&this->mtemp_bar, "Motor T");
+		uv_uiprogressbar_set_title(&this->mtemp_bar, uv_str(STR_TASKBAR_MOTORT));
 		uv_uiwindow_add(&this->taskbar, &this->mtemp_bar, bb.x, bb.y,
 				bb.width, bb.height);
 
@@ -291,7 +292,7 @@ static void show(const taskbar_state_e state) {
 
 		uv_uilabel_init(&this->click_label, &UI_FONT_SMALL, ALIGN_CENTER_RIGHT, C(0xFFFFFF),
 				C(0xFFFFFFFF), (log_get_type(&entry) == LOG_WARNING) ?
-						"Click to close" : "Click to go to the log");
+						uv_str(STR_TASKBAR_CLICKTOCLOSE) : uv_str(STR_TASKBAR_CLICKTOLOG));
 		uv_uiwindow_add(&this->taskbar, &this->click_label, uv_uibb(&this->taskbar)->width,
 				uv_uibb(&this->taskbar)->height / 2, 0, uv_uibb(&this->taskbar)->height / 2);
 

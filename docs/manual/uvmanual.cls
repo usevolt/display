@@ -49,18 +49,27 @@
 \usepackage{hyperref}       % pdf links to e.g. figures and citations
 \usepackage{url}            % web links (URL)
 \usepackage{mathptmx}
-\usepackage{xcolor}% http://ctan.org/pkg/xcolor
+\usepackage[table]{xcolor}% http://ctan.org/pkg/xcolor
 \usepackage{titlesec} % For customizing chapters and sections
 \usepackage{caption} % Figure caption text font and size, 
 \usepackage{fontspec} % for custom fonts. Needs to be complied with XeLaTeX, nt PDFLatex!
 
 
-\definecolor{uvc}{rgb}{0.294117647, 0.137254902, 0.462745098}
-\definecolor{warningbg}{rgb}{1, 1, 0.741176471}
+\xdefinecolor{uvc}{rgb}{0.294117647, 0.137254902, 0.462745098}
+\xdefinecolor{warningbg}{rgb}{1, 1, 0.741176471}
 
 
 \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
 \setmainfont{Ek Mukta ExtraLight}
+
+
+
+% tables
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\rowcolors{1}{uvc!25}{uvc!10}
 
 
 % Link colors
@@ -133,6 +142,7 @@
 \setlength{\fboxsep}{0pt}%
 \colorbox{warningbg}{\begin{minipage}{15.5cm}%
 \begin{tabular}{p{3cm} p{11cm}}%
+\rowcolor{warningbg}%
 \vspace{0pt}%
 \includegraphics{img/warning.png}%
 &%

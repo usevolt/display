@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016/Debian) (preloaded format=xelatex 2017.10.19)  20 OCT 2017 10:21
+This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016/Debian) (preloaded format=xelatex 2017.10.19)  7 NOV 2017 09:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -390,6 +390,22 @@ Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: xetex.def on input line 225.
+
+(/usr/share/texlive/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2012/02/13 v1.0a Color table columns (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
+\col@sep=\dimen128
+\extrarowheight=\dimen129
+\NC@list=\toks22
+\extratabsurround=\skip64
+\backup@length=\skip65
+)
+\everycr=\toks23
+\minrowclearance=\skip66
+)
+\rownum=\count125
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
 Package xcolor Info: Model `RGB' extended on input line 1364.
 Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
@@ -402,14 +418,14 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 (/usr/share/texlive/texmf-dist/tex/latex/titlesec/titlesec.sty
 Package: titlesec 2016/03/21 v2.10.2 Sectioning titles
 \ttl@box=\box31
-\beforetitleunit=\skip64
-\aftertitleunit=\skip65
-\ttl@plus=\dimen128
-\ttl@minus=\dimen129
-\ttl@toksa=\toks22
-\titlewidth=\dimen130
-\titlewidthlast=\dimen131
-\titlewidthfirst=\dimen132
+\beforetitleunit=\skip67
+\aftertitleunit=\skip68
+\ttl@plus=\dimen130
+\ttl@minus=\dimen131
+\ttl@toksa=\toks24
+\titlewidth=\dimen132
+\titlewidthlast=\dimen133
+\titlewidthfirst=\dimen134
 )
 (/usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec.sty
 (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
@@ -425,37 +441,37 @@ L3 Module: l3tl 2016/08/19 v6692 L3 Token lists
 L3 Module: l3str 2016/08/19 v6692 L3 Strings
 L3 Module: l3seq 2016/08/19 v6685 L3 Sequences and stacks
 L3 Module: l3int 2016/09/07 v6700 L3 Integers
-\c_max_int=\count125
-\l_tmpa_int=\count126
-\l_tmpb_int=\count127
-\g_tmpa_int=\count128
-\g_tmpb_int=\count129
+\c_max_int=\count126
+\l_tmpa_int=\count127
+\l_tmpb_int=\count128
+\g_tmpa_int=\count129
+\g_tmpb_int=\count130
 L3 Module: l3quark 2016/08/19 v6685 L3 Quarks
 L3 Module: l3prg 2016/08/18 v6679 L3 Control structures
-\g__prg_map_int=\count130
+\g__prg_map_int=\count131
 L3 Module: l3clist 2016/08/19 v6685 L3 Comma separated lists
 L3 Module: l3token 2016/09/01 v6695 L3 Experimental token manipulation
 L3 Module: l3prop 2016/08/19 v6685 L3 Property lists
 L3 Module: l3msg 2016/08/19 v6691 L3 Messages
 L3 Module: l3file 2016/08/19 v6685 L3 File and I/O operations
-\l_iow_line_count_int=\count131
-\l__iow_target_count_int=\count132
-\l__iow_current_line_int=\count133
-\l__iow_current_word_int=\count134
-\l__iow_current_indentation_int=\count135
+\l_iow_line_count_int=\count132
+\l__iow_target_count_int=\count133
+\l__iow_current_line_int=\count134
+\l__iow_current_word_int=\count135
+\l__iow_current_indentation_int=\count136
 L3 Module: l3skip 2016/08/19 v6692 L3 Dimensions and skips
-\c_zero_dim=\dimen133
-\c_max_dim=\dimen134
-\l_tmpa_dim=\dimen135
-\l_tmpb_dim=\dimen136
-\g_tmpa_dim=\dimen137
-\g_tmpb_dim=\dimen138
-\c_zero_skip=\skip66
-\c_max_skip=\skip67
-\l_tmpa_skip=\skip68
-\l_tmpb_skip=\skip69
-\g_tmpa_skip=\skip70
-\g_tmpb_skip=\skip71
+\c_zero_dim=\dimen135
+\c_max_dim=\dimen136
+\l_tmpa_dim=\dimen137
+\l_tmpb_dim=\dimen138
+\g_tmpa_dim=\dimen139
+\g_tmpb_dim=\dimen140
+\c_zero_skip=\skip69
+\c_max_skip=\skip70
+\l_tmpa_skip=\skip71
+\l_tmpb_skip=\skip72
+\g_tmpa_skip=\skip73
+\g_tmpb_skip=\skip74
 \c_zero_muskip=\muskip12
 \c_max_muskip=\muskip13
 \l_tmpa_muskip=\muskip14
@@ -463,17 +479,17 @@ L3 Module: l3skip 2016/08/19 v6692 L3 Dimensions and skips
 \g_tmpa_muskip=\muskip16
 \g_tmpb_muskip=\muskip17
 L3 Module: l3keys 2016/09/21 v6711 L3 Key-value interfaces
-\l_keys_choice_int=\count136
+\l_keys_choice_int=\count137
 L3 Module: l3fp 2016/11/21 v6761 L3 Floating points
-\c__fp_leading_shift_int=\count137
-\c__fp_middle_shift_int=\count138
-\c__fp_trailing_shift_int=\count139
-\c__fp_big_leading_shift_int=\count140
-\c__fp_big_middle_shift_int=\count141
-\c__fp_big_trailing_shift_int=\count142
-\c__fp_Bigg_leading_shift_int=\count143
-\c__fp_Bigg_middle_shift_int=\count144
-\c__fp_Bigg_trailing_shift_int=\count145
+\c__fp_leading_shift_int=\count138
+\c__fp_middle_shift_int=\count139
+\c__fp_trailing_shift_int=\count140
+\c__fp_big_leading_shift_int=\count141
+\c__fp_big_middle_shift_int=\count142
+\c__fp_big_trailing_shift_int=\count143
+\c__fp_Bigg_leading_shift_int=\count144
+\c__fp_Bigg_middle_shift_int=\count145
+\c__fp_Bigg_trailing_shift_int=\count146
 L3 Module: l3box 2016/08/19 v6685 L3 Experimental boxes
 \c_empty_box=\box32
 \l_tmpa_box=\box33
@@ -482,13 +498,13 @@ L3 Module: l3box 2016/08/19 v6685 L3 Experimental boxes
 \g_tmpb_box=\box36
 L3 Module: l3coffins 2016/08/19 v6685 L3 Coffin code layer
 \l__coffin_internal_box=\box37
-\l__coffin_internal_dim=\dimen139
-\l__coffin_offset_x_dim=\dimen140
-\l__coffin_offset_y_dim=\dimen141
-\l__coffin_x_dim=\dimen142
-\l__coffin_y_dim=\dimen143
-\l__coffin_x_prime_dim=\dimen144
-\l__coffin_y_prime_dim=\dimen145
+\l__coffin_internal_dim=\dimen141
+\l__coffin_offset_x_dim=\dimen142
+\l__coffin_offset_y_dim=\dimen143
+\l__coffin_x_dim=\dimen144
+\l__coffin_y_dim=\dimen145
+\l__coffin_x_prime_dim=\dimen146
+\l__coffin_y_prime_dim=\dimen147
 \c_empty_coffin=\box38
 \l__coffin_aligned_coffin=\box39
 \l__coffin_aligned_internal_coffin=\box40
@@ -497,28 +513,28 @@ L3 Module: l3coffins 2016/08/19 v6685 L3 Coffin code layer
 \l__coffin_display_coffin=\box43
 \l__coffin_display_coord_coffin=\box44
 \l__coffin_display_pole_coffin=\box45
-\l__coffin_display_offset_dim=\dimen146
-\l__coffin_display_x_dim=\dimen147
-\l__coffin_display_y_dim=\dimen148
+\l__coffin_display_offset_dim=\dimen148
+\l__coffin_display_x_dim=\dimen149
+\l__coffin_display_y_dim=\dimen150
 L3 Module: l3color 2016/06/13 v6596 L3 Experimental color support
 L3 Module: l3sys 2015/09/25 v6087 L3 Experimental system/runtime functions
 L3 Module: l3candidates 2016/08/19 v6688 L3 Experimental additions to l3kernel
-\l__box_top_dim=\dimen149
-\l__box_bottom_dim=\dimen150
-\l__box_left_dim=\dimen151
-\l__box_right_dim=\dimen152
-\l__box_top_new_dim=\dimen153
-\l__box_bottom_new_dim=\dimen154
-\l__box_left_new_dim=\dimen155
-\l__box_right_new_dim=\dimen156
+\l__box_top_dim=\dimen151
+\l__box_bottom_dim=\dimen152
+\l__box_left_dim=\dimen153
+\l__box_right_dim=\dimen154
+\l__box_top_new_dim=\dimen155
+\l__box_bottom_new_dim=\dimen156
+\l__box_left_new_dim=\dimen157
+\l__box_right_new_dim=\dimen158
 \l__box_internal_box=\box46
-\l__coffin_bounding_shift_dim=\dimen157
-\l__coffin_left_corner_dim=\dimen158
-\l__coffin_right_corner_dim=\dimen159
-\l__coffin_bottom_corner_dim=\dimen160
-\l__coffin_top_corner_dim=\dimen161
-\l__coffin_scaled_total_height_dim=\dimen162
-\l__coffin_scaled_width_dim=\dimen163
+\l__coffin_bounding_shift_dim=\dimen159
+\l__coffin_left_corner_dim=\dimen160
+\l__coffin_right_corner_dim=\dimen161
+\l__coffin_bottom_corner_dim=\dimen162
+\l__coffin_top_corner_dim=\dimen163
+\l__coffin_scaled_total_height_dim=\dimen164
+\l__coffin_scaled_width_dim=\dimen165
 L3 Module: l3luatex 2016/08/18 v6679 L3 Experimental LuaTeX-specific functions
 )
 (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3xdvipdfmx.def
@@ -527,28 +543,28 @@ File: l3xdvidpfmx.def 2016/08/18 v6679 L3 Experimental driver: xdvipdfmx
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
 Package: xparse 2016/11/21 v6760 L3 Experimental document command parser
-\l__xparse_current_arg_int=\count146
-\l__xparse_m_args_int=\count147
-\l__xparse_mandatory_args_int=\count148
-\l__xparse_processor_int=\count149
-\l__xparse_v_nesting_int=\count150
+\l__xparse_current_arg_int=\count147
+\l__xparse_m_args_int=\count148
+\l__xparse_mandatory_args_int=\count149
+\l__xparse_processor_int=\count150
+\l__xparse_v_nesting_int=\count151
 )
 Package: fontspec 2017/02/12 v2.6 Font selection for XeLaTeX and LuaLaTeX
 
 (/usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
 Package: fontspec-xetex 2017/02/12 v2.6 Font selection for XeLaTeX and LuaLaTeX
 
-\l__fontspec_script_int=\count151
-\l__fontspec_language_int=\count152
-\l__fontspec_strnum_int=\count153
-\l__fontspec_tmp_int=\count154
-\l__fontspec_em_int=\count155
-\l__fontspec_emdef_int=\count156
-\l__fontspec_strong_int=\count157
-\l__fontspec_strongdef_int=\count158
-\l__fontspec_tmpa_dim=\dimen164
-\l__fontspec_tmpb_dim=\dimen165
-\l__fontspec_tmpc_dim=\dimen166
+\l__fontspec_script_int=\count152
+\l__fontspec_language_int=\count153
+\l__fontspec_strnum_int=\count154
+\l__fontspec_tmp_int=\count155
+\l__fontspec_em_int=\count156
+\l__fontspec_emdef_int=\count157
+\l__fontspec_strong_int=\count158
+\l__fontspec_strongdef_int=\count159
+\l__fontspec_tmpa_dim=\dimen166
+\l__fontspec_tmpb_dim=\dimen167
+\l__fontspec_tmpc_dim=\dimen168
 \g__file_internal_ior=\read1
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
@@ -728,7 +744,7 @@ LaTeX Info: Redefining \- on input line 3707.
 . 
 . Ek Mukta ExtraLight scale = 0.9170208563861014.
 .................................................
-\g__fontspec_family_EkMuktaExtraLight_int=\count159
+\g__fontspec_family_EkMuktaExtraLight_int=\count160
 .................................................
 . fontspec info: "no-font-shape"
 . 
@@ -789,22 +805,22 @@ LaTeX Info: Redefining \- on input line 3707.
 LaTeX Info: Redefining \rmfamily on input line 63.
 LaTeX Font Info:    Font shape `TU/EkMuktaExtraLight(0)/m/n' will be
 (Font)              scaled to size 11.00427pt on input line 63.
-Package hyperref Info: Option `colorlinks' set `true' on input line 71.
+Package hyperref Info: Option `colorlinks' set `true' on input line 80.
 
 (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
-\Gm@cnth=\count160
-\Gm@cntv=\count161
-\c@Gm@tempcnt=\count162
-\Gm@bindingoffset=\dimen167
-\Gm@wd@mp=\dimen168
-\Gm@odd@mp=\dimen169
-\Gm@even@mp=\dimen170
-\Gm@layoutwidth=\dimen171
-\Gm@layoutheight=\dimen172
-\Gm@layouthoffset=\dimen173
-\Gm@layoutvoffset=\dimen174
-\Gm@dimlist=\toks23
+\Gm@cnth=\count161
+\Gm@cntv=\count162
+\c@Gm@tempcnt=\count163
+\Gm@bindingoffset=\dimen169
+\Gm@wd@mp=\dimen170
+\Gm@odd@mp=\dimen171
+\Gm@even@mp=\dimen172
+\Gm@layoutwidth=\dimen173
+\Gm@layoutheight=\dimen174
+\Gm@layouthoffset=\dimen175
+\Gm@layoutvoffset=\dimen176
+\Gm@dimlist=\toks25
 ))
 (./uw_dspl_manual.aux)
 \openout1 = `uw_dspl_manual.aux'.
@@ -841,7 +857,7 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count163
+\c@section@level=\count164
 )
 LaTeX Info: Redefining \ref on input line 11.
 LaTeX Info: Redefining \pageref on input line 11.
@@ -956,7 +972,7 @@ LaTeX Font Info:    Font shape `TU/EkMuktaExtraLight(0)/bx/n' will be
 File: img/warning.png Graphic file (type QTm)
 <use  "img/warning.png" >
 Overfull \hbox (2.9469pt too wide) in paragraph at lines 85--85
-[][]| 
+[]|[]| 
  []
 
 LaTeX Font Info:    Font shape `TU/EkMuktaExtraLight(0)/m/n' will be
@@ -969,16 +985,16 @@ LaTeX Font Info:    Font shape `TU/EkMuktaExtraLight(0)/bx/n' will be
 ]
  2.
 File: img/taskbar.png Graphic file (type QTm)
-<use  "img/taskbar.png" > [2
-
-]
+<use  "img/taskbar.png" >
 File: img/warning.png Graphic file (type QTm)
  <use  "img/warning.png" >
-Overfull \hbox (2.9469pt too wide) in paragraph at lines 146--146
-[][]| 
+Overfull \hbox (2.9469pt too wide) in paragraph at lines 105--105
+[]|[]| 
  []
 
-[3]
+[2
+
+] [3]
  3.
 File: img/login.png Graphic file (type QTm)
 <use  "img/login.png" > [4
@@ -997,8 +1013,8 @@ File: img/dashboard.png Graphic file (type QTm)
  6.
 File: img/warning.png Graphic file (type QTm)
 <use  "img/warning.png" >
-Overfull \hbox (2.9469pt too wide) in paragraph at lines 247--247
-[][]| 
+Overfull \hbox (2.9469pt too wide) in paragraph at lines 160--160
+[]|[]| 
  []
 
 File: img/settings_general.png Graphic file (type QTm)
@@ -1007,8 +1023,8 @@ File: img/settings_general.png Graphic file (type QTm)
 ]
 File: img/warning.png Graphic file (type QTm)
  <use  "img/warning.png" >
-Overfull \hbox (2.9469pt too wide) in paragraph at lines 293--293
-[][]| 
+Overfull \hbox (2.9469pt too wide) in paragraph at lines 184--184
+[]|[]| 
  []
 
 File: img/settings_valves.png Graphic file (type QTm)
@@ -1018,15 +1034,15 @@ File: img/settings_valves_boom_lift.png Graphic file (type QTm)
 [8]
 File: img/warning.png Graphic file (type QTm)
  <use  "img/warning.png" >
-Overfull \hbox (2.9469pt too wide) in paragraph at lines 361--361
-[][]| 
+Overfull \hbox (2.9469pt too wide) in paragraph at lines 216--216
+[]|[]| 
  []
 
 [9]
 File: img/warning.png Graphic file (type QTm)
  <use  "img/warning.png" >
-Overfull \hbox (2.9469pt too wide) in paragraph at lines 363--363
-[][]| 
+Overfull \hbox (2.9469pt too wide) in paragraph at lines 218--218
+[]|[]| 
  []
 
 File: img/settings_uw180s.png Graphic file (type QTm)
@@ -1041,24 +1057,24 @@ File: img/system_settings_1.png Graphic file (type QTm)
 <use  "img/system_settings_1.png" >
 File: img/system_settings_2.png Graphic file (type QTm)
  <use  "img/system_settings_2.png" >
+File: img/warning.png Graphic file (type QTm)
+
+<use  "img/warning.png" >
+Overfull \hbox (2.9469pt too wide) in paragraph at lines 282--282
+[]|[]| 
+ []
+
 [14
 
 ]
 File: img/warning.png Graphic file (type QTm)
  <use  "img/warning.png" >
-Overfull \hbox (2.9469pt too wide) in paragraph at lines 500--500
-[][]| 
+Overfull \hbox (2.9469pt too wide) in paragraph at lines 284--284
+[]|[]| 
  []
 
-File: img/warning.png Graphic file (type QTm)
-<use  "img/warning.png" >
-Overfull \hbox (2.9469pt too wide) in paragraph at lines 502--502
-[][]| 
- []
-
-[15]
 File: img/system_diagnostics.png Graphic file (type QTm)
- <use  "img/system_diagnostics.png" >
+<use  "img/system_diagnostics.png" > [15]
 File: img/system_diagnostics_msb.png Graphic file (type QTm)
 
 <use  "img/system_diagnostics_msb.png" > [16]
@@ -1070,21 +1086,21 @@ File: img/system_log.png Graphic file (type QTm)
 [18]
 File: img/system_restore.png Graphic file (type QTm)
  <use  "img/system_restore.png" >
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 615.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 370.
  [19] [20]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 615.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 370.
  (./uw_dspl_manual.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 615.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 615.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 615.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 370.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 370.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 370.
  ) 
 Here is how much of TeX's memory you used:
- 21576 strings out of 495038
- 416023 string characters out of 6179116
- 464416 words of memory out of 5000000
- 25164 multiletter control sequences out of 15000+600000
+ 21673 strings out of 495038
+ 417232 string characters out of 6179116
+ 471889 words of memory out of 5000000
+ 25254 multiletter control sequences out of 15000+600000
  15249 words of font info for 49 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 53i,15n,119p,10386b,550s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 53i,16n,119p,10386b,371s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on uw_dspl_manual.pdf (22 pages).

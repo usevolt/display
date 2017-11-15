@@ -89,59 +89,18 @@ The task bar shows useful process data and it's visible in all screens. Taskbar 
 
 \fig{img/taskbar}{Task bar}{taskbar}
 
-\begin{itemize}
- 
- \item \textbf{RPM}
- \begin{itemize}
-  \item The engine rounds per minute
- \end{itemize}
-
- \item \textbf{Pressure}
- \begin{itemize}
-  \item Hydraulic pressure going from the hydarulic pump.
- \end{itemize}
-
- \item \textbf{Hours}
- \begin{itemize}
-  \item The usage hours of the machine. Hour counter value cannot be changed, it increased all the time when the machine is powered on.
- \end{itemize}
- 
- \item \textbf{Horn}
- \begin{itemize}
-  \item Pressing this blows the machine horn.
- \end{itemize}
- 
- \item \textbf{Bat V}
- \begin{itemize}
-  \item Battery voltage. Letting the battery voltage to drop too low may damage the battery.
- \end{itemize}
-
- \item \textbf{Fuel L}
- \begin{itemize}
-  \item Fuel level. Indicates how much fuel is left in the fuel tank.
- \end{itemize}
-
- \item \textbf{Oil L}
- \begin{itemize}
-  \item Hydraulic oil level. Indicates how much hydraulic oil is in the hydarulic oil tank.
- \end{itemize}
- 
- \item \textbf{Oil T}
- \begin{itemize}
-  \item Hydraulic oil temperature. Indicates the hydraulic oil temperature measured from the tank line. 
- \end{itemize}
- 
- \item \textbf{Motor T}
- \begin{itemize}
-  \item Engine temperature. Indicates the temperature of the engine cooling water.
- \end{itemize}
- 
- \item \textbf{Clock}
- \begin{itemize}
-  \item Shows the current time. Refer to \autoref{ch:system_settings} on how to set the time.
- \end{itemize}
-
-\end{itemize}
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{RPM} & The engine rounds per minute. \\
+\textbf{Pressure} & Hydraulic pressure going from the hydarulic pump. \\
+\textbf{Hours} & The usage hours of the machine. Hour counter value cannot be changed, it is increased all the time when the machine is powered on. \\
+\textbf{Horn} & Pressing this blows the machine horn. \\
+\textbf{Bat V} & Battery voltage. Letting the battery voltage drop too low may damage the battery. \\
+\textbf{Fuel L} & Fuel level. Indicates how much fuel is left in the fuel tank. \\
+\textbf{Oil L} & Hydraulic oil level. Indicates how much hydraulic oil is in the hydraulic oil tank. \\
+\textbf{Oil T} & Hydraulic oil temperature. Indicates the hydraulic oil temperature measured from the tank line. \\
+\textbf{Motor T} & Engine temperature. Indicates the temperature of the engine cooling water. \\
+\textbf{Clock} & Shows the current time. Refer to \autoref{ch:system_settings} on how to set the time. \\
+\end{tabular}
 
 \warning{Warning}{Letting the battery voltage drop too low or the hydraulic oil temperature or engine temperature get too high might cause permanent damage to the machine. User should monitor these constantly to prevent unnecessary damage to the machine.}
 
@@ -151,50 +110,24 @@ Log in screen is shown when the system is powered. It shows a list of users avai
 
 \fig{img/login.png}{Log in screen}{login}
 
-\begin{itemize}
- \item \textbf{Log in}
-  \begin{itemize}
-  \item Logs in the currently selected user from the left side of the screen and loads the user specific parameters to the machine.
-  \end{itemize}
- \item \textbf{Add user}
- \begin{itemize}
-  \item Creates a new user. An onscreen keyboard is shown which should be used to define the name of the new user.
- \end{itemize}
- \item \textbf{Delete user}
- \begin{itemize}
-  \item Deletes the currently selected user from the user list. If only one user is defined, it cannot be deleted. Deleting a user deletes it's parameters and the operation cannot be undone.
- \end{itemize}
-
-\end{itemize}
-
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Log in} & Logs in the currently selected user from the left side of the screen and loads the user specific parameters to the machine. \\
+\textbf{Add user} & Creates a new user. An onscreen keyboard is shown which should be used to define the name of the new user. \\
+\textbf{Delete user} & Deletes the currently selected user from the user list. If only one user is defined, it cannot be deleted. Deleting a user deletes it's parameters and the operation cannot be undone. \\
+\end{tabular}
 
 
 \chapter{Home}\label{ch:home}
 
 \fig{img/home}{Home screen}{home}
 
-\begin{itemize}
- \item \textbf{Dashboard}
- \begin{itemize}
-  \item Displays the dashboard. Dashboard works as the main working screen for UW180s harvesting head.
- \end{itemize}
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Dashboard} & Displays the dashboard. Dashboard works as the main working screen for UW180s harvesting head. \\
+\textbf{Settings} & Displays the user specific settings. Machine's parameter configuration is mostly done in settings. All settings are user dependant and changing settings for one user doesn't affect to the other users. \\
+\textbf{System} & Displays the system related settings and diagnostics. Provides additional information about the control system. Some information might need deeper knowledge of the machine to be relevant. \\
+\textbf{Log out} & Logs out the current user and return back to Log in screen specified in \autoref{ch:login}. \\
+\end{tabular}
 
- \item \textbf{Settings}
- \begin{itemize}
-  \item Displays the user specific settings. Machine's parameter configuration is mostly done in settings. All settings are user dependant and changing settings for one user doesn't affect to the other users.
- \end{itemize}
- 
- \item \textbf{System}
- \begin{itemize}
-  \item Displays the system related settings and diagnostics. Provides additional information about the control system. Some information might need deeper knowledge of the machine to be relevant.
- \end{itemize}
-
- \item \textbf{Log out}
- \begin{itemize}
-  \item Logs out the current user and return back to Log in screen specified in \autoref{ch:login}.
- \end{itemize}
-
-\end{itemize}
 
 
 \chapter{Dashboard}\label{ch:dashboard}
@@ -203,33 +136,13 @@ The content of the dashboard depends on the selected implement. \autoref{fig:das
 
 \fig{img/dashboard}{Dashboard screen}{dashboard}
 
-\begin{itemize}
- \item \textbf{Cancel \& OK}
- \begin{itemize}
-  \item Both \textbf{Cancel} and \textbf{OK} buttons return back to Home screen.
- \end{itemize}
-
- \item \textbf{Log length}
- \begin{itemize}
-  \item Toggles the target log length defined in the Uw180s implement settings (\autoref{ch:settings_uw180s_meas}). Target log length is useful only if the UW180s harvester head has a length measurement assemblied.
- \end{itemize}
-
- \item \textbf{Length}
- \begin{itemize}
-  \item Displays the current log length in centimeters if the length measurement is assemblied and enabled.
- \end{itemize}
-
- \item \textbf{Diameter}
- \begin{itemize}
-  \item Displays the current log diameter in centimeters if the width measurement is assemblied and enabled.
- \end{itemize}
-
- \item \textbf{Volume}
- \begin{itemize}
-  \item Displays the total log volume done troughout the working day if both length and diameter measurement are assemblied and enabled.
- \end{itemize}
-
-\end{itemize}
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Cancel \& OK} & Both \textbf{Cancel} and \textbf{OK} buttons return back to Home screen. \\
+\textbf{Log length} & Toggles the target log length defined in the Uw180s implement settings (\autoref{ch:settings_uw180s_meas}). Target log length is useful only if the UW180s harvester head has a length measurement assemblied. \\
+\textbf{Length} & Displays the current log length in centimeters if the length measurement is assemblied and enabled. \\
+\textbf{Diameter} & Displays the current log diameter in centimeters if the width measurement is assemblied and enabled. \\
+\textbf{Volume} & Displays the total log volume done troughout the working day if both length and diameter measurement are assemblied and enabled. \\
+\end{tabular}
 
 
 \chapter{Settings}\label{ch:settings}
@@ -252,38 +165,16 @@ General settings are an exception to all other settings since they are not saved
 
 \fig{img/settings_general}{General settings screen}{settings_general}
 
-\begin{itemize}
- \item \textbf{Screen brightness}
- \begin{itemize}
-  \item Sets the touchscreen brightness. Defaults to 80 \%. Using the screen on full brightness might warm up the display noticeably.
- \end{itemize}
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Screen brightness} & Sets the touchscreen brightness. Defaults to 80 \%. Using the screen on full brightness might warm up the display noticeably. \\
+\textbf{Volume} & Sets the touchscreen volume level. If the touchscreen doesn't have audio hardware installed, settings the volume does nothing. \\
+\textbf{Drive Lights} & Sets the driving lights on or off. Driving lights have two white LED lights forward and one red LED light backwards. \\
+\textbf{Work Lights} & Sets the work lights on or off. Work lights have two white LED lights on left and right, as well as one white LED light in the boom. \\
+\textbf{Wiper} & Sets the wind screen wiper speed. The amount of different wiper speed is set according to the machine hardware. \\
+\textbf{Heater} & Sets the cabin heater speed. The amount of different heater speed is set according to the machine hardware. \\
+\end{tabular}
 
- \item \textbf{Volume}
- \begin{itemize}
-  \item Sets the touchscreen volume level. If the touchscreen doesn't have audio hardware installed, settings the volume does nothing.
- \end{itemize}
 
- \item \textbf{Drive Lights}
- \begin{itemize}
-  \item Sets the driving lights on or off. Driving lights have two white LED lights forward and one red LED light backwards.
- \end{itemize}
-
- \item \textbf{Work Lights}
- \begin{itemize}
-  \item Sets the work lights on or off. Work lights have two white LED lights on left and right, as well as one white LED light in the boom.
- \end{itemize}
-
- \item \textbf{Wiper}
- \begin{itemize}
-  \item Sets the wind screen wiper speed. The amount of different wiper speed is set according to the machine hardware.
- \end{itemize}
-
- \item \textbf{Heater}
- \begin{itemize}
-  \item Sets the cabin heater speed. The amount of different heater speed is set according to the machine hardware.
- \end{itemize}
-
-\end{itemize}
 
 
 \section{Valves}\label{ch:settings_valves}
@@ -310,57 +201,21 @@ Tapping any of the valve names bring up that valve's configuration screen. \auto
 
 \fig{img/settings_valves_boom_lift}{Individual valve settings screen}{settings_valves_boom_lift}
 
-\begin{itemize}
- \item \textbf{Back}
- \begin{itemize}
-  \item Returns back to the valve configuration screen
- \end{itemize}
-
- \item \textbf{Boom Lift}
- \begin{itemize}
-  \item Name of the current valve to be configured
- \end{itemize}
-
- \item \textbf{Invert Direction}
- \begin{itemize}
-  \item Inverts the hydraulic valve operation direction. All valves have a forward and backward movement. Toggling this button causes the direction of the movements to be swapped.
- \end{itemize}
-
- \item \textbf{Forward min speed}
- \begin{itemize}
-  \item Defines the minimum control current in the forward direction. All valves have a small offset before the oil start to flow trough them. This parameter compensates that offset to enhance the control of the valve.
- \end{itemize}
-
- \item \textbf{Forward max speed}
- \begin{itemize}
-  \item Defines the maximum control current in the forward direction. Easy to understand as the maximum speed of the movement, this parameter affects the maximum oil flow going through the valve.
- \end{itemize}
-
- \item \textbf{Acceleration}
- \begin{itemize}
-  \item Defines the acceleration ratio of how smoothly the control system increases the valve control current to the value given by the driver. The smaller acceleration value is, the smoother the machine is to operate. However, too small acceleration value increases the machine's reaction time and decreases the driver's ``touch'' to the machine.
- \end{itemize}
-
- \item \textbf{Backward min speed}
- \begin{itemize}
-  \item Same as \textbf{Forward min speed} but in opposite direction.
- \end{itemize}
-
- \item \textbf{Backward max speed}
- \begin{itemize}
-  \item Same as \textbf{Forward max spee} but in opposite direction.
- \end{itemize}
-
- \item \textbf{Deceleration}
- \begin{itemize}
-  \item Defines the deceleration ratio of how smoothly the control system decreases the valve control current towards zero. The smaller the value is, the longer the movement seems to go on before stopping. However, too big value causes the valve to shut off too fast causing shaking and vibrations stressing the machine.
- \end{itemize}
-
-\end{itemize}
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Back} & Returns back to the valve configuration screen. \\
+\textbf{Boom Lift} & Name of the current valve to be configured. \\
+\textbf{Invert Direction} & Inverts the hydraulic valve operation direction. All valves have a forward and backward movement. Toggling this button causes the direction of the movements to be swapped. \\
+\textbf{Forward min speed} & Defines the minimum control current in the forward direction. All valves have a small offset before the oil start to flow trough them. This parameter compensates that offset to enhance the control of the valve. \\
+\textbf{Forward max speed} & Defines the maximum control current in the forward direction. Easy to understand as the maximum speed of the movement, this parameter affects the maximum oil flow going through the valve. \\
+\textbf{Acceleration} & Defines the acceleration ratio of how smoothly the control system increases the valve control current to the value given by the driver. The smaller acceleration value is, the smoother the machine is to operate. However, too small acceleration value increases the machine's reaction time and decreases the driver's ``touch'' to the machine. \\
+\textbf{Backward min speed} & Same as \textbf{Forward min speed} but in opposite direction. \\
+\textbf{Backward max speed} & Same as \textbf{Forward max speed} but in opposite direction. \\
+\textbf{Deceleration} & Defines the deceleration ratio of how smoothly the control system decreases the valve control current towards zero. The smaller the value is, the longer the movement seems to go on before stopping. However, too big value causes the valve to shut off too fast causing shaking and vibrations stressing the machine. \\
+\end{tabular}
 
 \warning{Warning}{The minimum speeds should be configured carefully. Too big minimum speed values will cause the valves to supply too much oil flow even when the driver controls the machine very carefully.}
 
-\warning{Warning}{The deceleration should be configured very carefully. Too small value will cause the machine to move even after the driver has stopped controlling it, which might cause a severe risk of damaging the vehicle of even injury to the driver.}
+\warning{Warning}{The deceleration should be configured very carefully. Too small value will cause the machine to move after the driver has stopped controlling it, which might cause a severe risk of damaging the vehicle of even injury to the driver.}
 
 \section{Implement settings}\label{ch:settings_implement}
 
@@ -368,57 +223,24 @@ Implement settings are used to configure the settings in the currently selected 
 
 \fig{img/settings_uw180s}{Implement settings screen}{settings_implement}
 
-\begin{itemize}
- \item \textbf{Log Measurement}
- \begin{itemize}
-  \item UW180s measurement device settings are used to enabled of disable the measuring system as well as calibrating it.
- \end{itemize}
-
- \item \textbf{Valve Configurations}
- \begin{itemize}
-  \item UW180s hydraulic valve configurations. Similar to base machine valve configurations in \autoref{ch:settings_valves}.
- \end{itemize}
-
-\end{itemize}
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Log Measurement} & UW180s measurement device settings are used to enabled of disable the measuring system as well as calibrating it. \\
+\textbf{Valve Configurations} & UW180s hydraulic valve configurations. Similar to base machine valve configurations in \autoref{ch:settings_valves}. \\
+\end{tabular}
 
 \FloatBarrier
 \subsection{UW180s measuring settings}\label{ch:settings_uw180s_meas}
 
 \fig{img/settings_uw180s_meas}{UW180s measurement settings screen}{settings_uw180s_meas}
 
-\begin{itemize}
- \item \textbf{Back}
- \begin{itemize}
-  \item Returns back to UW180s Implement settings screen
- \end{itemize}
-
- \item \textbf{Enabled}
- \begin{itemize}
-  \item When selected (button is green), the measuring device is enabled.
- \end{itemize}
-
- \item \textbf{Log length 1}
- \begin{itemize}
-  \item The 1st log target length in millimeters.
- \end{itemize}
-
- \item \textbf{Log length 2}
- \begin{itemize}
-  \item The 2nd log target length in millimeters.
- \end{itemize}
-
- \item \textbf{Length Calibration}
- \begin{itemize}
-  \item Calibrates the length measurement. The value indicates how logn distance the log travels on each length measurement sensor's pulse. Increasing the calibration value decreases the actual length of the logs.
- \end{itemize}
-
- \item \textbf{Volume Calibration}
- \begin{itemize}
-  \item Calibrates the volume calculation. Works as a after-scaler in the volume calculation. Increasing the calibration value causes the calculated volume to increase as well.
- \end{itemize}
-
-\end{itemize}
-
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Back} & Returns back to UW180s Implement settings screen \\
+\textbf{Enabled} & When selected (button is green), the measuring device is enabled. \\
+\textbf{Log length 1} & The 1st log target length in millimeters. \\
+\textbf{Log length 2} & The 2nd log target length in millimeters. \\
+\textbf{Length Calibration} & Calibrates the length measurement. The value indicates how logn distance the log travels on each length measurement sensor's pulse. Increasing the calibration value decreases the actual length of the logs. \\
+\textbf{Volume Calibration} & Calibrates the volume calculation. Works as a after-scaler in the volume calculation. Increasing the calibration value causes the calculated volume to increase as well. \\
+\end{tabular}
 
 \FloatBarrier
 \subsection{UW180s valve settings}\label{ch:settings_uw180s_valves}
@@ -427,39 +249,14 @@ Valve settings work in a similar manner as base machine valve configurations in 
 
 \fig{img/settings_uw180s_valves}{UW180s valve settings screen}{settings_uw180s_valves}
 
-\begin{itemize}
- \item \textbf{Wheels}
- \begin{itemize}
-  \item Wheels open / close valve settings
- \end{itemize}
-
- \item \textbf{Wheels feed}
- \begin{itemize}
-  \item Wheels feeding valve settings
- \end{itemize}
-
- \item \textbf{Delimbers}
- \begin{itemize}
-  \item Delimbers open / close valve settings
- \end{itemize}
-
- \item \textbf{Saw}
- \begin{itemize}
-  \item Saw in / out valve settings
- \end{itemize}
-
- \item \textbf{Tilt}
- \begin{itemize}
-  \item Harvester head tilting valve settings
- \end{itemize}
- 
-\item \textbf{Rotator}
-\begin{itemize}
- \item Rotator valve settings
-\end{itemize}
-
-\end{itemize}
-
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Wheels} & Wheels open / close valve settings \\
+\textbf{Wheels feed} & Wheels feeding valve settings \\
+\textbf{Delimbers} & Delimbers open / close valve settings \\
+\textbf{Saw} & Saw in / out valve settings \\
+\textbf{Tilt} & Harvester head tilting valve settings \\
+\textbf{Rotator} & Rotator valve settings \\
+\end{tabular}
 
 \chapter{System}\label{ch:system}
 
@@ -473,28 +270,13 @@ System settings are settings which affect the whole system. They are shared acro
 
 \fig{img/system_settings_2}{System settings screen 2/2}{system_settings_2}
 
-\begin{itemize}
- \item \textbf{Current Implement}
- \begin{itemize}
-  \item Chooses the current implement physically connected to the machine's boom. Possible values are \textbf{UW180s} harvester head, \textbf{UW100} grapple and \textbf{UW50} brushwood cutter.
- \end{itemize}
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Current Implement} & Chooses the current implement physically connected to the machine's boom. Possible values are \textbf{UW180s} harvester head, \textbf{UW100} grapple and \textbf{UW50} brushwood cutter. \\
+\textbf{Engine power usage} & Defines how much power the hydraulic pump takes from the engine. Increasing this value might cause the engine to shut down when the hydraulic system is drawing too much power from the engine. Setting this value too low reduces the machine performance by not providing enough power to the hydraulic system. \\
+\textbf{Joystick Calibration} & When pressed, the joystick calibration is started. This procedure cannot be undone. The joysticks are calibrated by moving through all axes (X, Y and thumb switch) and finally pressing the \textbf{Joystick Calibration} again. Calibration needs to be done usually only when old joysticks are replaced with new ones. \\
+\textbf{Date and time} & Sets the date and time. Time is shown in the task bar's bottom right corner. \\
+\end{tabular}
 
- \item \textbf{Engine power usage}
- \begin{itemize}
-  \item Defines how much power the hydraulic pump takes from the engine. Increasing this value might cause the engine to shut down when the hydraulic system is drawing too much power from the engine. Setting this value too low reduces the machine performance by not providing enough power to the hydraulic system.
- \end{itemize}
-
- \item \textbf{Joystick Calibration}
- \begin{itemize}
-  \item When pressed, the joystick calibration is started. This procedure cannot be undone. The joysticks are calibrated by moving through all axes (X, Y and thumb switch) and finally pressing the \textbf{Joystick Calibration} again. Calibration needs to be done usually only when old joysticks are replaced with new ones.
- \end{itemize}
-
- \item \textbf{Date and time}
- \begin{itemize}
-  \item Sets the date and time. Time is shown in the task bar's bottom right corner.
- \end{itemize}
-
-\end{itemize}
 
 
 \warning{Warning}{Failure to calibrate joysticks will cause the machine to be unusable.}
@@ -505,36 +287,17 @@ System settings are settings which affect the whole system. They are shared acro
 
 Diagnostics are meant as a control system debugging. All data going in the machine's control system is shown on this tab. Usewood forestry machines have a distributed control system which consists of several controllers. These are:
 
-\begin{itemize}
- \item \textbf{MSB}, Main Supply Board
- \begin{itemize}
-  \item Provides main power to all electronics
- \end{itemize}
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{MSB} & Main Supply Board, provides main power to all electronics. \\
+\textbf{CSB} & Ceiling Supply Board, provides power to lights, wiper and cooler in the cabin ceiling. \\
+\textbf{ECU} & Base machine hydraulic controller, controls all base machine hydraulic valves. \\
+\textbf{Left Keypad} & the lefth joystick \& keypad controller. \\
+\textbf{Right Keypad} & the right joystick \& keypad controller. \\
+\textbf{Pedal} & used for driving the machine. \\
+\textbf{UW180s} & UW180S Hydraulic controller, controls all hydraulic controllers in the UW180s harvester head. \\
+\textbf{UW180s MB} & UW180s measurement device. \\
+\end{tabular}
 
- \item \textbf{CSB}, Ceiling Supply Board
- \begin{itemize}
-  \item Provides power to lights, wiper and cooler in the cabin ceiling
- \end{itemize}
-
- \item \textbf{ECU}, Hydraulic controller
- \begin{itemize}
-  \item Controls all base machine hydraulic valves
- \end{itemize}
-
- \item \textbf{Left Keypad}, the lefth joystick \& keypad controller.
-
- \item \textbf{Right Keypad}, the right joystick \& keypad controller.
-
- \item \textbf{Pedal}, used for driving the machine.
-
- \item \textbf{UW180s}, hydraulic controller
- \begin{itemize}
-  \item Controls all hydraulic controllers in the UW180s harvester head.
- \end{itemize}
-
- \item \textbf{UW180s MB}, UW180s measurement device
-
-\end{itemize}
 
 
 \fig{img/system_diagnostics}{System diagnostics screen}{system_diagnostics}
@@ -561,18 +324,12 @@ While most of the data shown in this screen is useful only when the machine malf
 
 \fig{img/system_log}{Log screen}{system_log}
 
-\begin{itemize}
- \item \textbf{Acknowledge}
- \begin{itemize}
-  \item Acknowledges the selected error or warning message.
- \end{itemize}
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Acknowledge} & Acknowledges the selected error or warning message. \\
+\textbf{Previous Page} & Moves through the error and warning message pages if more than 5 messages are active at the same time. \\
+\textbf{Next Page} & Moves through the error and warning message pages if more than 5 messages are active at the same time. \\
+\end{tabular}
 
- \item \textbf{Previous Page \& Next Page}
- \begin{itemize}
-  \item Moves through the error and warning message pages if more than 5 messages are active at the same time.
- \end{itemize}
-
-\end{itemize}
 
 
 \section{System restore}\label{ch:system_restore}
@@ -581,12 +338,10 @@ While most of the data shown in this screen is useful only when the machine malf
 
 \fig{img/system_restore}{System restore screen}{system_restore}
 
-\begin{itemize}
- \item \textbf{Rstore System Defaults}
- \begin{itemize}
-  \item Pressing this button 10 s restores system default parameter values.
- \end{itemize}
-\end{itemize}
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Restore System Defaults} & Pressing this button 10 s restores system default parameter values. \\
+\end{tabular}
+
 
 If for some reason the display is unable to start at all, system defaults can also be restored by pressing the screen when the touchscreen is starting up.
 

@@ -9,6 +9,7 @@
 #include "dashboard_uw180s.h"
 #include "gui.h"
 #include "network.h"
+#include "tr.h"
 
 
 #define this (&gui.windows.dashboard.implements.dashboard_uw180s)
@@ -30,7 +31,7 @@ void dashboard_uw180s_show() {
 //			C(0xFFFFFF), uv_uistyles[0].window_c, "");
 //	uv_uiwindow_add(window, &this->tree_type, bb.x - bb.width / 2, bb.y + bb.height / 2,
 //			bb.width, UI_FONT_BIG.char_height, uv_uilabel_step);
-	strcpy(log_length_str, "Log length: ");
+	strcpy(log_length_str, uv_str(STR_DASHBOARD_UW180S_LABELTARGETLENGTH));
 	char str[10];
 	snprintf(str, 10, "%03i", dspl.user->uw180s.log_len1);
 	strcat(log_length_str, str);
@@ -47,7 +48,7 @@ void dashboard_uw180s_show() {
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->len_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER,
-			C(0xFFFFFF), C(0xFFFFFFFF), "Length (cm)");
+			C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_DASHBOARD_UW180S_LABELLENGTH));
 	uv_uiwindow_add(window, &this->len_label, bb.x, bb.y, bb.width,
 			UI_FONT_SMALL.char_height);
 
@@ -60,7 +61,7 @@ void dashboard_uw180s_show() {
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->wid_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER,
-			C(0xFFFFFF), C(0xFFFFFFFF), "Diameter (mm)");
+			C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_DASHBOARD_UW180S_LABELDIAMETER));
 	uv_uiwindow_add(window, &this->wid_label, bb.x, bb.y, bb.width,
 			UI_FONT_SMALL.char_height);
 
@@ -73,7 +74,7 @@ void dashboard_uw180s_show() {
 	uv_uigridlayout_next(&grid);
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->vol_label, &UI_FONT_SMALL, ALIGN_CENTER,
-			C(0xFFFFFF), C(0xFFFFFFFF), "Volume (m3)");
+			C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_DASHBOARD_UW180S_LABELVOLUME));
 	uv_uiwindow_add(window, &this->vol_label, bb.x - bb.width / 2, bb.y, bb.width,
 			UI_FONT_SMALL.char_height);
 
@@ -98,7 +99,7 @@ uv_uiobject_ret_e dashboard_uw180s_step(uint16_t step_ms) {
 	if (uv_uibutton_clicked(&this->log_length)) {
 		if (this->active_len == 1) {
 			this->active_len = 2;
-			strcpy(log_length_str, "Log length: ");
+			strcpy(log_length_str, uv_str(STR_DASHBOARD_UW180S_LABELTARGETLENGTH));
 			char str[10];
 			snprintf(str, 10, "%03i", dspl.user->uw180s.log_len2);
 			strcat(log_length_str, str);
@@ -107,7 +108,7 @@ uv_uiobject_ret_e dashboard_uw180s_step(uint16_t step_ms) {
 		}
 		else {
 			this->active_len = 1;
-			strcpy(log_length_str, "Log length: ");
+			strcpy(log_length_str, uv_str(STR_DASHBOARD_UW180S_LABELTARGETLENGTH));
 			char str[10];
 			snprintf(str, 10, "%03i", dspl.user->uw180s.log_len1);
 			strcat(log_length_str, str);

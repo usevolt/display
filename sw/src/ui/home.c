@@ -8,6 +8,7 @@
 
 #include "home.h"
 #include "gui.h"
+#include "tr.h"
 
 #define this (&gui.windows.home)
 
@@ -32,22 +33,22 @@ void home_show(void) {
 	uv_uigridlayout_set_padding(&grid, 25, 25);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
-	uv_uibutton_init(&this->dashboard, "Dashboard", &uv_uistyles[0]);
+	uv_uibutton_init(&this->dashboard, uv_str(STR_HOME_BUTDASHBOARD), &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->dashboard, bb.x, bb.y,
 			bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->settings, "Settings", &uv_uistyles[0]);
+	uv_uibutton_init(&this->settings, uv_str(STR_HOME_BUTSETTINGS), &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->settings, bb.x, bb.y,
 			bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->system, "System", &uv_uistyles[0]);
+	uv_uibutton_init(&this->system, uv_str(STR_HOME_BUTSYSTEM), &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->system, bb.x, bb.y,
 			bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->logout, "Log out", &uv_uistyles[0]);
+	uv_uibutton_init(&this->logout, uv_str(STR_HOME_BUTLOGOUT), &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->logout, bb.x, bb.y,
 			bb.width, bb.height);
 

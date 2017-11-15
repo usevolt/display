@@ -9,6 +9,7 @@
 #include "dashboard.h"
 #include "gui.h"
 #include "home.h"
+#include "tr.h"
 
 #define this (&gui.windows.dashboard)
 
@@ -21,7 +22,7 @@ void dashboard_show(void) {
 	uv_uiwindow_add(&gui.main_window, &this->window, 0, 0,
 			uv_uibb(&gui.main_window)->width, uv_uibb(&gui.main_window)->height);
 
-	TOPIC_INIT(&this->window, &this->topic, "Dashboard");
+	TOPIC_INIT(&this->window, &this->topic, uv_str(STR_HOME_BUTDASHBOARD));
 
 	CANCEL_INIT(&this->window, &this->cancel);
 

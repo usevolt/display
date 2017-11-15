@@ -10,6 +10,9 @@
 #include "gui.h"
 #include "log.h"
 #include "users.h"
+#include "tr.h"
+
+
 
 #define this (&gui.windows.login)
 
@@ -29,7 +32,7 @@ void login_show(void) {
 			uv_ui_get_bb(&gui.main_window)->width, uv_ui_get_bb(&gui.main_window)->height);
 
 	uv_uilabel_init(&this->topic, & UI_FONT_BIG, ALIGN_TOP_CENTER,
-			C(0xFFFFFF), C(0xFFFFFFFF), "Select driver");
+			C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_LOGIN_LABELSELECTDRIVER));
 	uv_uiwindow_add(&this->window, &this->topic, uv_uibb(&this->window)->width / 2, 0, 0, 20);
 
 	uv_uilist_init(&this->users, this->users_buffer, USER_COUNT, &uv_uistyles[0]);
@@ -41,20 +44,20 @@ void login_show(void) {
 	uv_uiwindow_add(&this->window, &this->users, 0, uv_uibb(&this->window)->height / 2 - height / 2,
 			uv_uibb(&this->window)->width / 2, height);
 
-	uv_uibutton_init(&this->login, "Log In", &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
+	uv_uibutton_init(&this->login, uv_str(STR_LOGIN_BUTLOGIN), &uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->login,
 			uv_uibb(&this->window)->width - BUTTON_W,
 			uv_ui_get_bb(&this->window)->height / 2 - BUTTON_H / 2 - BUTTON_H - BUTTON_SPACE,
 			BUTTON_W, BUTTON_H);
 
-	uv_uibutton_init(&this->add_user, "Add user",
+	uv_uibutton_init(&this->add_user, uv_str(STR_LOGIN_BUTADDUSER),
 			&uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->add_user,
 			uv_uibb(&this->window)->width - BUTTON_W,
 			uv_uibb(&this->window)->height / 2 - BUTTON_H / 2,
 			BUTTON_W, BUTTON_H);
 
-	uv_uibutton_init(&this->delete_user, "Delete user",
+	uv_uibutton_init(&this->delete_user, uv_str(STR_LOGIN_BUTDELETEUSER),
 			&uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
 	uv_uiwindow_add(&this->window, &this->delete_user,
 			uv_uibb(&this->window)->width - BUTTON_W,
@@ -82,7 +85,7 @@ uv_uiobject_ret_e login_step(const uint16_t step_ms) {
 		if (uv_vector_size(&dspl.users) == uv_vector_max_size(&dspl.users)) {
 
 		}
-		if (uv_uikeyboard_show("Add user", str, USERNAME_MAX_LEN, &uv_uistyles[0])) {
+		if (uv_uikeyboard_show(uv_str(STR_LOGIN_BUTADDUSER), str, USERNAME_MAX_LEN, &uv_uistyles[0])) {
 			users_add(str);
 			uv_ui_refresh(&gui.display);
 			login_show();
