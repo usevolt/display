@@ -37,7 +37,7 @@ F 7 "MOLEX" H 9425 4975 60  0001 C CNN "Manufacturer"
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8700 1900 9400 1900
+	8250 1900 9400 1900
 Wire Wire Line
 	8900 2000 9400 2000
 Wire Wire Line
@@ -106,14 +106,6 @@ Wire Wire Line
 	9400 5200 9050 5200
 Wire Wire Line
 	8900 5300 9400 5300
-Wire Wire Line
-	4050 5400 9400 5400
-Wire Wire Line
-	4050 5500 9400 5500
-Wire Wire Line
-	4050 5600 9400 5600
-Wire Wire Line
-	4050 5700 9400 5700
 Text Label 9050 1800 0    60   ~ 0
 LED-
 Text Label 9050 1900 0    60   ~ 0
@@ -184,13 +176,13 @@ Text Label 9050 5200 0    60   ~ 0
 NC
 Text Label 9050 5300 0    60   ~ 0
 GND
-Text Label 9050 5400 0    60   ~ 0
-XR
-Text Label 9050 5500 0    60   ~ 0
-YD
-Text Label 9050 5600 0    60   ~ 0
+Text Label 7900 6050 0    60   ~ 0
 XL
-Text Label 9050 5700 0    60   ~ 0
+Text Label 7900 6150 0    60   ~ 0
+YD
+Text Label 7900 6250 0    60   ~ 0
+XR
+Text Label 7900 6350 0    60   ~ 0
 YU
 $Comp
 L GND #PWR308
@@ -348,146 +340,11 @@ Wire Wire Line
 Text Label 4700 5200 2    60   ~ 0
 BACKLIGHT
 Wire Wire Line
-	6700 1300 6550 1300
-Wire Wire Line
-	6550 1300 6550 950 
-Wire Wire Line
-	5550 950  6850 950 
-Wire Wire Line
-	7250 950  7600 950 
-Wire Wire Line
-	7600 950  7600 1300
-Wire Wire Line
-	7600 1300 7400 1300
-Connection ~ 6550 950 
-$Comp
-L GND #PWR306
-U 1 1 5900EEBC
-P 5550 1750
-F 0 "#PWR306" H 5550 1500 50  0001 C CNN
-F 1 "GND" H 5555 1577 50  0000 C CNN
-F 2 "" H 5550 1750 50  0000 C CNN
-F 3 "" H 5550 1750 50  0000 C CNN
-	1    5550 1750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5550 1650 5550 1750
-Wire Wire Line
-	5550 1700 6700 1700
-Wire Wire Line
-	6600 1500 6600 2000
-Wire Wire Line
-	6600 1600 6700 1600
-Connection ~ 6600 1700
-Wire Wire Line
-	6600 1500 6700 1500
-Connection ~ 6600 1600
-Wire Wire Line
-	6700 1400 6050 1400
-Text Label 6050 1400 0    60   ~ 0
+	6800 1400 5450 1400
+Text Label 5450 1400 0    60   ~ 0
 BACKLIGHT
-$Comp
-L T491D226K035AT C306
-U 1 1 5900F529
-P 7500 1850
-F 0 "C306" H 7300 1800 45  0000 C CNN
-F 1 "T491D226K035AT" H 7350 1700 45  0000 C CNN
-F 2 "kemet:7343" H 7530 2000 20  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/2121523.pdf?_ga=1.259966538.1948984246.1460023966" H 7500 1790 60  0001 C CNN
-F 4 "399-8375-1-ND" H 8100 2390 60  0001 C CNN "2nd Source Part Number"
-F 5 "Farnell" H 7800 2090 60  0001 C CNN "1st Source"
-F 6 "T491D226K035AT" H 7700 1990 60  0001 C CNN "Manufacturer Part Number"
-F 7 "Digikey" H 8000 2290 60  0001 C CNN "2nd Source"
-F 8 "Kemet" H 7600 1890 60  0001 C CNN "Manufacturer"
-F 9 "1457504" H 7900 2190 60  0001 C CNN "1st Source Part Number"
-	1    7500 1850
-	-1   0    0    1   
-$EndComp
-Connection ~ 5550 1700
 Wire Wire Line
-	5550 1350 5550 950 
-$Comp
-L 100nF C305
-U 1 1 5900F879
-P 5550 1450
-F 0 "C305" V 5558 1523 45  0000 L CNN
-F 1 "100nF" V 5642 1523 45  0000 L CNN
-F 2 "kemet:0603" H 5580 1600 20  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/2062872.pdf?_ga=1.250530118.1948984246.1460023966" H 5454 1459 60  0001 C CNN
-F 4 "1288255" H 5854 1859 60  0001 C CNN "1st Source Part Number"
-F 5 "C0603C104K5RACTU" H 5654 1659 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Farnell" H 5754 1759 60  0001 C CNN "1st Source"
-F 7 "KEMET" H 5554 1559 60  0001 C CNN "Manufacturer"
-	1    5550 1450
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	6600 1850 7400 1850
-Wire Wire Line
-	7400 1400 8700 1400
-Wire Wire Line
-	8700 1400 8700 1900
-Connection ~ 7950 1400
-$Comp
-L R_2OHM R302
-U 1 1 59010976
-P 8150 1800
-F 0 "R302" V 8097 1878 60  0000 L CNN
-F 1 "R_2OHM" V 8203 1878 60  0000 L CNN
-F 2 "usevolt:0603" H 8050 1900 60  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/1951809.pdf?_ga=1.165831038.1561825231.1484148445" H 8150 2000 60  0001 C CNN
-F 4 "1892910" H 8550 2400 60  0001 C CNN "1st Source Part Number"
-F 5 "Digikey" H 8650 2500 60  0001 C CNN "2nd Source"
-F 6 "ERJ3BQF2R2V" H 8350 2200 60  0001 C CNN "Manufacturer Part Number"
-F 7 "Farnell" H 8450 2300 60  0001 C CNN "1st Source"
-F 8 "P17378CT-ND" H 8750 2600 60  0001 C CNN "2nd Source Part Number"
-F 9 "PANASONIC ELECTRONIC COMPONENTS" H 8250 2100 60  0001 C CNN "Manufacturer"
-	1    8150 1800
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	7400 1600 8600 1600
-Wire Wire Line
-	8600 1600 8600 1800
-Wire Wire Line
-	8600 1800 9400 1800
-Wire Wire Line
-	6600 2000 8150 2000
-Connection ~ 6600 1850
-Connection ~ 8150 1600
-Wire Wire Line
-	7700 1850 7950 1850
-Wire Wire Line
-	7950 1850 7950 1400
-$Comp
-L IND_744045210 L301
-U 1 1 59011B9C
-P 7050 950
-F 0 "L301" H 7050 1141 45  0000 C CNN
-F 1 "IND_744045210" H 7050 1057 45  0000 C CNN
-F 2 "usevolt:IND_744045210" H 7080 1100 20  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/1735442.pdf?_ga=1.223184091.1948984246.1460023966" H 6950 890 60  0001 C CNN
-F 4 "1800416" H 7350 1290 60  0001 C CNN "1st Source Part Number"
-F 5 "WURTH ELEKTRONIK" H 7050 990 60  0001 C CNN "Manufacturer"
-F 6 "Digi-Key" H 7450 1390 60  0001 C CNN "2nd Source"
-F 7 "Farnell" H 7250 1190 60  0001 C CNN "1st Source"
-F 8 "744045210" H 7150 1090 60  0001 C CNN "Manufacturer Part Number"
-F 9 "732-3072-1-ND" H 7550 1490 60  0001 C CNN "2nd Source Part Number"
-	1    7050 950 
-	1    0    0    -1  
-$EndComp
-$Comp
-L +5V #PWR305
-U 1 1 5900EA04
-P 5550 950
-F 0 "#PWR305" H 5550 800 50  0001 C CNN
-F 1 "+5V" H 5565 1123 50  0000 C CNN
-F 2 "" H 5550 950 50  0000 C CNN
-F 3 "" H 5550 950 50  0000 C CNN
-	1    5550 950 
-	1    0    0    -1  
-$EndComp
+	8450 1800 9400 1800
 $Comp
 L +3V3 #PWR307
 U 1 1 590237EC
@@ -497,23 +354,6 @@ F 1 "+3V3" H 8815 1673 50  0000 C CNN
 F 2 "" H 8800 1500 50  0000 C CNN
 F 3 "" H 8800 1500 50  0000 C CNN
 	1    8800 1500
-	1    0    0    -1  
-$EndComp
-$Comp
-L LED_DRIVER_MIC2289 U302
-U 1 1 59252DD0
-P 7000 1500
-F 0 "U302" H 7050 1947 60  0000 C CNN
-F 1 "LED_DRIVER_MIC2289" H 7050 1841 60  0000 C CNN
-F 2 "usevolt:MLF_8" H 6850 1800 60  0001 C CNN
-F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/mic2289.pdf" H 6950 1900 60  0001 C CNN
-F 4 "576-1732-1-ND" H 7350 2300 60  0001 C CNN "1st Source Part Number"
-F 5 "998-MIC2289-34YMLTR" H 7550 2500 60  0001 C CNN "2nd Source Part Number"
-F 6 "Digikey" H 7250 2200 60  0001 C CNN "1st Source"
-F 7 "MIC2289-34YML-TR" H 7150 2100 60  0001 C CNN "Manufacturer Part Number"
-F 8 "MICROCHIP" H 7050 2000 60  0001 C CNN "Manufacturer"
-F 9 "Mouser" H 7450 2400 60  0001 C CNN "2nd Source"
-	1    7000 1500
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -546,6 +386,203 @@ F 5 "Farnell" H 1669 3689 60  0001 C CNN "1st Source"
 F 6 "MC0063W0603110K" H 1569 3589 60  0001 C CNN "Manufacturer Part Number"
 F 7 "MULTICOMP" H 1469 3489 60  0001 C CNN "Manufacturer"
 	1    1400 3350
+	0    1    1    0   
+$EndComp
+$Comp
+L AL8805W5-7_LED_DRIVER U302
+U 1 1 5A0D49FC
+P 7100 1400
+F 0 "U302" H 7100 1747 60  0000 C CNN
+F 1 "AL8805W5-7_LED_DRIVER" H 7100 1641 60  0000 C CNN
+F 2 "usevolt:SOT-25" H 7050 1300 60  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2100145.pdf?_ga=1.157560186.1561825231.1484148445" H 7050 1300 60  0001 C CNN
+F 4 "1904023" H 7500 2150 60  0001 C CNN "1st Source Part Number"
+F 5 "AL8805W5-7" H 7300 1950 60  0001 C CNN "Manufacturer Part Number"
+F 6 "AL8805W5-7DICT-ND" H 7700 2350 60  0001 C CNN "2nd Source Part Number"
+F 7 "DIGIKEY" H 7600 2250 60  0001 C CNN "2nd Source"
+F 8 "DIODES INC" H 7200 1850 60  0001 C CNN "Manufacturer"
+F 9 "Farnell" H 7400 2050 60  0001 C CNN "1st Source"
+	1    7100 1400
+	1    0    0    -1  
+$EndComp
+$Comp
+L 100nF C303
+U 1 1 5A0D4AC7
+P 6500 1350
+F 0 "C303" V 6508 1423 45  0000 L CNN
+F 1 "100nF" V 6592 1423 45  0000 L CNN
+F 2 "kemet:0603" H 6530 1500 20  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2062872.pdf?_ga=1.250530118.1948984246.1460023966" H 6404 1359 60  0001 C CNN
+F 4 "1288255" H 6804 1759 60  0001 C CNN "1st Source Part Number"
+F 5 "C0603C104K5RACTU" H 6604 1559 60  0001 C CNN "Manufacturer Part Number"
+F 6 "Farnell" H 6704 1659 60  0001 C CNN "1st Source"
+F 7 "KEMET" H 6504 1459 60  0001 C CNN "Manufacturer"
+	1    6500 1350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6800 1300 6700 1300
+Wire Wire Line
+	6700 1300 6700 1250
+Wire Wire Line
+	6700 1250 6250 1250
+Wire Wire Line
+	6800 1500 6700 1500
+Wire Wire Line
+	6700 1500 6700 1550
+Wire Wire Line
+	6700 1550 6250 1550
+$Comp
+L GND #PWR306
+U 1 1 5A0D4BEC
+P 6500 1650
+F 0 "#PWR306" H 6500 1400 50  0001 C CNN
+F 1 "GND" H 6505 1477 50  0000 C CNN
+F 2 "" H 6500 1650 50  0000 C CNN
+F 3 "" H 6500 1650 50  0000 C CNN
+	1    6500 1650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6500 1550 6500 1650
+Connection ~ 6500 1550
+Connection ~ 6500 1250
+Wire Wire Line
+	6500 1250 6500 750 
+Wire Wire Line
+	8250 1300 8250 1900
+Wire Wire Line
+	7400 1300 8250 1300
+$Comp
+L R_0.33OHM R302
+U 1 1 5A0D50A7
+P 7800 1100
+F 0 "R302" V 7747 1178 60  0000 L CNN
+F 1 "R_0.33OHM" V 7853 1178 60  0000 L CNN
+F 2 "usevolt:0603" H 7700 1200 60  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2197344.pdf?_ga=1.191579498.1561825231.1484148445" H 7800 1300 60  0001 C CNN
+F 4 "1717766" H 8200 1700 60  0001 C CNN "1st Source Part Number"
+F 5 "Digikey" H 8300 1800 60  0001 C CNN "2nd Source"
+F 6 "ERJ3RQFR33V" H 8000 1500 60  0001 C CNN "Manufacturer Part Number"
+F 7 "Farnell" H 8100 1600 60  0001 C CNN "1st Source"
+F 8 "P.33AJCT-ND" H 8400 1900 60  0001 C CNN "2nd Source Part Number"
+F 9 "PANASONIC ELECTRONIC COMPONENTS" H 7900 1400 60  0001 C CNN "Manufacturer"
+	1    7800 1100
+	0    1    1    0   
+$EndComp
+Connection ~ 7800 1300
+$Comp
+L DIODE_RS07J-GS18 D301
+U 1 1 5A0D515C
+P 8450 1100
+F 0 "D301" V 8400 1002 45  0000 R CNN
+F 1 "DIODE_RS07J-GS18" H 8470 1040 45  0001 L BNN
+F 2 "usevolt:DO219AB" H 8480 1250 20  0001 C CNN
+F 3 "http://www.vishay.com/docs/85742/rs07b.pdf" H 8470 1120 60  0001 C CNN
+F 4 "1864882" H 9070 1720 60  0001 C CNN "2nd Source Part Number"
+F 5 "Digi-Key" H 8770 1420 60  0001 C CNN "1st Source"
+F 6 "Farnell" H 8970 1620 60  0001 C CNN "2nd Source"
+F 7 "RS07J-GS18" H 8670 1320 60  0001 C CNN "Manufacturer Part Number"
+F 8 "RS07J-GS18-ND" H 8870 1520 60  0001 C CNN "1st Source Part Number"
+F 9 "Vishay Semiconductor Diodes Division" H 8570 1220 60  0001 C CNN "Manufacturer"
+	1    8450 1100
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	8450 1300 8450 1800
+Wire Wire Line
+	8450 900  8450 1000
+Wire Wire Line
+	6500 900  8450 900 
+Connection ~ 7800 900 
+Connection ~ 6500 900 
+$Comp
+L IND_744045210 L301
+U 1 1 5A0D53A4
+P 7750 1500
+F 0 "L301" H 7750 1691 45  0000 C CNN
+F 1 "IND_744045210" H 7750 1607 45  0000 C CNN
+F 2 "usevolt:IND_744045210" H 7780 1650 20  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/1735442.pdf?_ga=1.223184091.1948984246.1460023966" H 7650 1440 60  0001 C CNN
+F 4 "1800416" H 8050 1840 60  0001 C CNN "1st Source Part Number"
+F 5 "WURTH ELEKTRONIK" H 7750 1540 60  0001 C CNN "Manufacturer"
+F 6 "Digi-Key" H 8150 1940 60  0001 C CNN "2nd Source"
+F 7 "Farnell" H 7950 1740 60  0001 C CNN "1st Source"
+F 8 "744045210" H 7850 1640 60  0001 C CNN "Manufacturer Part Number"
+F 9 "732-3072-1-ND" H 8250 2040 60  0001 C CNN "2nd Source Part Number"
+	1    7750 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7550 1500 7400 1500
+Wire Wire Line
+	7950 1500 8450 1500
+Connection ~ 8450 1500
+$Comp
+L VEE #PWR305
+U 1 1 5A0D7248
+P 6500 750
+F 0 "#PWR305" H 6500 600 50  0001 C CNN
+F 1 "VEE" H 6517 923 50  0000 C CNN
+F 2 "" H 6500 750 50  0000 C CNN
+F 3 "" H 6500 750 50  0000 C CNN
+	1    6500 750 
+	1    0    0    -1  
+$EndComp
+$Comp
+L HEADER_MOLEX_52207-0433 J302
+U 1 1 5A1297ED
+P 8250 6150
+F 0 "J302" H 8453 6158 60  0000 L CNN
+F 1 "HEADER_MOLEX_52207-0433" H 8453 6052 60  0000 L CNN
+F 2 "usevolt:HEADER_MOLEX_52207-0433" H 8075 6475 60  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/1752208.pdf?_ga=1.260476365.1948984246.1460023966" H 8200 6800 60  0001 C CNN
+F 4 "2361288" H 8300 6750 60  0001 C CNN "1st Source Part Number"
+F 5 "52207-0433" H 8325 6625 60  0001 C CNN "Manufacturer Part Number"
+F 6 "Farnell" H 8300 6700 60  0001 C CNN "1st Source"
+F 7 "MOLEX" H 8300 6550 60  0001 C CNN "Manufacturer"
+	1    8250 6150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8150 6050 6550 6050
+Wire Wire Line
+	6550 6050 6550 5400
+Wire Wire Line
+	6550 5400 4050 5400
+Wire Wire Line
+	4050 5500 6450 5500
+Wire Wire Line
+	6450 5500 6450 6150
+Wire Wire Line
+	6450 6150 8150 6150
+Wire Wire Line
+	8150 6250 6350 6250
+Wire Wire Line
+	6350 6250 6350 5600
+Wire Wire Line
+	6350 5600 4050 5600
+Wire Wire Line
+	4050 5700 6250 5700
+Wire Wire Line
+	6250 5700 6250 6350
+Wire Wire Line
+	6250 6350 8150 6350
+$Comp
+L CAP_EEE-FK1H470P C304
+U 1 1 5A12F27F
+P 6250 1450
+F 0 "C304" V 6158 1553 45  0000 L CNN
+F 1 "CAP_EEE-FK1H470P" V 6300 700 45  0000 L CNN
+F 2 "usevolt:CAP_EEE-FK1H470P" H 6280 1600 20  0001 C CNN
+F 3 "http://industrial.panasonic.com/www-cgi/jvcr13pz.cgi?E+PZ+3+ABA0120+EEEFK1H470P+7+WW" H 6250 1390 60  0001 C CNN
+F 4 "667-EEE-FK1H470P" H 6850 1990 60  0001 C CNN "2nd Source Part Number"
+F 5 "Digi-Key" H 6550 1690 60  0001 C CNN "1st Source"
+F 6 "EEE-FK1H470P" H 6450 1590 60  0001 C CNN "Manufacturer Part Number"
+F 7 "Mouser" H 6750 1890 60  0001 C CNN "2nd Source"
+F 8 "Panasonic Electronic Components" H 6350 1490 60  0001 C CNN "Manufacturer"
+F 9 "PCE3815CT-ND" H 6650 1790 60  0001 C CNN "1st Source Part Number"
+	1    6250 1450
 	0    1    1    0   
 $EndComp
 $EndSCHEMATC
