@@ -79,6 +79,9 @@ void ecu_update(void *me) {
 	ecu_set_uw50_tilt_params(dspl.user->uw50.tilt.max_speed_p,
 			dspl.user->uw50.tilt.max_speed_n, dspl.user->uw50.tilt.acc,
 			dspl.user->uw50.tilt.dec, dspl.user->uw50.tilt.invert);
+	uv_rtos_task_delay(10);
+	ecu_set_uw180s_rollers_grab_time(dspl.user->uw180s.roller_grab_time);
+	ecu_set_uw180s_blades_grab_time(dspl.user->uw180s.blades_grab_time);
 }
 
 
@@ -464,6 +467,20 @@ void ecu_set_uw180s_tilt_params(uint16_t speed_f,
 	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2011, 6, 2, &speed_b));
 	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2013, 5, 1, &invert));
 	if (e) {
+		netdev_set_transmit_failure(&dspl.network.ecu);
+	}
+}
+
+void ecu_set_uw180s_rollers_grab_time(uint16_t time_ms) {
+	dspl.user->uw180s.roller_grab_time = time_ms;
+	if (uv_canopen_sdo_write(ECU_NODE_ID, 0x2010, 1, 2, &time_ms)) {
+		netdev_set_transmit_failure(&dspl.network.ecu);
+	}
+}
+
+void ecu_set_uw180s_blades_grab_time(uint16_t time_ms) {
+	dspl.user->uw180s.blades_grab_time = time_ms;
+	if (uv_canopen_sdo_write(ECU_NODE_ID, 0x2010, 2, 2, &time_ms)) {
 		netdev_set_transmit_failure(&dspl.network.ecu);
 	}
 }

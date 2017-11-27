@@ -21,6 +21,37 @@
 #define LABEL_Y		BACK_Y
 #define LABEL_X		(uv_uibb(&gui.main_window)->width / 2 - LABEL_W / 2)
 
+
+static void show_general() {
+	uv_uiwindow_clear(this->window);
+	this->state = UW180S_STATE_GENERAL;
+
+	uv_uigridlayout_st grid;
+	uv_uigridlayout_init(&grid, 0, BACK_Y + BACK_H, uv_uibb(this->window)->width,
+			uv_uibb(this->window)->height - BACK_Y - BACK_H, 2, 1);
+	uv_uigridlayout_set_padding(&grid, 10, 30);
+	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
+
+	uv_uibutton_init(&this->back, "Back", &uv_uistyles[0]);
+	uv_uiwindow_add(this->window, &this->back, BACK_X, BACK_X, BACK_W, BACK_H);
+
+	uv_uislider_init(&this->general.rollers_grab_time, 0, 1000,
+			dspl.user->uw180s.roller_grab_time, &uv_uistyles[0]);
+	uv_uislider_set_inc_step(&this->general.rollers_grab_time, 20);
+	uv_uislider_set_vertical(&this->general.rollers_grab_time);
+	uv_uislider_set_title(&this->general.rollers_grab_time, "Rollers grab\ntime (ms)");
+	uv_uiwindow_add(this->window, &this->general.rollers_grab_time, bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->general.blades_grab_time, 0, 1000,
+			dspl.user->uw180s.blades_grab_time, &uv_uistyles[0]);
+	uv_uislider_set_inc_step(&this->general.blades_grab_time, 20);
+	uv_uislider_set_vertical(&this->general.blades_grab_time);
+	uv_uislider_set_title(&this->general.blades_grab_time, "Blades grab\ntime (ms)");
+	uv_uiwindow_add(this->window, &this->general.blades_grab_time, bb.x, bb.y, bb.width, bb.height);
+
+}
+
 static void show_sliders(uw180s_state_e state, const char *label) {
 	uv_uiwindow_clear(this->window);
 	this->state = state;
@@ -220,14 +251,17 @@ void settings_impl_uw180s_show(void) {
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, BACK_Y + BACK_H, uv_uibb(this->window)->width,
-			uv_uibb(this->window)->height - BACK_Y - BACK_H, 2, 1);
-	uv_uigridlayout_set_padding(&grid, 60, 60);
+			uv_uibb(this->window)->height - BACK_Y - BACK_H, 3, 1);
+	uv_uigridlayout_set_padding(&grid, 30, 30);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
-
 
 	uv_uilabel_init(&this->label, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF), C(0xFFFFFFFF), "UW180s");
 	uv_uiwindow_add(this->window, &this->label, LABEL_X, LABEL_Y, LABEL_W, LABEL_H);
 
+	uv_uibutton_init(&this->main.general, "General", &uv_uistyles[0]);
+	uv_uiwindow_add(this->window, &this->main.general, bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->main.measurement, "Log\nMeasurement", &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->main.measurement, bb.x, bb.y, bb.width, bb.height);
 
@@ -245,28 +279,6 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 			uint16_t, bool) = NULL;
 
 	switch (this->state) {
-	case UW180S_STATE_NONE:
-		break;
-	case UW180S_STATE_VALVES:
-		if (uv_uibutton_clicked(&this->valves.wheels)) {
-			show_sliders(UW180S_STATE_WHEELS, uv_uibutton_get_text(&this->valves.wheels));
-		}
-		else if (uv_uibutton_clicked(&this->valves.wheels_feed)) {
-			show_sliders(UW180S_STATE_WHEELS_FEED, uv_uibutton_get_text(&this->valves.wheels_feed));
-		}
-		else if (uv_uibutton_clicked(&this->valves.delimbers)) {
-			show_sliders(UW180S_STATE_DELIMBERS, uv_uibutton_get_text(&this->valves.delimbers));
-		}
-		else if (uv_uibutton_clicked(&this->valves.saw)) {
-			show_sliders(UW180S_STATE_SAW, uv_uibutton_get_text(&this->valves.saw));
-		}
-		else if (uv_uibutton_clicked(&this->valves.tilt)) {
-			show_sliders(UW180S_STATE_TILT, uv_uibutton_get_text(&this->valves.tilt));
-		}
-		else if (uv_uibutton_clicked(&this->valves.rotator)) {
-			show_sliders(UW180S_STATE_ROTATOR, uv_uibutton_get_text(&this->valves.rotator));
-		}
-		break;
 	case UW180S_STATE_WHEELS:
 		set_params = ecu_set_uw180s_wheels_params;
 		break;
@@ -288,7 +300,33 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 	default:
 		break;
 	}
-	if (this->state > UW180S_STATE_VALVES) {
+	if (this->state == UW180S_STATE_VALVES) {
+		if (uv_uibutton_clicked(&this->valves.wheels)) {
+			show_sliders(UW180S_STATE_WHEELS, uv_uibutton_get_text(&this->valves.wheels));
+		}
+		else if (uv_uibutton_clicked(&this->valves.wheels_feed)) {
+			show_sliders(UW180S_STATE_WHEELS_FEED, uv_uibutton_get_text(&this->valves.wheels_feed));
+		}
+		else if (uv_uibutton_clicked(&this->valves.delimbers)) {
+			show_sliders(UW180S_STATE_DELIMBERS, uv_uibutton_get_text(&this->valves.delimbers));
+		}
+		else if (uv_uibutton_clicked(&this->valves.saw)) {
+			show_sliders(UW180S_STATE_SAW, uv_uibutton_get_text(&this->valves.saw));
+		}
+		else if (uv_uibutton_clicked(&this->valves.tilt)) {
+			show_sliders(UW180S_STATE_TILT, uv_uibutton_get_text(&this->valves.tilt));
+		}
+		else if (uv_uibutton_clicked(&this->valves.rotator)) {
+			show_sliders(UW180S_STATE_ROTATOR, uv_uibutton_get_text(&this->valves.rotator));
+		}
+		else if (uv_uibutton_clicked(&this->back)) {
+			settings_impl_uw180s_show();
+		}
+		else {
+
+		}
+	}
+	else if (this->state > UW180S_STATE_VALVES) {
 		if (uv_uislider_value_changed(&this->sliders.max_speed_n) ||
 				uv_uislider_value_changed(&this->sliders.max_speed_p) ||
 				uv_uitogglebutton_clicked(&this->sliders.invert)) {
@@ -302,11 +340,6 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 		if (uv_uibutton_clicked(&this->back)) {
 			show_valves();
 			ret = UIOBJECT_RETURN_KILLED;
-		}
-	}
-	else if (this->state == UW180S_STATE_VALVES) {
-		if (uv_uibutton_clicked(&this->back)) {
-			settings_impl_uw180s_show();
 		}
 	}
 	else if (this->state == UW180S_STATE_MB) {
@@ -345,14 +378,38 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 //			}
 //		}
 	}
+	else if (this->state == UW180S_STATE_GENERAL) {
+		if (uv_uislider_value_changed(&this->general.rollers_grab_time)) {
+			ecu_set_uw180s_rollers_grab_time(
+					uv_uislider_get_value(&this->general.rollers_grab_time));
+		}
+		else if (uv_uislider_value_changed(&this->general.blades_grab_time)) {
+			ecu_set_uw180s_blades_grab_time(
+					uv_uislider_get_value(&this->general.blades_grab_time));
+		}
+		else if (uv_uibutton_clicked(&this->back)) {
+			settings_impl_uw180s_show();
+			ret = UIOBJECT_RETURN_KILLED;
+		}
+		else {
+
+		}
+	}
 	else {
-		if (uv_uibutton_clicked(&this->main.measurement)) {
+		if (uv_uibutton_clicked(&this->main.general)) {
+			show_general();
+			ret = UIOBJECT_RETURN_KILLED;
+		}
+		else if (uv_uibutton_clicked(&this->main.measurement)) {
 			show_mb();
 			ret = UIOBJECT_RETURN_KILLED;
 		}
 		else if (uv_uibutton_clicked(&this->main.valves)) {
 			show_valves();
 			ret = UIOBJECT_RETURN_KILLED;
+		}
+		else {
+
 		}
 	}
 	return ret;

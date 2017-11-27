@@ -328,6 +328,10 @@ void ecu_set_uw180s_saw_params(uint16_t speed_f,
 void ecu_set_uw180s_tilt_params(uint16_t speed_f,
 		uint16_t speed_b, bool invert);
 
+void ecu_set_uw180s_rollers_grab_time(uint16_t time_ms);
+
+void ecu_set_uw180s_blades_grab_time(uint16_t time_ms);
+
 void ecu_set_uw180s_rotator_params(uint16_t speed_f,
 		uint16_t speed_b, bool invert);
 

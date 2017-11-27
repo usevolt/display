@@ -100,10 +100,12 @@ const uw180s_st uw180s = {
 				.invert = false
 		},
 		.mb_enabled = true,
-		.len_calib = 225,
+		.len_calib = 66,
 		.vol_calib = 0,
 		.log_len1 = 310,
 		.log_len2 = 500,
+		.roller_grab_time = 400,
+		.blades_grab_time = 300
 };
 
 

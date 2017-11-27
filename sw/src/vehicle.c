@@ -306,12 +306,12 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 		{
 				.name = "Telescope",
 				.setter = ecu_set_telescope_params,
-				.min_speed_p = 300,
-				.max_speed_p = 500,
-				.min_speed_n = 300,
-				.max_speed_n = 500,
-				.acc = 100,
-				.dec = 100,
+				.min_speed_p = 250,
+				.max_speed_p = 720,
+				.min_speed_n = 250,
+				.max_speed_n = 720,
+				.acc = 40,
+				.dec = 20,
 				.invert = false
 		},
 		{
@@ -339,12 +339,12 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 		{
 				.name = "Cabin Rotate",
 				.setter = ecu_set_cab_rot_params,
-				.min_speed_p = 300,
+				.min_speed_p = 230,
 				.max_speed_p = 500,
-				.min_speed_n = 300,
+				.min_speed_n = 230,
 				.max_speed_n = 500,
-				.acc = 30,
-				.dec = 30,
+				.acc = 20,
+				.dec = 10,
 				.invert = false
 		}
 };

@@ -1,0 +1,183 @@
+EESchema Schematic File Version 2
+LIBS:display-rescue
+LIBS:kemet
+LIBS:multicomp
+LIBS:usevolt
+LIBS:wurth_elektronik_LED
+LIBS:power
+LIBS:elt21300_kicad
+LIBS:display-cache
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 6 6
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Text HLabel 5100 3600 0    60   Input ~ 0
+PWM_IN
+$Comp
+L BUZZER_PKM13EPYH4002-B0 X601
+U 1 1 5A1B24C9
+P 6250 3900
+F 0 "X601" V 6242 3802 45  0000 R CNN
+F 1 "BUZZER_PKM13EPYH4002-B0" V 6158 3802 45  0000 R CNN
+F 2 "usevolt:BUZZER_PKM13EPYH4002-B0" H 6280 4050 20  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/579045.pdf?_ga=1.252101961.1948984246.1460023966" H 6270 3920 60  0001 C CNN
+F 4 "490-4697-ND" H 6870 4520 60  0001 C CNN "2nd Source Part Number"
+F 5 "Digikey" H 6770 4420 60  0001 C CNN "2nd Source"
+F 6 "1823866" H 6670 4320 60  0001 C CNN "1st Source Part Number"
+F 7 "PKM13EPYH4002-B0" H 6470 4120 60  0001 C CNN "Manufacturer Part Number"
+F 8 "Farnell" H 6570 4220 60  0001 C CNN "1st Source"
+F 9 "MURATA" H 6370 4020 60  0001 C CNN "Manufacturer"
+	1    6250 3900
+	0    -1   -1   0   
+$EndComp
+$Comp
+L OPAMP_LM358DT U601
+U 1 1 5A1B6095
+P 5650 3700
+F 0 "U601" H 5700 4047 60  0000 C CNN
+F 1 "OPAMP_LM358DT" H 5700 3941 60  0000 C CNN
+F 2 "usevolt:SOIC8" H 5650 4250 60  0001 C CNN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/61/46/87/01/98/ed/44/c5/CD00000464.pdf/files/CD00000464.pdf/jcr:content/translations/en.CD00000464.pdf" H 5650 4250 60  0001 C CNN
+F 4 "STMicroelectronics" H 5750 4350 60  0001 C CNN "Manufacturer"
+F 5 "LM358DT" H 5850 4450 60  0001 C CNN "Manufacturer Part Number"
+F 6 "Digikey" H 5950 4550 60  0001 C CNN "1st Source"
+F 7 "497-1591-1-ND" H 6050 4650 60  0001 C CNN "1st Source Part Number"
+	1    5650 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L VDD #PWR033
+U 1 1 5A1B60F5
+P 6250 3400
+F 0 "#PWR033" H 6250 3250 50  0001 C CNN
+F 1 "VDD" H 6267 3573 50  0000 C CNN
+F 2 "" H 6250 3400 50  0000 C CNN
+F 3 "" H 6250 3400 50  0000 C CNN
+	1    6250 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6250 3400 6250 3600
+Wire Wire Line
+	6250 3600 6050 3600
+$Comp
+L 100nF C601
+U 1 1 5A1B6111
+P 6350 3600
+F 0 "C601" H 6400 3799 45  0000 C CNN
+F 1 "100nF" H 6400 3715 45  0000 C CNN
+F 2 "kemet:0603" H 6380 3750 20  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2062872.pdf?_ga=1.250530118.1948984246.1460023966" H 6254 3609 60  0001 C CNN
+F 4 "1288255" H 6654 4009 60  0001 C CNN "1st Source Part Number"
+F 5 "C0603C104K5RACTU" H 6454 3809 60  0001 C CNN "Manufacturer Part Number"
+F 6 "Farnell" H 6554 3909 60  0001 C CNN "1st Source"
+F 7 "KEMET" H 6354 3709 60  0001 C CNN "Manufacturer"
+	1    6350 3600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6050 3700 7450 3700
+$Comp
+L GND #PWR034
+U 1 1 5A1B615A
+P 7450 4300
+F 0 "#PWR034" H 7450 4050 50  0001 C CNN
+F 1 "GND" H 7455 4127 50  0000 C CNN
+F 2 "" H 7450 4300 50  0000 C CNN
+F 3 "" H 7450 4300 50  0000 C CNN
+	1    7450 4300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7450 3600 7450 4300
+Connection ~ 6250 3600
+Wire Wire Line
+	6550 3600 7450 3600
+Connection ~ 7450 3700
+Wire Wire Line
+	6250 4100 7450 4100
+Connection ~ 7450 4100
+Wire Wire Line
+	6050 3800 6250 3800
+Wire Wire Line
+	5100 3600 5350 3600
+$Comp
+L GND #PWR035
+U 1 1 5A1B6AE9
+P 5100 4100
+F 0 "#PWR035" H 5100 3850 50  0001 C CNN
+F 1 "GND" H 5105 3927 50  0000 C CNN
+F 2 "" H 5100 4100 50  0000 C CNN
+F 3 "" H 5100 4100 50  0000 C CNN
+	1    5100 4100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 3900 5100 3900
+Connection ~ 5100 3900
+Wire Wire Line
+	5100 3800 5350 3800
+Wire Wire Line
+	5100 3800 5100 4100
+$Comp
+L 10K R601
+U 1 1 5A1B783E
+P 4400 3450
+F 0 "R601" V 4408 3508 45  0000 L CNN
+F 1 "10K" V 4492 3508 45  0000 L CNN
+F 2 "multicomp:0603" H 4430 3600 20  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/1788326.pdf?_ga=1.214208087.1948984246.1460023966" H 4369 3489 60  0001 C CNN
+F 4 "9330399" H 4769 3889 60  0001 C CNN "1st Source Part Number"
+F 5 "Farnell" H 4669 3789 60  0001 C CNN "1st Source"
+F 6 "MC0063W0603110K" H 4569 3689 60  0001 C CNN "Manufacturer Part Number"
+F 7 "MULTICOMP" H 4469 3589 60  0001 C CNN "Manufacturer"
+	1    4400 3450
+	0    1    1    0   
+$EndComp
+$Comp
+L 10K R602
+U 1 1 5A1B78AD
+P 4400 3850
+F 0 "R602" V 4408 3908 45  0000 L CNN
+F 1 "10K" V 4492 3908 45  0000 L CNN
+F 2 "multicomp:0603" H 4430 4000 20  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/1788326.pdf?_ga=1.214208087.1948984246.1460023966" H 4369 3889 60  0001 C CNN
+F 4 "9330399" H 4769 4289 60  0001 C CNN "1st Source Part Number"
+F 5 "Farnell" H 4669 4189 60  0001 C CNN "1st Source"
+F 6 "MC0063W0603110K" H 4569 4089 60  0001 C CNN "Manufacturer Part Number"
+F 7 "MULTICOMP" H 4469 3989 60  0001 C CNN "Manufacturer"
+	1    4400 3850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4400 3650 4400 3750
+Wire Wire Line
+	4400 4050 5100 4050
+Connection ~ 5100 4050
+$Comp
+L +3V3 #PWR036
+U 1 1 5A1B792F
+P 4400 3250
+F 0 "#PWR036" H 4400 3100 50  0001 C CNN
+F 1 "+3V3" H 4415 3423 50  0000 C CNN
+F 2 "" H 4400 3250 50  0000 C CNN
+F 3 "" H 4400 3250 50  0000 C CNN
+	1    4400 3250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4400 3250 4400 3350
+Wire Wire Line
+	5350 3700 4400 3700
+Connection ~ 4400 3700
+$EndSCHEMATC
