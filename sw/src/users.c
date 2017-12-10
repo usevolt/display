@@ -57,7 +57,7 @@ static void user_reset(userdata_st *user) {
 
 	strcpy(user->username, "Usewood");
 
-	user->engine_power_usage = 50;
+	user->engine_power_usage = 36;
 
 	user->volume.volume = 100;
 	user->volume.notifications = true;
