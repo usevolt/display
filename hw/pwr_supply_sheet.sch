@@ -24,21 +24,6 @@ $EndDescr
 Text HLabel 1950 3850 0    60   Input ~ 0
 VIN
 $Comp
-L FUSE_MC36211_350MA F1
-U 1 1 57B8204F
-P 2600 3850
-F 0 "F1" H 2600 4054 45  0000 C CNN
-F 1 "FUSE_MC36211_350MA" H 2600 3970 45  0000 C CNN
-F 2 "usevolt:FUSE_MC36211" H 2630 4000 20  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/1678471.pdf?_ga=1.218604761.1948984246.1460023966" H 2720 3870 60  0001 C CNN
-F 4 "Farnell" H 3020 4170 60  0001 C CNN "1st Source"
-F 5 "MC36211" H 2920 4070 60  0001 C CNN "Manufacturer Part Number"
-F 6 "MC36211" H 3120 4270 60  0001 C CNN "1st Source Part Number"
-F 7 "Multicomp" H 2820 3970 60  0001 C CNN "Manufacturer"
-	1    2600 3850
-	1    0    0    -1  
-$EndComp
-$Comp
 L DIODE_TVS_SMBJ33A-TRDO-214AA D1
 U 1 1 57B820C1
 P 3000 4050
@@ -167,7 +152,7 @@ F 3 "" H 8600 3600 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2400 3850 1950 3850
+	1950 3850 2400 3850
 Wire Wire Line
 	3400 3700 4550 3700
 Wire Wire Line
@@ -261,21 +246,6 @@ F 9 "1457504" H 7250 4390 60  0001 C CNN "1st Source Part Number"
 	1    6850 4050
 	0    1    1    0   
 $EndComp
-$Comp
-L FUSE_MC36211_350MA F201
-U 1 1 594FEE3D
-P 2700 3050
-F 0 "F201" H 2700 3254 45  0000 C CNN
-F 1 "FUSE_MC36211_350MA" H 2700 3170 45  0000 C CNN
-F 2 "usevolt:FUSE_MC36211" H 2730 3200 20  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/1678471.pdf?_ga=1.218604761.1948984246.1460023966" H 2820 3070 60  0001 C CNN
-F 4 "Farnell" H 3120 3370 60  0001 C CNN "1st Source"
-F 5 "MC36211" H 3020 3270 60  0001 C CNN "Manufacturer Part Number"
-F 6 "MC36211" H 3220 3470 60  0001 C CNN "1st Source Part Number"
-F 7 "Multicomp" H 2920 3170 60  0001 C CNN "Manufacturer"
-	1    2700 3050
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2150 2700 2150 3850
 Wire Wire Line
@@ -364,21 +334,6 @@ F 7 "KEMET" H 3204 4059 60  0001 C CNN "Manufacturer"
 	1    3200 3950
 	0    1    1    0   
 $EndComp
-$Comp
-L FUSE_MC36211_350MA F202
-U 1 1 5A0D6608
-P 2700 2700
-F 0 "F202" H 2700 2904 45  0000 C CNN
-F 1 "FUSE_MC36211_350MA" H 2700 2820 45  0000 C CNN
-F 2 "usevolt:FUSE_MC36211" H 2730 2850 20  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/1678471.pdf?_ga=1.218604761.1948984246.1460023966" H 2820 2720 60  0001 C CNN
-F 4 "Farnell" H 3120 3020 60  0001 C CNN "1st Source"
-F 5 "MC36211" H 3020 2920 60  0001 C CNN "Manufacturer Part Number"
-F 6 "MC36211" H 3220 3120 60  0001 C CNN "1st Source Part Number"
-F 7 "Multicomp" H 2920 2820 60  0001 C CNN "Manufacturer"
-	1    2700 2700
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2500 2700 2150 2700
 Connection ~ 2150 3050
@@ -405,4 +360,49 @@ F 9 "PCE3815CT-ND" H 3800 4390 60  0001 C CNN "1st Source Part Number"
 	0    1    1    0   
 $EndComp
 Connection ~ 3400 3850
+$Comp
+L FUSE_0ZCH0075AF2E F202
+U 1 1 5A399EB3
+P 2700 3050
+F 0 "F202" H 2700 3254 45  0000 C CNN
+F 1 "FUSE_0ZCH0075AF2E" H 2700 3170 45  0000 C CNN
+F 2 "usevolt:1210" H 2730 3200 20  0001 C CNN
+F 3 "https://belfuse.com/resources/CircuitProtection/datasheets/0ZCH%20Nov2016.pdf" H 2820 3070 60  0001 C CNN
+F 4 "507-1788-1-ND" H 3220 3470 60  0001 C CNN "1st Source Part Number"
+F 5 "Digikey" H 3120 3370 60  0001 C CNN "1st Source"
+F 6 "0ZCH0075AF2E" H 3020 3270 60  0001 C CNN "Manufacturer Part Number"
+F 7 "Bel Fuse Inc." H 2920 3170 60  0001 C CNN "Manufacturer"
+	1    2700 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L FUSE_0ZCH0075AF2E F201
+U 1 1 5A399F0F
+P 2700 2700
+F 0 "F201" H 2700 2904 45  0000 C CNN
+F 1 "FUSE_0ZCH0075AF2E" H 2700 2820 45  0000 C CNN
+F 2 "usevolt:1210" H 2730 2850 20  0001 C CNN
+F 3 "https://belfuse.com/resources/CircuitProtection/datasheets/0ZCH%20Nov2016.pdf" H 2820 2720 60  0001 C CNN
+F 4 "507-1788-1-ND" H 3220 3120 60  0001 C CNN "1st Source Part Number"
+F 5 "Digikey" H 3120 3020 60  0001 C CNN "1st Source"
+F 6 "0ZCH0075AF2E" H 3020 2920 60  0001 C CNN "Manufacturer Part Number"
+F 7 "Bel Fuse Inc." H 2920 2820 60  0001 C CNN "Manufacturer"
+	1    2700 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L FUSE_0ZCH0075AF2E F?
+U 1 1 5A39B376
+P 2600 3850
+F 0 "F?" H 2600 4054 45  0000 C CNN
+F 1 "FUSE_0ZCH0075AF2E" H 2600 3970 45  0000 C CNN
+F 2 "usevolt:1210" H 2630 4000 20  0001 C CNN
+F 3 "https://belfuse.com/resources/CircuitProtection/datasheets/0ZCH%20Nov2016.pdf" H 2720 3870 60  0001 C CNN
+F 4 "507-1788-1-ND" H 3120 4270 60  0001 C CNN "1st Source Part Number"
+F 5 "Digikey" H 3020 4170 60  0001 C CNN "1st Source"
+F 6 "0ZCH0075AF2E" H 2920 4070 60  0001 C CNN "Manufacturer Part Number"
+F 7 "Bel Fuse Inc." H 2820 3970 60  0001 C CNN "Manufacturer"
+	1    2600 3850
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
