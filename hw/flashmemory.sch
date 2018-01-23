@@ -5,7 +5,6 @@ LIBS:multicomp
 LIBS:usevolt
 LIBS:wurth_elektronik_LED
 LIBS:power
-LIBS:elt21300_kicad
 LIBS:display-cache
 EELAYER 26 0
 EELAYER END

@@ -1,4 +1,4 @@
-update=ke 15. marraskuuta 2017 10.49.23
+update=ma  8. tammikuuta 2018 09.38.32
 version=1
 last_client=kicad
 [pcbnew]
@@ -45,4 +45,3 @@ LibName3=/home/usevolt/uv/kicad/libs/multicomp
 LibName4=/home/usevolt/uv/kicad/libs/usevolt
 LibName5=/home/usevolt/uv/kicad/libs/wurth_elektronik_LED
 LibName6=/home/usevolt/uv/kicad/standard_libraries/power
-LibName7=elt21300_kicad
