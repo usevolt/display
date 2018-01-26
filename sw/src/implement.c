@@ -153,18 +153,18 @@ const uw100_st uw100 = {
 				.callbacks = &uw100_callbacks,
 		},
 		.rotator = {
-				.max_speed_p = 600,
-				.max_speed_n = 600,
+				.max_speed_p = 400,
+				.max_speed_n = 400,
 				.invert = false,
-				.acc = 30,
-				.dec = 30
+				.acc = 100,
+				.dec = 100
 		},
 		.open = {
-				.max_speed_p = 600,
-				.max_speed_n = 600,
+				.max_speed_p = 700,
+				.max_speed_n = 700,
 				.invert = false,
-				.acc = 30,
-				.dec = 30
+				.acc = 100,
+				.dec = 100
 		}
 };
 
