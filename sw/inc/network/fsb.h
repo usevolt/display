@@ -25,6 +25,9 @@ typedef struct {
 		uint16_t total_current;
 		fsb_ignkey_states_e ignkey;
 		uint8_t emcy;
+		uint8_t doorsw1;
+		uint8_t doorsw2;
+		uint8_t seatsw;
 	} read;
 } fsb_st;
 
@@ -50,6 +53,18 @@ static inline fsb_ignkey_states_e fsb_get_ignkey_state(fsb_st *this) {
 
 static inline uint8_t fsb_get_emcy(fsb_st *this) {
 	return this->read.emcy;
+}
+
+static inline uint8_t fsb_get_doorsw1(fsb_st *this) {
+	return this->read.doorsw1;
+}
+
+static inline uint8_t fsb_get_doorsw2(fsb_st *this) {
+	return this->read.doorsw2;
+}
+
+static inline uint8_t fsb_get_seatsw(fsb_st *this) {
+	return this->read.seatsw;
 }
 
 

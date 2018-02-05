@@ -117,9 +117,8 @@ void show_general_callb(uv_uitreeobject_st *obj) {
 	uv_uislider_set_vertical(&this->general.power_usage);
 	uv_uislider_set_title(&this->general.power_usage, "Engine power\nusage (%)");
 	uv_uitreeobject_add(&this->generalobj, &this->general.power_usage, bb.x, bb.y, bb.width, bb.height);
-
-
 }
+
 
 void show_system_callb(uv_uitreeobject_st *obj) {
 	uv_uitreeobject_clear(&this->displayobj);
@@ -139,10 +138,10 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 	uv_uitreeobject_add(&this->displayobj, &this->system.brightness,
 			bb.x, bb.y, bb.width, bb.height);
 
-	// volume
+	// oil cooler trigger temp
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->system.oilcooler_trigger, 0, 90,
-			uv_canopen_sdo_read8(CSB_NODE_ID, CSB_OILCOOLER_TRIGGER_INDEX, CSB_OILCOOLER_TRIGGER_SUBINDEX),
+			uv_canopen_sdo_read8(ESB_NODE_ID, ESB_OILCOOLER_TRIGGER_INDEX, ESB_OILCOOLER_TRIGGER_SUBINDEX),
 			&uv_uistyles[0]);
 	uv_uislider_set_horizontal(&this->system.oilcooler_trigger);
 	uv_uislider_set_title(&this->system.oilcooler_trigger, "Oil Cooler\ntrigger temp");
@@ -176,9 +175,8 @@ void show_implement_callb(uv_uitreeobject_st *obj) {
 
 	uv_uitreeobject_add(&this->implementobj, &this->implement.impls_list, bb.x, bb.y,
 			bb.width, bb.height - UI_FONT_SMALL.char_height);
-
-
 }
+
 
 void show_date_callb(uv_uitreeobject_st *obj) {
 	uv_uitreeobject_clear(&this->dateobj);
@@ -325,8 +323,8 @@ uv_uiobject_ret_e settings_system_step(const uint16_t step_ms) {
 
 	// oil cooler trigger temp
 	if (uv_uislider_value_changed(&this->system.oilcooler_trigger)) {
-		uv_canopen_sdo_write8(CSB_NODE_ID,
-				CSB_OILCOOLER_TRIGGER_INDEX, CSB_OILCOOLER_TRIGGER_SUBINDEX,
+		uv_canopen_sdo_write8(ESB_NODE_ID,
+				ESB_OILCOOLER_TRIGGER_INDEX, ESB_OILCOOLER_TRIGGER_SUBINDEX,
 				uv_uislider_get_value(&this->system.oilcooler_trigger));
 	}
 

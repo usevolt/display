@@ -75,8 +75,8 @@ const uw180s_st uw180s = {
 				.invert = false
 		},
 		.rotator = {
-				.max_speed_p = 400,
-				.max_speed_n = 400,
+				.max_speed_p = 500,
+				.max_speed_n = 500,
 				.invert = false
 		},
 		.saw = {
@@ -85,8 +85,8 @@ const uw180s_st uw180s = {
 				.invert = false
 		},
 		.tilt = {
-				.max_speed_p = 280,
-				.max_speed_n = 280,
+				.max_speed_p = 350,
+				.max_speed_n = 350,
 				.invert = false
 		},
 		.wheels = {

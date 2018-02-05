@@ -140,7 +140,7 @@ static void show(const taskbar_state_e state) {
 		uv_ui_set_enabled(&this->emcy_stop, false);
 		uv_uiwindow_add(&this->taskbar, &this->emcy_stop, bb.x, bb.y, bb.width, 0);
 		uv_uilabel_init(&this->emcy_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER,
-				C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_TASKBAR_LABELSTOP));
+				C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_TASKBAR_LABELEMCY));
 		uv_ui_set_enabled(&this->emcy_label, false);
 		uv_uiwindow_add(&this->taskbar, &this->emcy_label, bb.x, bb.y, bb.width, bb.height);
 		uv_delay_init(BG_ERROR_DELAY_MS, &this->emcy_delay);
@@ -328,7 +328,25 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 						esb_get_glow_plugs(&dspl.network.esb) ? this->engine_visible : false);
 			}
 
-			if (fsb_get_emcy(&dspl.network.fsb)) {
+			if (fsb_get_emcy(&dspl.network.fsb) ||
+					!fsb_get_doorsw1(&dspl.network.fsb) ||
+					!fsb_get_doorsw2(&dspl.network.fsb) ||
+					!fsb_get_seatsw(&dspl.network.fsb)) {
+				char *str;
+				if (fsb_get_emcy(&dspl.network.fsb)) {
+					str = uv_str(STR_TASKBAR_LABELEMCY);
+				}
+				else if (!fsb_get_doorsw1(&dspl.network.fsb) ||
+						!fsb_get_doorsw2(&dspl.network.fsb)) {
+					str = uv_str(STR_TASKBAR_LABELDOOR);
+				}
+				else if (!fsb_get_seatsw(&dspl.network.fsb)) {
+					str = uv_str(STR_TASKBAR_LABELSEAT);
+				}
+				else {
+					str = "";
+				}
+				uv_uilabel_set_text(&this->emcy_label, str);
 				uv_ui_set_enabled(&this->emcy_label, true);
 				if (uv_delay(step_ms, &this->emcy_delay)) {
 					uv_delay_init(BG_ERROR_DELAY_MS, &this->emcy_delay);
