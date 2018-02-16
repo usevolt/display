@@ -22,17 +22,36 @@ void system_calib_show(void) {
 	uv_uitabwindow_add(&gui.windows.system.tabs, &this->window, 0, 0,
 			uv_uibb(&gui.windows.system.tabs)->width,
 			uv_uitabwindow_get_contentbb(&gui.windows.system.tabs).height);
+	uv_uiwindow_set_contentbb(&this->window, uv_uibb(&this->window)->width,
+			uv_uibb(&this->window)->height * 1.2);
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0, uv_uiwindow_get_contentbb(&this->window).width,
-			uv_uiwindow_get_contentbb(&this->window).height, 2, 1);
+			uv_uiwindow_get_contentbb(&this->window).height, 2, 2);
 	uv_uigridlayout_set_padding(&grid, 10, 10);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
+	// uw180s mb calibration
+	uv_uilabel_init(&this->mb_label, &UI_FONT_SMALL, ALIGN_CENTER,
+			C(0xFFFFFF), C(0xFFFFFFFF), "UW180S Measurement calibration");
+	uv_uiwindow_add(&this->window, &this->mb_label,
+			bb.x, bb.y, bb.width * 2, UI_FONT_SMALL.char_height);
+
+	uv_uibutton_init(&this->mb_calib_min, "Calibrate\nMIN angles", &uv_uistyles[0]);
+	uv_uiwindow_add(&this->window, &this->mb_calib_min, bb.x + bb.width / 4, bb.y + UI_FONT_SMALL.char_height,
+			bb.width / 2, bb.height / 2);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uibutton_init(&this->mb_calib_max, "Calibrate\nMAX angles", &uv_uistyles[0]);
+	uv_uiwindow_add(&this->window, &this->mb_calib_max, bb.x + bb.width / 4,
+			bb.y + UI_FONT_SMALL.char_height, bb.width / 2, bb.height / 2);
+
 	// Joystick calibration
+	bb = uv_uigridlayout_next(&grid);
 	uv_uitogglebutton_init(&this->calib_start, false,
 			"Joystick\nCalibration", &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->calib_start, bb.x, bb.y + bb.height / 6, bb.width / 2, bb.height / 3);
+	uv_uiwindow_add(&this->window, &this->calib_start,
+			bb.x, bb.y + bb.height / 6, bb.width / 2, bb.height / 3);
 
 	int16_t calib_x = bb.x + bb.width / 2 + 5;
 	int16_t calib_w = bb.width * 1.5f;
@@ -107,6 +126,13 @@ void system_calib_show(void) {
 
 uv_uiobject_ret_e system_calib_step(const uint16_t step_ms) {
 	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
+
+	if (uv_uibutton_clicked(&this->mb_calib_min)) {
+		uv_canopen_sdo_write8(UW180S_MB_NODE_ID, 0x2007, 2, 1);
+	}
+	else if (uv_uibutton_clicked(&this->mb_calib_max)) {
+		uv_canopen_sdo_write8(UW180S_MB_NODE_ID, 0x2007, 3, 1);
+	}
 
 	if (uv_uitogglebutton_clicked(&this->calib_start)) {
 		if (uv_uitogglebutton_get_state(&this->calib_start)) {

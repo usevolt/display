@@ -13,11 +13,16 @@
 #include <uv_rtc.h>
 
 #define CALIB_LINE_LEN				40
-#define SYSTEM_CALIB_BUF_LEN		8
+#define SYSTEM_CALIB_BUF_LEN		11
 
 typedef struct {
 	uv_uiwindow_st window;
 	uv_uiobject_st *buffer[SYSTEM_CALIB_BUF_LEN];
+
+	// uw180s mb calibration
+	uv_uilabel_st mb_label;
+	uv_uibutton_st mb_calib_min;
+	uv_uibutton_st mb_calib_max;
 
 	// joystick calibration
 	uv_uitogglebutton_st calib_start;

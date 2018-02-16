@@ -212,8 +212,8 @@ static const data_st labels[DEV_COUNT] = {
 		// UW180S_MB
 		{
 				.name = "UW180S MB",
-				.row2 = "Length\nWidth\nVolume\n",
-				.row3 = ""
+				.row2 = "Length\nWidth",
+				.row3 = "Width sensors\n"
 		},
 
 };
@@ -467,13 +467,13 @@ static void update(devices_e dev) {
 		update_netdev(&dspl.network.uw180s_ecu);
 	}
 	else if (dev == UW180S_MB) {
-		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i",
+		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN, "%i\n%i\n%i",
 				mb_get_length(&dspl.network.uw180s_mb),
-				mb_get_width(&dspl.network.uw180s_mb),
-				mb_get_volume(&dspl.network.uw180s_mb));
+				mb_get_width(&dspl.network.uw180s_mb));
 		uv_ui_refresh(&this->row2_values);
-		strcpy(this->row3_val_str, "");
+		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN, "%i",
+				uv_canopen_sdo_read16(UW180S_MB_NODE_ID, 0x2004, 5));
+		printf("%s\n", this->row3_val_str);
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(&dspl.network.uw180s_mb);
 	}

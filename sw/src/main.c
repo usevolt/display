@@ -172,13 +172,15 @@ void dspl_step(void *me) {
 
 		uv_time_st time;
 		uv_rtc_get_time(&time);
-		if (this->last_min != time.min) {
-			this->min_counter++;
-			if (this->min_counter == 60) {
-				this->hour_counter++;
-				uv_eeprom_write((unsigned char*) &this->hour_counter,
-						sizeof(this->hour_counter), HOUR_COUNTER_EEPROM_ADDR);
-				this->min_counter = 0;
+		if (this->network.esb.read.rpm != 0) {
+			if (this->last_min != time.min) {
+				this->min_counter++;
+				if (this->min_counter == 60) {
+					this->hour_counter++;
+					uv_eeprom_write((unsigned char*) &this->hour_counter,
+							sizeof(this->hour_counter), HOUR_COUNTER_EEPROM_ADDR);
+					this->min_counter = 0;
+				}
 			}
 		}
 		this->last_min = time.min;
