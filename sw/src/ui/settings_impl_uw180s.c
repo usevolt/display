@@ -242,6 +242,11 @@ static void show_mb() {
 			uv_uibb(&this->mb.len_calib)->x, BACK_Y + BACK_H + 10,
 			bb.x + bb.width - uv_uibb(&this->mb.len_calib)->x, 30);
 
+	bb = uv_uigridlayout_next(&grid);
+	uv_uibutton_init(&this->mb.vol_reset, "Reset\nVolume", &uv_uistyles[0]);
+	uv_uiwindow_add(this->window, &this->mb.vol_reset,
+			bb.x, bb.y, bb.width, bb.height);
+
 }
 
 void settings_impl_uw180s_show(void) {
@@ -360,6 +365,9 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 		}
 		else if (uv_uislider_value_changed(&this->mb.log_len2)) {
 			dspl.user->uw180s.log_len2 = uv_uislider_get_value(&this->mb.log_len2);
+		}
+		else if (uv_uibutton_clicked(&this->mb.vol_reset)) {
+			uv_canopen_sdo_write8(UW180S_MB_NODE_ID, 0x200B, 0, 1);
 		}
 //		else if (uv_uibutton_clicked(&this->mb.log_add)) {
 //			if (uv_vector_size(&dspl.user->uw180s.log_types) <

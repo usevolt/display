@@ -28,6 +28,7 @@ typedef struct {
 		uint8_t doorsw1;
 		uint8_t doorsw2;
 		uint8_t seatsw;
+		uint8_t heater_speed;
 	} read;
 } fsb_st;
 
@@ -67,6 +68,11 @@ static inline uint8_t fsb_get_seatsw(fsb_st *this) {
 	return this->read.seatsw;
 }
 
+static inline uint8_t fsb_get_heater_speed(fsb_st *this) {
+	return this->read.heater_speed;
+}
+
+void fsb_set_heater_speed(fsb_st *this, uint8_t value);
 
 
 #endif /* NETWORK_FSB_H_ */

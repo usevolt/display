@@ -33,8 +33,6 @@ typedef struct {
 		struct {
 			uv_uitogglebutton_st drive_lights;
 			uv_uitogglebutton_st work_lights;
-			uv_uislider_st wiper;
-			uv_uislider_st heater;
 			uv_uislider_st power_usage;
 		} general;
 		struct {

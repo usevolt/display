@@ -278,6 +278,27 @@ const canopen_object_st obj_dict[] = {
 				.type = CANOPEN_UNSIGNED8,
 				.data_ptr = (void*) &dspl.network.fsb.read.seatsw
 		},
+		{
+				.main_index = 0x2806,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED8,
+				.data_ptr = (void*) &dspl.network.fsb.read.heater_speed
+		},
+		{
+				.main_index = 0x2900,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED16,
+				.data_ptr = (void*) &dspl.network.csb.read.total_current
+		},
+		{
+				.main_index = 0x2901,
+				.sub_index = 0,
+				.permissions = CANOPEN_WO,
+				.type = CANOPEN_UNSIGNED8,
+				.data_ptr = (void*) &dspl.network.csb.read.wiper_speed
+		}
 };
 
 

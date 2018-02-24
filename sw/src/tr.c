@@ -113,6 +113,14 @@ static langstr_st strs[STR_COUNT] = {
 				"Torvi"
 		},
 		{
+				"Wiper",
+				"Pyyhin"
+		},
+		{
+				"Heat",
+				"Lampo"
+		},
+		{
 				"Bat V",
 				"Akku"
 		},

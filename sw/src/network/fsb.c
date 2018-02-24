@@ -22,6 +22,7 @@ void fsb_init(fsb_st *this) {
 	this->read.seatsw = 1;
 	this->read.total_current = 0;
 	this->read.ignkey = FSB_IGNKEY_STATE_OFF;
+	this->read.heater_speed = 0;
 }
 
 
@@ -36,3 +37,12 @@ void fsb_update(void *me) {
 #undef this
 
 
+void fsb_set_heater_speed(fsb_st *this, uint8_t value) {
+	if (value > FSB_HEATER_MAX_SPEED) {
+		value = FSB_HEATER_MAX_SPEED;
+	}
+
+	this->read.heater_speed = value;
+	uv_canopen_sdo_write8(FSB_NODE_ID, FSB_HEATER_SPEED_INDEX,
+			FSB_HEATER_SPEED_SUBINDEX, value);
+}

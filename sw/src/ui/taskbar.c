@@ -83,7 +83,7 @@ static void show(const taskbar_state_e state) {
 
 		uv_uigridlayout_st grid;
 		uv_uigridlayout_init(&grid, 0, 0, uv_uibb(&this->taskbar)->width - CLOCK_WIDTH,
-				uv_uibb(&this->taskbar)->height, 11, 1);
+				uv_uibb(&this->taskbar)->height, 12, 1);
 		uv_uigridlayout_set_padding(&grid, 5, 0);
 		uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
@@ -180,7 +180,36 @@ static void show(const taskbar_state_e state) {
 		uv_uiwindow_add(&this->taskbar, &this->horn_touch, bb.x, bb.y,
 				bb.width, bb.height);
 
+		// wiper
 		bb = uv_uigridlayout_next(&grid);
+		uv_uidigit_init(&this->wiper, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
+				taskbar_style.window_c, "%u", csb_get_wiper_speed(&dspl.network.csb));
+		uv_uiwindow_add(&this->taskbar, &this->wiper, bb.x, bb.y, bb.width,
+				bb.height - UI_FONT_SMALL.char_height);
+
+		uv_uilabel_init(&this->wiper_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER,
+				C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_TASKBAR_WIPER));
+		uv_uiwindow_add(&this->taskbar, &this->wiper_label, bb.x, bb.y,
+				bb.width, bb.height);
+
+		uv_uitoucharea_init(&this->wiper_touch);
+		uv_uiwindow_add(&this->taskbar, &this->wiper_touch, bb.x, bb.y,
+				bb.width, bb.height);
+
+		bb = uv_uigridlayout_next(&grid);
+		uv_uidigit_init(&this->heat, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
+			 taskbar_style.window_c, "%u", fsb_get_heater_speed(&dspl.network.fsb));
+		uv_uiwindow_add(&this->taskbar, &this->heat, bb.x, bb.y, bb.width,
+				bb.height - UI_FONT_SMALL.char_height);
+
+		uv_uilabel_init(&this->heat_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER,
+				C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_TASKBAR_HEAT));
+		uv_uiwindow_add(&this->taskbar, &this->heat_label, bb.x, bb.y,
+				bb.width, bb.height);
+
+		uv_uitoucharea_init(&this->heat_touch);
+		uv_uiwindow_add(&this->taskbar, &this->heat_touch, bb.x, bb.y,
+				bb.width, bb.height);
 
 		// voltage
 		bb = uv_uigridlayout_next(&grid);
@@ -381,8 +410,36 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 						CANOPEN_TYPE_LEN(FSB_HORN_STATUS_TYPE), &value);
 				uv_uilabel_set_text(&this->horn, "Off");
 			}
+			else if (uv_uitoucharea_pressed(&this->wiper_touch, NULL, NULL)) {
+				uint8_t value = csb_get_wiper_speed(&dspl.network.csb);
+				if (value >= CSB_WIPER_MAX_SPEED) {
+					value = 0;
+				}
+				else {
+					uint8_t inc = ((CSB_WIPER_MAX_SPEED / 4) == 0) ?
+							1 : (CSB_WIPER_MAX_SPEED / 4);
+					value += inc;
+				}
+				csb_set_wiper_speed(&dspl.network.csb, value);
+			}
+			else if (uv_uitoucharea_pressed(&this->heat_touch, NULL, NULL)) {
+				uint8_t value = fsb_get_heater_speed(&dspl.network.fsb);
+				if (value >= FSB_HEATER_MAX_SPEED) {
+					value = 0;
+				}
+				else {
+					uint8_t inc = ((FSB_HEATER_MAX_SPEED / 4) == 0) ?
+							1 : (FSB_HEATER_MAX_SPEED / 4);
+					value += inc;
+				}
+				fsb_set_heater_speed(&dspl.network.fsb, value);
+			}
 
 
+			uv_uidigit_set_value(&this->wiper,
+					csb_get_wiper_speed(&dspl.network.csb));
+			uv_uidigit_set_value(&this->heat,
+					fsb_get_heater_speed(&dspl.network.fsb));
 			uv_uiprogressbar_set_value(&this->voltage_level, esb_get_voltage(&dspl.network.esb));
 			uv_uiprogressbar_set_value(&this->fuel_level, esb_get_fuel_level(&dspl.network.esb));
 			uv_uiprogressbar_set_value(&this->oil_level, esb_get_oil_level(&dspl.network.esb));

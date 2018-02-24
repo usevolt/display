@@ -71,18 +71,18 @@ void dashboard_uw180s_show() {
 	uv_uiwindow_add(window, &this->wid, bb.x, bb.y + uv_uibb(&this->wid_label)->height,
 			bb.width, bb.height - uv_uibb(&this->wid_label)->height);
 
-//	uv_uigridlayout_next(&grid);
-//	bb = uv_uigridlayout_next(&grid);
-//	uv_uilabel_init(&this->vol_label, &UI_FONT_SMALL, ALIGN_CENTER,
-//			C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_DASHBOARD_UW180S_LABELVOLUME));
-//	uv_uiwindow_add(window, &this->vol_label, bb.x - bb.width / 2, bb.y, bb.width,
-//			UI_FONT_SMALL.char_height);
-//
-//	uv_uidigit_init(&this->vol, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
-//			uv_uistyles[0].window_c, "%i,%01u", 0);
-//	uv_uidigit_set_divider(&this->vol, 1000);
-//	uv_uiwindow_add(window, &this->vol, bb.x - bb.width / 2, bb.y + uv_uibb(&this->vol_label)->height,
-//			bb.width, bb.height - uv_uibb(&this->vol_label)->height);
+	uv_uigridlayout_next(&grid);
+	bb = uv_uigridlayout_next(&grid);
+	uv_uilabel_init(&this->vol_label, &UI_FONT_SMALL, ALIGN_CENTER,
+			C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_DASHBOARD_UW180S_LABELVOLUME));
+	uv_uiwindow_add(window, &this->vol_label, bb.x - bb.width / 2, bb.y, bb.width,
+			UI_FONT_SMALL.char_height);
+
+	uv_uidigit_init(&this->vol, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
+			uv_uistyles[0].window_c, "%i,%01u", 0);
+	uv_uidigit_set_divider(&this->vol, 1000);
+	uv_uiwindow_add(window, &this->vol, bb.x - bb.width / 2, bb.y + uv_uibb(&this->vol_label)->height,
+			bb.width, bb.height - uv_uibb(&this->vol_label)->height);
 
 	this->active_len = 1;
 	ecu_set_uw180s_log_length(dspl.user->uw180s.log_len1);
@@ -95,6 +95,7 @@ uv_uiobject_ret_e dashboard_uw180s_step(uint16_t step_ms) {
 
 	uv_uidigit_set_value(&this->len, mb_get_length(&dspl.network.uw180s_mb) / 10);
 	uv_uidigit_set_value(&this->wid, mb_get_width(&dspl.network.uw180s_mb));
+	uv_uidigit_set_value(&this->vol, mb_get_volume(&dspl.network.uw180s_mb));
 
 	if (uv_uibutton_clicked(&this->log_length)) {
 		if (this->active_len == 1) {
