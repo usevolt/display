@@ -100,7 +100,7 @@ const uw180s_st uw180s = {
 				.invert = false
 		},
 		.mb_enabled = true,
-		.len_calib = 15,
+		.len_calib = 66,
 		.vol_calib = 0,
 		.log_len1 = 300,
 		.log_len2 = 500,
