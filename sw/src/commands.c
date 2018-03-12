@@ -298,6 +298,9 @@ void hours_callb(void *me, unsigned int cmd, unsigned int args, argument_st *arg
 			this->hour_counter = argv[0].number;
 			uv_eeprom_write((unsigned char*) &this->hour_counter,
 					sizeof(this->hour_counter), HOUR_COUNTER_EEPROM_ADDR);
+			// write also to esb
+			uv_canopen_sdo_write(ESB_NODE_ID, ESB_HOUR_INDEX, ESB_HOUR_SUBINDEX,
+					CANOPEN_TYPE_LEN(ESB_HOUR_TYPE), &this->hour_counter);
 		}
 		else {
 			printf("Wrong password\n");

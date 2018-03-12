@@ -56,13 +56,15 @@
 	200, TOPIC_HEIGHT)
 
 
-
+#define BACKLIGHT_DELAY_MS		1000
 
 
 /// @brief: Singleton structure representing the graphical user interface
 typedef struct {
-	/// @brief: Backlight brightness as a value from 0...100
+	/// @brief: Backlight brightness as a value from 0...100.
+	/// Multiplexed with EEPROM memory
 	uint16_t backlight;
+	int backlight_delay;
 
 	/// @brief: Display is the main object of the UI
 	uv_uidisplay_st display;

@@ -19,7 +19,7 @@ typedef struct {
 
 	struct {
 		int16_t length;
-		int16_t volume;
+		int32_t volume;
 		int16_t width;
 	} read;
 
@@ -44,7 +44,7 @@ static inline int16_t mb_get_length(mb_st *this) {
 	return this->read.length;
 }
 
-static inline int16_t mb_get_volume(mb_st *this) {
+static inline int32_t mb_get_volume(mb_st *this) {
 	return this->read.volume;
 }
 

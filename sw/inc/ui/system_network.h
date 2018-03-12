@@ -12,7 +12,7 @@
 #include <uv_ui.h>
 
 #define SYSTEM_NETWORK_BUFFER_LEN			10
-#define SYSTEM_NETWORK_ROW_VALUE_LEN		40
+#define SYSTEM_NETWORK_ROW_VALUE_LEN		60
 
 enum {
 	ESB = 0,

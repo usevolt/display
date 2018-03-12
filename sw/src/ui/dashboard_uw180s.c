@@ -95,7 +95,7 @@ uv_uiobject_ret_e dashboard_uw180s_step(uint16_t step_ms) {
 
 	uv_uidigit_set_value(&this->len, mb_get_length(&dspl.network.uw180s_mb) / 10);
 	uv_uidigit_set_value(&this->wid, mb_get_width(&dspl.network.uw180s_mb));
-	uv_uidigit_set_value(&this->vol, mb_get_volume(&dspl.network.uw180s_mb));
+	uv_uidigit_set_value(&this->vol, mb_get_volume(&dspl.network.uw180s_mb) / 1000);
 
 	if (uv_uibutton_clicked(&this->log_length)) {
 		if (this->active_len == 1) {

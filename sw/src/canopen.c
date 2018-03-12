@@ -163,7 +163,7 @@ const canopen_object_st obj_dict[] = {
 				.main_index = 0x2602,
 				.sub_index = 0,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_SIGNED16,
+				.type = CANOPEN_SIGNED32,
 				.data_ptr = (void*) &dspl.network.uw180s_mb.read.volume
 		},
 		{

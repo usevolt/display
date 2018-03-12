@@ -14,6 +14,7 @@
 #include <uv_rtos.h>
 #include <uv_uart.h>
 #include <uv_adc.h>
+#include <uv_eeprom.h>
 
 
 #define this (&gui)
@@ -38,8 +39,9 @@ static void display_touch_callback(const uv_touch_st *touch) {
 }
 
 void gui_init() {
-	this->backlight = 50;
+	uv_eeprom_read((unsigned char*) &this->backlight, sizeof(this->backlight), BRIGHTNESS_EEPROM_ADDR);
 	gui_set_backlight(this->backlight);
+	this->backlight_delay = -1;
 
 	uv_uidisplay_init(&this->display, this->display_buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
 	uv_uidisplay_set_touch_callb(&this->display, &display_touch_callback);
@@ -125,6 +127,11 @@ void gui_step(void *nullptr) {
 
 	while (true) {
 
+		// write brightness to EEPROM if modification delay has passed
+		if (uv_delay(step_ms, &this->backlight_delay)) {
+			uv_eeprom_write(&this->backlight, sizeof(this->backlight), BRIGHTNESS_EEPROM_ADDR);
+		}
+
 		uv_pwm_set(LCD_BACKLIGHT, DUTY_CYCLE(((float) 100 - this->backlight * this->backlight / 100) / 100));
 
 		uv_uiprogressbar_set_value(&this->rpm, esb_get_rpm(&dspl.network.esb));
@@ -141,6 +148,13 @@ void gui_step(void *nullptr) {
 void gui_set_backlight(uint8_t value) {
 	if (value > 100) {
 		value = 100;
+	}
+	else if (value == 0) {
+		value = 1;
+	}
+	// if brightness has been changed, start delay for writing it to EEPROM
+	if (this->backlight != value) {
+		uv_delay_init(BACKLIGHT_DELAY_MS, &this->backlight_delay);
 	}
 	this->backlight = value;
 }

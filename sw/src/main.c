@@ -111,7 +111,7 @@ void dspl_init(dspl_st *me) {
 
 		users_reset();
 
-		gui_set_backlight(100);
+		gui_set_backlight(BRIGHTNESS_DEFAULT_VALUE);
 
 		// save initialized values to memory
 		uv_memory_save();
