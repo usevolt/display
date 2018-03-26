@@ -106,6 +106,9 @@ void gui_init();
 /// @brief: Step function which should run in a separate thread
 void gui_step(void *);
 
+/// @brief: Resets the gui to defaults
+void gui_reset(void);
+
 /// @brief: Sets the target value for LCD backlight brightness
 ///
 /// @param value: percent value from 0...100

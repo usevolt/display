@@ -132,7 +132,9 @@ void gui_step(void *nullptr) {
 			uv_eeprom_write(&this->backlight, sizeof(this->backlight), BRIGHTNESS_EEPROM_ADDR);
 		}
 
-		uv_pwm_set(LCD_BACKLIGHT, DUTY_CYCLE(((float) 100 - this->backlight * this->backlight / 100) / 100));
+		// note: not full scale of duty cycle is used, since the fuse on pcb cannot hold full current
+		uv_pwm_set(LCD_BACKLIGHT, DUTY_CYCLE(((float) 100 - this->backlight * this->backlight / 100)
+				/ 105));
 
 		uv_uiprogressbar_set_value(&this->rpm, esb_get_rpm(&dspl.network.esb));
 		uv_uiprogressbar_set_value(&this->pressure, ecu_get_pressure(&dspl.network.ecu));
@@ -144,6 +146,11 @@ void gui_step(void *nullptr) {
 	}
 }
 
+
+void gui_reset(void) {
+	this->backlight = BRIGHTNESS_DEFAULT_VALUE;
+	uv_eeprom_write(&this->backlight, sizeof(this->backlight), BRIGHTNESS_EEPROM_ADDR);
+}
 
 void gui_set_backlight(uint8_t value) {
 	if (value > 100) {
