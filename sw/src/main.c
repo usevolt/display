@@ -142,19 +142,23 @@ void dspl_init(dspl_st *me) {
 			sizeof(this->hour_counter), HOUR_COUNTER_EEPROM_ADDR);
 	// also read hour value from ESB
 	uint32_t esb_hour = 0;
-	uv_canopen_sdo_read(ESB_NODE_ID, ESB_HOUR_INDEX, ESB_HOUR_SUBINDEX,
-			CANOPEN_TYPE_LEN(ESB_HOUR_TYPE), &esb_hour);
-	if (esb_hour > this->hour_counter) {
-		// if ESB had bigger counter, update ours
-		this->hour_counter = esb_hour;
-		uv_eeprom_write((unsigned char*) &this->hour_counter,
-				sizeof(this->hour_counter), HOUR_COUNTER_EEPROM_ADDR);
-	}
-	else {
-		// if we had bigger counter, update ESB's
-		esb_hour = this->hour_counter;
-		uv_canopen_sdo_write(ESB_NODE_ID, ESB_HOUR_INDEX, ESB_HOUR_SUBINDEX,
-				CANOPEN_TYPE_LEN(ESB_HOUR_TYPE), &esb_hour);
+	if (uv_canopen_sdo_read(ESB_NODE_ID, ESB_HOUR_INDEX, ESB_HOUR_SUBINDEX,
+			CANOPEN_TYPE_LEN(ESB_HOUR_TYPE), &esb_hour) == ERR_NONE) {
+		if (esb_hour > this->hour_counter) {
+			// if ESB had bigger counter, update ours
+			this->hour_counter = esb_hour;
+			esb_hour = this->hour_counter;
+			uv_eeprom_write((unsigned char*) &this->hour_counter,
+					sizeof(this->hour_counter), HOUR_COUNTER_EEPROM_ADDR);
+			uv_canopen_sdo_write(ESB_NODE_ID, ESB_HOUR_INDEX, ESB_HOUR_SUBINDEX,
+					CANOPEN_TYPE_LEN(ESB_HOUR_TYPE), &esb_hour);
+		}
+		else {
+			// if we had bigger counter, update ESB's
+			esb_hour = this->hour_counter;
+			uv_canopen_sdo_write(ESB_NODE_ID, ESB_HOUR_INDEX, ESB_HOUR_SUBINDEX,
+					CANOPEN_TYPE_LEN(ESB_HOUR_TYPE), &esb_hour);
+		}
 	}
 
 	users_init();
