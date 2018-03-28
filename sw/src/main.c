@@ -147,11 +147,8 @@ void dspl_init(dspl_st *me) {
 		if (esb_hour > this->hour_counter) {
 			// if ESB had bigger counter, update ours
 			this->hour_counter = esb_hour;
-			esb_hour = this->hour_counter;
 			uv_eeprom_write((unsigned char*) &this->hour_counter,
 					sizeof(this->hour_counter), HOUR_COUNTER_EEPROM_ADDR);
-			uv_canopen_sdo_write(ESB_NODE_ID, ESB_HOUR_INDEX, ESB_HOUR_SUBINDEX,
-					CANOPEN_TYPE_LEN(ESB_HOUR_TYPE), &esb_hour);
 		}
 		else {
 			// if we had bigger counter, update ESB's

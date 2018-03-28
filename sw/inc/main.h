@@ -25,9 +25,9 @@
 #define USERNAME_MAX_LEN	32
 
 
-#define HOUR_COUNTER_EEPROM_ADDR	(CONFIG_EEPROM_RING_BUFFER_END_ADDR + 1)
 #define CURRENT_USER_EEPROM_ADDR	(CONFIG_EEPROM_RING_BUFFER_END_ADDR)
-#define BRIGHTNESS_EEPROM_ADDR		(CONFIG_EEPROM_RING_BUFFER_END_ADDR + 1 + sizeof(uint16_t))
+#define HOUR_COUNTER_EEPROM_ADDR	(CONFIG_EEPROM_RING_BUFFER_END_ADDR + 1)
+#define BRIGHTNESS_EEPROM_ADDR		(CONFIG_EEPROM_RING_BUFFER_END_ADDR + 1 + sizeof(uint32_t))
 
 #define BRIGHTNESS_DEFAULT_VALUE	50
 
@@ -57,7 +57,7 @@ typedef struct {
 
 typedef struct _dspl_st {
 
-	uint16_t hour_counter;
+	uint32_t hour_counter;
 	uint16_t min_counter;
 	uint8_t last_min;
 
