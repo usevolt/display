@@ -14,7 +14,7 @@
 
 #define SYSTEM_RESTORE_BUFFER_LEN		3
 
-#define RESTORE_DELAY_S				10
+#define RESTORE_DELAY_S				5
 
 typedef struct {
 	uv_uiwindow_st window;

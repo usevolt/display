@@ -19,6 +19,7 @@
 
 #define SYSTEM_BUFFER_LEN		5
 #define SYSTEM_TAB_BUFFER_LEN	1
+#define SYSTEM_TAB_COUNT		4
 #define ABOUT_STR_LEN			70
 
 typedef struct {
@@ -27,6 +28,7 @@ typedef struct {
 
 	uv_uitabwindow_st tabs;
 	uv_uiobject_st *tabs_buffer[SYSTEM_TAB_BUFFER_LEN];
+	char *tab_names[SYSTEM_TAB_COUNT];
 
 	uv_uibutton_st cancel;
 	uv_uibutton_st ok;

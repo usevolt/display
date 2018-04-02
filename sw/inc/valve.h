@@ -10,6 +10,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "tr.h"
 
 
 /// @brief: Defines the datatype for individual hydraulic valves
@@ -20,7 +21,7 @@
 /// @brief: Struct for hydraulic valve settings
 typedef struct valve_st {
 	/// @brief: valve name
-	const char *name;
+	langstr_e name;
 	/// @brief: Pointer to a function which will apply the valve settings
 	/// over the can bus
 	void (*setter)(struct valve_st *this);

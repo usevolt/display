@@ -30,7 +30,7 @@ typedef struct {
 	uv_uibutton_st cancel;
 	uv_uibutton_st ok;
 
-	const char **tab_names;
+	char *tab_names[SETTINGS_TAB_COUNT];
 
 	uv_uitabwindow_st tabs;
 	uv_uiobject_st *tabs_buffer[SETTINGS_TABS_BUFFER_LEN];

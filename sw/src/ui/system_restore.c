@@ -32,21 +32,18 @@ void system_restore_show(void) {
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 	uv_uilabel_init(&this->info, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF),
-			C(0xFFFFFFFF), "Press the button below for " STRINGIFY(RESTORE_DELAY_S)
-			" seconds to\n" "restore the system to factory settings.\n"
-			"The display will reboot after the restore.\n \n"
-			"WARNING: ALL SETTINGS FROM ALL USERS WILL BE LOST");
+			C(0xFFFFFFFF), uv_str(STR_SYSTEM_RESTORE_LABELINFO));
 	uv_uiwindow_add(&this->window, &this->info, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->timer, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
 			uv_uistyles[0].window_c, this->timer_value);
-	strcpy(this->timer_value, "10");
+	strcpy(this->timer_value, STRINGIFY(RESTORE_DELAY_S));
 	uv_ui_hide(&this->timer);
 	uv_uiwindow_add(&this->window, &this->timer, bb.x, bb.y, bb.width, bb.height / 2);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->restore, "Restore System Defaults", &uv_uistyles[0]);
+	uv_uibutton_init(&this->restore, uv_str(STR_SYSTEM_RESTORE_BUTTONRESTORE), &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->restore, bb.x + bb.width / 4, bb.y - bb.height / 2,
 			bb.width / 2, bb.height * 1.5f);
 

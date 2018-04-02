@@ -106,6 +106,7 @@ void dspl_init(dspl_st *me) {
 	if (restore || uv_memory_load()) {
 		// non-volatile data load failed, initialize factory settings
 
+		this->lang = LANG_EN;
 
 		alert_reset(&this->alert);
 
@@ -116,6 +117,8 @@ void dspl_init(dspl_st *me) {
 		// save initialized values to memory
 		uv_memory_save();
 	}
+
+	set_lang(this->lang);
 
 
  	// init terminal

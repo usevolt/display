@@ -10,6 +10,7 @@
 #include "gui.h"
 #include "vehicle.h"
 #include "log.h"
+#include "tr.h"
 
 
 #define this (&gui.windows.settings.implements)
@@ -34,12 +35,11 @@ void settings_implements_show(void) {
 	}
 	else {
 		uv_uilabel_init(&this->info, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF),
-				C(0xFFFFFFFF), "Implement not selected.\n"
-						"Select implement from System settings.");
+				C(0xFFFFFFFF), uv_str(STR_SETTINGS_IMPL_LABELNOTSELECTED));
 		uv_uiwindow_add(&this->window, &this->info, 0, CONFIG_UI_TABWINDOW_HEADER_HEIGHT,
 				uv_uibb(&this->window)->width, uv_uibb(&this->window)->height);
 
-		uv_uibutton_init(&this->goto_settings, "Go to settings", &uv_uistyles[0]);
+		uv_uibutton_init(&this->goto_settings, uv_str(STR_SETTINGS_IMPL_BUTTONGOTOSETTINGS), &uv_uistyles[0]);
 		uv_uiwindow_add(&this->window, &this->goto_settings,
 				uv_uibb(&this->window)->width / 2 - BW / 2,
 				uv_uibb(&this->window)->height / 2 + CONFIG_UI_TABWINDOW_HEADER_HEIGHT - BY / 2, BW, BY);

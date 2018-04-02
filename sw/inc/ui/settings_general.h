@@ -12,7 +12,7 @@
 #include <uv_ui.h>
 #include <uv_rtc.h>
 
-#define SETTINGS_GENERAL_TREEVIEW_LEN 4
+#define SETTINGS_GENERAL_TREEVIEW_LEN 5
 #define SETTINGS_GENERAL_BUFFER_LEN	14
 #define DATE_STR_LEN				40
 
@@ -28,6 +28,7 @@ typedef struct {
 	uv_uitreeobject_st displayobj;
 	uv_uitreeobject_st implementobj;
 	uv_uitreeobject_st dateobj;
+	uv_uitreeobject_st langobj;
 
 	union {
 		struct {
@@ -63,6 +64,11 @@ typedef struct {
 			uv_uibutton_st year_inc;
 			uv_uibutton_st year_dec;
 		} date;
+		struct {
+			uv_uilist_st languages;
+			char *lang_list[LANG_COUNT];
+			uv_uibutton_st setlang;
+		} lang;
 	};
 
 

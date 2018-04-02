@@ -77,6 +77,7 @@ typedef struct _dspl_st {
 
 	uv_data_start_t data_start;
 
+	languages_e lang;
 	userdata_st userdata[USER_COUNT];
 
 	uv_vector_st users;
@@ -84,6 +85,8 @@ typedef struct _dspl_st {
 	uv_data_end_t data_end;
 
 } dspl_st;
+
+extern dspl_st dspl;
 
 
 void dspl_init(dspl_st *me);

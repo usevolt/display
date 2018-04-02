@@ -18,9 +18,9 @@
 static void show(uv_uitreeobject_st *obj);
 
 typedef struct {
-	const char *name;
-	const char *row2;
-	const char *row3;
+	langstr_e name;
+	langstr_e row2;
+	langstr_e row3;
 } data_st;
 static const data_st labels[];
 
@@ -37,7 +37,7 @@ void system_network_show(void) {
 
 	for (int i = 0; i < DEV_COUNT; i++) {
 		uv_uitreeobject_init(&this->objs[i], this->buffer,
-				labels[i].name, &show, &uv_uistyles[0]);
+				uv_str(labels[i].name), &show, &uv_uistyles[0]);
 		uv_uitreeobject_set_step_callback(&this->objs[i], system_network_step);
 		uv_uitreeview_add(&this->treeview, &this->objs[i], OBJ_HEIGHT, false);
 	}
@@ -61,159 +61,60 @@ const char *get_output_state_str(uv_output_state_e state) {
 	}
 }
 
-static const char netdev_label[] =
-		"Connected\n"
-		"Node ID";
-
 static const data_st labels[DEV_COUNT] = {
 		// ESB
 		{
-				.name = "ESB",
-				.row2 = "Total Current\n"
-						"Glow State\n"
-						"Starter State\n"
-						"AC State\n"
-						"MStart1 State\n"
-						"MStart2 State\n"
-						"Pump State\n"
-						"Alt IG State\n"
-						"Oil cooler State",
-				.row3 = "RPM\n"
-						"Alt L\n"
-						"Motor Water\n"
-						"Motor Oil\n"
-						"Motor Temp (C)\n"
-						"Oil Temp (C)\n"
-						"Oil Level (%)\n"
-						"Fuel Level (%)\n"
-						"Voltage (mV)\n"
-						"OilC trig temp (C)"
+				.name = STR_SYSTEM_DIAG_LABELESB,
+				.row2 = STR_SYSTEM_DIAG_LABELESBCOL1,
+				.row3 = STR_SYSTEM_DIAG_LABELESBCOL2
 		},
 		// FSB
 		{
-				.name = "FSB",
-				.row2 = "Total Current\n"
-						"Horn State\n"
-						"Radio State\n"
-						"Aux State\n"
-						"Heater State",
-				.row3 = "Ignition key\n"
-						"Heater Speed\n"
-						"EMCY switch\n"
-						"Bat Voltage\n"
-						"Eber Fan\n"
-						"Seat\n"
-						"Door1\n"
-						"Door2"
+				.name = STR_SYSTEM_DIAG_LABELFSB,
+				.row2 = STR_SYSTEM_DIAG_LABELFSBCOL1,
+				.row3 = STR_SYSTEM_DIAG_LABELFSBCOL2
 		},
 		// CSB
 		{
-				.name = "CSB",
-				.row2 = "Total Current\n"
-						"Work Light State\n"
-						"Drive Light State\n"
-						"Back Light State\n"
-						"In Light State\n"
-						"Beacon State\n"
-						"Wiper State\n"
-						"Cooler State\n"
-						"Oil Cooler State",
-				.row3 = "Wiper Speed\n"
-						"Cooler P\n"
-						"Work Light Current\n"
-						"Drive Light Current\n"
-						"OilC trigger temp"
+				.name = STR_SYSTEM_DIAG_LABELCSB,
+				.row2 = STR_SYSTEM_DIAG_LABELCSBCOL1,
+				.row3 = STR_SYSTEM_DIAG_LABELCSBCOL2
 		},
 		// ECU
-#if FM
 		{
-				.name = "ECU",
-				.row2 = "Controls moved\n"
-						"Engine shut down\n"
-						"Pump angle (ppt)\n"
-						"Implement\n"
-						"Legs Down\n"
-						"Pressure (bar)",
-				.row3 = "Boom Lift (mA)\n"
-						"Boom Fold (mA)\n"
-						"Boom Rotate (mA)\n"
-						"Drive (mA)\n"
-						"Steer (mA)\n"
-						"Left Leg (mA)\n"
-						"Right Leg (mA)\n"
-						"Impl valve (mA)"
+				.name = STR_SYSTEM_DIAG_LABELECU,
+				.row2 = STR_SYSTEM_DIAG_LABELECUCOL1,
+				.row3 = STR_SYSTEM_DIAG_LABELECUCOL2
 		},
-#elif LM
-		{
-				.name = "ECU",
-				.row2 = "Controls moved\n"
-						"Engine shut down\n"
-						"Pump angle (ppt)\n"
-						"Implement\n"
-						"Legs Down\n"
-						"Pressure (bar)",
-				.row3 = "Boom Lift (mA)\n"
-						"Boom Fold (mA)\n"
-						"Boom Rotate (mA)\n"
-						"Boom Telescope (mA)\n"
-						"Drive Front (mA)\n"
-						"Drive Back (mA)\n"
-						"Steer Front (mA)\n"
-						"Steer Back (mA)\n"
-						"Left Leg (mA)\n"
-						"Right Leg (mA)\n"
-						"Cabin Rotate (mA)"
-		},
-#elif CM
-		{
-				.name = "ECU",
-				.row2 = "Controls moved\n"
-						"Engine shut down\n"
-						"Pump angle (ppt)\n"
-						"Implement\n"
-						"Legs Down\n"
-						"Pressure (bar)",
-				.row3 = "Boom Lift (mA)\n"
-						"Boom Fold (mA)\n"
-						"Boom Rotate (mA)\n"
-						"Drive Front (mA)\n"
-						"Drive Back (mA)\n"
-						"Steer Front (mA)\n"
-						"Body Telescope (mA)\n"
-						"Left Leg (mA)\n"
-						"Right Leg (mA)\n"
-						"Cabin Rotate (mA)"
-		},
-#endif
 		// L_KEYPAD
 		{
-				.name = "Left Keypad",
-				.row2 = "x\nx err\ny\ny err\nz\nz err\nv\nv err",
-				.row3 = "b1\nb2\nb3\nb4\nb5\nb6\nb7\nb8\nb9\nb10"
+				.name = STR_SYSTEM_DIAG_LABELLEFTKEYPAD,
+				.row2 = STR_SYSTEM_DIAG_LABELKEYPADCOL1,
+				.row3 = STR_SYSTEM_DIAG_LABELKEYPADCOL2
 		},
 		// R_KEYPAD
 		{
-				.name = "Right Keypad",
-				.row2 = "x\nx err\ny\ny err\nz\nz err\nv\nv err",
-				.row3 = "b1\nb2\nb3\nb4\nb5\nb6\nb7\nb8\nb9\nb10"
+				.name = STR_SYSTEM_DIAG_LABELRIGHTKEYPAD,
+				.row2 = STR_SYSTEM_DIAG_LABELKEYPADCOL1,
+				.row3 = STR_SYSTEM_DIAG_LABELKEYPADCOL2
 		},
 		// PEDAL
 		{
-				.name = "Pedal",
-				.row2 = "pos",
-				.row3 = ""
+				.name = STR_SYSTEM_DIAG_LABELPEDAL,
+				.row2 = STR_SYSTEM_DIAG_LABELPEDALCOL1,
+				.row3 = STR_SYSTEM_DIAG_LABELPEDALCOL2
 		},
 		// UW180S
 		{
-				.name = "UW180S",
-				.row2 = "",
-				.row3 = ""
+				.name = STR_SYSTEM_DIAG_LABELUW180S,
+				.row2 = STR_SYSTEM_DIAG_LABELUW180SCOL1,
+				.row3 = STR_SYSTEM_DIAG_LABELUW180SCOL2
 		},
 		// UW180S_MB
 		{
-				.name = "UW180S MB",
-				.row2 = "Length\nWidth\nVolume\nRel width\n\nWSensor 1\nWSensor 2",
-				.row3 = ""
+				.name = STR_SYSTEM_DIAG_LABELUW180SMB,
+				.row2 = STR_SYSTEM_DIAG_LABELUW180SMBCOL1,
+				.row3 = STR_SYSTEM_DIAG_LABELUW180SMBCOL2
 		},
 
 };
@@ -396,9 +297,8 @@ static void update(devices_e dev) {
 				ecu_get_boom_fold_ma(&dspl.network.ecu),
 				ecu_get_boom_rotate_ma(&dspl.network.ecu),
 				ecu_get_boom_telescope_ma(&dspl.network.ecu),
-				ecu_get_drivefront_ma(&dspl.network.ecu),
-				ecu_get_driveback_ma(&dspl.network.ecu),
-				ecu_get_steerfront_ma(&dspl.network.ecu),
+				ecu_get_drive_ma(&dspl.network.ecu),
+				ecu_get_steer_ma(&dspl.network.ecu),
 				ecu_get_steerback_ma(&dspl.network.ecu),
 				ecu_get_left_leg_ma(&dspl.network.ecu),
 				ecu_get_right_leg_ma(&dspl.network.ecu),
@@ -409,8 +309,7 @@ static void update(devices_e dev) {
 				ecu_get_boom_lift_ma(&dspl.network.ecu),
 				ecu_get_boom_fold_ma(&dspl.network.ecu),
 				ecu_get_boom_rotate_ma(&dspl.network.ecu),
-				ecu_get_drivefront_ma(&dspl.network.ecu),
-				ecu_get_driveback_ma(&dspl.network.ecu),
+				ecu_get_drive_ma(&dspl.network.ecu),
 				ecu_get_steer_ma(&dspl.network.ecu),
 				ecu_get_telescope_ma(&dspl.network.ecu),
 				ecu_get_left_leg_ma(&dspl.network.ecu),
@@ -501,7 +400,7 @@ static void show(uv_uitreeobject_st *obj) {
 	float valuescale = 2.0f - labelscale;
 
 	uv_uilabel_init(&this->row1_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
-			C(0xFFFFFFFF), (char*) netdev_label);
+			C(0xFFFFFFFF), uv_str(STR_SYSTEM_DIAG_LABELNETDEV));
 	uv_uitreeobject_add(obj, &this->row1_topics, bb.x, bb.y,
 			bb.width * labelscale, bb.height);
 
@@ -514,7 +413,7 @@ static void show(uv_uitreeobject_st *obj) {
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row2_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
-			C(0xFFFFFFFF), (char*) labels[this->dev].row2);
+			C(0xFFFFFFFF), uv_str(labels[this->dev].row2));
 	uv_uitreeobject_add(obj, &this->row2_topics, bb.x, bb.y, bb.width * labelscale, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
@@ -526,7 +425,7 @@ static void show(uv_uitreeobject_st *obj) {
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->row3_topics, &UI_FONT_SMALL, ALIGN_TOP_LEFT, C(0xFFFFFF),
-			C(0xFFFFFFFF), (char*) labels[this->dev].row3);
+			C(0xFFFFFFFF), uv_str(labels[this->dev].row3));
 	uv_uitreeobject_add(obj, &this->row3_topics, bb.x, bb.y, bb.width * labelscale, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);

@@ -10,6 +10,7 @@
 #include "main.h"
 #include "gui.h"
 #include "network.h"
+#include "tr.h"
 
 #define this (&gui.windows.settings.valves)
 
@@ -31,7 +32,7 @@ void settings_valves_show() {
 
 	for (int16_t i = 0; i < BASE_VALVE_COUNT; i++) {
 		uv_uitreeobject_init(&this->valves[i], this->buffer,
-				dspl.user->base_valves[i].name, &sliders_show, &uv_uistyles[0]);
+				uv_str(dspl.user->base_valves[i].name), &sliders_show, &uv_uistyles[0]);
 		uv_uitreeobject_set_step_callback(&this->valves[i], &settings_valves_step);
 		uv_uitreeview_add(&this->treeview, &this->valves[i], SLIDERS_HEIGHT, false);
 	}
@@ -62,7 +63,7 @@ static void sliders_show(uv_uitreeobject_st *obj) {
 	uv_uitreeobject_add(obj, &this->min_speed_p,
 			bb.x, bb.y, bb.width, bb.height / 2);
 	uv_uilabel_init(&this->min_speed_p_label, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF),
-			C(0xFFFFFFFF), "Forward min speed (mA)");
+			C(0xFFFFFFFF), uv_str(STR_SETTINGS_VALVES_SLIDERFORMINSPEED));
 	uv_uitreeobject_add(obj, &this->min_speed_p_label,
 			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2);
 
@@ -73,7 +74,7 @@ static void sliders_show(uv_uitreeobject_st *obj) {
 	uv_uitreeobject_add(obj, &this->max_speed_p,
 			bb.x, bb.y, bb.width, bb.height / 2);
 	uv_uilabel_init(&this->max_speed_p_label, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF),
-			C(0xFFFFFFFF), "Forward max speed (mA)");
+			C(0xFFFFFFFF), uv_str(STR_SETTINGS_VALVES_SLIDERFORMAXSPEED));
 	uv_uitreeobject_add(obj, &this->max_speed_p_label,
 			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2);
 
@@ -83,7 +84,7 @@ static void sliders_show(uv_uitreeobject_st *obj) {
 	uv_uitreeobject_add(obj, &this->acc,
 			bb.x, bb.y, bb.width, bb.height / 2);
 	uv_uilabel_init(&this->acc_label, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF),
-			C(0xFFFFFFFF), "Acceleration (%)");
+			C(0xFFFFFFFF), uv_str(STR_SETTINGS_VALVES_SLIDERACC));
 	uv_uitreeobject_add(obj, &this->acc_label,
 			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2);
 
@@ -94,7 +95,7 @@ static void sliders_show(uv_uitreeobject_st *obj) {
 	uv_uitreeobject_add(obj, &this->min_speed_n,
 			bb.x, bb.y, bb.width, bb.height / 2);
 	uv_uilabel_init(&this->min_speed_n_label, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF),
-			C(0xFFFFFFFF), "Backward min speed (mA)");
+			C(0xFFFFFFFF), uv_str(STR_SETTINGS_VALVES_SLIDERBACKMINSPEED));
 	uv_uitreeobject_add(obj, &this->min_speed_n_label,
 			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2);
 
@@ -105,7 +106,7 @@ static void sliders_show(uv_uitreeobject_st *obj) {
 	uv_uitreeobject_add(obj, &this->max_speed_n,
 			bb.x, bb.y, bb.width, bb.height / 2);
 	uv_uilabel_init(&this->max_speed_n_label, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF),
-			C(0xFFFFFFFF), "Backward max speed (mA)");
+			C(0xFFFFFFFF), uv_str(STR_SETTINGS_VALVES_SLIDERBACKMAXSPEED));
 	uv_uitreeobject_add(obj, &this->max_speed_n_label,
 			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2);
 
@@ -115,13 +116,13 @@ static void sliders_show(uv_uitreeobject_st *obj) {
 	uv_uitreeobject_add(obj, &this->dec,
 			bb.x, bb.y, bb.width, bb.height / 2);
 	uv_uilabel_init(&this->dec_label, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF),
-			C(0xFFFFFFFF), "Deceleration (%)");
+			C(0xFFFFFFFF), uv_str(STR_SETTINGS_VALVES_SLIDERDEC));
 	uv_uitreeobject_add(obj, &this->dec_label,
 			bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uitogglebutton_init(&this->invert,
-			this->valve->invert, "Invert Direction", &uv_uistyles[0]);
+			this->valve->invert, uv_str(STR_SETTINGS_VALVES_BUTTONINVERT), &uv_uistyles[0]);
 	uv_uitreeobject_add(obj, &this->invert, bb.x, bb.y,
 			bb.width, CONFIG_UI_SLIDER_WIDTH);
 

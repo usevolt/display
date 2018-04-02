@@ -7,6 +7,7 @@
 
 #include <settings_impl_uw100.h>
 #include "gui.h"
+#include "tr.h"
 
 
 #define this	(&gui.windows.settings.implements.uw100)
@@ -32,7 +33,7 @@ static void show_sliders(uw100_states_e state, char *label) {
 	uv_uigridlayout_set_padding(&grid, 30, 10);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
-	uv_uibutton_init(&this->back, "Back", &uv_uistyles[0]);
+	uv_uibutton_init(&this->back, uv_str(STR_BACK), &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->back, bb.x, bb.y, bb.width, BACK_H);
 	bb = uv_uigridlayout_next(&grid);
 
@@ -50,7 +51,7 @@ static void show_sliders(uw100_states_e state, char *label) {
 			v->max_speed_p, &uv_uistyles[0]);
 	uv_uislider_set_inc_step(&this->max_speed_p, 10);
 	uv_uislider_set_vertical(&this->max_speed_p);
-	uv_uislider_set_title(&this->max_speed_p, "Max speed\nforward (ma)");
+	uv_uislider_set_title(&this->max_speed_p, uv_str(STR_SETTINGS_UW100_SLIDERFORMAXSPEED));
 	uv_uiwindow_add(this->window, &this->max_speed_p, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
@@ -58,23 +59,24 @@ static void show_sliders(uw100_states_e state, char *label) {
 			v->max_speed_n, &uv_uistyles[0]);
 	uv_uislider_set_inc_step(&this->max_speed_n, 10);
 	uv_uislider_set_vertical(&this->max_speed_n);
-	uv_uislider_set_title(&this->max_speed_n, "Max speed\nforward (ma)");
+	uv_uislider_set_title(&this->max_speed_n, uv_str(STR_SETTINGS_UW100_SLIDERBACKMAXSPEED));
 	uv_uiwindow_add(this->window, &this->max_speed_n, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->acc, VALVE_ACC_MIN, 100, v->acc, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->acc);
-	uv_uislider_set_title(&this->acc, "Acceleration\n(%)");
+	uv_uislider_set_title(&this->acc, uv_str(STR_SETTINGS_UW100_SLIDERACC));
 	uv_uiwindow_add(this->window, &this->acc, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->dec, VALVE_DEC_MIN, 100, v->dec, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->dec);
-	uv_uislider_set_title(&this->dec, "Deceleration\n(%)");
+	uv_uislider_set_title(&this->dec, uv_str(STR_SETTINGS_UW100_SLIDERDEC));
 	uv_uiwindow_add(this->window, &this->dec, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uitogglebutton_init(&this->invert, v->invert, "Invert", &uv_uistyles[0]);
+	uv_uitogglebutton_init(&this->invert, v->invert,
+			uv_str(STR_SETTINGS_UW100_BUTTONINVERT), &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->invert, bb.x, bb.y + bb.height / 5,
 			bb.width, bb.height / 2);
 }
@@ -97,12 +99,12 @@ void settings_impl_uw100_show(void) {
 	uv_uigridlayout_next(&grid);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->rotator, "Rotator", &uv_uistyles[0]);
+	uv_uibutton_init(&this->rotator, uv_str(STR_SETTINGS_UW100_BUTTONROTATOR), &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->rotator, bb.x + bb.width / 2 + grid.hpadding,
 			bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->open, "Open / Close", &uv_uistyles[0]);
+	uv_uibutton_init(&this->open, uv_str(STR_SETTINGS_UW100_BUTTONOPENCLOSE), &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->open, bb.x + bb.width / 2 + grid.hpadding,
 			bb.y, bb.width, bb.height);
 

@@ -54,7 +54,7 @@ void gui_init() {
 	uv_uiprogressbar_init(&this->rpm, 0, RPM_MAX, &uv_uistyles[0]);
 	uv_uiprogressbar_set_vertical(&this->rpm);
 	uv_uiprogressbar_set_limit(&this->rpm, UI_PROGRESSBAR_LIMIT_OVER, RPM_WARNING_LIMIT, C(0xFF0000));
-	uv_uiprogressbar_set_title(&this->rpm, "RPM");
+	uv_uiprogressbar_set_title(&this->rpm, uv_str(STR_BARRPM));
 	uv_uiprogressbar_set_value(&this->rpm, esb_get_rpm(&dspl.network.esb));
 	uv_uiwindow_add(&this->display, &this->rpm, 0, 0,
 			PBAR_WIDTH, uv_uibb(&this->main_window)->height);
@@ -88,7 +88,7 @@ void gui_init() {
 
 	uv_uiprogressbar_init(&this->pressure, 0, PRESSURE_MAX, &uv_uistyles[0]);
 	uv_uiprogressbar_set_vertical(&this->pressure);
-	uv_uiprogressbar_set_title(&this->pressure, "Pressure");
+	uv_uiprogressbar_set_title(&this->pressure, uv_str(STR_BARPRESSURE));
 	uv_uiprogressbar_set_value(&this->pressure, ecu_get_pressure(&dspl.network.ecu));
 	uv_uiwindow_add(&this->display, &this->pressure,
 			uv_uibb(&this->display)->width - PBAR_WIDTH - CONFIG_UI_PROGRESSBAR_WIDTH, 0,

@@ -129,22 +129,16 @@ void ecu_set_boom_rotate_params(valve_st *valve) {
 	}
 }
 
-#if FM
 
 void ecu_set_drive_params(valve_st *valve) {
 	uv_errors_e e = ERR_NONE;
-	valve_st v = *valve;
-	v.max_speed_n *= 2;
-	v.max_speed_p *= 2;
-	v.min_speed_n *= 2;
-	v.min_speed_p *= 2;
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 1, 2, &v.max_speed_p));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 2, 2, &v.min_speed_p));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 3, 2, &v.max_speed_n));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 4, 2, &v.min_speed_n));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 5, 2, &v.acc));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 6, 2, &v.dec));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 7, 1, &v.invert));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 1, 2, &valve->max_speed_p));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 2, 2, &valve->min_speed_p));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 3, 2, &valve->max_speed_n));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 4, 2, &valve->min_speed_n));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 5, 2, &valve->acc));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 6, 2, &valve->dec));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 7, 1, &valve->invert));
 	if (e) {
 		netdev_set_transmit_failure(&dspl.network.ecu);
 	}
@@ -164,54 +158,7 @@ void ecu_set_steer_params(valve_st *valve) {
 	}
 }
 
-#elif LM
-
-void ecu_set_drivefront_params(valve_st *valve) {
-	uv_errors_e e = ERR_NONE;
-	valve_st v = *valve;
-	v.max_speed_n *= 2;
-	v.max_speed_p *= 2;
-	v.min_speed_n *= 2;
-	v.min_speed_p *= 2;
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 1, 2, &v.max_speed_p));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 2, 2, &v.min_speed_p));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 3, 2, &v.max_speed_n));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 4, 2, &v.min_speed_n));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 5, 2, &v.acc));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 6, 2, &v.dec));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 7, 1, &v.invert));
-	if (e) {
-		netdev_set_transmit_failure(&dspl.network.ecu);
-	}
-}
-
-void ecu_set_steerfront_params(valve_st *valve) {
-	uv_errors_e e = ERR_NONE;
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2004, 1, 2, &valve->max_speed_p));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2004, 2, 2, &valve->min_speed_p));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2004, 3, 2, &valve->max_speed_n));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2004, 4, 2, &valve->min_speed_n));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2004, 5, 2, &valve->acc));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2004, 6, 2, &valve->dec));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2004, 7, 1, &valve->invert));
-	if (e) {
-		netdev_set_transmit_failure(&dspl.network.ecu);
-	}
-}
-
-void ecu_set_driveback_params(valve_st *valve) {
-	uv_errors_e e = ERR_NONE;
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 1, 2, &valve->max_speed_p));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 2, 2, &valve->min_speed_p));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 3, 2, &valve->max_speed_n));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 4, 2, &valve->min_speed_n));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 5, 2, &valve->acc));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 6, 2, &valve->dec));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 7, 1, &valve->invert));
-	if (e) {
-		netdev_set_transmit_failure(&dspl.network.ecu);
-	}
-}
+#if LM
 
 void ecu_set_steerback_params(valve_st *valve) {
 	uv_errors_e e = ERR_NONE;
@@ -256,53 +203,6 @@ void ecu_set_cab_rot_params(valve_st *valve) {
 }
 
 #elif CM
-
-void ecu_set_drivefront_params(valve_st *valve) {
-	uv_errors_e e = ERR_NONE;
-	valve_st v = *valve;
-	v.max_speed_n *= 2;
-	v.max_speed_p *= 2;
-	v.min_speed_n *= 2;
-	v.min_speed_p *= 2;
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 1, 2, &v.max_speed_p));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 2, 2, &v.min_speed_p));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 3, 2, &v.max_speed_n));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 4, 2, &v.min_speed_n));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 5, 2, &v.acc));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 6, 2, &v.dec));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2003, 7, 1, &v.invert));
-	if (e) {
-		netdev_set_transmit_failure(&dspl.network.ecu);
-	}
-}
-
-void ecu_set_steer_params(valve_st *valve) {
-	uv_errors_e e = ERR_NONE;
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2004, 1, 2, &valve->max_speed_p));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2004, 2, 2, &valve->min_speed_p));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2004, 3, 2, &valve->max_speed_n));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2004, 4, 2, &valve->min_speed_n));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2004, 5, 2, &valve->acc));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2004, 6, 2, &valve->dec));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2004, 7, 1, &valve->invert));
-	if (e) {
-		netdev_set_transmit_failure(&dspl.network.ecu);
-	}
-}
-
-void ecu_set_driveback_params(valve_st *valve) {
-	uv_errors_e e = ERR_NONE;
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 1, 2, &valve->max_speed_p));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 2, 2, &valve->min_speed_p));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 3, 2, &valve->max_speed_n));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 4, 2, &valve->min_speed_n));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 5, 2, &valve->acc));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 6, 2, &valve->dec));
-	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 7, 1, &valve->invert));
-	if (e) {
-		netdev_set_transmit_failure(&dspl.network.ecu);
-	}
-}
 
 void ecu_set_telescope_params(valve_st *valve) {
 	uv_errors_e e = ERR_NONE;

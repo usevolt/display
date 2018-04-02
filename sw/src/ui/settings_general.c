@@ -7,26 +7,32 @@
 
 
 #include <ui/uv_uilayout.h>
+#include <uv_reset.h>
 #include "settings_general.h"
 #include "gui.h"
+#include "tr.h"
+#include "main.h"
 
 #define this (&gui.windows.settings.general)
 
-#define GENERAL_HEIGHT		200
+#define GENERAL_HEIGHT		180
 #define DISPLAY_HEIGHT		140
-#define DATE_HEIGHT			160
 #define IMPLEMENT_HEIGHT	200
+#define DATE_HEIGHT			160
+#define LANG_HEIGHT			180
 
 uv_uiobject_ret_e settings_general_step(const uint16_t step_ms);
 uv_uiobject_ret_e settings_system_step(const uint16_t step_ms);
 uv_uiobject_ret_e settings_implement_step(const uint16_t step_ms);
 uv_uiobject_ret_e settings_date_step(const uint16_t step_ms);
+uv_uiobject_ret_e settings_lang_step(const uint16_t step_ms);
 
 
 void show_general_callb(uv_uitreeobject_st *obj);
 void show_system_callb(uv_uitreeobject_st *obj);
 void show_implement_callb(uv_uitreeobject_st *obj);
 void show_date_callb(uv_uitreeobject_st *obj);
+void show_lang_callb(uv_uitreeobject_st *obj);
 
 
 static void update_time() {
@@ -48,21 +54,25 @@ void settings_general_show(void) {
 			uv_uibb(window)->width, uv_uitabwindow_get_contentbb(window).height);
 
 
-	uv_uitreeobject_init(&this->generalobj, this->buffer, "General",
+	uv_uitreeobject_init(&this->generalobj, this->buffer, uv_str(STR_SETTINGS_GENERAL_TREEGENERAL),
 			&show_general_callb, &uv_uistyles[0]);
-	uv_uitreeview_add(&this->treeview, &this->generalobj, GENERAL_HEIGHT, false);
+	uv_uitreeview_add(&this->treeview, &this->generalobj, GENERAL_HEIGHT, true);
 
-	uv_uitreeobject_init(&this->displayobj, this->buffer, "System",
+	uv_uitreeobject_init(&this->displayobj, this->buffer, uv_str(STR_SETTINGS_GENERAL_TREESYSTEM),
 			&show_system_callb, &uv_uistyles[0]);
 	uv_uitreeview_add(&this->treeview, &this->displayobj, DISPLAY_HEIGHT, false);
 
-	uv_uitreeobject_init(&this->implementobj, this->buffer, "Select Implement",
+	uv_uitreeobject_init(&this->implementobj, this->buffer, uv_str(STR_SETTINGS_GENERAL_TREESELIMPL),
 			&show_implement_callb, &uv_uistyles[0]);
 	uv_uitreeview_add(&this->treeview, &this->implementobj, IMPLEMENT_HEIGHT, false);
 
-	uv_uitreeobject_init(&this->dateobj, this->buffer, "Date and Time",
+	uv_uitreeobject_init(&this->dateobj, this->buffer, uv_str(STR_SETTINGS_GENERAL_TREEDATETIME),
 			&show_date_callb, &uv_uistyles[0]);
 	uv_uitreeview_add(&this->treeview, &this->dateobj, DATE_HEIGHT, false);
+
+	uv_uitreeobject_init(&this->langobj, this->buffer, uv_str(STR_SETTINGS_GENERAL_TREELANG),
+			&show_lang_callb, &uv_uistyles[0]);
+	uv_uitreeview_add(&this->treeview, &this->langobj, LANG_HEIGHT, false);
 }
 
 
@@ -81,7 +91,7 @@ void show_general_callb(uv_uitreeobject_st *obj) {
 	uv_output_state_e state = uv_canopen_sdo_read8(CSB_NODE_ID,
 			CSB_DRIVE_LIGHT_STATUS_INDEX, CSB_DRIVE_LIGHT_STATUS_SUBINDEX);
 	uv_uitogglebutton_init(&this->general.drive_lights, (state == OUTPUT_STATE_ON),
-			"Drive Lights", &uv_uistyles[0]);
+			uv_str(STR_SETTINGS_GENERAL_BUTTONDRIVELIGHT), &uv_uistyles[0]);
 	uv_uitreeobject_add(&this->generalobj, &this->general.drive_lights, bb.x, bb.y,
 			bb.width, bb.height / 2 - 5);
 
@@ -89,14 +99,14 @@ void show_general_callb(uv_uitreeobject_st *obj) {
 	state = uv_canopen_sdo_read8(CSB_NODE_ID,
 			CSB_WORK_LIGHT_STATUS_INDEX, CSB_WORK_LIGHT_STATUS_SUBINDEX);
 	uv_uitogglebutton_init(&this->general.work_lights, (state == OUTPUT_STATE_ON),
-			"Work Lights", &uv_uistyles[0]);
+			uv_str(STR_SETTINGS_GENERAL_BUTTONWORKLIGHT), &uv_uistyles[0]);
 	uv_uitreeobject_add(&this->generalobj, &this->general.work_lights, bb.x, bb.y + bb.height / 2 + 5,
 			bb.width, bb.height / 2 - 5);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->general.power_usage, 0, 100, dspl.user->engine_power_usage, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->general.power_usage);
-	uv_uislider_set_title(&this->general.power_usage, "Engine power\nusage (%)");
+	uv_uislider_set_title(&this->general.power_usage, uv_str(STR_SETTINGS_GENERAL_SLIDERENGINEPOWER));
 	uv_uitreeobject_add(&this->generalobj, &this->general.power_usage, bb.x, bb.y, bb.width, bb.height);
 }
 
@@ -115,7 +125,7 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 	// brightness
 	uv_uislider_init(&this->system.brightness, 1, 100, gui_get_backlight(), &uv_uistyles[0]);
 	uv_uislider_set_horizontal(&this->system.brightness);
-	uv_uislider_set_title(&this->system.brightness, "Screen\nbrightness");
+	uv_uislider_set_title(&this->system.brightness, uv_str(STR_SETTINGS_GENERAL_SLIDERBRIGHTNESS));
 	uv_uitreeobject_add(&this->displayobj, &this->system.brightness,
 			bb.x, bb.y, bb.width, bb.height);
 
@@ -125,7 +135,7 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 			uv_canopen_sdo_read8(ESB_NODE_ID, ESB_OILCOOLER_TRIGGER_INDEX, ESB_OILCOOLER_TRIGGER_SUBINDEX),
 			&uv_uistyles[0]);
 	uv_uislider_set_horizontal(&this->system.oilcooler_trigger);
-	uv_uislider_set_title(&this->system.oilcooler_trigger, "Oil Cooler\ntrigger temp");
+	uv_uislider_set_title(&this->system.oilcooler_trigger, uv_str(STR_SETTINGS_GENERAL_SLIDEROILCTEMP));
 	uv_uitreeobject_add(&this->displayobj, &this->system.oilcooler_trigger,
 			bb.x, bb.y, bb.width, bb.height);
 
@@ -238,6 +248,35 @@ void show_date_callb(uv_uitreeobject_st *obj) {
 	uv_uitreeobject_add(&this->dateobj, &this->date.year_dec,
 			datex, datey + fh / 2 + 8,
 			fw * 4, fh * 1.5);
+
+}
+
+
+void show_lang_callb(uv_uitreeobject_st *obj) {
+	uv_uitreeobject_clear(&this->langobj);
+	uv_uitreeobject_set_step_callback(&this->langobj, &settings_lang_step);
+
+	uv_uigridlayout_st grid;
+	uv_uigridlayout_init(&grid, 0, 0,
+			uv_uitreeobject_get_content_bb(&this->langobj).width,
+			uv_uitreeobject_get_content_bb(&this->langobj).height, 2, 1);
+	uv_uigridlayout_set_padding(&grid, 10, 10);
+	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
+
+	uv_uilist_init(&this->lang.languages, this->lang.lang_list, LANG_COUNT, &uv_uistyles[0]);
+	uint8_t index = 0;
+	for (languages_e i = LANG_EN; i < LANG_COUNT; i++) {
+		this->lang.lang_list[index] = uv_strlang(STR_LANG, i);
+		uv_uilist_push_back(&this->lang.languages, this->lang.lang_list[index]);
+		index++;
+	}
+	uv_uilist_select(&this->lang.languages, get_lang() - LANG_EN);
+	uv_uitreeobject_add(&this->langobj, &this->lang.languages, bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uibutton_init(&this->lang.setlang, uv_str(STR_SETTINGS_GENERAL_BUTTONSETLANG), &uv_uistyles[0]);
+	uv_uitreeobject_add(&this->langobj, &this->lang.setlang,
+			bb.x, bb.y, bb.width, bb.height / 2);
 
 }
 
@@ -376,4 +415,22 @@ uv_uiobject_ret_e settings_date_step(const uint16_t step_ms) {
 
 	return UIOBJECT_RETURN_ALIVE;
 }
+
+
+uv_uiobject_ret_e settings_lang_step(const uint16_t step_ms) {
+
+	if (uv_uibutton_clicked(&this->lang.setlang)) {
+		if (dspl.lang != (uv_uilist_get_selected(&this->lang.languages) + LANG_EN)) {
+			dspl.lang = uv_uilist_get_selected(&this->lang.languages) + LANG_EN;
+			uv_memory_save();
+			uv_system_reset();
+		}
+	}
+	else {
+
+	}
+
+	return UIOBJECT_RETURN_ALIVE;
+}
+
 

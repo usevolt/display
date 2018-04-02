@@ -14,13 +14,6 @@
 
 #define this (&gui.windows.system)
 
-static const char* tab_names[] = {
-		"Network\nDiagnostics",
-		"Log",
-		"System\nCalibration",
-		"System\nRestore"
-};
-
 
 void system_show(void) {
 
@@ -48,8 +41,12 @@ void system_show(void) {
 			0, UI_FONT_SMALL.char_height);
 
 
-	uv_uitabwindow_init(&this->tabs, sizeof(tab_names) / sizeof(const char *),
-			&uv_uistyles[0], this->tabs_buffer, tab_names);
+	this->tab_names[0] = uv_str(STR_SYSTEM_TABNETWORK);
+	this->tab_names[1] = uv_str(STR_SYSTEM_TABLOG);
+	this->tab_names[2] = uv_str(STR_SYSTEM_TABCALIB);
+	this->tab_names[3] = uv_str(STR_SYSTEM_TABRESTORE);
+	uv_uitabwindow_init(&this->tabs, SYSTEM_TAB_COUNT,
+			&uv_uistyles[0], this->tabs_buffer, (const char **) this->tab_names);
 
 
 	uv_uiwindow_add(&this->window, &this->tabs, 0, TOPIC_HEIGHT + 10,

@@ -48,13 +48,13 @@ void system_log_show(void) {
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->info_label, &UI_FONT_SMALL, ALIGN_CENTER,
-			C(0xFFFFFF), C(0xFFFFFFFF), "\x11\x16 Select a log entry to acknowledge");
+			C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_SYSTEM_LOG_LABELSELECT));
 	uv_uiwindow_add(&this->window, &this->info_label, bb.x, bb.y, bb.width, bb.height);
 	uv_ui_set_enabled(&this->info_label, false);
 
 	bb = uv_uigridlayout_next(&grid);
 	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->ack, "Acknowledge", &uv_uistyles[0]);
+	uv_uibutton_init(&this->ack, uv_str(STR_SYSTEM_LOG_BUTTONACK), &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->ack, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
@@ -66,10 +66,10 @@ void system_log_show(void) {
 
 	bb = uv_uigridlayout_next(&grid);
 	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->prev_page, "Previous page", &uv_uistyles[0]);
+	uv_uibutton_init(&this->prev_page, uv_str(STR_SYSTEM_LOG_BUTTONPREVPAGE), &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->prev_page, bb.x, bb.y, bb.width / 2 - 5, bb.height);
 
-	uv_uibutton_init(&this->next_page, "Next page", &uv_uistyles[0]);
+	uv_uibutton_init(&this->next_page, uv_str(STR_SYSTEM_LOG_BUTTONNEXTPAGE), &uv_uistyles[0]);
 	uv_uiwindow_add(&this->window, &this->next_page, bb.x + bb.width / 2 + 5,
 			bb.y, bb.width / 2 - 5, bb.height);
 
@@ -83,7 +83,7 @@ static void show_page(int8_t page) {
 	}
 	this->page = page;
 	snprintf(this->page_str, SYSTEM_LOG_PAGE_STR_LEN,
-			"page %u/%u", this->page + 1, page_count());
+			uv_str(STR_SYSTEM_LOG_LABELPAGE), this->page + 1, page_count());
 	this->page_str[15] = '\0';
 	uv_uilabel_set_text(&this->page_label, this->page_str);
 

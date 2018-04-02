@@ -19,6 +19,7 @@
 #include "system.h"
 #include "settings.h"
 #include "dashboard.h"
+#include "tr.h"
 
 /// @file: Graphical user interface module. Takes care of everything showing on the LCD display
 
@@ -44,13 +45,13 @@
 /// @brief: Initializes the cancel button. Macro for quick and same kind
 /// initialization for all windows
 #define CANCEL_INIT(parent_ptr, this_ptr)		\
-	uv_uibutton_init((this_ptr), "Cancel", &uv_uistyles[CANCEL_OK_BUTTON_STYLE_INDEX]); \
+	uv_uibutton_init((this_ptr), uv_str(STR_CANCEL), &uv_uistyles[CANCEL_OK_BUTTON_STYLE_INDEX]); \
 	uv_uiwindow_add((parent_ptr), (this_ptr), 0, 0, 200, TOPIC_HEIGHT)
 
 /// @brief: Initializes the OK button. Macro for quick and same kind
 /// initialization for all windows
 #define OK_INIT(parent_ptr, this_ptr)		\
-	uv_uibutton_init((this_ptr), "OK", &uv_uistyles[CANCEL_OK_BUTTON_STYLE_INDEX]); \
+	uv_uibutton_init((this_ptr), uv_str(STR_SAVE), &uv_uistyles[CANCEL_OK_BUTTON_STYLE_INDEX]); \
 	uv_uiwindow_add((parent_ptr), (this_ptr), \
 	uv_uibb(parent_ptr)->width - 200, 0, \
 	200, TOPIC_HEIGHT)

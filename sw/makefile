@@ -98,7 +98,7 @@ $(BUILDDIR)/%.o: %.c
 
 post-build:
 	-@echo ""
-	-@echo 'Performing post-build steps'
+	-@echo 'Performing post-build steps for $(APP_NAME)_$(GIT_VERSION)'
 	-@echo ""
 	-arm-none-eabi-size "$(BINARY).axf" 
 	-arm-none-eabi-objcopy -O ihex "$(BINARY).axf" "$(BINARY).hex"

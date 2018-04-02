@@ -17,7 +17,7 @@
 
 const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 		{
-				.name = "Boom Lift",
+				.name = STR_SETTINGS_VALVES_TREEBOOMLIFT,
 				.setter = ecu_set_boom_lift_params,
 				.min_speed_p = 230,
 				.max_speed_p = 730,
@@ -28,7 +28,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Boom Fold",
+				.name = STR_SETTINGS_VALVES_TREEBOOMFOLD,
 				.setter = ecu_set_boom_fold_params,
 				.min_speed_p = 260,
 				.max_speed_p = 720,
@@ -39,7 +39,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Boom Turn",
+				.name = STR_SETTINGS_VALVES_TREEBOOMROTATE,
 				.setter = ecu_set_boom_rotate_params,
 				.min_speed_p = 240,
 				.max_speed_p = 570,
@@ -50,7 +50,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Drive",
+				.name = STR_SETTINGS_VALVES_TREEDRIVE,
 				.setter = ecu_set_drive_params,
 				.min_speed_p = 230,
 				.max_speed_p = 890,
@@ -61,7 +61,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Steer",
+				.name = STR_SETTINGS_VALVES_TREESTEER,
 				.setter = ecu_set_steer_params,
 				.min_speed_p = 230,
 				.max_speed_p = 700,
@@ -72,7 +72,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Left Leg",
+				.name = STR_SETTINGS_VALVES_TREELEFTLEG,
 				.setter = ecu_set_left_leg_params,
 				.min_speed_p = 300,
 				.max_speed_p = 850,
@@ -83,7 +83,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Right Leg",
+				.name = STR_SETTINGS_VALVES_TREERIGHTLEG,
 				.setter = ecu_set_right_leg_params,
 				.min_speed_p = 300,
 				.max_speed_p = 850,
@@ -100,7 +100,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 
 const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 		{
-				.name = "Boom Lift",
+				.name = STR_SETTINGS_VALVES_TREEBOOMLIFT,
 				.setter = ecu_set_boom_lift_params,
 				.min_speed_p = 285,
 				.max_speed_p = 730,
@@ -111,7 +111,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Boom Fold",
+				.name = STR_SETTINGS_VALVES_TREEBOOMFOLD,
 				.setter = ecu_set_boom_fold_params,
 				.min_speed_p = 300,
 				.max_speed_p = 720,
@@ -122,7 +122,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Boom Turn",
+				.name = STR_SETTINGS_VALVES_TREEBOOMROTATE,
 				.setter = ecu_set_boom_rotate_params,
 				.min_speed_p = 160,
 				.max_speed_p = 600,
@@ -133,7 +133,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Boom Telescope",
+				.name = STR_SETTINGS_VALVES_TREEBOOMTELESCOPE,
 				.setter = ecu_set_boom_telescope_params,
 				.min_speed_p = 160,
 				.max_speed_p = 600,
@@ -144,8 +144,8 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Drive Front",
-				.setter = ecu_set_drivefront_params,
+				.name = STR_SETTINGS_VALVES_TREEDRIVE,
+				.setter = ecu_set_drive_params,
 				.min_speed_p = 230,
 				.max_speed_p = 890,
 				.min_speed_n = 230,
@@ -155,19 +155,8 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Drive Back",
-				.setter = ecu_set_driveback_params,
-				.min_speed_p = 230,
-				.max_speed_p = 890,
-				.min_speed_n = 230,
-				.max_speed_n = 890,
-				.acc = 30,
-				.dec = 25,
-				.invert = false
-		},
-		{
-				.name = "Steer Front",
-				.setter = ecu_set_steerfront_params,
+				.name = STR_SETTINGS_VALVES_TREESTEER,
+				.setter = ecu_set_steer_params,
 				.min_speed_p = 300,
 				.max_speed_p = 700,
 				.min_speed_n = 300,
@@ -177,7 +166,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Steer Back",
+				.name = STR_SETTINGS_VALVES_TREESTEERBACK,
 				.setter = ecu_set_steerback_params,
 				.min_speed_p = 300,
 				.max_speed_p = 700,
@@ -188,7 +177,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Left Leg",
+				.name = STR_SETTINGS_VALVES_TREELEFTLEG,
 				.setter = ecu_set_left_leg_params,
 				.min_speed_p = 300,
 				.max_speed_p = 850,
@@ -199,7 +188,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Right Leg",
+				.name = STR_SETTINGS_VALVES_TREERIGHTLEG,
 				.setter = ecu_set_right_leg_params,
 				.min_speed_p = 300,
 				.max_speed_p = 850,
@@ -210,7 +199,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Cabin Rotate",
+				.name = STR_SETTINGS_VALVES_TREECABROTATE,
 				.setter = ecu_set_cab_rot_params,
 				.min_speed_p = 300,
 				.max_speed_p = 500,
@@ -227,7 +216,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 
 const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 		{
-				.name = "Boom Lift",
+				.name = STR_SETTINGS_VALVES_TREEBOOMLIFT,
 				.setter = ecu_set_boom_lift_params,
 				.min_speed_p = 285,
 				.max_speed_p = 730,
@@ -238,7 +227,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Boom Fold",
+				.name = STR_SETTINGS_VALVES_TREEBOOMFOLD,
 				.setter = ecu_set_boom_fold_params,
 				.min_speed_p = 300,
 				.max_speed_p = 720,
@@ -249,7 +238,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Boom Turn",
+				.name = STR_SETTINGS_VALVES_TREEBOOMROTATE,
 				.setter = ecu_set_boom_rotate_params,
 				.min_speed_p = 160,
 				.max_speed_p = 600,
@@ -260,7 +249,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 //		{
-//				.name = "Boom Telescope",
+//				.name = STR_SETTINGS_VALVES_TREEBOOMTELESCOPE,
 //				.setter = ecu_set_boom_telescope_params,
 //				.min_speed_p = 160,
 //				.max_speed_p = 600,
@@ -271,8 +260,8 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 //				.invert = false
 //		},
 		{
-				.name = "Drive Front",
-				.setter = ecu_set_drivefront_params,
+				.name = STR_SETTINGS_VALVES_TREEDRIVE,
+				.setter = ecu_set_drive_params,
 				.min_speed_p = 230,
 				.max_speed_p = 890,
 				.min_speed_n = 230,
@@ -282,18 +271,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Drive Back",
-				.setter = ecu_set_driveback_params,
-				.min_speed_p = 230,
-				.max_speed_p = 890,
-				.min_speed_n = 230,
-				.max_speed_n = 890,
-				.acc = 30,
-				.dec = 25,
-				.invert = false
-		},
-		{
-				.name = "Steer",
+				.name = STR_SETTINGS_VALVES_TREESTEER,
 				.setter = ecu_set_steer_params,
 				.min_speed_p = 300,
 				.max_speed_p = 700,
@@ -304,7 +282,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Telescope",
+				.name = STR_SETTINGS_VALVES_TREETELESCOPE,
 				.setter = ecu_set_telescope_params,
 				.min_speed_p = 250,
 				.max_speed_p = 720,
@@ -315,7 +293,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Left Leg",
+				.name = STR_SETTINGS_VALVES_TREELEFTLEG,
 				.setter = ecu_set_left_leg_params,
 				.min_speed_p = 300,
 				.max_speed_p = 850,
@@ -326,7 +304,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Right Leg",
+				.name = STR_SETTINGS_VALVES_TREERIGHTLEG,
 				.setter = ecu_set_right_leg_params,
 				.min_speed_p = 300,
 				.max_speed_p = 850,
@@ -337,7 +315,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.invert = false
 		},
 		{
-				.name = "Cabin Rotate",
+				.name = STR_SETTINGS_VALVES_TREECABROTATE,
 				.setter = ecu_set_cab_rot_params,
 				.min_speed_p = 230,
 				.max_speed_p = 500,
