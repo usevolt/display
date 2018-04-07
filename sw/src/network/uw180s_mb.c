@@ -25,6 +25,8 @@ void mb_set_length_calib(mb_st *this, int16_t value) {
 	if (uv_canopen_sdo_write(this->super.node_id, 0x2007, 0, 2, &value)) {
 		netdev_set_transmit_failure(this);
 	}
+	//send also to secondary mb
+	uv_canopen_sdo_write(UW180S_MB2_NODE_ID, 0x2007, 0, 2, &value);
 }
 
 void mb_set_vol_calib(mb_st *this, int16_t value) {

@@ -26,6 +26,7 @@
 #define PEDAL_NODE_ID			0x1E
 #define UW180S_ECU_NODE_ID		0xA
 #define UW180S_MB_NODE_ID		0xD
+#define UW180S_MB2_NODE_ID		0xF
 
 
 

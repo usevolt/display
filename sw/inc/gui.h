@@ -51,6 +51,12 @@
 /// @brief: Initializes the OK button. Macro for quick and same kind
 /// initialization for all windows
 #define OK_INIT(parent_ptr, this_ptr)		\
+	uv_uibutton_init((this_ptr), uv_str(STR_OK), &uv_uistyles[CANCEL_OK_BUTTON_STYLE_INDEX]); \
+	uv_uiwindow_add((parent_ptr), (this_ptr), \
+	uv_uibb(parent_ptr)->width - 200, 0, \
+	200, TOPIC_HEIGHT)
+
+#define SAVE_INIT(parent_ptr, this_ptr)	\
 	uv_uibutton_init((this_ptr), uv_str(STR_SAVE), &uv_uistyles[CANCEL_OK_BUTTON_STYLE_INDEX]); \
 	uv_uiwindow_add((parent_ptr), (this_ptr), \
 	uv_uibb(parent_ptr)->width - 200, 0, \

@@ -27,463 +27,580 @@ static languages_e current_lang = LANG_EN;
 static langstr_st strs[STR_COUNT] = {
 		{
 				"English",
-				"Suomi"
+				"Suomi",
+				"Deutsch"
 		},
 		{
 				"Back",
-				"Takaisin"
+				"Takaisin",
+				"Zuruck"
 		},
 		{
 				"Cancel",
-				"Hylkaa"
+				"Hylkaa",
+				"Ablehnen"
 		},
 		{
 				"Save",
-				"Tallenna"
+				"Tallenna",
+				"Speichern"
 		},
 		{
+				"OK",
 				"OK",
 				"OK"
 		},
 		{
 				"Dashboard",
-				"Paneeli"
+				"Paneeli",
+				"Dashboard"
 		},
 		{
 				"Settings",
-				"Asetukset"
+				"Asetukset",
+				"Einstellungen"
 		},
 		{
 				"System",
-				"Jarjestelma"
+				"Jarjestelma",
+				"System"
 		},
 		{
 				"Log Out",
-				"Kirjaudu\nulos"
+				"Kirjaudu\nulos",
+				"Aus loggen"
 		},
 		{
 				"Select Driver",
-				"Valitse kuljettaja"
+				"Valitse kuljettaja",
+				"Fahrerauswahl"
 		},
 		{
 				"Log In",
-				"Kirjaudu"
+				"Kirjaudu",
+				"Ein loggen"
 		},
 		{
 				"Add User",
-				"Lisaa kujettaja"
+				"Lisaa kujettaja",
+				"Fahrer zugeben"
 		},
 		{
 				"Delete User",
-				"Poista kuljettaja"
+				"Poista kuljettaja",
+				"Fahrer entfernen"
 		},
 		{
 				"Target Length:",
-				"Tavoitepituus:"
+				"Tavoitepituus:",
+				"Ziellange"
 		},
 		{
 				"Length (cm)",
-				"Pituus (cm)"
+				"Pituus (cm)",
+				"Lange (cm)"
 		},
 		{
 				"Diameter (mm)",
-				"Halkaisija (mm)"
+				"Halkaisija (mm)",
+				"Durchmesser (mm)"
 		},
 		{
 				"Volume (m3)",
-				"Tilavuus (m3)"
+				"Tilavuus (m3)",
+				"Volumen (m3)"
 		},
 		{
 				"Hours",
-				"Tunnit"
+				"Tunnit",
+				"Stunden"
 		},
 		{
 				"Water",
-				"Jaahdytyvesi"
+				"Jaahdytyvesi",
+				"Kuhlwasser"
 		},
 		{
 				"Oil Press",
-				"Oljyn paine"
+				"Oljyn paine",
+				"Oldruck"
 		},
 		{
 				"Alternator",
-				"Laturi"
+				"Laturi",
+				"Lichtmaschine"
 		},
 		{
 				"Glow Plugs",
-				"Hehku"
+				"Hehku",
+				"Gluhkerzen"
 		},
 		{
 				"EMCY",
-				"Hata"
+				"Hata",
+				"Notfall"
 		},
 		{
 				"Door",
-				"Ovi"
+				"Ovi",
+				"Tur"
 		},
 		{
 				"Seat",
-				"Istuin"
+				"Istuin",
+				"Sitz"
 		},
 		{
 				"Gear",
-				"Vaihde"
+				"Vaihde",
+				"Gang"
 		},
 		{
 				"Horn",
-				"Torvi"
+				"Torvi",
+				"Hupe"
 		},
 		{
 				"Wiper",
-				"Pyyhin"
+				"Pyyhin",
+				"Wischer"
 		},
 		{
 				"Heat",
-				"Lampo"
+				"Lampo",
+				"Heizung"
 		},
 		{
 				"Bat V",
+				"Akku",
 				"Akku"
 		},
 		{
 				"Fuel L",
+				"DieselM",
 				"DieselM"
 		},
 		{
 				"OIL L",
-				"OljyM"
+				"OljyM",
+				"Ol M"
 		},
 		{
 				"Oil T",
-				"OljyL"
+				"OljyL",
+				"Ol T"
 		},
 		{
 				"Motor T",
-				"KubotaL"
+				"KubotaL",
+				"Motor T"
 		},
 		{
 				"Click to close",
-				"Paina sulkeaksesi"
+				"Paina sulkeaksesi",
+				"Zum Schliessen klicken"
 		},
 		{
 				"Click to go to the log",
-				"Paina mennaksesi lokiin"
+				"Paina mennaksesi lokiin",
+				"Klicke um Log Zu Offnen"
 		},
 		{
 				"General",
-				"Yleiset"
+				"Yleiset",
+				"Allgemeines"
 		},
 		{
 				"System",
-				"Jarjestelma"
+				"Jarjestelma",
+				"System"
 		},
 		{
 				"Select Implement",
-				"Tyolaite"
+				"Tyolaite",
+				"Arbeitsgerat"
 		},
 		{
 				"Date and Time",
-				"Paivamaara ja kellonaika"
+				"Paivamaara ja kellonaika",
+				"Datum und Uhrzeit"
 		},
 		{
 				"Language",
-				"Kieli"
+				"Kieli",
+				"Sprache"
 		},
 		{
 				"Drive Light",
-				"Ajovalot"
+				"Ajovalot",
+				"Fahrlicht"
 		},
 		{
 				"Work Light",
-				"Tyovalot"
+				"Tyovalot",
+				"Arbeitslicht"
 		},
 		{
-				"Engine power\nusage (%)",
-				"Moottorin tehon\notto (%)"
+				"Engine power\noutput (%)",
+				"Moottorin tehon\nanto (%)",
+				"Motor Kraftabgabe (%)"
 		},
 		{
 				"Screen Brightness",
-				"Nayton kirkkaus"
+				"Nayton kirkkaus",
+				"Display Helligkeit"
 		},
 		{
 				"Oil Cooler\nTrigger Temp",
-				"Oljynlauhduttimen\nliipaisulampotila"
+				"Oljynlauhduttimen\nliipaisulampotila",
+				"Olkuhler Auslos\ntemperatur"
 		},
 		{
 				"Set Language\nAnd Reset",
-				"Aseta Kieli\nja Kaynnista Uudelleen"
+				"Aseta Kieli\nja Kaynnista Uudelleen",
+				"Sprache einstellen \nund resetieren"
+
 		},
 		{
 				"Implement not selected.\n"
 				"Select implement from System settings.",
 				"Tyolaitetta ei ole valittu.\n"
-				"Valitse tyolaite jarjestelma-asetuksista."
-		},
+				"Valitse tyolaite jarjestelma-asetuksista.",
+				"Arbeitsgerat nicht gewahlt.\n"
+				"Wahle ein gerat bei Systemeinstellungen."		},
 		{
 				"Go to settings",
-				"Siirry asetuksiin"
+				"Siirry asetuksiin",
+				"Zu den Einstellungen"
 		},
 		{
 				"Forward Max Speed (mA)",
-				"Max nopeus eteen (mA)"
+				"Max nopeus eteen (mA)",
+				"Vorw. max. Geschw. (mA)"
 		},
 		{
 				"Backward Max Speed (mA)",
-				"Max nopeus taakse (mA)"
+				"Max nopeus taakse (mA)",
+				"Ruckw. max. Geschw. (mA)"
 		},
 		{
 				"Forward Min Speed (mA)",
-				"Min nopeus eteen (mA)"
+				"Min nopeus eteen (mA)",
+				"Vorw. min. Geschw. (mA)"
 		},
 		{
 				"Backward Min Speed (mA)",
-				"Min nopeus taakse (mA)"
+				"Min nopeus taakse (mA)",
+				"Ruckw. min. Geschw. (mA)"
 		},
 		{
 				"Acceleration (%)",
-				"Kiihtyvyys (%)"
+				"Kiihtyvyys (%)",
+				"Beschleunigung (%)"
 		},
 		{
 				"Deceleration (%)",
-				"Hidastuvuus (%)"
+				"Hidastuvuus (%)",
+				"Verzogerung (%)"
 		},
 		{
 				"Invert Direction",
-				"Invertoi suunta"
+				"Invertoi suunta",
+				"Richtung umstellen"
 		},
 		{
 				"Rotator",
-				"Rotaattori"
+				"Rotaattori",
+				"Rotator"
 		},
 		{
 				"Open / Close",
-				"Auki / Kiinni"
+				"Auki / Kiinni",
+				"Auf / Zu"
 		},
 		{
 				"Forward\nMax Speed (mA)",
-				"Max Nopeus\nEteen (mA)"
+				"Max Nopeus\nEteen (mA)",
+				"Vorw. max.\nGeschw. (mA)"
 		},
 		{
 				"Backward\nMax Speed (mA)",
-				"Max Nopeus\nTaakse (mA)"
+				"Max Nopeus\nTaakse (mA)",
+				"Ruckw. max.\nGeschw. (mA)"
 		},
 		{
 				"Acceleration\n(%)",
-				"Kiihtyvyys\n(%)"
+				"Kiihtyvyys\n(%)",
+				"Beschleunigung (%)"
 		},
 		{
 				"Deceleration\n(%)",
-				"Hidastuvuus\n(%)"
+				"Hidastuvuus\n(%)",
+				"Verzogerung (%)"
 		},
 		{
 				"Invert\nDirection",
-				"Invertoi\nSuunta"
+				"Invertoi\nSuunta",
+				"Richtung \numstellen"
 		},
 		{
 				"UW180S General",
-				"UW180S Yleiset"
+				"UW180S Yleiset",
+				"UW180S Allgemeines"
 		},
 		{
 				"Rollers grab\ntime (ms)",
-				"Rullien\npuristusaika (ms)"
+				"Rullien\npuristusaika (ms)",
+				"Rollen\nGreifzeit (ms)"
 		},
 		{
 				"Blades grab\ntime (ms)",
-				"Terien\npuristusaika (ms)"
+				"Terien\npuristusaika (ms)",
+				"Klingen\nGreifzeit (ms)"
 		},
 		{
 				"UW180S Valves",
-				"UW180S venttiilit"
+				"UW180S venttiilit",
+				"UW180S Ventile"
 		},
 		{
 				"Wheels\nopen/close",
-				"Rullat\nauki/kiinni"
+				"Rullat\nauki/kiinni",
+				"Rollen\noffen/zu"
 		},
 		{
 				"Feeding",
-				"Puun syotto"
+				"Puun syotto",
+				"Futterung"
 		},
 		{
 				"Blades\nopen/close",
-				"Terat\nauki/kiinni"
+				"Terat\nauki/kiinni",
+				"Klingen\noffen/zu"
 		},
 		{
 				"Saw",
-				"saha"
+				"Saha",
+				"Sage"
 		},
 		{
 				"Tilt",
-				"tiltti"
+				"Tiltti",
+				"Neigung"
 		},
 		{
 				"Rotator",
-				"Rotaattori"
+				"Rotaattori",
+				"Rotator"
 		},
 		{
 				"UW180S Measurement",
-				"UW180S mittalaite"
+				"UW180S mittalaite",
+				"UW180S Messgerat"
 		},
 		{
 				"Enabled",
-				"Kaytossa"
+				"Kaytossa",
+				"Aktiviert"
 		},
 		{
 				"Log Length 1",
-				"Puun pituus 1"
+				"Puun pituus 1",
+				"Holtz Lange 1"
 		},
 		{
 				"Log Length 2",
-				"Puun pituus 2"
+				"Puun pituus 2",
+				"Holtz Lange 2"
 		},
 		{
 				"Length\nCalibration",
-				"Pituus\nKalibrointi"
+				"Pituus\nKalibrointi",
+				"Lange\nKalibration"
 		},
 		{
 				"Volume\nCalibration",
-				"Tilavuus\nKalibrointi"
+				"Tilavuus\nKalibrointi",
+				"Volumen\nKalibration"
 		},
 		{
 				"Note: Calibration values are\n"
 				"shared across all users",
 				"Huomio: Kalibrointiarvot ovat\n"
-				"samat kaikille kayttajille."
+				"samat kaikille kayttajille.",
+				"Achtung: Kalibrationswarte sind\n"
+				"gleich fur alle Benutzer."
 		},
 		{
 				"Reset\nVolume",
-				"Tilavuuden\nnollaus"
+				"Tilavuuden\nnollaus",
+				"Volumen\nResetieren"
 		},
 		{
 				"General",
-				"Yleiset"
+				"Yleiset",
+				"Allgemeines"
 		},
 		{
 				"Log\nMeasurement",
-				"Mittalaite"
+				"Mittalaite",
+				"Messgerat"
 		},
 		{
 				"Valve\nConfigurations",
-				"Venttiili-\nasetukset"
+				"Venttiili-\nasetukset",
+				"Ventil\nEinstellungen"
 		},
 		{
 				"General",
-				"Yleiset"
+				"Yleiset",
+				"Allgemeines"
 		},
 		{
 				"Valve\nConfigurations",
-				"Venttiilen\nKonfigurointi"
+				"Venttiilen\nKonfigurointi",
+				"Ventil\nEinstellungen"
 		},
 		{
 				"Implement\nSettings",
-				"Tyolaitteen\nAsetukset"
+				"Tyolaitteen\nAsetukset",
+				"Arbeitsgerat\nEinstelungen."
 		},
 		{
 				"Settings",
-				"Asetukset"
+				"Asetukset",
+				"Einstellungen"
 		},
 		{
 				"Boom Lift",
-				"Puomi nosto"
+				"Puomi nosto",
+				"Ausleger heben"
 		},
 		{
 				"Boom Fold",
-				"Puomi Taitto"
+				"Puomi Taitto",
+				"Ausleger falten"
 		},
 		{
 				"Boom Rotate",
-				"Puomi kaanto"
+				"Puomi kaanto",
+				"Ausleger drehen"
 		},
 		{
 				"Boom Telescope",
-				"Puomi Teleskooppi"
+				"Puomi Teleskooppi",
+				"Ausleger verlangerung"
 		},
 		{
 				"Drive",
-				"Ajo"
+				"Ajo",
+				"Fur"
 		},
 		{
 				"Steer",
-				"Ohjaus"
+				"Ohjaus",
+				"Steuerung"
 		},
 		{
 				"Back Steering",
-				"Takaohjaus"
+				"Takaohjaus",
+				"Hinterrad Steuerung"
 		},
 		{
 				"Loading Space Telescope",
-				"Kuormatilan teleskooppi"
+				"Kuormatilan teleskooppi",
+				"Laderaum verlangerung"
 		},
 		{
 				"Left Leg",
-				"Vasen Tukijalka"
+				"Vasen Tukijalka",
+				"Stutze links"
 		},
 		{
 				"Right Leg",
-				"Oikea Tukijalka"
+				"Oikea Tukijalka",
+				"Stutze rechts"
 		},
 		{
 				"Cabin Rotate",
-				"Hytin Pyoritys"
+				"Hytin Pyoritys",
+				"Kabine Drehen"
 		},
 		{
+				"RPM",
 				"RPM",
 				"RPM"
 		},
 		{
 				"Pressure",
-				"Paine"
+				"Paine",
+				"Druck"
 		},
 		{
-				"Network\nDiagnostics",
-				"Jarjestelman\nDiagnostiikka"
+				"System\nDiagnostics",
+				"Jarjestelman\nDiagnostiikka",
+				"Systemdiagnose"
 		},
 		{
 				"Log",
-				"Loki"
+				"Loki",
+				"Logbuch"
 		},
 		{
 				"System\nCalibration",
-				"Jarjestelman\nKalibrointi"
+				"Jarjestelman\nKalibrointi",
+				"Systemkalibration"
 		},
 		{
 				"System\nRestore",
-				"Tehdasasetusten\nPalautus"
+				"Tehdasasetusten\nPalautus",
+				"WerkS"
+				"einstellungen\nzurucksetzen"
 		},
 		{
 				"\x11\x16 Select a log entry to acknowledge",
-				"\x11\x16 Valitse kuitattava lokitieto"
+				"\x11\x16 Valitse kuitattava lokitieto",
+				"\x11\x16 Wahle einen log-eintrag zur bestatikung"
 		},
 		{
 				"Acknowledge",
-				"Kuittaa"
+				"Kuittaa",
+				"Bestatigen"
 		},
 		{
 				"Previous Page",
-				"Edellinen sivu"
+				"Edellinen sivu",
+				"Vorherige Seite"
 		},
 		{
 				"Next Page",
-				"Seuraava sivu"
+				"Seuraava sivu",
+				"Nächste Seite"
 		},
 		{
 				"Page %u/%u",
-				"Sivu %u/%u"
+				"Sivu %u/%u",
+				"Seite %u/%u"
 		},
 		{
 				"UW180S Measurement calibration",
-				"UW180S Mittalaitteen kalibrointi"
+				"UW180S Mittalaitteen kalibrointi",
+				"UW180S Messgerat Kalibration"
 		},
 		{
 				"Calibrate\nMIN angles",
-				"Kalibroi\nMIN kulmat"
+				"Kalibroi\nMIN kulmat",
+				"Kalbriere\nMIN Winkel"
 		},
 		{
 				"Calibrate\nMAX angles",
-				"Kalibroi\nMAX kulmat"
+				"Kalibroi\nMAX kulmat",
+				"Kalbriere\nMAX Winkel"
 		},
 		{
 				"Joystick\nCalibration",
-				"Ohjainkahvojen\nKalibrointi"
+				"Ohjainkahvojen\nKalibrointi",
+				"Joystick\nKalibration"
 		},
 		{
 				"Left:\n"
@@ -501,61 +618,85 @@ static langstr_st strs[STR_COUNT] = {
 				"Oikea:\n"
 				"x max\n"
 				"x keski\n"
+				"x min",
+				"Links:\n"
+				"x max\n"
+				"x mitte\n"
+				"x min\n \n"
+				"Rechts:\n"
+				"x max\n"
+				"x mitte\n"
 				"x min"
 		},
 		{
 				"To calibrate the joysticks,\n"
 				"rotate through all of their axes and thumb switches",
 				"Kalibroi ohjauskahvat kaantamalla kahvaa siten,\n"
-				"etta kaikkien akseleiden minimi ja maksimiarvot mitataan."
+				"etta kaikkien akseleiden minimi ja maksimiarvot mitataan.",
+				"Um die Joysticks zu Kalibrieren,drehen sie bitte\n"
+				"den Joystick und Daumenschalter um alle Achsen herum"
 		},
 		{
 				"Press the button below for " STRINGIFY(RESTORE_DELAY_S) " seconds to\n"
 				"restore the system to factory settings.\n"
 				"The display will reboot after the restore.\n \n"
 				"WARNING: ALL SETTINGS FROM ALL USERS WILL BE LOST",
-				"Paina alla olevaa painiketta " STRINGIFY(RESTORE_DELAY_S) " sekunttia\n"
+				"Paina alla olevaa painiketta " STRINGIFY(RESTORE_DELAY_S) " sekuntia\n"
 				"Palauttaaksesi tehdasasetukset.\n"
 				"Naytto resetoi itsensa asetusten palautuksen jalkeen.\n \n"
-				"VAROITUS: KAIKKIEN KAYTTAJIEN ASETUKSET MENETETAAN"
+				"VAROITUS: KAIKKIEN KAYTTAJIEN ASETUKSET MENETETAAN",
+				"Drucken sie den unteren Knopf fur " STRINGIFY(RESTORE_DELAY_S) " Sekunden um\n"
+				"das System auf Werkseinstellungen zurückzusetzen.\n"
+				"Das Display startet neu nach den Reboot.\n \n"
+				"ACHTUNG: ALLE EINSTELLUNGEN FUR ALLE BENUZER WERDEN GELOSCHT"
 		},
 		{
 				"Restore System Defaults",
-				"Palauta tehdasasetukset"
+				"Palauta tehdasasetukset",
+				"Auf Werkseinstellungen zurücksetzen"
 		},
 		{
 				"Left Keypad",
-				"Vasen Nappaimisto"
+				"Vasen Nappaimisto",
+				"Linke Tastatur"
 		},
 		{
 				"Right Keypad",
-				"Oikea Nappaimisto"
+				"Oikea Nappaimisto",
+				"Rechte Tastatur"
 		},
 		{
 				"Pedal",
-				"Poljin"
+				"Poljin",
+				"Pedal"
 		},
 		{
+				"ESB",
 				"ESB",
 				"ESB"
 		},
 		{
 				"FSB",
+				"FSB",
 				"FSB"
 		},
 		{
+				"CSB",
 				"CSB",
 				"CSB"
 		},
 		{
 				"ECU",
+				"ECU",
 				"ECU"
 		},
 		{
 				"UW180S",
+				"UW180S",
 				"UW180S"
 		},
 		{
+				"UW180S MB",
 				"UW180S MB",
 				"UW180S MB"
 		},
@@ -563,6 +704,8 @@ static langstr_st strs[STR_COUNT] = {
 				"Connected\n"
 				"Node ID",
 				"Yhteys\n"
+				"Node ID",
+				"Verbunden\n"
 				"Node ID"
 		},
 		{
@@ -572,9 +715,10 @@ static langstr_st strs[STR_COUNT] = {
 				"AC State\n"
 				"MStart1 State\n"
 				"MStart2 State\n"
-				"Pump State\n"
+				"Hydr.Pump State\n"
 				"Alt IG State\n"
-				"Oil cooler State",
+				"Oil cooler State\n"
+				"Pump angle (ppt)",
 				"Virta yhteensa\n"
 				"Hehkut\n"
 				"Starttimoottori\n"
@@ -583,14 +727,25 @@ static langstr_st strs[STR_COUNT] = {
 				"Starttisolenoidi2\n"
 				"Hydraulipumppu\n"
 				"Laturi IG\n"
-				"Oljynlauhdutin"
+				"Oljynlauhdutin\n"
+				"Pumpun kulma",
+				"Gesamtspannung\n"
+				"Gluhstatus\n"
+				"Starterstatus\n"
+				"Klimaanlage status\n"
+				"MStart1 status\n"
+				"MStart2 status\n"
+				"Hydr. Pumpe Status\n"
+				"Lichtm. status\n"
+				"Olkuhler Status\n"
+				"Pumpe Winkel (ppt)"
 		},
 		{
 				"RPM\n"
 				"Alt L\n"
 				"Motor Water\n"
 				"Motor Oil\n"
-				"Motor Temp (C)\n"
+				"Motor Temp. (C)\n"
 				"Oil Temp (C)\n"
 				"Oil Level (%)\n"
 				"Fuel Level (%)\n"
@@ -605,7 +760,17 @@ static langstr_st strs[STR_COUNT] = {
 				"Oljy M (%)\n"
 				"Diesel M (%)\n"
 				"Jannite (mV)\n"
-				"Lauhdutin raja(C)"
+				"Lauhdutin raja(C)",
+				"U/min\n"
+				"Lichtm. L\n"
+				"Kuhlflussigheit\n"
+				"Motorol\n"
+				"Motortemp. (C)\n"
+				"Oltemp. (C)\n"
+				"Olstand (%)\n"
+				"Dieselstand (%)\n"
+				"Spannung (mV)\n"
+				"Kuhler Auslostemp. (C)"
 		},
 		{
 				"Total Current\n"
@@ -617,7 +782,12 @@ static langstr_st strs[STR_COUNT] = {
 				"Torvi\n"
 				"Radio\n"
 				"Tupakansytytin\n"
-				"Lammitin"
+				"Lammitin",
+				"Gesamtspannung\n"
+				"Hupe Status\n"
+				"Radio Status\n"
+				"Aux Status\n"
+				"Heizung State"
 		},
 		{
 				"Ignition key\n"
@@ -635,7 +805,15 @@ static langstr_st strs[STR_COUNT] = {
 				"Eber tuuletin\n"
 				"Penkkikytkin\n"
 				"Ovikytkin1\n"
-				"Ovikytkin2"
+				"Ovikytkin2",
+				"Zundschlussel\n"
+				"Heizgebl. Geschw.\n"
+				"Notfall Schalt.\n"
+				"Batt. Spannung\n"
+				"Eber Geblase\n"
+				"Sitzschalter\n"
+				"Turschalter 1\n"
+				"Turschalter 2"
 		},
 		{
 				"Total Current\n"
@@ -653,7 +831,15 @@ static langstr_st strs[STR_COUNT] = {
 				"Sisavalo\n"
 				"Majakka\n"
 				"Pyyhin\n"
-				"Ilmastointi"
+				"Ilmastointi",
+				"Gesamtspannung\n"
+				"Arbeitslicht Status\n"
+				"Fahrlicht Status\n"
+				"Rucklicht Status\n"
+				"Innenlicht Status\n"
+				"Belinklicht Status\n"
+				"Wischer Status\n"
+				"Kuhler Status"
 		},
 		{
 				"Wiper Speed\n"
@@ -663,21 +849,28 @@ static langstr_st strs[STR_COUNT] = {
 				"Pyyhin nopeus\n"
 				"Ilmastointi P\n"
 				"Tyovalot (mA)\n"
-				"Ajovalot (mA)"
+				"Ajovalot (mA)",
+				"Wischer Geschw.\n"
+				"Kuhler P\n"
+				"Arbeitslicht (mA)\n"
+				"Fahrlicht (mA)"
 		},
 		{
 				"Controls moved\n"
 				"Engine shut down\n"
-				"Pump angle (ppt)\n"
 				"Implement\n"
 				"Legs Down\n"
 				"Pressure (bar)",
 				"Ohjaus tila\n"
 				"Moottori tila\n"
-				"Pumppu kulma (ppt)\n"
 				"Tyolaite\n"
 				"Jalat alhaalla\n"
-				"Paine (bar)"
+				"Paine (bar)",
+				"Steuerung benutzt\n"
+				"Motor abschalten\n"
+				"Arbeitsmaschine\n"
+				"Stutze unten\n"
+				"Druck (bar)"
 		},
 #if FM
 		{
@@ -696,8 +889,16 @@ static langstr_st strs[STR_COUNT] = {
 				"Ohjaus (mA)\n"
 				"Vasen jalka (mA)\n"
 				"Oikea jalka (mA)\n"
-				"Tyolaite (mA)"
-		}
+				"Tyolaite (mA)",
+				"Ausleger Hebung (mA)\n"
+				"Ausleger Faltung (mA)\n"
+				"Ausleger Drehung (mA)\n"
+				"Fahrt (mA)\n"
+				"Lenkung (mA)\n"
+				"Linke Stutze (mA)\n"
+				"Rechte Stutze (mA)\n"
+				"Arbeitsmaschine (mA)"
+		},
 #elif CM
 		{
 			"Boom Lift (mA)\n"
@@ -717,7 +918,16 @@ static langstr_st strs[STR_COUNT] = {
 			"Teleskooppi (mA)\n"
 			"Vasen Jalka (mA)\n"
 			"Oikea Jalka (mA)\n"
-			"Hytin Pyoritys (mA)"
+			"Hytin Pyoritys (mA)",
+			"Ausleger Hebung (mA)\n"
+			"Ausleger Faltung (mA)\n"
+			"Ausleger Drehung (mA)\n"
+			"Fahrt (mA)\n"
+			"Lenkung (mA)\n"
+			"Verlangerung (mA)\n"
+			"Linke Stutze (mA)\n"
+			"Rechte Stutze (mA)\n"
+			"Kabine Drehung (mA)"
 		},
 #elif LM
 		{
@@ -740,39 +950,57 @@ static langstr_st strs[STR_COUNT] = {
 				"Takaohjaus (mA)\n"
 				"Vasen Jalka (mA)\n"
 				"Oikea Jalka (mA)\n"
-				"Hytin Pyoritys (mA)"
+				"Hytin Pyoritys (mA)",
+				"Ausleger Hebung (mA)\n"
+				"Ausleger Faltung (mA)\n"
+				"Ausleger Drehung (mA)\n"
+				"Verlangerung (mA)\n"
+				"Fahrt (mA)\n"
+				"Lenkung (mA)\n"
+				"Hintere Steuerung (mA)\n"
+				"Linke Stutze (mA)\n"
+				"Rechte Stutze (mA)\n"
+				"Kabine Drehung (mA)"
 
 		},
 #endif
 		{
 				"x\nx err\ny\ny err\nz\nz err\nv\nv err",
+				"x\nx err\ny\ny err\nz\nz err\nv\nv err",
 				"x\nx err\ny\ny err\nz\nz err\nv\nv err"
 		},
 		{
+				"b1\nb2\nb3\nb4\nb5\nb6\nb7\nb8\nb9\nb10",
 				"b1\nb2\nb3\nb4\nb5\nb6\nb7\nb8\nb9\nb10",
 				"b1\nb2\nb3\nb4\nb5\nb6\nb7\nb8\nb9\nb10"
 		},
 		{
 				"Position",
-				"Asento"
+				"Asento",
+				"Position"
 		},
 		{
+				"",
 				"",
 				""
 		},
 		{
 				"",
+				"",
 				""
 		},
 		{
+				"",
 				"",
 				""
 		},
 		{
 				"Length\nWidth\nVolume\nRel width\n\nWSensor 1\nWSensor 2",
-				"Pituus\nPaksuus\nTilavuus\nSuht paksuus\n\nWAnturi 1\nWAnturi 2"
+				"Pituus\nPaksuus\nTilavuus\nSuht paksuus\n\nWAnturi 1\nWAnturi 2",
+				"Lange\nDurchm.\nVolumen\nRel Durchm.\n\nWSensor 1\nWSensor 2"
 		},
 		{
+				"",
 				"",
 				""
 		}
@@ -797,4 +1025,3 @@ char *uv_str(langstr_e index) {
 char *uv_strlang(langstr_e index, languages_e lang) {
 	return strs[index][lang];
 }
-

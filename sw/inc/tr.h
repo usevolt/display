@@ -29,6 +29,7 @@
 typedef enum {
 	LANG_EN = 0,	// note: English is the default language and it should be the first in here
 	LANG_FI,
+	LANG_DE,
 	LANG_COUNT
 } languages_e;
 

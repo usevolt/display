@@ -306,7 +306,9 @@ uv_uiobject_ret_e settings_general_step(const uint16_t step_ms) {
 	// power usage
 	if (uv_uislider_value_changed(&this->general.power_usage)) {
 		dspl.user->engine_power_usage = uv_uislider_get_value(&this->general.power_usage);
-		ecu_set_engine_power_usage(dspl.user->engine_power_usage);
+		uv_canopen_sdo_write(ESB_NODE_ID, ESB_ENGINE_POWER_USAGE_INDEX,
+				ESB_ENGINE_POWER_USAGE_SUBINDEX, CANOPEN_TYPE_LEN(ESB_ENGINE_POWER_USAGE_TYPE),
+				&dspl.user->engine_power_usage);
 	}
 
 

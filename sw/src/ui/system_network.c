@@ -134,7 +134,7 @@ static void update_netdev(void *dev) {
 static void update(devices_e dev) {
 	if (dev == ESB) {
 		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
+				"%i\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%u",
 				uv_canopen_sdo_read16(ESB_NODE_ID,
 					ESB_TOTAL_CURRENT_INDEX, ESB_TOTAL_CURRENT_SUBINDEX),
 				get_output_state_str(uv_canopen_sdo_read8(ESB_NODE_ID,
@@ -152,7 +152,9 @@ static void update(devices_e dev) {
 				get_output_state_str(uv_canopen_sdo_read8(ESB_NODE_ID,
 						ESB_ALT_IG_STATUS_INDEX, ESB_ALT_IG_STATUS_SUBINDEX)),
 				get_output_state_str(uv_canopen_sdo_read8(ESB_NODE_ID,
-						ESB_OILCOOLER_STATUS_INDEX, ESB_OILCOOLER_STATUS_SUBINDEX)));
+						ESB_OILCOOLER_STATUS_INDEX, ESB_OILCOOLER_STATUS_SUBINDEX)),
+				uv_canopen_sdo_read16(ESB_NODE_ID, ESB_PUMP_ANGLE_INDEX,
+						ESB_PUMP_ANGLE_SUBINDEX));
 		uv_ui_refresh(&this->row2_values);
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
 				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
@@ -236,7 +238,7 @@ static void update(devices_e dev) {
 	else if (dev == CSB) {
 
 		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%s\n%s\n%s\n%s\n%s\n%s",
+				"%i\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
 				uv_canopen_sdo_read16(CSB_NODE_ID,
 						CSB_TOTAL_CURRENT_INDEX, CSB_TOTAL_CURRENT_SUBINDEX),
 				get_output_state_str(uv_canopen_sdo_read8(CSB_NODE_ID,
@@ -271,10 +273,9 @@ static void update(devices_e dev) {
 	}
 	else if (dev == ECU) {
 		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i",
+				"%i\n%i\n%i\n%i\n%i",
 				ecu_get_controls_moved(&dspl.network.ecu),
 				ecu_get_engine_shut_down(&dspl.network.ecu),
-				ecu_get_pump_angle(&dspl.network.ecu),
 				ecu_get_implement(&dspl.network.ecu),
 				ecu_get_legs_down(&dspl.network.ecu),
 				ecu_get_pressure(&dspl.network.ecu));
@@ -305,7 +306,7 @@ static void update(devices_e dev) {
 				ecu_get_cab_rot_ma(&dspl.network.ecu));
 #elif CM
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
+				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
 				ecu_get_boom_lift_ma(&dspl.network.ecu),
 				ecu_get_boom_fold_ma(&dspl.network.ecu),
 				ecu_get_boom_rotate_ma(&dspl.network.ecu),

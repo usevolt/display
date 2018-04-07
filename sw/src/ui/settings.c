@@ -37,7 +37,7 @@ void settings_show(void) {
 
 	CANCEL_INIT(&this->window, &this->cancel);
 
-	OK_INIT(&this->window, &this->ok);
+	SAVE_INIT(&this->window, &this->ok);
 
 	uv_uitabwindow_init(&this->tabs, SETTINGS_TAB_COUNT, &uv_uistyles[WINDOW_STYLE_INDEX],
 			this->tabs_buffer, (const char**) this->tab_names);
