@@ -73,7 +73,7 @@ static void network_task(void *me) {
 		// log an error when the error state has been entered
 		if (!state) {
 			if (this->can_last_state != state) {
-				log_add(LOG_CAN_BUS_OFF, 0);
+				//log_add(LOG_CAN_BUS_OFF, 0);
 			}
 			netdev_clear_disconnect_delay(&this->msb);
 			netdev_clear_disconnect_delay(&this->csb);

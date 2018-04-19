@@ -43,7 +43,7 @@ void netdev_step(void *me, unsigned int step_ms) {
 				}
 			}
 			if (!entry_found) {
-				log_add(this->disconnected_entry_type, this->node_id);
+				//log_add(this->disconnected_entry_type, this->node_id);
 			}
 			this->notified = true;
 		}
