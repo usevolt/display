@@ -1,10 +1,4 @@
-EESchema Schematic File Version 2
-LIBS:display-rescue
-LIBS:kemet
-LIBS:multicomp
-LIBS:usevolt
-LIBS:wurth_elektronik_LED
-LIBS:power
+EESchema Schematic File Version 4
 LIBS:display-cache
 EELAYER 26 0
 EELAYER END
@@ -21,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L WINDBOND_W25Q128JVSIQ_SOIC8_W U501
+L usevolt:WINDBOND_W25Q128JVSIQ_SOIC8_W U501
 U 1 1 59C65DF2
 P 6100 2750
 F 0 "U501" H 6200 3104 45  0000 C CNN
@@ -36,7 +30,7 @@ F 7 "Winbond Electronics" H 5800 3070 60  0001 C CNN "Manufacturer"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR501
+L power1:GND #PWR501
 U 1 1 59C661EF
 P 5450 3050
 F 0 "#PWR501" H 5450 2800 50  0001 C CNN
@@ -51,7 +45,7 @@ Wire Wire Line
 Wire Wire Line
 	5450 2950 5600 2950
 $Comp
-L +3V3 #PWR502
+L power1:+3V3 #PWR502
 U 1 1 59C66208
 P 7600 2450
 F 0 "#PWR502" H 7600 2300 50  0001 C CNN
@@ -66,7 +60,7 @@ Wire Wire Line
 Wire Wire Line
 	7600 2450 7600 2700
 $Comp
-L 100nF C501
+L kemet:100nF C501
 U 1 1 59C66223
 P 7600 2800
 F 0 "C501" V 7608 2873 45  0000 L CNN
@@ -82,7 +76,7 @@ F 7 "KEMET" H 7604 2909 60  0001 C CNN "Manufacturer"
 $EndComp
 Connection ~ 7600 2650
 $Comp
-L GND #PWR503
+L power1:GND #PWR503
 U 1 1 59C6628B
 P 7600 3100
 F 0 "#PWR503" H 7600 2850 50  0001 C CNN

@@ -1,10 +1,4 @@
-EESchema Schematic File Version 2
-LIBS:display-rescue
-LIBS:kemet
-LIBS:multicomp
-LIBS:usevolt
-LIBS:wurth_elektronik_LED
-LIBS:power
+EESchema Schematic File Version 4
 LIBS:display-cache
 EELAYER 26 0
 EELAYER END
@@ -23,7 +17,7 @@ $EndDescr
 Text HLabel 5100 3600 0    60   Input ~ 0
 PWM_IN
 $Comp
-L BUZZER_PKM13EPYH4002-B0 X601
+L usevolt:BUZZER_PKM13EPYH4002-B0 X601
 U 1 1 5A1B24C9
 P 6250 3900
 F 0 "X601" V 6242 3802 45  0000 R CNN
@@ -40,7 +34,7 @@ F 9 "MURATA" H 6370 4020 60  0001 C CNN "Manufacturer"
 	0    -1   -1   0   
 $EndComp
 $Comp
-L OPAMP_LM358DT U601
+L usevolt:OPAMP_LM358DT U601
 U 1 1 5A1B6095
 P 5650 3700
 F 0 "U601" H 5700 4047 60  0000 C CNN
@@ -55,7 +49,7 @@ F 7 "497-1591-1-ND" H 6050 4650 60  0001 C CNN "1st Source Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L VDD #PWR603
+L power1:VDD #PWR603
 U 1 1 5A1B60F5
 P 6250 3400
 F 0 "#PWR603" H 6250 3250 50  0001 C CNN
@@ -70,7 +64,7 @@ Wire Wire Line
 Wire Wire Line
 	6250 3600 6050 3600
 $Comp
-L 100nF C601
+L kemet:100nF C601
 U 1 1 5A1B6111
 P 6350 3600
 F 0 "C601" H 6400 3799 45  0000 C CNN
@@ -87,7 +81,7 @@ $EndComp
 Wire Wire Line
 	6050 3700 7450 3700
 $Comp
-L GND #PWR604
+L power1:GND #PWR604
 U 1 1 5A1B615A
 P 7450 4300
 F 0 "#PWR604" H 7450 4050 50  0001 C CNN
@@ -111,7 +105,7 @@ Wire Wire Line
 Wire Wire Line
 	5100 3600 5350 3600
 $Comp
-L GND #PWR602
+L power1:GND #PWR602
 U 1 1 5A1B6AE9
 P 5100 4100
 F 0 "#PWR602" H 5100 3850 50  0001 C CNN
@@ -129,7 +123,7 @@ Wire Wire Line
 Wire Wire Line
 	5100 3800 5100 4100
 $Comp
-L 10K R601
+L multicomp:10K R601
 U 1 1 5A1B783E
 P 4400 3450
 F 0 "R601" V 4408 3508 45  0000 L CNN
@@ -144,7 +138,7 @@ F 7 "MULTICOMP" H 4469 3589 60  0001 C CNN "Manufacturer"
 	0    1    1    0   
 $EndComp
 $Comp
-L 10K R602
+L multicomp:10K R602
 U 1 1 5A1B78AD
 P 4400 3850
 F 0 "R602" V 4408 3908 45  0000 L CNN
@@ -164,7 +158,7 @@ Wire Wire Line
 	4400 4050 5100 4050
 Connection ~ 5100 4050
 $Comp
-L +3V3 #PWR601
+L power1:+3V3 #PWR601
 U 1 1 5A1B792F
 P 4400 3250
 F 0 "#PWR601" H 4400 3100 50  0001 C CNN

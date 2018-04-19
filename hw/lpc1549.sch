@@ -1,10 +1,4 @@
-EESchema Schematic File Version 2
-LIBS:display-rescue
-LIBS:kemet
-LIBS:multicomp
-LIBS:usevolt
-LIBS:wurth_elektronik_LED
-LIBS:power
+EESchema Schematic File Version 4
 LIBS:display-cache
 EELAYER 26 0
 EELAYER END
@@ -21,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L +3V3 #PWR401
+L power1:+3V3 #PWR401
 U 1 1 58FC1E6A
 P 4100 3150
 F 0 "#PWR401" H 4100 3000 50  0001 C CNN
@@ -32,7 +26,7 @@ F 3 "" H 4100 3150 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L 100nF C405
+L kemet:100nF C405
 U 1 1 58FC1ECE
 P 4100 3950
 F 0 "C405" V 4108 4023 45  0000 L CNN
@@ -47,7 +41,7 @@ F 7 "KEMET" H 4104 4059 60  0001 C CNN "Manufacturer"
 	0    1    1    0   
 $EndComp
 $Comp
-L 100nF C404
+L kemet:100nF C404
 U 1 1 58FC1F13
 P 3750 3950
 F 0 "C404" V 3758 4023 45  0000 L CNN
@@ -62,7 +56,7 @@ F 7 "KEMET" H 3754 4059 60  0001 C CNN "Manufacturer"
 	0    1    1    0   
 $EndComp
 $Comp
-L 100nF C403
+L kemet:100nF C403
 U 1 1 58FC1F6F
 P 3400 3950
 F 0 "C403" V 3408 4023 45  0000 L CNN
@@ -77,7 +71,7 @@ F 7 "KEMET" H 3404 4059 60  0001 C CNN "Manufacturer"
 	0    1    1    0   
 $EndComp
 $Comp
-L 100nF C402
+L kemet:100nF C402
 U 1 1 58FC2016
 P 3050 3950
 F 0 "C402" V 3058 4023 45  0000 L CNN
@@ -92,7 +86,7 @@ F 7 "KEMET" H 3054 4059 60  0001 C CNN "Manufacturer"
 	0    1    1    0   
 $EndComp
 $Comp
-L 100nF C401
+L kemet:100nF C401
 U 1 1 58FC2062
 P 2700 3950
 F 0 "C401" V 2708 4023 45  0000 L CNN
@@ -107,7 +101,7 @@ F 7 "KEMET" H 2704 4059 60  0001 C CNN "Manufacturer"
 	0    1    1    0   
 $EndComp
 $Comp
-L GND #PWR402
+L power1:GND #PWR402
 U 1 1 58FC23D4
 P 4100 4300
 F 0 "#PWR402" H 4100 4050 50  0001 C CNN
@@ -132,7 +126,7 @@ LCD_PD
 Text HLabel 6550 4600 2    60   Output ~ 0
 LCD_CS
 $Comp
-L XTAL_7A-12.000MAAJ-T X401
+L usevolt:XTAL_7A-12.000MAAJ-T X401
 U 1 1 59022341
 P 6900 2550
 F 0 "X401" V 6808 2648 45  0000 L CNN
@@ -147,7 +141,7 @@ F 7 "TXC" H 7020 2670 60  0001 C CNN "Manufacturer"
 	0    1    1    0   
 $EndComp
 $Comp
-L 18pF C406
+L kemet:18pF C406
 U 1 1 590225BD
 P 7250 2350
 F 0 "C406" H 7300 2549 45  0000 C CNN
@@ -162,7 +156,7 @@ F 7 "KEMET" H 7254 2459 60  0001 C CNN "Manufacturer"
 	1    0    0    -1  
 $EndComp
 $Comp
-L 18pF C407
+L kemet:18pF C407
 U 1 1 5902262D
 P 7250 2700
 F 0 "C407" H 7450 2750 45  0000 C CNN
@@ -177,7 +171,7 @@ F 7 "KEMET" H 7254 2809 60  0001 C CNN "Manufacturer"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR405
+L power1:GND #PWR405
 U 1 1 5902271B
 P 7850 2750
 F 0 "#PWR405" H 7850 2500 50  0001 C CNN
@@ -188,7 +182,7 @@ F 3 "" H 7850 2750 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L ARM_JTAG_SWD_HEADER_10_PINSMD J401
+L usevolt:ARM_JTAG_SWD_HEADER_10_PINSMD J401
 U 1 1 59058B71
 P 9200 3700
 F 0 "J401" H 9727 3642 45  0000 L CNN
@@ -199,7 +193,7 @@ F 3 "" H 9200 3700 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3V3 #PWR407
+L power1:+3V3 #PWR407
 U 1 1 59058BEB
 P 8900 3150
 F 0 "#PWR407" H 8900 3000 50  0001 C CNN
@@ -210,7 +204,7 @@ F 3 "" H 8900 3150 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR406
+L power1:GND #PWR406
 U 1 1 59058D57
 P 8750 4200
 F 0 "#PWR406" H 8750 3950 50  0001 C CNN
@@ -221,7 +215,7 @@ F 3 "" H 8750 4200 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L 10K R406
+L multicomp:10K R406
 U 1 1 59058E02
 P 8650 3500
 F 0 "R406" V 8658 3558 45  0000 L CNN
@@ -236,7 +230,7 @@ F 7 "MULTICOMP" H 8719 3639 60  0001 C CNN "Manufacturer"
 	0    1    1    0   
 $EndComp
 $Comp
-L 10K R405
+L multicomp:10K R405
 U 1 1 59058E98
 P 8450 3300
 F 0 "R405" V 8458 3358 45  0000 L CNN
@@ -259,7 +253,7 @@ FLASH_MOSI
 Text HLabel 4150 2600 0    60   Output ~ 0
 FLASH_CLK
 $Comp
-L 18pF C408
+L kemet:18pF C408
 U 1 1 59C7E65E
 P 7300 3100
 F 0 "C408" H 7350 3299 45  0000 C CNN
@@ -274,7 +268,7 @@ F 7 "KEMET" H 7304 3209 60  0001 C CNN "Manufacturer"
 	1    0    0    -1  
 $EndComp
 $Comp
-L 18pF C409
+L kemet:18pF C409
 U 1 1 59C7E6D2
 P 7300 3400
 F 0 "C409" H 7350 3599 45  0000 C CNN
@@ -289,7 +283,7 @@ F 7 "KEMET" H 7304 3509 60  0001 C CNN "Manufacturer"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR403
+L power1:GND #PWR403
 U 1 1 59C7ED66
 P 7550 3450
 F 0 "#PWR403" H 7550 3200 50  0001 C CNN
@@ -300,7 +294,7 @@ F 3 "" H 7550 3450 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L BATTERY_HOLDER_CH7410-2032LFSMD BT401
+L usevolt:BATTERY_HOLDER_CH7410-2032LFSMD BT401
 U 1 1 59C7EEA2
 P 7750 3400
 F 0 "BT401" H 7888 3600 45  0000 L CNN
@@ -315,7 +309,7 @@ F 7 "MULTICOMP" H 7900 3900 60  0001 C CNN "Manufacturer"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR404
+L power1:GND #PWR404
 U 1 1 59C7EFA3
 P 7750 3450
 F 0 "#PWR404" H 7750 3200 50  0001 C CNN
@@ -326,7 +320,7 @@ F 3 "" H 7750 3450 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L XTAL_ABS25-32.768KHZ-T X402
+L usevolt:XTAL_ABS25-32.768KHZ-T X402
 U 1 1 5A0A3265
 P 6700 3300
 F 0 "X402" V 6608 3398 45  0000 L CNN
@@ -343,7 +337,7 @@ F 9 "Farnell" H 7220 3820 60  0001 C CNN "2nd Source"
 	0    1    1    0   
 $EndComp
 $Comp
-L LPC1549JBD64 U401
+L usevolt:LPC1549JBD64 U401
 U 1 1 5A0C19C9
 P 4950 2500
 F 0 "U401" H 5350 3576 45  0000 C CNN
@@ -360,9 +354,9 @@ F 9 "NXP" H 4660 3520 60  0001 C CNN "Manufacturer"
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4100 3850 4100 3150
+	4100 3850 4100 3750
 Wire Wire Line
-	2700 3850 4450 3850
+	2700 3850 3050 3850
 Wire Wire Line
 	4450 3750 4100 3750
 Connection ~ 4100 3750
@@ -386,7 +380,7 @@ Connection ~ 3750 3850
 Connection ~ 3400 3850
 Connection ~ 3050 3850
 Wire Wire Line
-	2700 4150 4450 4150
+	2700 4150 3050 4150
 Connection ~ 3050 4150
 Connection ~ 3400 4150
 Connection ~ 3750 4150
@@ -394,7 +388,7 @@ Connection ~ 4100 4150
 Wire Wire Line
 	4450 4250 4350 4250
 Wire Wire Line
-	4350 4150 4350 4650
+	4350 4150 4350 4250
 Connection ~ 4350 4150
 Wire Wire Line
 	4350 4350 4450 4350
@@ -425,13 +419,13 @@ Wire Wire Line
 Wire Wire Line
 	6250 4500 6550 4500
 Wire Wire Line
-	6250 2700 7150 2700
+	6250 2700 6900 2700
 Wire Wire Line
 	6900 2700 6900 2650
 Wire Wire Line
-	6750 2350 7150 2350
+	6750 2350 6900 2350
 Wire Wire Line
-	7850 2350 7850 2750
+	7850 2350 7850 2700
 Wire Wire Line
 	7850 2350 7450 2350
 Wire Wire Line
@@ -444,15 +438,15 @@ Wire Wire Line
 	6750 2600 6750 2350
 Connection ~ 6900 2350
 Wire Wire Line
-	8900 3150 8900 3400
+	8900 3150 8900 3200
 Wire Wire Line
-	8650 3400 9100 3400
+	8650 3400 8900 3400
 Wire Wire Line
 	8450 3500 9100 3500
 Wire Wire Line
 	8450 3500 8450 3800
 Wire Wire Line
-	6450 3700 9100 3700
+	6450 3700 8650 3700
 Wire Wire Line
 	8750 4200 8750 3800
 Wire Wire Line
@@ -466,7 +460,7 @@ Connection ~ 8900 3400
 Wire Wire Line
 	9100 4200 9000 4200
 Wire Wire Line
-	9000 4200 9000 1100
+	9000 4200 9000 3600
 Wire Wire Line
 	9000 1100 4350 1100
 Wire Wire Line
@@ -482,11 +476,11 @@ Wire Wire Line
 Wire Wire Line
 	4450 2600 4150 2600
 Wire Wire Line
-	6250 3100 7200 3100
+	6250 3100 6700 3100
 Wire Wire Line
-	6550 3400 7200 3400
+	6550 3400 6700 3400
 Wire Wire Line
-	7550 3100 7550 3450
+	7550 3100 7550 3400
 Wire Wire Line
 	7550 3400 7500 3400
 Wire Wire Line
@@ -516,4 +510,65 @@ Wire Wire Line
 	6250 2200 6550 2200
 Text HLabel 6550 2200 2    60   Output ~ 0
 BUZZER
+Wire Wire Line
+	4100 3750 4100 3650
+Wire Wire Line
+	4100 3650 4100 3550
+Wire Wire Line
+	4100 3550 4100 3450
+Wire Wire Line
+	4100 3450 4100 3300
+Wire Wire Line
+	4100 3300 4100 3200
+Wire Wire Line
+	4100 3200 4100 3150
+Wire Wire Line
+	4100 3850 4450 3850
+Wire Wire Line
+	3750 3850 4100 3850
+Wire Wire Line
+	3400 3850 3750 3850
+Wire Wire Line
+	3050 3850 3400 3850
+Wire Wire Line
+	3050 4150 3400 4150
+Wire Wire Line
+	3400 4150 3750 4150
+Wire Wire Line
+	3750 4150 4100 4150
+Wire Wire Line
+	4100 4150 4350 4150
+Wire Wire Line
+	4350 4150 4450 4150
+Wire Wire Line
+	4350 4250 4350 4350
+Wire Wire Line
+	4350 4350 4350 4450
+Wire Wire Line
+	4350 4450 4350 4550
+Wire Wire Line
+	4350 4550 4350 4650
+Wire Wire Line
+	7850 2700 7850 2750
+Wire Wire Line
+	6900 2700 7150 2700
+Wire Wire Line
+	6900 2350 7150 2350
+Wire Wire Line
+	8650 3700 9100 3700
+Wire Wire Line
+	8900 3200 8900 3400
+Wire Wire Line
+	8900 3400 9100 3400
+Wire Wire Line
+	7550 3400 7550 3450
+Wire Wire Line
+	6700 3100 7200 3100
+Wire Wire Line
+	6700 3400 7200 3400
+Wire Wire Line
+	9100 3600 9000 3600
+Connection ~ 9000 3600
+Wire Wire Line
+	9000 3600 9000 1100
 $EndSCHEMATC

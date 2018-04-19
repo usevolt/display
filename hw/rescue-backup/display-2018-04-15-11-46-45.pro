@@ -1,4 +1,4 @@
-update=su 15. huhtikuuta 2018 11.46.46
+update=ma  8. tammikuuta 2018 09.38.32
 version=1
 last_client=kicad
 [pcbnew]
@@ -37,4 +37,11 @@ LabSize=60
 ERC_TestSimilarLabels=1
 [eeschema]
 version=1
-LibDir=
+LibDir=../../../uv/kicad/libs;/home/usevolt/tty/mikrokontrollerit/harj_tyo
+[eeschema/libraries]
+LibName1=display-rescue
+LibName2=/home/usevolt/uv/kicad/libs/kemet
+LibName3=/home/usevolt/uv/kicad/libs/multicomp
+LibName4=/home/usevolt/uv/kicad/libs/usevolt
+LibName5=/home/usevolt/uv/kicad/libs/wurth_elektronik_LED
+LibName6=/home/usevolt/uv/kicad/standard_libraries/power

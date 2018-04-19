@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name display-rescue)(type Legacy)(uri ${KIPRJMOD}/display-rescue.lib)(options "")(descr ""))
+  (lib (name multicomp)(type Legacy)(uri /home/usevolt/uv/kicad/libs/multicomp.lib)(options "")(descr ""))
+  (lib (name power1)(type Legacy)(uri /home/usevolt/uv/kicad/standard_libraries/power.lib)(options "")(descr ""))
+)
