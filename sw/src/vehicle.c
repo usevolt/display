@@ -288,8 +288,8 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.max_speed_p = 720,
 				.min_speed_n = 250,
 				.max_speed_n = 720,
-				.acc = 40,
-				.dec = 20,
+				.acc = 20,
+				.dec = 50,
 				.invert = false
 		},
 		{
@@ -322,7 +322,7 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.min_speed_n = 230,
 				.max_speed_n = 500,
 				.acc = 20,
-				.dec = 10,
+				.dec = 20,
 				.invert = false
 		}
 };
