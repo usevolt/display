@@ -25,6 +25,10 @@ void esb_init(esb_st *this) {
 	this->read.motor_oil_press = 0;
 	this->read.motor_water = 0;
 	this->read.glow_plugs = 0;
+
+	uv_canopen_sdo_write(ESB_NODE_ID, ESB_OILCOOLER_TRIGGER_INDEX,
+			ESB_OILCOOLER_TRIGGER_SUBINDEX, CANOPEN_TYPE_LEN(ESB_OILCOOLER_TRIGGER_TYPE),
+			&dspl.user->oilcooler_trigg_temp);
 }
 
 
