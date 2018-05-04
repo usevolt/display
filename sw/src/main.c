@@ -47,6 +47,8 @@ void dspl_init(dspl_st *me) {
 
 	uv_set_int_priority(INT_SYSTICK, 31);
 
+	uv_rtos_task_delay(500);
+
 #if CONFIG_TARGET_LPC1785
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + ECU_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + CSB_NODE_ID, CAN_STD);
@@ -132,6 +134,8 @@ void dspl_init(dspl_st *me) {
 
 	log_init();
 
+	users_init();
+
 	network_init(&this->network);
 
 	uv_time_st time;
@@ -161,7 +165,6 @@ void dspl_init(dspl_st *me) {
 		}
 	}
 
-	users_init();
 
 	gui_init();
 

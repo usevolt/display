@@ -46,6 +46,7 @@ typedef struct {
 		implement_st *implement;
 		/// @brief: Tells the currently selected implement
 		impl_type_e active_implement;
+		uint8_t oilcooler_trigger_temp;
 		struct {
 			uint8_t volume;
 			bool touch;
