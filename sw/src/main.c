@@ -129,6 +129,8 @@ void dspl_init(dspl_st *me) {
 
 	log_init();
 
+	users_init();
+
 	network_init(&this->network);
 
 	uv_time_st time;
@@ -161,7 +163,6 @@ void dspl_init(dspl_st *me) {
 		}
 	}
 
-	users_init();
 
 	gui_init();
 

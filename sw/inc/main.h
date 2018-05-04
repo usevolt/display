@@ -52,6 +52,7 @@ typedef struct {
 			bool notifications;
 			bool warnings;
 		} volume;
+		uint8_t oilcooler_trig_temp;
 } userdata_st;
 
 

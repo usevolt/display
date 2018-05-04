@@ -47,7 +47,6 @@ static void user_init(userdata_st *this) {
 		this->implement = (implement_st*) &this->uw180s;
 		break;
 	}
-
 }
 
 
@@ -91,6 +90,8 @@ static void user_reset(userdata_st *user) {
 		user->implement = (implement_st*) &user->uw180s;
 		break;
 	}
+
+	user->oilcooler_trig_temp = 70;
 
 }
 
