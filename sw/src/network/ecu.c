@@ -573,3 +573,86 @@ void ecu_save_params() {
 		netdev_set_transmit_failure(&dspl.network.ecu);
 	}
 }
+
+
+
+
+
+
+void icu_set_wheels_feed_params(uint16_t speed_f,
+		uint16_t speed_b, uint16_t invert) {
+	dspl.user->uw180s.wheels_feed.max_speed_p = speed_f;
+	dspl.user->uw180s.wheels_feed.max_speed_n = speed_b;
+	dspl.user->uw180s.wheels_feed.invert = invert;
+	uv_errors_e e = ERR_NONE;
+	speed_f *= 2;
+	speed_b *= 2;
+	e |= (uv_canopen_sdo_write( 0xA, 0x2030, 2, 2, &speed_f));
+	e |= (uv_canopen_sdo_write( 0xA, 0x2030, 3, 2, &speed_b));
+	e |= (uv_canopen_sdo_write( 0xA, 0x2030, 1, 2, &invert));
+	if (e) {
+	}
+}
+
+void icu_set_delimbers_params(uint16_t speed_f,
+		uint16_t speed_b, uint16_t invert) {
+	dspl.user->uw180s.delimbers.max_speed_p = speed_f;
+	dspl.user->uw180s.delimbers.max_speed_n = speed_b;
+	dspl.user->uw180s.delimbers.invert = invert;
+	uv_errors_e e = ERR_NONE;
+	e |= (uv_canopen_sdo_write( 0xA, 0x2010, 2, 2, &speed_f));
+	e |= (uv_canopen_sdo_write( 0xA, 0x2010, 3, 2, &speed_b));
+	e |= (uv_canopen_sdo_write( 0xA, 0x2010, 1, 2, &invert));
+	if (e) {
+	}
+}
+
+void icu_set_wheels_params(uint16_t speed_f,
+		uint16_t speed_b, uint16_t invert) {
+	dspl.user->uw180s.wheels.max_speed_p = speed_f;
+	dspl.user->uw180s.wheels.max_speed_n = speed_b;
+	dspl.user->uw180s.wheels.invert = invert;
+	uv_errors_e e = ERR_NONE;
+	e |= (uv_canopen_sdo_write( 0xA, 0x2020, 2, 2, &speed_f));
+	e |= (uv_canopen_sdo_write( 0xA, 0x2020, 3, 2, &speed_b));
+	e |= (uv_canopen_sdo_write( 0xA, 0x2020, 1, 2, &invert));
+	if (e) {
+	}
+}
+
+void icu_set_saw_params(uint16_t speed_f,
+		uint16_t speed_b, uint16_t invert) {
+	dspl.user->uw180s.saw.max_speed_p = speed_f;
+	dspl.user->uw180s.saw.max_speed_n = speed_b;
+	dspl.user->uw180s.saw.invert = invert;
+	uv_errors_e e = ERR_NONE;
+	e |= (uv_canopen_sdo_write( 0xA, 0x2040, 2, 2, &speed_f));
+	e |= (uv_canopen_sdo_write( 0xA, 0x2040, 3, 2, &speed_b));
+	e |= (uv_canopen_sdo_write( 0xA, 0x2040, 1, 2, &invert));
+	if (e) {
+	}
+}
+
+void icu_set_tilt_params(uint16_t speed_f,
+		uint16_t speed_b, uint16_t invert) {
+	dspl.user->uw180s.tilt.max_speed_p = speed_f;
+	dspl.user->uw180s.tilt.max_speed_n = speed_b;
+	dspl.user->uw180s.tilt.invert = invert;
+	uv_errors_e e = ERR_NONE;
+	e |= (uv_canopen_sdo_write( 0xA, 0x2050, 2, 2, &speed_f));
+	e |= (uv_canopen_sdo_write( 0xA, 0x2050, 3, 2, &speed_b));
+	e |= (uv_canopen_sdo_write( 0xA, 0x2050, 1, 2, &invert));
+	if (e) {
+	}
+}
+
+
+
+void icu_save_params() {
+	uint8_t c[4] = {
+			's', 'a', 'v', 'e'
+	};
+	if (uv_canopen_sdo_write(0xA, 0x2500, 0, 1, ((uint32_t*)(c)))) {
+	}
+}
+

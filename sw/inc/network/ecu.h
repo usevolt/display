@@ -348,6 +348,26 @@ void ecu_set_uw50_tilt_params(uint16_t speed_f,
 
 void ecu_save_params();
 
+
+
+void icu_set_wheels_feed_params(uint16_t speed_f,
+		uint16_t speed_b, uint16_t invert);
+
+void icu_set_delimbers_params(uint16_t speed_f,
+		uint16_t speed_b, uint16_t invert);
+
+void icu_set_wheels_params(uint16_t speed_f,
+		uint16_t speed_b, uint16_t invert);
+
+void icu_set_saw_params(uint16_t speed_f,
+		uint16_t speed_b, uint16_t invert);
+
+void icu_set_tilt_params(uint16_t speed_f,
+		uint16_t speed_b, uint16_t invert);
+
+
+void icu_save_params();
+
 #undef VALVE_SETTER
 
 #endif /* ECU_H_ */

@@ -14,30 +14,52 @@
 
 enum {
 	UW50_STATE_NONE = 0,
+	UW50_STATE_MB,
+	UW50_STATE_VALVES,
+	UW50_STATE_WHEELS,
+	UW50_STATE_WHEELS_FEED,
+	UW50_STATE_DELIMBERS,
 	UW50_STATE_SAW,
-	UW50_STATE_TILT
+	UW50_STATE_TILT,
+	UW50_STATE_ROTATOR
 };
 typedef uint8_t uw50_states_e;
 
 typedef struct {
 	uv_uiwindow_st *window;
 
-	uw50_states_e state;
 
+	uw50_states_e state;
 	uv_uibutton_st back;
 	uv_uilabel_st label;
+
 	union {
 		struct {
-			uv_uibutton_st saw;
+			uv_uislider_st log_len1;
+			uv_uislider_st log_len2;
+			uv_uitogglebutton_st enabled;
+			uv_uislider_st len_calib;
+			uv_uislider_st vol_calib;
+			uv_uilabel_st info_label;
+		} mb;
+		struct {
+			uv_uibutton_st valves;
+			uv_uibutton_st measurement;
+		} main;
+		struct {
+			uv_uibutton_st wheels;
+			uv_uibutton_st wheels_feed;
+			uv_uibutton_st delimbers;
 			uv_uibutton_st tilt;
-		};
+			uv_uibutton_st rotator;
+			uv_uibutton_st saw;
+		} valves;
 		struct {
 			uv_uislider_st max_speed_p;
 			uv_uislider_st max_speed_n;
-			uv_uislider_st acc;
-			uv_uislider_st dec;
 			uv_uitogglebutton_st invert;
-		};
+			char str[32];
+		} sliders;
 	};
 } settings_uw50_st;
 
