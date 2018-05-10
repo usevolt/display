@@ -64,6 +64,8 @@ static void user_reset(userdata_st *user) {
 	user->volume.touch = true;
 	user->volume.warnings = true;
 
+	user->oilcooler_trigg_temp = 70;
+
 	// base valves
 	for (uint16_t i = 0; i < BASE_VALVE_COUNT; i++) {
 		user->base_valves[i] = vehicle_valves[i];
