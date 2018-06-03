@@ -31,7 +31,7 @@ static void user_init(userdata_st *this) {
 	if (this->active_implement >= IMPL_COUNT) {
 #if FM
 		this->active_implement = IMPL_UW180S;
-#elif LM
+#elif (LM || CM)
 		this->active_implement = IMPL_UW100;
 #endif
 	}
@@ -75,7 +75,7 @@ static void user_reset(userdata_st *user) {
 	uw50_reset(&user->uw50);
 #if FM
 	user->active_implement = IMPL_UW180S;
-#elif LM
+#elif (LM || CM)
 	user->active_implement = IMPL_UW100;
 #endif
 

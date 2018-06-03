@@ -47,7 +47,7 @@ void gui_init() {
 
 	uv_uiwindow_init(&this->main_window, this->main_buffer, &uv_uistyles[WINDOW_STYLE_INDEX]);
 	uv_uidisplay_add(&this->display, &this->main_window, PBAR_WIDTH + PBAR_LABEL_WIDTH, 0,
-			LCD_W(1) - ((PBAR_LABEL_WIDTH + PBAR_WIDTH) * 2), LCD_H(0.86));
+			LCD_W(1) - ((PBAR_LABEL_WIDTH + PBAR_WIDTH) * 2), LCD_H(0.86f));
 
 	uv_uiprogressbar_init(&this->rpm, 0, RPM_MAX, &uv_uistyles[0]);
 	uv_uiprogressbar_set_vertical(&this->rpm);

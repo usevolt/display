@@ -100,21 +100,15 @@ const uw180s_st uw180s = {
 				.invert = false
 		},
 		.mb_enabled = true,
-		.len_calib = 15,
+		.len_calib = 66,
 		.vol_calib = 0,
 		.log_len1 = 300,
 		.log_len2 = 500,
-		.log_type_buffer = {
-				REPEAT(LOG_TYPE_COUNT, LOG_TYPE_INIT)
-		}
 };
 
 
 void uw180s_init(uw180s_st *this) {
 	implement_init(this, &uw180s);
-	if (uv_vector_size(&this->log_types) > LOG_TYPE_COUNT) {
-		uw180s_reset(this);
-	}
 	ecu_set_uw180s_log_length(this->log_len1);
 }
 

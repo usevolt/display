@@ -27,6 +27,8 @@
 #define ENGINE_LIGHT_DELAY_MS			100
 
 #define CLOCK_WIDTH			(UI_FONT_BIG.char_width * 5 + 5)
+#define CAL_WIDTH			(UI_FONT_SMALL.char_width * 10 + 5)
+#define CAL_HEIGHT			(UI_FONT_SMALL.char_height)
 
 static void show(const taskbar_state_e state);
 
@@ -53,9 +55,20 @@ void taskbar_init(uv_uidisplay_st *display) {
 	uv_uiwindow_set_transparent(this, false);
 	uv_uidisplay_add(display, &this->taskbar,
 			0, LCD_H(0.86f), LCD_W(1.0f), LCD_H(0.14f));
+	this->log_count = log_get_nack_count();
 
-	show(TASKBAR_NO_ALERTS);
+	if (this->log_count == 0) {
+		show(TASKBAR_NO_ALERTS);
+	}
+	else {
+		show(TASKBAR_ALERTS);
+	}
 
+}
+
+
+void taskbar_update_clock(void) {
+	uv_delay_init(0, &this->delay);
 }
 
 static void show(const taskbar_state_e state) {
@@ -232,7 +245,14 @@ static void show(const taskbar_state_e state) {
 				C(0xFFFFFF), taskbar_style.window_c, this->time);
 		uv_uiwindow_add(&this->taskbar, &this->clock,
 				uv_uibb(&this->taskbar)->width - CLOCK_WIDTH, 0,
-				CLOCK_WIDTH, uv_uibb(&this->taskbar)->height);
+				CLOCK_WIDTH, uv_uibb(&this->taskbar)->height - CAL_HEIGHT);
+
+		snprintf(this->date, TASKBAR_DATE_LEN, "%02u.%02u.%04u", t.day, t.month, t.year);
+		uv_uilabel_init(&this->cal, &UI_FONT_SMALL, ALIGN_BOTTOM_RIGHT,
+				C(0xFFFFFF), taskbar_style.window_c, this->date);
+		uv_uiwindow_add(&this->taskbar, &this->cal,
+				uv_uibb(&this->taskbar)->width - CAL_WIDTH, uv_uibb(&this->taskbar)->height - CAL_HEIGHT,
+				CAL_WIDTH, CAL_HEIGHT);
 
 	}
 	else if (state == TASKBAR_ALERTS) {
@@ -279,7 +299,6 @@ static void show(const taskbar_state_e state) {
 
 uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
-
 
 	if (this->state == TASKBAR_NO_ALERTS) {
 
@@ -349,12 +368,16 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 				snprintf(this->time, TASKBAR_TIME_LEN,
 						"%02u:%02u", t.hour, t.min);
 				uv_ui_refresh(&this->clock);
+				snprintf(this->date, TASKBAR_DATE_LEN,
+						"%02u.%02u.%04u", t.day, t.month, t.year);
+				uv_ui_refresh(&this->cal);
 				uv_delay_init(100, &this->delay);
 			}
 		}
 	}
 	else {
 		uint16_t c = log_get_nack_count();
+
 		if (this->log_count != c || c == 0) {
 			show(TASKBAR_NO_ALERTS);
 			ret = UIOBJECT_RETURN_KILLED;

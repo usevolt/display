@@ -11,53 +11,42 @@
 #include <uv_utilities.h>
 #include <uv_ui.h>
 
-#define SYSTEM_NETWORK_BUFFER_LEN			10
+#define SYSTEM_NETWORK_BUFFER_LEN			8
 #define SYSTEM_NETWORK_ROW_VALUE_LEN		40
 
 enum {
-	DEV_NONE = 0,
-	MSB,
+	MSB = 0,
 	CSB,
 	ECU,
 	L_KEYPAD,
 	R_KEYPAD,
 	PEDAL,
 	UW180S_ECU,
-	UW180S_MB
+	UW180S_MB,
+	DEV_COUNT
 };
 typedef uint8_t devices_e;
 
 typedef struct {
-	uv_uiwindow_st window;
-	uv_uiobject_st *buffer[SYSTEM_NETWORK_BUFFER_LEN];
+	uv_uitreeview_st treeview;
+	uv_uitreeobject_st *treeviewbuffer[SYSTEM_NETWORK_BUFFER_LEN];
 
 	devices_e dev;
 
-	union {
-		struct {
-			uv_uibutton_st msb;
-			uv_uibutton_st csb;
-			uv_uibutton_st ecu;
-			uv_uibutton_st l_keypad;
-			uv_uibutton_st r_keypad;
-			uv_uibutton_st pedal;
-			uv_uibutton_st uw180s;
-			uv_uibutton_st uw180s_mb;
-		};
-		struct {
-			uv_uilabel_st name;
-			uv_uilabel_st row1_topics;
-			uv_uilabel_st row1_values;
-			char row1_val_str[SYSTEM_NETWORK_ROW_VALUE_LEN];
-			uv_uilabel_st row2_topics;
-			uv_uilabel_st row2_values;
-			char row2_val_str[SYSTEM_NETWORK_ROW_VALUE_LEN];
-			uv_uilabel_st row3_topics;
-			uv_uilabel_st row3_values;
-			char row3_val_str[SYSTEM_NETWORK_ROW_VALUE_LEN];
-			uv_uibutton_st back;
-		};
-	};
+	uv_uitreeobject_st objs[DEV_COUNT];
+
+	uv_uiobject_st *buffer[SYSTEM_NETWORK_BUFFER_LEN];
+	uv_uilabel_st name;
+	uv_uilabel_st row1_topics;
+	uv_uilabel_st row1_values;
+	char row1_val_str[SYSTEM_NETWORK_ROW_VALUE_LEN];
+	uv_uilabel_st row2_topics;
+	uv_uilabel_st row2_values;
+	char row2_val_str[SYSTEM_NETWORK_ROW_VALUE_LEN];
+	uv_uilabel_st row3_topics;
+	uv_uilabel_st row3_values;
+	char row3_val_str[SYSTEM_NETWORK_ROW_VALUE_LEN];
+	uv_uibutton_st back;
 } system_network_st;
 
 

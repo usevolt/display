@@ -33,18 +33,18 @@ void netdev_step(void *me, unsigned int step_ms) {
 			this->notified = false;
 		}
 		if (!this->notified) {
-			bool entry_found = false;
-			for (int i = 0; i < log_get_nack_count(); i++) {
-				log_entry_st e;
-				log_get_nack(&e, i);
-				if (e.type == this->disconnected_entry_type) {
-					entry_found = true;
-					break;
-				}
-			}
-			if (!entry_found) {
-				//log_add(this->disconnected_entry_type, this->node_id);
-			}
+//			bool entry_found = false;
+//			for (int i = 0; i < log_get_nack_count(); i++) {
+//				log_entry_st e;
+//				log_get_nack(&e, i);
+//				if (e.type == this->disconnected_entry_type) {
+//					entry_found = true;
+//					break;
+//				}
+//			}
+//			if (!entry_found) {
+//				log_add(this->disconnected_entry_type, this->node_id);
+//			}
 			this->notified = true;
 		}
 	}

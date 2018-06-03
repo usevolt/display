@@ -12,7 +12,7 @@
 #include <uv_ui.h>
 #include <uv_rtc.h>
 #include "main.h"
-#include "system_settings.h"
+#include "system_calibration.h"
 #include "system_restore.h"
 #include "system_network.h"
 #include "system_log.h"
@@ -36,7 +36,7 @@ typedef struct {
 	char about_str[ABOUT_STR_LEN];
 
 	union {
-		system_settings_st sys_settings;
+		system_calib_st sys_calib;
 		system_log_st sys_log;
 		system_network_st sys_network;
 		system_restore_st sys_restore;
@@ -50,7 +50,7 @@ typedef struct {
 void system_show(void);
 
 /// @brief: Can be used instead of *system_show* to show the systems page with the
-/// desired tab. **show_callb** should be assigned to be one of *system_settings_show*,
+/// desired tab. **show_callb** should be assigned to be one of *system_calib_show*,
 /// *system_log_show* or similar show-functions which will be called.
 void system_show_tab(void (*show_callb)(void));
 

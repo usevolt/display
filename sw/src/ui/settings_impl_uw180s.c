@@ -135,8 +135,6 @@ static void show_valves(void) {
 }
 
 
-static char *log_names[LOG_TYPE_COUNT];
-
 
 static void show_mb() {
 	uv_uiwindow_clear(this->window);

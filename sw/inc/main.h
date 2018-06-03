@@ -71,9 +71,9 @@ typedef struct _dspl_st {
 	/// other CAN network devices
 	network_st network;
 
-	uv_data_start_t data_start;
-
 	alert_st alert;
+
+	uv_data_start_t data_start;
 
 	userdata_st userdata[USER_COUNT];
 
