@@ -307,11 +307,19 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 						msb_get_power_glow_plugs(&dspl.network.msb) ? this->engine_visible : false);
 			}
 
-			if (msb_get_emcy_stop(&dspl.network.msb)) {
+			if (msb_get_emcy_stop(&dspl.network.msb) || !dspl.network.ecu.read.seat_sw) {
 				uv_ui_set_enabled(&this->emcy_label, true);
 				if (uv_delay(step_ms, &this->emcy_delay)) {
 					uv_delay_init(BG_ERROR_DELAY_MS, &this->emcy_delay);
 					uv_ui_set_enabled(&this->emcy_stop, !uv_ui_get_enabled(&this->emcy_stop));
+
+					if (msb_get_emcy_stop(&dspl.network.msb)) {
+						uv_uilabel_set_text(&this->emcy_label, "stop");
+					}
+					else {
+						uv_uilabel_set_text(&this->emcy_label, "seat");
+					}
+					uv_ui_refresh(&this->emcy_label);
 				}
 			}
 			else {

@@ -34,7 +34,7 @@ typedef struct {
 /// @brief: Shows this window
 void settings_general_show();
 
-void settings_general_step(uint16_t step_ms);
+uv_uiobject_ret_e settings_general_step(uint16_t step_ms);
 
 
 #endif /* UI_SETTINGS_GENERAL_H_ */

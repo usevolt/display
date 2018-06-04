@@ -34,6 +34,7 @@ typedef struct {
 		int16_t pressure;
 		uint8_t implement;
 		uint8_t gear;
+		uint8_t seat_sw;
 		struct {
 #if FM
 			int16_t boom_lift_ma;
@@ -77,6 +78,7 @@ static inline void ecu_init(ecu_st *this) {
 	this->read.stop = 0;
 	this->read.pressure = 0;
 	this->read.gear = 1;
+	this->read.seat_sw = 0;
 #if FM
 	this->read.valves.boom_lift_ma = 0;
 	this->read.valves.boom_fold_ma = 0;
