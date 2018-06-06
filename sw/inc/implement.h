@@ -88,6 +88,7 @@ typedef struct {
 	impl_valve_st saw;
 	impl_valve_st tilt;
 	impl_valve_st rotator;
+	impl_valve_st all_open;
 	bool mb_enabled;
 	int16_t len_calib;
 	int16_t vol_calib;

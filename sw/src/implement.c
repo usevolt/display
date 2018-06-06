@@ -79,6 +79,11 @@ const uw180s_st uw180s = {
 				.max_speed_n = 400,
 				.invert = false
 		},
+		.all_open = {
+				.max_speed_p = 400,
+				.max_speed_n = 400,
+				.invert = true,
+		},
 		.saw = {
 				.max_speed_p = 600,
 				.max_speed_n = 350,
@@ -97,7 +102,7 @@ const uw180s_st uw180s = {
 		.wheels_feed = {
 				.max_speed_p = 850,
 				.max_speed_n = 850,
-				.invert = false
+				.invert = true
 		},
 		.mb_enabled = true,
 		.len_calib = 225,

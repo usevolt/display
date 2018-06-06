@@ -626,7 +626,8 @@ void icu_set_saw_params(uint16_t speed_f,
 	dspl.user->uw180s.saw.max_speed_n = speed_b;
 	dspl.user->uw180s.saw.invert = invert;
 	uv_errors_e e = ERR_NONE;
-	e |= (uv_canopen_sdo_write( 0xA, 0x2040, 2, 2, &speed_f));
+	speed_b *= 2;
+	e |= (uv_canopen_sdo_write( 0xA, 0x2042, 0, 2, &speed_f));
 	e |= (uv_canopen_sdo_write( 0xA, 0x2040, 3, 2, &speed_b));
 	e |= (uv_canopen_sdo_write( 0xA, 0x2040, 1, 2, &invert));
 	if (e) {
@@ -646,6 +647,17 @@ void icu_set_tilt_params(uint16_t speed_f,
 	}
 }
 
+void icu_set_all_open_params(uint16_t speed_f,
+		uint16_t speed_b, uint16_t invert) {
+	dspl.user->uw180s.all_open.max_speed_p = speed_f;
+	dspl.user->uw180s.all_open.max_speed_n = speed_b;
+	dspl.user->uw180s.all_open.invert = invert;
+	uv_errors_e e = ERR_NONE;
+	e |= (uv_canopen_sdo_write( 0xA, 0x2060, 2, 2, &speed_f));
+	e |= (uv_canopen_sdo_write( 0xA, 0x2060, 3, 2, &speed_b));
+	e |= (uv_canopen_sdo_write( 0xA, 0x2060, 1, 2, &invert));
+
+}
 
 
 void icu_save_params() {

@@ -140,7 +140,7 @@ uv_uiobject_ret_e dashboard_uw50_step(uint16_t step_ms) {
 			snprintf(str, 10, "%03i", dspl.user->uw180s.log_len1);
 			strcat(log_length_str, str);
 			strcat(log_length_str, " cm");
-			int32_t len = (int32_t) dspl.user->uw180s.log_len2 * 10000;
+			int32_t len = (int32_t) dspl.user->uw180s.log_len1 * 10000;
 			uv_canopen_sdo_write(0xA, 0x2102, 0, CANOPEN_UNSIGNED32, &len);
 		}
 	}

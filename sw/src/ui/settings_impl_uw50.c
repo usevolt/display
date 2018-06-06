@@ -130,7 +130,7 @@ static void show_valves(void) {
 	uv_uiwindow_add(this->window, &this->valves.tilt, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->valves.rotator, "Rotator", &uv_uistyles[0]);
+	uv_uibutton_init(&this->valves.rotator, "All Open", &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->valves.rotator, bb.x, bb.y, bb.width, bb.height);
 }
 
@@ -264,7 +264,7 @@ uv_uiobject_ret_e settings_impl_uw50_step(uint16_t step_ms) {
 		set_params = icu_set_tilt_params;
 		break;
 	case UW50_STATE_ROTATOR:
-		set_params = NULL;
+		set_params = icu_set_all_open_params;
 		break;
 	default:
 		break;

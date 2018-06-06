@@ -365,6 +365,9 @@ void icu_set_saw_params(uint16_t speed_f,
 void icu_set_tilt_params(uint16_t speed_f,
 		uint16_t speed_b, uint16_t invert);
 
+void icu_set_all_open_params(uint16_t speed_f,
+		uint16_t speed_b, uint16_t invert);
+
 
 void icu_save_params();
 
