@@ -59,24 +59,26 @@ typedef struct {
 			int16_t boom_lift_ma;
 			int16_t boom_fold_ma;
 			int16_t boom_rotate_ma;
-			int16_t drive_ma;
-			int16_t steer_ma;
+			int16_t drivefront_ma;
+			int16_t steerfront_ma;
 			int16_t left_leg_ma;
 			int16_t right_leg_ma;
 			int16_t boom_telescope_ma;
 			int16_t steerback_ma;
 			int16_t cab_rot_ma;
+			int16_t driveback_ma;
 #elif CM
 			int16_t boom_lift_ma;
 			int16_t boom_fold_ma;
 			int16_t boom_rotate_ma;
-			int16_t drive_ma;
+			int16_t drivefront_ma;
 			int16_t steer_ma;
 			int16_t left_leg_ma;
 			int16_t right_leg_ma;
 			int16_t boom_telescope_ma;
 			int16_t telescope_ma;
 			int16_t cab_rot_ma;
+			int16_t driveback_ma;
 #endif
 		} valves;
 	} read;
@@ -114,8 +116,9 @@ static inline void ecu_init(ecu_st *this) {
 	this->read.valves.boom_fold_ma = 0;
 	this->read.valves.boom_rotate_ma = 0;
 	this->read.valves.boom_telescope_ma = 0;
-	this->read.valves.drive_ma = 0;
-	this->read.valves.steer_ma = 0;
+	this->read.valves.drivefront_ma = 0;
+	this->read.valves.driveback_ma = 0;
+	this->read.valves.steerfront_ma = 0;
 	this->read.valves.steerback_ma = 0;
 	this->read.valves.left_leg_ma = 0;
 	this->read.valves.right_leg_ma = 0;
@@ -125,7 +128,8 @@ static inline void ecu_init(ecu_st *this) {
 	this->read.valves.boom_fold_ma = 0;
 	this->read.valves.boom_rotate_ma = 0;
 	this->read.valves.boom_telescope_ma = 0;
-	this->read.valves.drive_ma = 0;
+	this->read.valves.drivefront_ma = 0;
+	this->read.valves.driveback_ma = 0;
 	this->read.valves.steer_ma = 0;
 	this->read.valves.telescope_ma = 0;
 	this->read.valves.left_leg_ma = 0;
@@ -182,6 +186,8 @@ static inline int16_t ecu_get_boom_rotate_ma(ecu_st *this) {
 	return this->read.valves.boom_rotate_ma;
 }
 
+#if FM
+
 static inline int16_t ecu_get_drive_ma(ecu_st *this) {
 	return this->read.valves.drive_ma;
 }
@@ -189,8 +195,6 @@ static inline int16_t ecu_get_drive_ma(ecu_st *this) {
 static inline int16_t ecu_get_steer_ma(ecu_st *this) {
 	return this->read.valves.steer_ma;
 }
-
-#if FM
 
 static inline int16_t ecu_get_impl_valve_ma(ecu_st *this) {
 	return this->read.valves.impl_valve_ma;
@@ -200,6 +204,18 @@ static inline int16_t ecu_get_impl_valve_ma(ecu_st *this) {
 
 static inline int16_t ecu_get_boom_telescope_ma(ecu_st *this) {
 	return this->read.valves.boom_telescope_ma;
+}
+
+static inline int16_t ecu_get_drivefront_ma(ecu_st *this) {
+	return this->read.valves.drivefront_ma;
+}
+
+static inline int16_t ecu_get_steerfront_ma(ecu_st *this) {
+	return this->read.valves.steerfront_ma;
+}
+
+static inline int16_t ecu_get_driveback_ma(ecu_st *this) {
+	return this->read.valves.driveback_ma;
 }
 
 static inline int16_t ecu_get_steerback_ma(ecu_st *this) {
@@ -213,6 +229,18 @@ static inline int16_t ecu_get_cab_rot_ma(ecu_st *this) {
 
 static inline int16_t ecu_get_boom_telescope_ma(ecu_st *this) {
 	return this->read.valves.boom_telescope_ma;
+}
+
+static inline int16_t ecu_get_drivefront_ma(ecu_st *this) {
+	return this->read.valves.drivefront_ma;
+}
+
+static inline int16_t ecu_get_steer_ma(ecu_st *this) {
+	return this->read.valves.steer_ma;
+}
+
+static inline int16_t ecu_get_driveback_ma(ecu_st *this) {
+	return this->read.valves.driveback_ma;
 }
 
 static inline int16_t ecu_get_telescope_ma(ecu_st *this) {
@@ -240,15 +268,21 @@ void ecu_set_boom_fold_params(valve_st *valve);
 
 void ecu_set_boom_rotate_params(valve_st *valve);
 
+#if FM
+
 void ecu_set_drive_params(valve_st *valve);
 
 void ecu_set_steer_params(valve_st *valve);
 
-#if FM
-
 #elif LM
 
 void ecu_set_boom_telescope_params(valve_st *valve);
+
+void ecu_set_drivefront_params(valve_st *valve);
+
+void ecu_set_steerfront_params(valve_st *valve);
+
+void ecu_set_driveback_params(valve_st *valve);
 
 void ecu_set_steerback_params(valve_st *valve);
 
@@ -257,6 +291,12 @@ void ecu_set_cab_rot_params(valve_st *valve);
 #elif CM
 
 void ecu_set_boom_telescope_params(valve_st *valve);
+
+void ecu_set_drivefront_params(valve_st *valve);
+
+void ecu_set_steer_params(valve_st *valve);
+
+void ecu_set_driveback_params(valve_st *valve);
 
 void ecu_set_telescope_params(valve_st *valve);
 
@@ -290,10 +330,6 @@ void ecu_set_uw180s_saw_params(uint16_t speed_f,
 void ecu_set_uw180s_tilt_params(uint16_t speed_f,
 		uint16_t speed_b, bool invert);
 
-void ecu_set_uw180s_rollers_grab_time(uint16_t time_ms);
-
-void ecu_set_uw180s_blades_grab_time(uint16_t time_ms);
-
 void ecu_set_uw180s_rotator_params(uint16_t speed_f,
 		uint16_t speed_b, bool invert);
 
@@ -313,6 +349,11 @@ void ecu_set_uw50_tilt_params(uint16_t speed_f,
 		uint16_t speed_b, uint16_t acc, uint16_t dec, bool invert);
 
 void ecu_save_params();
+
+void ecu_set_uw180s_blades_grab_time(uint16_t time_ms);
+void ecu_set_uw180s_rollers_grab_time(uint16_t time_ms);
+
+
 
 #undef VALVE_SETTER
 
