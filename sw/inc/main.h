@@ -25,9 +25,11 @@
 #define USERNAME_MAX_LEN	32
 
 
-#define HOUR_COUNTER_EEPROM_ADDR	(CONFIG_EEPROM_RING_BUFFER_END_ADDR + 1)
 #define CURRENT_USER_EEPROM_ADDR	(CONFIG_EEPROM_RING_BUFFER_END_ADDR)
+#define HOUR_COUNTER_EEPROM_ADDR	(CONFIG_EEPROM_RING_BUFFER_END_ADDR + 1)
+#define BRIGHTNESS_EEPROM_ADDR		(CONFIG_EEPROM_RING_BUFFER_END_ADDR + 1 + sizeof(uint32_t))
 
+#define BRIGHTNESS_DEFAULT_VALUE	70
 
 
 typedef uint8_t user_e;
@@ -44,6 +46,7 @@ typedef struct {
 		implement_st *implement;
 		/// @brief: Tells the currently selected implement
 		impl_type_e active_implement;
+		uint8_t oilc_trigger_temp;
 		struct {
 			uint8_t volume;
 			bool touch;
@@ -55,7 +58,7 @@ typedef struct {
 
 typedef struct _dspl_st {
 
-	uint16_t hour_counter;
+	uint32_t hour_counter;
 	uint16_t min_counter;
 	uint8_t last_min;
 
@@ -82,6 +85,8 @@ typedef struct _dspl_st {
 	uv_data_end_t data_end;
 
 } dspl_st;
+
+extern dspl_st dspl;
 
 
 void dspl_init(dspl_st *me);

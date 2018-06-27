@@ -139,11 +139,10 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 	uv_uitreeobject_add(&this->displayobj, &this->system.brightness,
 			bb.x, bb.y, bb.width, bb.height);
 
-	// volume
+	// oil cooler trigger temp
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->system.oilcooler_trigger, 0, 90,
-			uv_canopen_sdo_read8(CSB_NODE_ID, CSB_OILCOOLER_TRIGGER_INDEX, CSB_OILCOOLER_TRIGGER_SUBINDEX),
-			&uv_uistyles[0]);
+			dspl.user->oilc_trigger_temp, &uv_uistyles[0]);
 	uv_uislider_set_horizontal(&this->system.oilcooler_trigger);
 	uv_uislider_set_title(&this->system.oilcooler_trigger, "Oil Cooler\ntrigger temp");
 	uv_uitreeobject_add(&this->displayobj, &this->system.oilcooler_trigger,
@@ -325,9 +324,10 @@ uv_uiobject_ret_e settings_system_step(const uint16_t step_ms) {
 
 	// oil cooler trigger temp
 	if (uv_uislider_value_changed(&this->system.oilcooler_trigger)) {
+		dspl.user->oilc_trigger_temp = uv_uislider_get_value(&this->system.oilcooler_trigger);
 		uv_canopen_sdo_write8(CSB_NODE_ID,
 				CSB_OILCOOLER_TRIGGER_INDEX, CSB_OILCOOLER_TRIGGER_SUBINDEX,
-				uv_uislider_get_value(&this->system.oilcooler_trigger));
+				dspl.user->oilc_trigger_temp);
 	}
 
 

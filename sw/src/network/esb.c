@@ -30,6 +30,7 @@ void esb_init(esb_st *this) {
 
 void esb_step(esb_st *this, unsigned int step_ms) {
 	netdev_step(this, step_ms);
+	this->super.connected = 1;
 
 }
 

@@ -17,6 +17,10 @@
 enum {
 	UW180S_STATE_NONE = 0,
 	UW180S_STATE_MB,
+	UW180S_STATE_GENERAL,
+	// put new states here
+
+	// note: after UW180S_STATE_VALVES, only valve states are allowed
 	UW180S_STATE_VALVES,
 	UW180S_STATE_WHEELS,
 	UW180S_STATE_WHEELS_FEED,
@@ -42,8 +46,10 @@ typedef struct {
 			uv_uislider_st len_calib;
 			uv_uislider_st vol_calib;
 			uv_uilabel_st info_label;
+			uv_uibutton_st vol_reset;
 		} mb;
 		struct {
+			uv_uibutton_st general;
 			uv_uibutton_st valves;
 			uv_uibutton_st measurement;
 		} main;
@@ -61,6 +67,10 @@ typedef struct {
 			uv_uitogglebutton_st invert;
 			char str[32];
 		} sliders;
+		struct {
+			uv_uislider_st rollers_grab_time;
+			uv_uislider_st blades_grab_time;
+		} general;
 	};
 
 } settings_uw180s_st;

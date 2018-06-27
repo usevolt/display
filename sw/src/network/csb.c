@@ -25,5 +25,9 @@ void csb_step(csb_st *this, unsigned int step_ms) {
 
 #define this ((csb_st*)me)
 void csb_update(void *me) {
+	uv_canopen_sdo_write8(CSB_NODE_ID,
+			CSB_OILCOOLER_TRIGGER_INDEX, CSB_OILCOOLER_TRIGGER_SUBINDEX,
+			dspl.user->oilc_trigger_temp);
+
 }
 #undef this

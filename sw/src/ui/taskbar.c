@@ -184,14 +184,6 @@ static void show(const taskbar_state_e state) {
 
 		// voltage
 		bb = uv_uigridlayout_next(&grid);
-		uv_uiprogressbar_init(&this->voltage_level, VOLTAGE_MIN, VOLTAGE_MAX, &uv_uistyles[0]);
-		uv_uiprogressbar_set_value(&this->voltage_level, esb_get_voltage(&dspl.network.esb));
-		uv_uiprogressbar_set_vertical(&this->voltage_level);
-		uv_uiprogressbar_set_limit(&this->voltage_level, UI_PROGRESSBAR_LIMIT_UNDER,
-				VOLTAGE_WARNING_LIMIT, ERROR_COLOR);
-		uv_uiprogressbar_set_title(&this->voltage_level, uv_str(STR_TASKBAR_BATV));
-		uv_uiwindow_add(&this->taskbar, &this->voltage_level, bb.x, bb.y,
-				bb.width, bb.height);
 
 		// Fuel level
 		bb = uv_uigridlayout_next(&grid);
@@ -328,11 +320,17 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 						esb_get_glow_plugs(&dspl.network.esb) ? this->engine_visible : false);
 			}
 
-			if (fsb_get_emcy(&dspl.network.fsb)) {
+			if (fsb_get_emcy(&dspl.network.fsb) || dspl.network.ecu.read.seat_sw) {
 				uv_ui_set_enabled(&this->emcy_label, true);
 				if (uv_delay(step_ms, &this->emcy_delay)) {
 					uv_delay_init(BG_ERROR_DELAY_MS, &this->emcy_delay);
 					uv_ui_set_enabled(&this->emcy_stop, !uv_ui_get_enabled(&this->emcy_stop));
+					if (fsb_get_emcy(&dspl.network.fsb)) {
+						uv_uilabel_set_text(&this->emcy_label, "EMCY");
+					}
+					else {
+						uv_uilabel_set_text(&this->emcy_label, "Seat");
+					}
 				}
 			}
 			else {
@@ -365,7 +363,6 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 			}
 
 
-			uv_uiprogressbar_set_value(&this->voltage_level, esb_get_voltage(&dspl.network.esb));
 			uv_uiprogressbar_set_value(&this->fuel_level, esb_get_fuel_level(&dspl.network.esb));
 			uv_uiprogressbar_set_value(&this->oil_level, esb_get_oil_level(&dspl.network.esb));
 			uv_uiprogressbar_set_value(&this->otemp_bar, esb_get_oil_temp(&dspl.network.esb));

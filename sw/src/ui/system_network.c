@@ -78,14 +78,10 @@ static const data_st labels[DEV_COUNT] = {
 						"Pump State\n"
 						"Alt IG State",
 				.row3 = "RPM\n"
-						"Alt L\n"
-						"Motor Water\n"
-						"Motor Oil\n"
 						"Motor Temp (C)\n"
 						"Oil Temp (C)\n"
 						"Oil Level (%)\n"
 						"Fuel Level (%)\n"
-						"Voltage (mV)"
 		},
 		// FSB
 		{
@@ -247,25 +243,12 @@ static void update(devices_e dev) {
 						ESB_ALT_IG_STATUS_INDEX, ESB_ALT_IG_STATUS_SUBINDEX)));
 		uv_ui_refresh(&this->row2_values);
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
-				uv_canopen_sdo_read16(ESB_NODE_ID,
-						ESB_RPM_INDEX, ESB_RPM_SUBINDEX),
-				uv_canopen_sdo_read8(ESB_NODE_ID,
-						ESB_ALT_L_INDEX, ESB_ALT_L_SUBINDEX),
-				uv_canopen_sdo_read8(ESB_NODE_ID,
-						ESB_MOTOR_WATER_TEMP_INDEX, ESB_MOTOR_WATER_TEMP_SUBINDEX),
-				uv_canopen_sdo_read8(ESB_NODE_ID,
-						ESB_MOTOR_OIL_PRESS_INDEX, ESB_MOTOR_OIL_PRESS_SUBINDEX),
-				uv_canopen_sdo_read8(ESB_NODE_ID,
-						ESB_MOTOR_TEMP_INDEX, ESB_MOTOR_TEMP_SUBINDEX),
-				uv_canopen_sdo_read8(ESB_NODE_ID,
-						ESB_OIL_TEMP_INDEX, ESB_OIL_TEMP_SUBINDEX),
-				uv_canopen_sdo_read8(ESB_NODE_ID,
-						ESB_OIL_LEVEL_INDEX, ESB_OIL_LEVEL_SUBINDEX),
-				uv_canopen_sdo_read8(ESB_NODE_ID,
-						ESB_FUEL_LEVEL_INDEX, ESB_FUEL_LEVEL_SUBINDEX),
-				uv_canopen_sdo_read16(ESB_NODE_ID,
-						ESB_VDD_INDEX, ESB_VDD_SUBINDEX));
+				"%i\n%i\n%i\n%i\n%i",
+				esb_get_rpm(&dspl.network.esb),
+				esb_get_motor_temp(&dspl.network.esb),
+				esb_get_oil_temp(&dspl.network.esb),
+				esb_get_oil_level(&dspl.network.esb),
+				esb_get_fuel_level(&dspl.network.esb));
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(&dspl.network.esb);
 	}
