@@ -41,6 +41,7 @@ typedef struct {
 			uv_uislider_st len_calib;
 			uv_uislider_st vol_calib;
 			uv_uilabel_st info_label;
+			uv_uibutton_st vol_reset;
 		} mb;
 		struct {
 			uv_uibutton_st valves;

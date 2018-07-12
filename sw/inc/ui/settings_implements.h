@@ -16,7 +16,7 @@
 #include "settings_impl_uw50.h"
 #include "settings_impl_uw100.h"
 
-#define SETTINGS_IMPLEMENT_BUFFER_LEN	12
+#define SETTINGS_IMPLEMENT_BUFFER_LEN	13
 
 
 typedef struct {

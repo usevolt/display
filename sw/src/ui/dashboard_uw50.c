@@ -101,7 +101,12 @@ uv_uiobject_ret_e dashboard_uw50_step(uint16_t step_ms) {
 	int32_t len;
 	uv_canopen_sdo_read_sync(0xA, 0x2105, 0, CANOPEN_SIGNED32, &len, 100);
 	uv_uidigit_set_value(&this->len, len / 10000);
-	uv_uidigit_set_value(&this->wid, 0);
+	int32_t wid;
+	uv_canopen_sdo_read_sync(0xA, 0x2108, 0, CANOPEN_UNSIGNED32, &wid, 100);
+	uv_uidigit_set_value(&this->wid, wid);
+	uint32_t vol;
+	uv_canopen_sdo_read_sync(0xA, 0x2109, 0, CANOPEN_UNSIGNED32, &vol, 100);
+	uv_uidigit_set_value(&this->vol, vol / 1000);
 
 	uint8_t saw_pos = 0;
 	static uint8_t saw_last_pos = 0;
