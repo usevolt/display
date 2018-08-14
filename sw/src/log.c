@@ -347,13 +347,16 @@ void log_add(log_entry_e type) {
 			.ack = false
 	};
 	uv_rtc_get_time(&entry.time);
-	uv_errors_e e = uv_eeprom_push_back((unsigned char *) &entry);
-	// returning an error means that the EEPROM was full. Remove the
-	// oldest log entry and write new one again.
-	if (e) {
-		uv_eeprom_pop_front(NULL);
-		uv_eeprom_push_back((unsigned char *) &entry);
-	}
+//
+//	todo: FM_6.5.1: alerts disabled
+//
+//	uv_errors_e e = uv_eeprom_push_back((unsigned char *) &entry);
+//	// returning an error means that the EEPROM was full. Remove the
+//	// oldest log entry and write new one again.
+//	if (e) {
+//		uv_eeprom_pop_front(NULL);
+//		uv_eeprom_push_back((unsigned char *) &entry);
+//	}
 	update_nack_count();
 }
 
