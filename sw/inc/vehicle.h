@@ -19,7 +19,6 @@
 #define LKEYPAD_NODE_ID			3
 #define RKEYPAD_NODE_ID			4
 #define MSB_NODE_ID				6
-#define CSB_NODE_ID				7
 #define ECU_NODE_ID				0x10
 #define PEDAL_NODE_ID			0x1E
 #define UW180S_ECU_NODE_ID		0xA

@@ -102,7 +102,7 @@ uv_uiobject_ret_e settings_general_step(const uint16_t step_ms) {
 		csb_set_drive_light(&dspl.network.csb, uv_uitogglebutton_get_state(&this->drive_lights));
 	}
 	else {
-		uv_uitogglebutton_set_state(&this->drive_lights, csb_get_drive_light(&dspl.network.csb));
+//		uv_uitogglebutton_set_state(&this->drive_lights, csb_get_drive_light(&dspl.network.csb));
 	}
 
 	// work lights
@@ -111,7 +111,7 @@ uv_uiobject_ret_e settings_general_step(const uint16_t step_ms) {
 		msb_set_crane_light(&dspl.network.msb, uv_uitogglebutton_get_state(&this->work_lights));
 	}
 	else {
-		uv_uitogglebutton_set_state(&this->work_lights, csb_get_work_light(&dspl.network.csb));
+//		uv_uitogglebutton_set_state(&this->work_lights, csb_get_work_light(&dspl.network.csb));
 	}
 
 	// wiper

@@ -29,6 +29,7 @@ BINARY := display
 
 # List of include directories
 INCLUDEDIRS := 	-I"inc/" \
+				-I"uw_can" \
 				-I"hal/uv_hal/inc" \
 				-I"hal/CMSIS_CORE_LPC177x_8x/inc"\
 				-I"hal/uv_hal/freertos/include" \

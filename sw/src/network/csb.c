@@ -8,6 +8,7 @@
 
 #include "csb.h"
 #include "main.h"
+#include <uv_canopen.h>
 
 
 void csb_step(csb_st *this, unsigned int step_ms) {
@@ -19,7 +20,8 @@ void csb_step(csb_st *this, unsigned int step_ms) {
 /// @brief: Sends the request to CSB to set the drive lights to *value*
 void csb_set_drive_light(csb_st *csb, bool value) {
 	csb->read.lights.drive_light = value;
-	if (uv_canopen_sdo_write(CSB_NODE_ID, 0x1100, 0, 1, &value)) {
+	if (uv_canopen_sdo_write(CSB_NODE_ID, CSB_DRIVE_LIGHT_STATUS_INDEX,
+			CSB_DRIVE_LIGHT_STATUS_SUBINDEX, 1, &value)) {
 		netdev_set_transmit_failure(&dspl.network.csb);
 	}
 }
@@ -27,7 +29,8 @@ void csb_set_drive_light(csb_st *csb, bool value) {
 /// @brief: Sends the request to CSB to set work lights to *value*
 void csb_set_work_light(csb_st *csb, bool value) {
 	csb->read.lights.work_light = value;
-	if (uv_canopen_sdo_write(CSB_NODE_ID, 0x1101, 0, 1, &value)) {
+	if (uv_canopen_sdo_write(CSB_NODE_ID, CSB_WORK_LIGHT_STATUS_INDEX,
+			CSB_WORK_LIGHT_STATUS_SUBINDEX, 1, &value)) {
 		netdev_set_transmit_failure(&dspl.network.csb);
 	}
 }

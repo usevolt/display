@@ -10,6 +10,9 @@
 #include "gui.h"
 #include "network.h"
 #include "netdev.h"
+#include "can_csb.h"
+#include "can_esb.h"
+#include "can_fsb.h"
 
 #define this (&gui.windows.system.windows.sys_network)
 
@@ -212,31 +215,51 @@ static void update_netdev(void *dev) {
 
 static void update(devices_e dev) {
 	if (dev == MSB) {
+		uint8_t fuel_level, oil_level, oil_temp, motor_temp;
+		uint16_t rpm, voltage;
+		uv_canopen_sdo_read_sync(ESB_NODE_ID, ESB_OIL_LEVEL_INDEX, ESB_OIL_LEVEL_SUBINDEX, 1, &fuel_level, 100);
+		uv_canopen_sdo_read_sync(FSB_NODE_ID, FSB_FUEL_LEVEL_INDEX, FSB_FUEL_LEVEL_SUBINDEX, 1, &oil_level, 100);
+		uv_canopen_sdo_read_sync(ESB_NODE_ID, ESB_OIL_TEMP_INDEX, ESB_OIL_TEMP_SUBINDEX, 1, &oil_temp, 100);
+		uv_canopen_sdo_read_sync(ESB_NODE_ID, ESB_MOTOR_TEMP_INDEX, ESB_MOTOR_TEMP_SUBINDEX, 1, &motor_temp, 100);
+		uv_canopen_sdo_read_sync(ESB_NODE_ID, ESB_RPM_INDEX, ESB_RPM_SUBINDEX, 2, &rpm, 100);
+		uv_canopen_sdo_read_sync(ESB_NODE_ID, ESB_VDD_INDEX, ESB_VDD_SUBINDEX, 2, &voltage, 100);
+
 		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
 				"%i\n%i\n%i\n%i\n%i\n%i",
-				msb_get_fuel_level(&dspl.network.msb),
-				msb_get_oil_level(&dspl.network.msb),
-				msb_get_oil_temp(&dspl.network.msb),
-				msb_get_motor_temp(&dspl.network.msb),
-				msb_get_rpm(&dspl.network.msb),
-				msb_get_voltage(&dspl.network.msb));
+				fuel_level,
+				oil_level,
+				oil_temp,
+				motor_temp,
+				rpm,
+				voltage);
 		uv_ui_refresh(&this->row2_values);
+
+		uint8_t glow, starter, wt, op, aux;
+		uv_canopen_sdo_read_sync(ESB_NODE_ID, ESB_GLOW_STATUS_INDEX, ESB_GLOW_STATUS_SUBINDEX, 1, &glow, 100);
+		uv_canopen_sdo_read_sync(ESB_NODE_ID, ESB_STARTER_STATUS_INDEX, ESB_STARTER_STATUS_SUBINDEX, 1, &starter, 100);
+		uv_canopen_sdo_read_sync(ESB_NODE_ID, ESB_MOTOR_WATER_TEMP_INDEX, ESB_MOTOR_WATER_TEMP_SUBINDEX, 1, &wt, 100);
+		uv_canopen_sdo_read_sync(ESB_NODE_ID, ESB_MOTOR_OIL_PRESS_INDEX, ESB_MOTOR_OIL_PRESS_SUBINDEX, 1, &op, 100);
+		uv_canopen_sdo_read_sync(FSB_NODE_ID, FSB_AUX_STATUS_INDEX, FSB_AUX_STATUS_SUBINDEX, 1, &aux, 100);
+
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
 				"%i\n%i\n%i\n%i\n%i\n%i",
-				msb_get_power_glow_plugs(&dspl.network.msb),
-				msb_get_power_starter(&dspl.network.msb),
-				msb_get_power_engine_water(&dspl.network.msb),
-				msb_get_power_crane_light(&dspl.network.msb),
-				msb_get_power_engine_oil_press(&dspl.network.msb),
-				msb_get_power_aux(&dspl.network.msb));
+				glow,
+				starter,
+				wt,
+				0,
+				op,
+				aux);
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(&dspl.network.msb);
 	}
 	else if (dev == CSB) {
+		uint8_t dl, wl;
+		uv_canopen_sdo_read_sync(CSB_NODE_ID, CSB_DRIVE_LIGHT_STATUS_INDEX, CSB_DRIVE_LIGHT_STATUS_SUBINDEX, 1, &dl, 100);
+		uv_canopen_sdo_read_sync(CSB_NODE_ID, CSB_WORK_LIGHT_STATUS_INDEX, CSB_WORK_LIGHT_STATUS_SUBINDEX, 1, &wl, 100);
+
 		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
 				"%i\n%i\n%i\n%i\n%i\n%i",
-				csb_get_drive_light(&dspl.network.csb),
-				csb_get_work_light(&dspl.network.csb),
+				dl, wl,
 				csb_get_cabin_light(&dspl.network.csb),
 				csb_get_beacon(&dspl.network.csb),
 				csb_get_wiper(&dspl.network.csb),

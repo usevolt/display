@@ -13,6 +13,7 @@
 #include <uv_canopen.h>
 #include "vehicle.h"
 #include "netdev.h"
+#include "can_csb.h"
 
 
 #define CSB_WIPER_SPEED_COUNT	5

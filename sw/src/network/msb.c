@@ -8,6 +8,8 @@
 
 #include "msb.h"
 #include "main.h"
+#include "can_fsb.h"
+#include "can_esb.h"
 #include <uv_canopen.h>
 
 
@@ -30,8 +32,8 @@ void msb_set_heater(void *me, uint8_t value) {
 		value = 100;
 	}
 	this->read.heater = value;
-	if (uv_canopen_sdo_write(this->super.node_id,
-			0x1101, 0, 1, &value)) {
+	if (uv_canopen_sdo_write(FSB_NODE_ID,
+			FSB_HEATER_SPEED_INDEX, FSB_HEATER_SPEED_SUBINDEX, 1, &value)) {
 		netdev_set_transmit_failure(this);
 	}
 
@@ -39,16 +41,16 @@ void msb_set_heater(void *me, uint8_t value) {
 
 void msb_set_crane_light(void *me, bool value) {
 	this->read.power.crane_light = value;
-	if (uv_canopen_sdo_write(this->super.node_id,
-			0x1102, 0, 1, &value)) {
-		netdev_set_transmit_failure(this);
-	}
+//	if (uv_canopen_sdo_write(this->super.node_id,
+//			0x1102, 0, 1, &value)) {
+//		netdev_set_transmit_failure(this);
+//	}
 }
 
 void msb_set_horn(void *me, bool value) {
 	if (value != this->horn) {
-		uv_canopen_sdo_write(this->super.node_id,
-				0x1103, 0, 1, &value);
+		uv_canopen_sdo_write(FSB_NODE_ID,
+				FSB_HORN_STATUS_INDEX, FSB_HORN_STATUS_SUBINDEX, 1, &value);
 		this->horn = value;
 	}
 }
