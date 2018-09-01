@@ -11,7 +11,6 @@
 #include <canopen.h>
 #include <commands.h>
 #include "LPC177x_8x.h"
-#include <cr_section_macros.h>
 #include <main.h>
 #include <uv_rtos.h>
 #include <uv_terminal.h>
