@@ -20,20 +20,20 @@
 
 
 
-void implement_set(impl_type_e implement) {
-	if (implement < IMPL_COUNT) {
+void implement_set(hcu_impls_e implement) {
+	if (implement < HCU_IMPLEMENT_COUNT) {
 		dspl.user->active_implement = implement;
 
-		if (implement == IMPL_UW180S) {
+		if (implement == HCU_IMPLEMENT_UW180S) {
 			dspl.user->implement = (void*) &dspl.user->uw180s;
 		}
-		else if (implement == IMPL_UW100) {
+		else if (implement == HCU_IMPLEMENT_UW100) {
 			dspl.user->implement = (void*) &dspl.user->uw100;
 		}
-		else if (implement == IMPL_UW50) {
+		else if (implement == HCU_IMPLEMENT_UW50) {
 			dspl.user->implement = (void*) &dspl.user->uw50;
 		}
-		ecu_set_implement(implement);
+		hcu_set_implement(implement);
 	}
 	else {
 		printf("Invalid implement type %u\n", implement);
@@ -69,37 +69,117 @@ const uw180s_st uw180s = {
 				.name = "UW180s",
 				.callbacks = &uw180s_callbacks,
 		},
-		.delimbers = {
+		.bladesopen = {
+				.name = STR_SETTINGS_UW180S_BUTTONBLADESOPEN,
+				.setter = &icu_set_bladeopen_params,
 				.max_speed_p = 500,
 				.max_speed_n = 500,
-				.invert = false
+				.min_speed_p = 80,
+				.min_speed_n = 80,
+				.acc = 100,
+				.dec = 100,
+				.invert = false,
+				.assembly_invert = false
 		},
 		.rotator = {
+				.name = STR_SETTINGS_UW180S_BUTTONROTATOR,
+				.setter = &hcu_set_rotator_params,
 				.max_speed_p = 500,
 				.max_speed_n = 500,
-				.invert = false
+				.min_speed_p = 80,
+				.min_speed_n = 80,
+				.acc = 100,
+				.dec = 100,
+				.invert = false,
+				.assembly_invert = false
 		},
 		.saw = {
+				.name = STR_SETTINGS_UW180S_BUTTONSAW,
+				.setter = &icu_set_saw_params,
 				.max_speed_p = 600,
 				.max_speed_n = 350,
-				.invert = false
+				.min_speed_p = 80,
+				.min_speed_n = 80,
+				.acc = 100,
+				.dec = 100,
+				.invert = false,
+				.assembly_invert = false
 		},
 		.tilt = {
+				.name = STR_SETTINGS_UW180S_BUTTONTILT,
+				.setter = &icu_set_tilt_params,
 				.max_speed_p = 350,
 				.max_speed_n = 350,
-				.invert = false
+				.min_speed_p = 80,
+				.min_speed_n = 80,
+				.acc = 100,
+				.dec = 100,
+				.invert = false,
+				.assembly_invert = false
 		},
-		.wheels = {
+		.feedopen = {
+				.name = STR_SETTINGS_UW180S_BUTTONFEEDOPEN,
+				.setter = &icu_set_feedopen_params,
 				.max_speed_p = 600,
 				.max_speed_n = 600,
-				.invert = false
+				.min_speed_p = 80,
+				.min_speed_n = 80,
+				.acc = 100,
+				.dec = 100,
+				.invert = false,
+				.assembly_invert = false
 		},
-		.wheels_feed = {
+		.feed = {
+				.name = STR_SETTINGS_UW180S_BUTTONFEED,
+				.setter = &icu_set_feed_params,
 				.max_speed_p = 850,
 				.max_speed_n = 850,
-				.invert = false
+				.min_speed_p = 80,
+				.min_speed_n = 80,
+				.acc = 100,
+				.dec = 100,
+				.invert = false,
+				.assembly_invert = false
 		},
-		.mb_enabled = true,
+		.all_open = {
+				.name = STR_SETTINGS_UW180S_BUTTONALLOPEN,
+				.setter = &icu_set_allopen_params,
+				.max_speed_p = 850,
+				.max_speed_n = 850,
+				.min_speed_p = 80,
+				.min_speed_n = 80,
+				.acc = 100,
+				.dec = 100,
+				.invert = false,
+				.assembly_invert = false
+		},
+		.impl1 = {
+				.name = STR_SETTINGS_UW180S_BUTTONIMPL1,
+				.setter = &hcu_set_impl1_params,
+				.max_speed_p = 850,
+				.max_speed_n = 850,
+				.min_speed_p = 80,
+				.min_speed_n = 80,
+				.acc = 100,
+				.dec = 100,
+				.invert = false,
+				.assembly_invert = false
+		},
+		.impl2 = {
+				.name = STR_SETTINGS_UW180S_BUTTONIMPL2,
+				.setter = &hcu_set_impl2_params,
+				.max_speed_p = 850,
+				.max_speed_n = 850,
+				.min_speed_p = 80,
+				.min_speed_n = 80,
+				.acc = 100,
+				.dec = 100,
+				.invert = false,
+				.assembly_invert = false
+		},
+		.len_enabled = true,
+		.width_enabled = true,
+		.vol_enabled = true,
 		.len_calib = 66,
 		.vol_calib = 0,
 		.log_len1 = 310,
@@ -111,7 +191,6 @@ const uw180s_st uw180s = {
 
 void uw180s_init(uw180s_st *this) {
 	implement_init(this, &uw180s);
-	ecu_set_uw180s_log_length(this->log_len1);
 }
 
 

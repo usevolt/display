@@ -18,12 +18,12 @@ enum {
 	ESB = 0,
 	FSB,
 	CSB,
-	ECU,
+	HCU,
+	CCU,
 	L_KEYPAD,
 	R_KEYPAD,
 	PEDAL,
-	UW180S_ECU,
-	UW180S_MB,
+	ICU,
 	DEV_COUNT
 };
 typedef uint8_t devices_e;

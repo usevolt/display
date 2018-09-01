@@ -8,6 +8,7 @@
 
 
 #include "network.h"
+#include "main.h"
 
 static void network_task(void *me);
 
@@ -28,16 +29,10 @@ void network_init(network_st *this) {
 	fsb_init(&this->fsb);
 	rkeypad_init(&this->r_keypad);
 	lkeypad_init(&this->l_keypad);
-	ecu_init(&this->ecu);
+	hcu_init(&this->hcu);
+	ccu_init(&this->ccu);
 	pedal_init(&this->pedal);
-	mb_init(&this->uw180s_mb);
-	uw180s_ecu_init(&this->uw180s_ecu);
-}
-
-void network_receive_emcy(network_st *this, const canopen_emcy_msg_st *emcy) {
-	if (emcy->node_id == ((netdev_st*) &this->ecu)->node_id) {
-		ecu_emcy(&this->ecu, emcy);
-	}
+	icu_init(&this->icu);
 }
 
 
@@ -53,12 +48,42 @@ void network_receive_message(network_st *this, uv_can_message_st *msg) {
 			netdev_receive_heartbeat(&this->l_keypad, msg);
 			netdev_receive_heartbeat(&this->r_keypad, msg);
 			netdev_receive_heartbeat(&this->pedal, msg);
-			netdev_receive_heartbeat(&this->ecu, msg);
-			netdev_receive_heartbeat(&this->uw180s_ecu, msg);
-			netdev_receive_heartbeat(&this->uw180s_mb, msg);
+			netdev_receive_heartbeat(&this->hcu, msg);
+			netdev_receive_heartbeat(&this->ccu, msg);
+			netdev_receive_heartbeat(&this->icu, msg);
 		}
 	}
 }
+
+
+void network_save_params(network_st *this) {
+	uv_canopen_sdo_write(ESB_NODE_ID, CONFIG_CANOPEN_STORE_PARAMS_INDEX, 1,
+			CANOPEN_TYPE_LEN(CANOPEN_UNSIGNED32),
+			"save");
+
+	uv_canopen_sdo_write(FSB_NODE_ID, CONFIG_CANOPEN_STORE_PARAMS_INDEX, 1,
+			CANOPEN_TYPE_LEN(CANOPEN_UNSIGNED32),
+			"save");
+
+	uv_canopen_sdo_write(CSB_NODE_ID, CONFIG_CANOPEN_STORE_PARAMS_INDEX, 1,
+			CANOPEN_TYPE_LEN(CANOPEN_UNSIGNED32),
+			"save");
+
+	uv_rtos_task_delay(10);
+
+	uv_canopen_sdo_write(HCU_NODE_ID, CONFIG_CANOPEN_STORE_PARAMS_INDEX, 1,
+			CANOPEN_TYPE_LEN(CANOPEN_UNSIGNED32),
+			"save");
+
+	uv_canopen_sdo_write(CCU_NODE_ID, CONFIG_CANOPEN_STORE_PARAMS_INDEX, 1,
+			CANOPEN_TYPE_LEN(CANOPEN_UNSIGNED32),
+			"save");
+
+	uv_canopen_sdo_write(ICU_NODE_ID, CONFIG_CANOPEN_STORE_PARAMS_INDEX, 1,
+			CANOPEN_TYPE_LEN(CANOPEN_UNSIGNED32),
+			"save");
+}
+
 
 #define this ((network_st *)me)
 
@@ -71,18 +96,46 @@ static void network_task(void *me) {
 		csb_step(&this->csb, step_ms);
 		fsb_step(&this->fsb, step_ms);
 		pedal_step(&this->pedal, step_ms);
-		ecu_step(&this->ecu, step_ms);
+		hcu_step(&this->hcu, step_ms);
+		ccu_step(&this->ccu, step_ms);
 		keypad_step(&this->l_keypad, step_ms);
 		keypad_step(&this->r_keypad, step_ms);
-		if (ecu_get_implement(&this->ecu) == IMPL_UW180S) {
-			mb_step(&this->uw180s_mb, step_ms);
-			uw180s_ecu_step(&this->uw180s_ecu, step_ms);
-		}
+		icu_step(&this->icu, step_ms);
 
 		if(this->updating) {
 			this->updating = false;
 
 			uint8_t update_step_ms = 10;
+
+			// since valve settings are shared across the devices,
+			// update them here
+			for (uint8_t i = 0; i < BASE_VALVE_COUNT; i++) {
+				dspl.user->base_valves[i].setter(&dspl.user->base_valves[i]);
+				uv_rtos_task_delay(update_step_ms);
+			}
+
+			// update implement valves
+			if (dspl.user->active_implement == HCU_IMPLEMENT_UW180S) {
+				dspl.user->uw180s.bladesopen.setter(&dspl.user->uw180s.bladesopen);
+				dspl.user->uw180s.impl1.setter(&dspl.user->uw180s.impl1);
+				dspl.user->uw180s.impl2.setter(&dspl.user->uw180s.impl2);
+				dspl.user->uw180s.rotator.setter(&dspl.user->uw180s.rotator);
+				dspl.user->uw180s.saw.setter(&dspl.user->uw180s.saw);
+				dspl.user->uw180s.tilt.setter(&dspl.user->uw180s.tilt);
+				dspl.user->uw180s.feedopen.setter(&dspl.user->uw180s.feedopen);
+				dspl.user->uw180s.feed.setter(&dspl.user->uw180s.feed);
+			}
+			else if (dspl.user->active_implement == HCU_IMPLEMENT_UW100) {
+				dspl.user->uw100.open.setter(&dspl.user->uw100.open);
+				dspl.user->uw100.rotator.setter(&dspl.user->uw100.rotator);
+			}
+			else if (dspl.user->active_implement == HCU_IMPLEMENT_UW50) {
+				dspl.user->uw50.saw.setter(&dspl.user->uw50.saw);
+				dspl.user->uw50.tilt.setter(&dspl.user->uw50.tilt);
+			}
+			else {
+
+			}
 
 			esb_update(&this->esb);
 			uv_rtos_task_delay(update_step_ms);
@@ -96,7 +149,10 @@ static void network_task(void *me) {
 			pedal_update(&this->pedal);
 			uv_rtos_task_delay(update_step_ms);
 
-			ecu_update(&this->ecu);
+			hcu_update(&this->hcu);
+			uv_rtos_task_delay(update_step_ms);
+
+			ccu_update(&this->ccu);
 			uv_rtos_task_delay(update_step_ms);
 
 			keypad_update(&this->l_keypad);
@@ -105,10 +161,7 @@ static void network_task(void *me) {
 			keypad_update(&this->r_keypad);
 			uv_rtos_task_delay(update_step_ms);
 
-			mb_update(&this->uw180s_mb);
-			uv_rtos_task_delay(update_step_ms);
-
-			uw180s_ecu_update(&this->uw180s_ecu);
+			icu_update(&this->icu);
 		}
 
 		canopen_emcy_msg_st emcy;
@@ -128,6 +181,21 @@ static void network_task(void *me) {
 				uint8_t i = emcy.data - CSB_EMCY_WORK_LIGHT_OVERCURRENT;
 				log_add(LOG_CSB_WORK_LIGHT_OVERCURRENT + i);
 			}
+			else if ((emcy.node_id == HCU_NODE_ID) &&
+					(emcy.data < HCU_EMCY_COUNT)) {
+				uint8_t i = emcy.data - HCU_EMCY_BOOM_ROTATE_OVERLOAD_A;
+				log_add(HCU_EMCY_BOOM_ROTATE_OVERLOAD_A + i);
+			}
+			else if ((emcy.node_id == CCU_NODE_ID) &&
+					(emcy.data < CCU_EMCY_COUNT)) {
+				uint8_t i = emcy.data - CCU_EMCY_STEER_OVERLOAD_A;
+				log_add(CCU_EMCY_STEER_OVERLOAD_A + i);
+			}
+			else if ((emcy.node_id == ICU_NODE_ID) &&
+					(emcy.data < ICU_EMCY_COUNT)) {
+				uint8_t i = emcy.data - ICU_EMCY_BLADEOPEN_OVERCURRENT;
+				log_add(ICU_EMCY_BLADEOPEN_OVERCURRENT + i);
+			}
 			else {
 
 			}
@@ -137,3 +205,5 @@ static void network_task(void *me) {
 		uv_rtos_task_delay(step_ms);
 	}
 }
+
+

@@ -45,10 +45,6 @@ const log_entry_def_st log_entry_defs[] = {
 				.def = "CSB disconnected",
 		},
 		{
-				.type = LOG_ECU_DISCONNECTED | LOG_WARNING,
-				.def = "ECU disconnected",
-		},
-		{
 				.type = LOG_LKEYPAD_DISCONNECTED | LOG_WARNING,
 				.def = "Left keypad disconnected",
 		},
@@ -61,12 +57,16 @@ const log_entry_def_st log_entry_defs[] = {
 				.def = "Pedal disconnected",
 		},
 		{
-				.type = LOG_UW180S_ECU_DISCONNECTED | LOG_WARNING,
-				.def = "UW180s ECU disconnected",
+				.type = LOG_ICU_DISCONNECTED | LOG_WARNING,
+				.def = "ICU disconnected",
 		},
 		{
-				.type = LOG_UW180S_MB_DISCONNECTED | LOG_WARNING,
-				.def = "UW180s MB disconnected",
+				.type = LOG_HCU_DISCONNECTED | LOG_WARNING,
+				.def = "HCU disconnected",
+		},
+		{
+				.type = LOG_CCU_DISCONNECTED | LOG_WARNING,
+				.def = "CCU disconnected",
 		},
 		{
 				.type = LOG_LEGS_DOWN | LOG_WARNING,

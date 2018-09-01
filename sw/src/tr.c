@@ -394,6 +394,21 @@ static langstr_st strs[STR_COUNT] = {
 				"Rotator"
 		},
 		{
+				"All Open",
+				"Kaikki Auki",
+				"Alles offnen"
+		},
+		{
+				"Implement 1",
+				"Tyolaite 1",
+				"Gerat 1"
+		},
+		{
+				"Implement 2",
+				"Tyolaite 2",
+				"Gerat 2"
+		},
+		{
 				"UW180S Measurement",
 				"UW180S mittalaite",
 				"UW180S Messgerat"
@@ -492,9 +507,19 @@ static langstr_st strs[STR_COUNT] = {
 				"Ausleger verlangerung"
 		},
 		{
-				"Drive",
-				"Ajo",
-				"Fur"
+				"Gear 1",
+				"Vaihde 1",
+				"Gang 1"
+		},
+		{
+				"Gear 2",
+				"Vaihde 2",
+				"Gang 2"
+		},
+		{
+				"Gear 3",
+				"Vaihde 3",
+				"Gang 3"
 		},
 		{
 				"Steer",
@@ -686,19 +711,19 @@ static langstr_st strs[STR_COUNT] = {
 				"CSB"
 		},
 		{
-				"ECU",
-				"ECU",
-				"ECU"
+				"HCU",
+				"HCU",
+				"HCU"
 		},
 		{
-				"UW180S",
-				"UW180S",
-				"UW180S"
+				"CCU",
+				"CCU",
+				"CCU"
 		},
 		{
-				"UW180S MB",
-				"UW180S MB",
-				"UW180S MB"
+				"ICU",
+				"ICU",
+				"ICU"
 		},
 		{
 				"Connected\n"
@@ -748,7 +773,6 @@ static langstr_st strs[STR_COUNT] = {
 				"Motor Temp. (C)\n"
 				"Oil Temp (C)\n"
 				"Oil Level (%)\n"
-				"Fuel Level (%)\n"
 				"Voltage (mV)\n"
 				"OilC trig temp (C)",
 				"RPM\n"
@@ -758,7 +782,6 @@ static langstr_st strs[STR_COUNT] = {
 				"Moottori T (C)\n"
 				"Oljy T (C)\n"
 				"Oljy M (%)\n"
-				"Diesel M (%)\n"
 				"Jannite (mV)\n"
 				"Lauhdutin raja(C)",
 				"U/min\n"
@@ -768,7 +791,6 @@ static langstr_st strs[STR_COUNT] = {
 				"Motortemp. (C)\n"
 				"Oltemp. (C)\n"
 				"Olstand (%)\n"
-				"Dieselstand (%)\n"
 				"Spannung (mV)\n"
 				"Kuhler Auslostemp. (C)"
 		},
@@ -797,7 +819,8 @@ static langstr_st strs[STR_COUNT] = {
 				"Eber Fan\n"
 				"Seat\n"
 				"Door1\n"
-				"Door2",
+				"Door2\n"
+				"Fuel level",
 				"Virta-avain\n"
 				"Lammitin\n"
 				"Hataseis\n"
@@ -805,7 +828,8 @@ static langstr_st strs[STR_COUNT] = {
 				"Eber tuuletin\n"
 				"Penkkikytkin\n"
 				"Ovikytkin1\n"
-				"Ovikytkin2",
+				"Ovikytkin2\n"
+				"Polttoaine",
 				"Zundschlussel\n"
 				"Heizgebl. Geschw.\n"
 				"Notfall Schalt.\n"
@@ -813,7 +837,8 @@ static langstr_st strs[STR_COUNT] = {
 				"Eber Geblase\n"
 				"Sitzschalter\n"
 				"Turschalter 1\n"
-				"Turschalter 2"
+				"Turschalter 2\n"
+				"Dieselstand (%)"
 		},
 		{
 				"Total Current\n"
@@ -872,34 +897,6 @@ static langstr_st strs[STR_COUNT] = {
 				"Stutze unten\n"
 				"Druck (bar)"
 		},
-#if FM
-		{
-				"Boom Lift (mA)\n"
-				"Boom Fold (mA)\n"
-				"Boom Rotate (mA)\n"
-				"Drive (mA)\n"
-				"Steer (mA)\n"
-				"Left Leg (mA)\n"
-				"Right Leg (mA)\n"
-				"Impl valve (mA)",
-				"Puomi nosto (mA)\n"
-				"Puomi taitto (mA)\n"
-				"Puomi kaanto (mA)\n"
-				"Ajo (mA)\n"
-				"Ohjaus (mA)\n"
-				"Vasen jalka (mA)\n"
-				"Oikea jalka (mA)\n"
-				"Tyolaite (mA)",
-				"Ausleger Hebung (mA)\n"
-				"Ausleger Faltung (mA)\n"
-				"Ausleger Drehung (mA)\n"
-				"Fahrt (mA)\n"
-				"Lenkung (mA)\n"
-				"Linke Stutze (mA)\n"
-				"Rechte Stutze (mA)\n"
-				"Arbeitsmaschine (mA)"
-		},
-#elif CM
 		{
 			"Boom Lift (mA)\n"
 			"Boom Fold (mA)\n"
@@ -929,41 +926,6 @@ static langstr_st strs[STR_COUNT] = {
 			"Rechte Stutze (mA)\n"
 			"Kabine Drehung (mA)"
 		},
-#elif LM
-		{
-				"Boom Lift (mA)\n"
-				"Boom Fold (mA)\n"
-				"Boom Rotate (mA)\n"
-				"Boom Telescope (mA)\n"
-				"Drive (mA)\n"
-				"Steer (mA)\n"
-				"Steer Back (mA)\n"
-				"Left Leg (mA)\n"
-				"Right Leg (mA)\n"
-				"Cabin Rotate (mA)",
-				"Puomi Nosto (mA)\n"
-				"Puomi Taitto (mA)\n"
-				"Puomi Kaanto (mA)\n"
-				"Puomi Teleskooppi (mA)\n"
-				"Ajo (mA)\n"
-				"Ohjaus (mA)\n"
-				"Takaohjaus (mA)\n"
-				"Vasen Jalka (mA)\n"
-				"Oikea Jalka (mA)\n"
-				"Hytin Pyoritys (mA)",
-				"Ausleger Hebung (mA)\n"
-				"Ausleger Faltung (mA)\n"
-				"Ausleger Drehung (mA)\n"
-				"Verlangerung (mA)\n"
-				"Fahrt (mA)\n"
-				"Lenkung (mA)\n"
-				"Hintere Steuerung (mA)\n"
-				"Linke Stutze (mA)\n"
-				"Rechte Stutze (mA)\n"
-				"Kabine Drehung (mA)"
-
-		},
-#endif
 		{
 				"x\nx err\ny\ny err\nz\nz err\nv\nv err",
 				"x\nx err\ny\ny err\nz\nz err\nv\nv err",

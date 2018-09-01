@@ -18,20 +18,17 @@
 typedef struct {
 	EXTENDS(netdev_st);
 
-	// READ
-	struct {
-		uint16_t total_current;
-		uint8_t fuel_level;
-		uint8_t oil_level;
-		int8_t oil_temp;
-		int8_t motor_temp;
-		int16_t rpm;
-		int16_t voltage;
-		uint8_t alt_l;
-		uint8_t motor_water;
-		uint8_t motor_oil_press;
-		uint8_t glow_plugs;
-	} read;
+	uint16_t total_current;
+	uint8_t oil_level;
+	int8_t oil_temp;
+	int8_t motor_temp;
+	int16_t rpm;
+	int16_t voltage;
+	uint8_t alt_l;
+	uint8_t motor_water;
+	uint8_t motor_oil_press;
+	uint8_t glow_plugs;
+
 } esb_st;
 
 
@@ -45,44 +42,40 @@ void esb_init(esb_st *this);
 void esb_step(esb_st *this, unsigned int step_ms);
 
 
-static inline uint8_t esb_get_fuel_level(esb_st *this) {
-	return this->read.fuel_level;
-}
-
 static inline uint8_t esb_get_oil_level(esb_st *this) {
-	return this->read.oil_level;
+	return this->oil_level;
 }
 
 static inline int8_t esb_get_oil_temp(esb_st *this) {
-	return this->read.oil_temp;
+	return this->oil_temp;
 }
 
 static inline int8_t esb_get_motor_temp(esb_st *this) {
-	return this->read.motor_temp;
+	return this->motor_temp;
 }
 
 static inline int16_t esb_get_rpm(esb_st *this) {
-	return this->read.rpm;
+	return this->rpm;
 }
 
 static inline int16_t esb_get_voltage(esb_st *this) {
-	return this->read.voltage;
+	return this->voltage;
 }
 
 static inline uint8_t esb_get_alt_l(esb_st *this) {
-	return this->read.alt_l;
+	return this->alt_l;
 }
 
 static inline uint8_t esb_get_motor_water(esb_st *this) {
-	return this->read.motor_water;
+	return this->motor_water;
 }
 
 static inline uint8_t esb_get_motor_oil_press(esb_st *this) {
-	return this->read.motor_oil_press;
+	return this->motor_oil_press;
 }
 
 static inline uint8_t esb_get_glow_plugs(esb_st *this) {
-	return this->read.glow_plugs;
+	return this->glow_plugs;
 }
 
 

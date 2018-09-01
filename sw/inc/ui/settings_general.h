@@ -42,7 +42,7 @@ typedef struct {
 		} system;
 		struct {
 			uv_uilist_st impls_list;
-			char *impl_names[UW_IMPLEMENT_COUNT];
+			char *impl_names[HCU_IMPLEMENT_COUNT];
 		} implement;
 		struct {
 			// contains the time when settings window was opened

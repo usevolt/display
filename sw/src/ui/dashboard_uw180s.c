@@ -53,7 +53,7 @@ void dashboard_uw180s_show() {
 			UI_FONT_SMALL.char_height);
 
 	uv_uidigit_init(&this->len, &UI_DIGIT_BIG, ALIGN_TOP_CENTER, C(0xFFFFFF),
-			uv_uistyles[0].window_c, "%03i", mb_get_length(&dspl.network.uw180s_mb) / 10);
+			uv_uistyles[0].window_c, "%03i", icu_get_length_um(&dspl.network.icu) / 10000);
 	uv_uidigit_set_scale(&this->len, 2.0f);
 	uv_uiwindow_add(window, &this->len, bb.x, bb.y + uv_uibb(&this->len_label)->height,
 			bb.width, bb.height - uv_uibb(&this->len_label)->height);
@@ -85,7 +85,7 @@ void dashboard_uw180s_show() {
 			bb.width, bb.height - uv_uibb(&this->vol_label)->height);
 
 	this->active_len = 1;
-	ecu_set_uw180s_log_length(dspl.user->uw180s.log_len1);
+	icu_set_target_len_um(&dspl.network.icu, dspl.user->uw180s.log_len1);
 }
 
 
@@ -93,9 +93,9 @@ void dashboard_uw180s_show() {
 uv_uiobject_ret_e dashboard_uw180s_step(uint16_t step_ms) {
 	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
-	uv_uidigit_set_value(&this->len, mb_get_length(&dspl.network.uw180s_mb) / 10);
-	uv_uidigit_set_value(&this->wid, mb_get_width(&dspl.network.uw180s_mb));
-	uv_uidigit_set_value(&this->vol, mb_get_volume(&dspl.network.uw180s_mb) / 1000);
+	uv_uidigit_set_value(&this->len, icu_get_length_um(&dspl.network.icu) / 10000);
+	uv_uidigit_set_value(&this->wid, icu_get_width_um(&dspl.network.icu) / 1000);
+	uv_uidigit_set_value(&this->vol, icu_get_vol_dm3(&dspl.network.icu) / 1000);
 
 	if (uv_uibutton_clicked(&this->log_length)) {
 		if (this->active_len == 1) {
@@ -105,7 +105,7 @@ uv_uiobject_ret_e dashboard_uw180s_step(uint16_t step_ms) {
 			snprintf(str, 10, "%03i", dspl.user->uw180s.log_len2);
 			strcat(log_length_str, str);
 			strcat(log_length_str, " cm");
-			ecu_set_uw180s_log_length(dspl.user->uw180s.log_len2);
+			icu_set_target_len_um(&dspl.network.icu, dspl.user->uw180s.log_len2);
 		}
 		else {
 			this->active_len = 1;
@@ -114,7 +114,7 @@ uv_uiobject_ret_e dashboard_uw180s_step(uint16_t step_ms) {
 			snprintf(str, 10, "%03i", dspl.user->uw180s.log_len1);
 			strcat(log_length_str, str);
 			strcat(log_length_str, " cm");
-			ecu_set_uw180s_log_length(dspl.user->uw180s.log_len1);
+			icu_set_target_len_um(&dspl.network.icu, dspl.user->uw180s.log_len1);
 		}
 	}
 	return ret;

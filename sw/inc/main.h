@@ -18,6 +18,7 @@
 #include "vehicle.h"
 #include "implement.h"
 #include "network.h"
+#include "can_hcu.h"
 
 /// @brief: Defines the maximum count of the users
 #define USER_COUNT		4
@@ -45,7 +46,7 @@ typedef struct {
 		/// to the implement type.
 		implement_st *implement;
 		/// @brief: Tells the currently selected implement
-		impl_type_e active_implement;
+		hcu_impls_e active_implement;
 		uint8_t oilcooler_trigg_temp;
 		struct {
 			uint8_t volume;

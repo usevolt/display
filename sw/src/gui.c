@@ -89,7 +89,7 @@ void gui_init() {
 	uv_uiprogressbar_init(&this->pressure, 0, PRESSURE_MAX, &uv_uistyles[0]);
 	uv_uiprogressbar_set_vertical(&this->pressure);
 	uv_uiprogressbar_set_title(&this->pressure, uv_str(STR_BARPRESSURE));
-	uv_uiprogressbar_set_value(&this->pressure, ecu_get_pressure(&dspl.network.ecu));
+	uv_uiprogressbar_set_value(&this->pressure, hcu_get_pressure(&dspl.network.hcu));
 	uv_uiwindow_add(&this->display, &this->pressure,
 			uv_uibb(&this->display)->width - PBAR_WIDTH - CONFIG_UI_PROGRESSBAR_WIDTH, 0,
 			PBAR_WIDTH, uv_uibb(&this->main_window)->height);
@@ -137,7 +137,7 @@ void gui_step(void *nullptr) {
 				/ 105));
 
 		uv_uiprogressbar_set_value(&this->rpm, esb_get_rpm(&dspl.network.esb));
-		uv_uiprogressbar_set_value(&this->pressure, ecu_get_pressure(&dspl.network.ecu));
+		uv_uiprogressbar_set_value(&this->pressure, hcu_get_pressure(&dspl.network.hcu));
 
 		// display step function
 		uv_uidisplay_step(&this->display, step_ms);

@@ -22,12 +22,15 @@ enum {
 
 	// note: after UW180S_STATE_VALVES, only valve states are allowed
 	UW180S_STATE_VALVES,
-	UW180S_STATE_WHEELS,
-	UW180S_STATE_WHEELS_FEED,
-	UW180S_STATE_DELIMBERS,
+	UW180S_STATE_FEEDOPEN,
+	UW180S_STATE_FEED,
+	UW180S_STATE_BLADESOPEN,
 	UW180S_STATE_SAW,
 	UW180S_STATE_TILT,
-	UW180S_STATE_ROTATOR
+	UW180S_STATE_ROTATOR,
+	UW180S_STATE_ALLOPEN,
+	UW180S_STATE_IMPL1,
+	UW180S_STATE_IMPL2
 };
 typedef uint8_t uw180s_state_e;
 
@@ -42,7 +45,6 @@ typedef struct {
 		struct {
 			uv_uislider_st log_len1;
 			uv_uislider_st log_len2;
-			uv_uitogglebutton_st enabled;
 			uv_uislider_st len_calib;
 			uv_uislider_st vol_calib;
 			uv_uilabel_st info_label;
@@ -60,6 +62,9 @@ typedef struct {
 			uv_uibutton_st tilt;
 			uv_uibutton_st rotator;
 			uv_uibutton_st saw;
+			uv_uibutton_st allopen;
+			uv_uibutton_st impl1;
+			uv_uibutton_st impl2;
 		} valves;
 		struct {
 			uv_uislider_st max_speed_p;

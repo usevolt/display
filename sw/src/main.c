@@ -48,23 +48,23 @@ void dspl_init(dspl_st *me) {
 	uv_set_int_priority(INT_SYSTICK, 31);
 
 #if CONFIG_TARGET_LPC1785
-	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + ECU_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + HCU_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + CSB_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + FSB_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + ESB_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + LKEYPAD_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + RKEYPAD_NODE_ID, CAN_STD);
-	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + UW180S_MB_NODE_ID, CAN_STD);
-	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + UW180S_ECU_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + CCU_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + ICU_NODE_ID, CAN_STD);
 
-	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + ECU_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + HCU_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + CSB_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + FSB_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + ESB_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + LKEYPAD_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + RKEYPAD_NODE_ID, CAN_STD);
-	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + UW180S_MB_NODE_ID, CAN_STD);
-	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + UW180S_ECU_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + CCU_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + ICU_NODE_ID, CAN_STD);
 #endif
 
 
@@ -187,14 +187,9 @@ void dspl_step(void *me) {
 
 		alert_step(&this->alert, step_ms);
 
-		canopen_emcy_msg_st emcy;
-		if (uv_canopen_emcy_get(&emcy)) {
-			network_receive_emcy(&this->network, &emcy);
-		}
-
 		uv_time_st time;
 		uv_rtc_get_time(&time);
-		if (this->network.esb.read.rpm != 0) {
+		if (esb_get_rpm(&dspl.network.esb) != 0) {
 			if (this->last_min != time.min) {
 				this->min_counter++;
 				if (this->min_counter == 60) {

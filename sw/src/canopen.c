@@ -7,297 +7,271 @@
 
 #include <canopen.h>
 #include <uv_canopen.h>
+#include "can_display.h"
+#include "can_keypad.h"
+#include "can_pedal.h"
+#include "can_esb.h"
+#include "can_fsb.h"
+#include "can_csb.h"
+#include "can_hcu.h"
+#include "can_ccu.h"
+#include "can_icu.h"
 
 
 extern dspl_st dspl;
 
 const canopen_object_st obj_dict[] = {
 		{
-				.main_index = 0x2200,
-				.sub_index = 0,
+				.main_index = DSPL_LKEYP_OFFSET + KEYP_JOYX_INDEX,
+				.array_max_size = KEYP_JOYX_ARRAY_MAX_SIZE,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.ecu.read.controls_moved
+				.type = KEYP_JOYX_TYPE,
+				.data_ptr = (void*) &dspl.network.l_keypad.x
 		},
 		{
-				.main_index = 0x2201,
-				.sub_index = 0,
+				.main_index = DSPL_LKEYP_OFFSET + KEYP_JOYY_INDEX,
+				.array_max_size = KEYP_JOYY_ARRAY_MAX_SIZE,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.ecu.read.engine_shut_down
+				.type = KEYP_JOYY_TYPE,
+				.data_ptr = (void*) &dspl.network.l_keypad.y
 		},
 		{
-				.main_index = 0x2202,
-				.sub_index = 0,
+				.main_index = DSPL_LKEYP_OFFSET + KEYP_JOYZ_INDEX,
+				.array_max_size = KEYP_JOYZ_ARRAY_MAX_SIZE,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_SIGNED16,
-				.data_ptr = (void*) &dspl.network.ecu.read.pump_angle
+				.type = KEYP_JOYZ_TYPE,
+				.data_ptr = (void*) &dspl.network.l_keypad.z
 		},
 		{
-				.main_index = 0x2203,
-				.sub_index = 0,
+				.main_index = DSPL_LKEYP_OFFSET + KEYP_JOYV_INDEX,
+				.array_max_size = KEYP_JOYV_ARRAY_MAX_SIZE,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.ecu.read.implement
+				.type = KEYP_JOYV_TYPE,
+				.data_ptr = (void*) &dspl.network.l_keypad.v
 		},
 		{
-				.main_index = 0x2204,
-				.sub_index = 0,
-				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.ecu.read.legs_down
-		},
-		{
-				.main_index = 0x2205,
-				.sub_index = 0,
-				.permissions = CANOPEN_WO,
-				.type = CANOPEN_SIGNED16,
-				.data_ptr = (void*) &dspl.network.ecu.read.pressure
-		},
-		{
-				.main_index = 0x2206,
-				.array_max_size = ECU_VALVE_COUNT,
-				.permissions = CANOPEN_WO,
-				.type = CANOPEN_ARRAY16,
-				.data_ptr = (void*) &dspl.network.ecu.read.valves
-		},
-		{
-				.main_index = 0x2207,
-				.sub_index = 0,
-				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.ecu.read.gear
-		},
-		{
-				.main_index = 0x2300,
-				.array_max_size = 2,
+				.main_index = DSPL_LKEYP_OFFSET + KEYP_BUTTON1_INDEX,
+				.array_max_size = KEYP_BUTTON_COUNT,
 				.permissions = CANOPEN_WO,
 				.type = CANOPEN_ARRAY8,
-				.data_ptr = (void*) &dspl.network.l_keypad.read.x
+				.data_ptr = (void*) dspl.network.l_keypad.b
 		},
 		{
-				.main_index = 0x2301,
-				.array_max_size = 2,
+				.main_index = DSPL_RKEYP_OFFSET + KEYP_JOYX_INDEX,
+				.array_max_size = KEYP_JOYX_ARRAY_MAX_SIZE,
+				.permissions = CANOPEN_WO,
+				.type = KEYP_JOYX_TYPE,
+				.data_ptr = (void*) &dspl.network.r_keypad.x
+		},
+		{
+				.main_index = DSPL_RKEYP_OFFSET + KEYP_JOYY_INDEX,
+				.array_max_size = KEYP_JOYY_ARRAY_MAX_SIZE,
+				.permissions = CANOPEN_WO,
+				.type = KEYP_JOYY_TYPE,
+				.data_ptr = (void*) &dspl.network.r_keypad.y
+		},
+		{
+				.main_index = DSPL_RKEYP_OFFSET + KEYP_JOYZ_INDEX,
+				.array_max_size = KEYP_JOYZ_ARRAY_MAX_SIZE,
+				.permissions = CANOPEN_WO,
+				.type = KEYP_JOYZ_TYPE,
+				.data_ptr = (void*) &dspl.network.r_keypad.z
+		},
+		{
+				.main_index = DSPL_RKEYP_OFFSET + KEYP_JOYV_INDEX,
+				.array_max_size = KEYP_JOYV_ARRAY_MAX_SIZE,
+				.permissions = CANOPEN_WO,
+				.type = KEYP_JOYV_TYPE,
+				.data_ptr = (void*) &dspl.network.r_keypad.v
+		},
+		{
+				.main_index = DSPL_RKEYP_OFFSET + KEYP_BUTTON1_INDEX,
+				.array_max_size = KEYP_BUTTON_COUNT,
 				.permissions = CANOPEN_WO,
 				.type = CANOPEN_ARRAY8,
-				.data_ptr = (void*) &dspl.network.l_keypad.read.y
+				.data_ptr = (void*) dspl.network.r_keypad.b
 		},
 		{
-				.main_index = 0x2302,
-				.array_max_size = 2,
-				.permissions = CANOPEN_WO,
-				.type = CANOPEN_ARRAY8,
-				.data_ptr = (void*) &dspl.network.l_keypad.read.z
+				.main_index = DSPL_PEDAL_OFFSET + DSPL_PEDAL_VALUE_INDEX,
+				.array_max_size = DSPL_PEDAL_VALUE_ARRAY_SIZE,
+				.permissions = DSPL_PEDAL_VALUE_PERMISSIONS,
+				.type = DSPL_PEDAL_VALUE_TYPE,
+				.data_ptr = (void*) dspl.network.pedal.value
 		},
 		{
-				.main_index = 0x2303,
-				.array_max_size = 2,
+				.main_index = DSPL_ESB_OFFSET + ESB_TOTAL_CURRENT_INDEX,
+				.sub_index = ESB_TOTAL_CURRENT_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_ARRAY8,
-				.data_ptr = (void*) &dspl.network.l_keypad.read.v
+				.type = ESB_TOTAL_CURRENT_TYPE,
+				.data_ptr = (void*) &dspl.network.esb.total_current
 		},
 		{
-				.main_index = 0x2304,
-				.array_max_size = KEYPAD_BUTTON_COUNT,
+				.main_index = DSPL_ESB_OFFSET + ESB_RPM_INDEX,
+				.sub_index = ESB_RPM_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_ARRAY8,
-				.data_ptr = (void*) dspl.network.l_keypad.read.b
+				.type = ESB_RPM_TYPE,
+				.data_ptr = (void*) &dspl.network.esb.rpm
 		},
 		{
-				.main_index = 0x2400,
-				.array_max_size = 2,
+				.main_index = DSPL_ESB_OFFSET + ESB_ALT_L_INDEX,
+				.sub_index = ESB_ALT_L_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_ARRAY8,
-				.data_ptr = (void*) &dspl.network.r_keypad.read.x
+				.type = ESB_ALT_L_TYPE,
+				.data_ptr = (void*) &dspl.network.esb.alt_l
 		},
 		{
-				.main_index = 0x2401,
-				.array_max_size = 2,
+				.main_index = DSPL_ESB_OFFSET + ESB_MOTOR_WATER_TEMP_INDEX,
+				.sub_index = ESB_MOTOR_WATER_TEMP_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_ARRAY8,
-				.data_ptr = (void*) &dspl.network.r_keypad.read.y
+				.type = ESB_MOTOR_WATER_TEMP_TYPE,
+				.data_ptr = (void*) &dspl.network.esb.motor_water
 		},
 		{
-				.main_index = 0x2402,
-				.array_max_size = 2,
+				.main_index = DSPL_ESB_OFFSET + ESB_MOTOR_OIL_PRESS_INDEX,
+				.sub_index = ESB_MOTOR_OIL_PRESS_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_ARRAY8,
-				.data_ptr = (void*) &dspl.network.r_keypad.read.z
+				.type = ESB_MOTOR_OIL_PRESS_TYPE,
+				.data_ptr = (void*) &dspl.network.esb.motor_oil_press
 		},
 		{
-				.main_index = 0x2403,
-				.array_max_size = 2,
+				.main_index = DSPL_ESB_OFFSET + ESB_MOTOR_TEMP_INDEX,
+				.sub_index = ESB_MOTOR_TEMP_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_ARRAY8,
-				.data_ptr = (void*) &dspl.network.r_keypad.read.v
+				.type = ESB_MOTOR_TEMP_TYPE,
+				.data_ptr = (void*) &dspl.network.esb.motor_temp
 		},
 		{
-				.main_index = 0x2404,
-				.array_max_size = KEYPAD_BUTTON_COUNT,
+				.main_index = DSPL_ESB_OFFSET + ESB_OIL_TEMP_INDEX,
+				.sub_index = ESB_OIL_TEMP_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_ARRAY8,
-				.data_ptr = (void*) dspl.network.r_keypad.read.b
+				.type = ESB_OIL_TEMP_TYPE,
+				.data_ptr = (void*) &dspl.network.esb.oil_temp
 		},
 		{
-				.main_index = 0x2500,
-				.sub_index = 0,
+				.main_index = DSPL_ESB_OFFSET + ESB_OIL_LEVEL_INDEX,
+				.sub_index = ESB_OIL_LEVEL_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_SIGNED16,
-				.data_ptr = (void*) &dspl.network.pedal.read.value
+				.type = ESB_OIL_LEVEL_TYPE,
+				.data_ptr = (void*) &dspl.network.esb.oil_level
 		},
 		{
-				.main_index = 0x2600,
-				.sub_index = 0,
+				.main_index = DSPL_ESB_OFFSET + ESB_VDD_INDEX,
+				.sub_index = ESB_VDD_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_SIGNED16,
-				.data_ptr = (void*) &dspl.network.uw180s_mb.read.width
+				.type = ESB_VDD_TYPE,
+				.data_ptr = (void*) &dspl.network.esb.voltage
 		},
 		{
-				.main_index = 0x2601,
-				.sub_index = 0,
+				.main_index = DSPL_FSB_OFFSET + FSB_TOTAL_CURRENT_INDEX,
+				.sub_index = FSB_TOTAL_CURRENT_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_SIGNED16,
-				.data_ptr = (void*) &dspl.network.uw180s_mb.read.length
+				.type = FSB_TOTAL_CURRENT_TYPE,
+				.data_ptr = (void*) &dspl.network.fsb.total_current
 		},
 		{
-				.main_index = 0x2602,
-				.sub_index = 0,
+				.main_index = DSPL_FSB_OFFSET + FSB_FUEL_LEVEL_INDEX,
+				.sub_index = FSB_FUEL_LEVEL_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_SIGNED32,
-				.data_ptr = (void*) &dspl.network.uw180s_mb.read.volume
+				.type = FSB_FUEL_LEVEL_TYPE,
+				.data_ptr = (void*) &dspl.network.fsb.fuel_level
 		},
 		{
-				.main_index = 0x2700,
-				.sub_index = 0,
+				.main_index = DSPL_FSB_OFFSET + FSB_IGNKEY_INDEX,
+				.sub_index = FSB_IGNKEY_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED16,
-				.data_ptr = (void*) &dspl.network.esb.read.total_current
+				.type = FSB_IGNKEY_TYPE,
+				.data_ptr = (void*) &dspl.network.fsb.ignkey
 		},
 		{
-				.main_index = 0x2701,
-				.sub_index = 0,
+				.main_index = DSPL_FSB_OFFSET + FSB_EMCY_INDEX,
+				.sub_index = FSB_EMCY_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED16,
-				.data_ptr = (void*) &dspl.network.esb.read.rpm
+				.type = FSB_EMCY_TYPE,
+				.data_ptr = (void*) &dspl.network.fsb.emcy
 		},
 		{
-				.main_index = 0x2702,
-				.sub_index = 0,
+				.main_index = DSPL_FSB_OFFSET + FSB_DOORSW1_INDEX,
+				.sub_index = FSB_DOORSW1_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.esb.read.alt_l
+				.type = FSB_DOORSW1_TYPE,
+				.data_ptr = (void*) &dspl.network.fsb.doorsw1
 		},
 		{
-				.main_index = 0x2703,
-				.sub_index = 0,
+				.main_index = DSPL_FSB_OFFSET + FSB_DOORSW2_INDEX,
+				.sub_index = FSB_DOORSW2_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.esb.read.motor_water
+				.type = FSB_DOORSW2_TYPE,
+				.data_ptr = (void*) &dspl.network.fsb.doorsw2
 		},
 		{
-				.main_index = 0x2704,
-				.sub_index = 0,
+				.main_index = DSPL_FSB_OFFSET + FSB_SEATSW_INDEX,
+				.sub_index = FSB_SEATSW_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.esb.read.motor_oil_press
+				.type = FSB_SEATSW_TYPE,
+				.data_ptr = (void*) &dspl.network.fsb.seatsw
 		},
 		{
-				.main_index = 0x2705,
-				.sub_index = 0,
+				.main_index = DSPL_FSB_OFFSET + FSB_HEATER_SPEED_INDEX,
+				.sub_index = FSB_HEATER_SPEED_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.esb.read.motor_temp
+				.type = FSB_HEATER_SPEED_TYPE,
+				.data_ptr = (void*) &dspl.network.fsb.heater_speed
 		},
 		{
-				.main_index = 0x2706,
-				.sub_index = 0,
+				.main_index = DSPL_CSB_OFFSET + CSB_TOTAL_CURRENT_INDEX,
+				.sub_index = CSB_TOTAL_CURRENT_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.esb.read.oil_temp
+				.type = CSB_TOTAL_CURRENT_TYPE,
+				.data_ptr = (void*) &dspl.network.csb.total_current
 		},
 		{
-				.main_index = 0x2707,
-				.sub_index = 0,
+				.main_index = DSPL_CSB_OFFSET + CSB_WIPER_SPEED_INDEX,
+				.sub_index = CSB_WIPER_SPEED_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.esb.read.oil_level
+				.type = CSB_WIPER_SPEED_TYPE,
+				.data_ptr = (void*) &dspl.network.csb.wiper_speed
 		},
 		{
-				.main_index = 0x2708,
-				.sub_index = 0,
+				.main_index = DSPL_HCU_OFFSET + HCU_TOTAL_CURRENT_INDEX,
+				.sub_index = HCU_TOTAL_CURRENT_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.esb.read.fuel_level
+				.type = HCU_TOTAL_CURRENT_TYPE,
+				.data_ptr = (void*) &dspl.network.hcu.total_current
 		},
 		{
-				.main_index = 0x2709,
-				.sub_index = 0,
+				.main_index = DSPL_HCU_OFFSET + HCU_IMPLEMENT_INDEX,
+				.sub_index = HCU_IMPLEMENT_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED16,
-				.data_ptr = (void*) &dspl.network.esb.read.voltage
+				.type = HCU_IMPLEMENT_TYPE,
+				.data_ptr = (void*) &dspl.network.hcu.implement
 		},
 		{
-				.main_index = 0x2800,
-				.sub_index = 0,
+				.main_index = DSPL_HCU_OFFSET + HCU_PRESSURE_INDEX,
+				.sub_index = HCU_PRESSURE_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED16,
-				.data_ptr = (void*) &dspl.network.fsb.read.total_current
+				.type = HCU_PRESSURE_TYPE,
+				.data_ptr = (void*) &dspl.network.hcu.pressure
 		},
 		{
-				.main_index = 0x2801,
-				.sub_index = 0,
+				.main_index = DSPL_CCU_OFFSET + CCU_TOTAL_CURRENT_INDEX,
+				.sub_index = CCU_TOTAL_CURRENT_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.fsb.read.ignkey
+				.type = CCU_TOTAL_CURRENT_TYPE,
+				.data_ptr = (void*) &dspl.network.ccu.total_current
 		},
 		{
-				.main_index = 0x2802,
-				.sub_index = 0,
+				.main_index = DSPL_CCU_OFFSET + CCU_GEAR_INDEX,
+				.sub_index = CCU_GEAR_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.fsb.read.emcy
+				.type = CCU_GEAR_TYPE,
+				.data_ptr = (void*) &dspl.network.ccu.gear
 		},
 		{
-				.main_index = 0x2803,
-				.sub_index = 0,
+				.main_index = DSPL_ICU_OFFSET + ICU_TOTAL_CURRENT_INDEX,
+				.sub_index = ICU_TOTAL_CURRENT_SUBINDEX,
 				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.fsb.read.doorsw1
-		},
-		{
-				.main_index = 0x2804,
-				.sub_index = 0,
-				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.fsb.read.doorsw2
-		},
-		{
-				.main_index = 0x2805,
-				.sub_index = 0,
-				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.fsb.read.seatsw
-		},
-		{
-				.main_index = 0x2806,
-				.sub_index = 0,
-				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.fsb.read.heater_speed
-		},
-		{
-				.main_index = 0x2900,
-				.sub_index = 0,
-				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED16,
-				.data_ptr = (void*) &dspl.network.csb.read.total_current
-		},
-		{
-				.main_index = 0x2901,
-				.sub_index = 0,
-				.permissions = CANOPEN_WO,
-				.type = CANOPEN_UNSIGNED8,
-				.data_ptr = (void*) &dspl.network.csb.read.wiper_speed
+				.type = ICU_TOTAL_CURRENT_TYPE,
+				.data_ptr = (void*) &dspl.network.icu.total_current
 		}
 };
 

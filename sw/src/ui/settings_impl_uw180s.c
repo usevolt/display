@@ -77,16 +77,16 @@ static void show_sliders(uw180s_state_e state, const char *label) {
 	uv_uigridlayout_set_padding(&grid, 5, 10);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
-	impl_valve_st *v;
+	valve_st *v;
 	switch (state) {
-	case UW180S_STATE_WHEELS:
-		v = &dspl.user->uw180s.wheels;
+	case UW180S_STATE_FEEDOPEN:
+		v = &dspl.user->uw180s.feedopen;
 		break;
-	case UW180S_STATE_WHEELS_FEED:
-		v = &dspl.user->uw180s.wheels_feed;
+	case UW180S_STATE_FEED:
+		v = &dspl.user->uw180s.feed;
 		break;
-	case UW180S_STATE_DELIMBERS:
-		v = &dspl.user->uw180s.delimbers;
+	case UW180S_STATE_BLADESOPEN:
+		v = &dspl.user->uw180s.bladesopen;
 		break;
 	case UW180S_STATE_SAW:
 		v = &dspl.user->uw180s.saw;
@@ -137,7 +137,7 @@ static void show_valves(void) {
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, BACK_Y + BACK_H, uv_uibb(this->window)->width,
-			uv_uibb(this->window)->height - BACK_Y - BACK_H, 3, 2);
+			uv_uibb(this->window)->height - BACK_Y - BACK_H, 3, 3);
 	uv_uigridlayout_set_padding(&grid, 30, 10);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
@@ -149,7 +149,7 @@ static void show_valves(void) {
 	uv_uiwindow_add(this->window, &this->label, LABEL_X, LABEL_Y, LABEL_W, LABEL_H);
 
 	uv_uibutton_init(&this->valves.wheels,
-			uv_str(STR_SETTINGS_UW180S_BUTTONWHEELSOPENCLOSE), &uv_uistyles[0]);
+			uv_str(STR_SETTINGS_UW180S_BUTTONFEEDOPEN), &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->valves.wheels, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
@@ -159,7 +159,7 @@ static void show_valves(void) {
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->valves.delimbers,
-			uv_str(STR_SETTINGS_UW180S_BUTTONBLADESOPENCLOSE), &uv_uistyles[0]);
+			uv_str(STR_SETTINGS_UW180S_BUTTONBLADESOPEN), &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->valves.delimbers, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
@@ -176,6 +176,21 @@ static void show_valves(void) {
 	uv_uibutton_init(&this->valves.rotator,
 			uv_str(STR_SETTINGS_UW180S_BUTTONROTATOR), &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->valves.rotator, bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uibutton_init(&this->valves.allopen,
+			uv_str(STR_SETTINGS_UW180S_BUTTONALLOPEN), &uv_uistyles[0]);
+	uv_uiwindow_add(this->window, &this->valves.allopen, bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uibutton_init(&this->valves.impl1,
+			uv_str(STR_SETTINGS_UW180S_BUTTONIMPL1), &uv_uistyles[0]);
+	uv_uiwindow_add(this->window, &this->valves.impl1, bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uibutton_init(&this->valves.impl2,
+			uv_str(STR_SETTINGS_UW180S_BUTTONIMPL2), &uv_uistyles[0]);
+	uv_uiwindow_add(this->window, &this->valves.impl2, bb.x, bb.y, bb.width, bb.height);
 }
 
 
@@ -196,11 +211,6 @@ static void show_mb() {
 	uv_uilabel_init(&this->label, &UI_FONT_BIG, ALIGN_CENTER,
 			C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_SETTINGS_UW180S_LABELMEAS));
 	uv_uiwindow_add(this->window, &this->label, LABEL_X, LABEL_Y, LABEL_W, LABEL_H);
-
-	uv_uitogglebutton_init(&this->mb.enabled, dspl.user->uw180s.mb_enabled,
-			uv_str(STR_SETTINGS_UW180S_BUTTONENABLED), &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->mb.enabled,
-			uv_uibb(&gui.main_window)->width - BACK_W, BACK_Y, BACK_W, BACK_H);
 
 //	for (int i = 0; i < LOG_TYPE_COUNT; i++) {
 //		log_names[i] = dspl.user->uw180s.log_type_buffer[i].name;
@@ -241,12 +251,12 @@ static void show_mb() {
 			bb.x, bb.y + 20, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->mb.vol_calib, UW180S_MB_VOL_CALIB_MIN, UW180S_MB_VOL_CALIB_MAX,
-			dspl.user->uw180s.vol_calib, &uv_uistyles[0]);
-	uv_uislider_set_vertical(&this->mb.vol_calib);
-	uv_uislider_set_title(&this->mb.vol_calib, uv_str(STR_SETTINGS_UW180S_SLIDERVOLCAL));
-	uv_uiwindow_add(this->window, &this->mb.vol_calib,
-			bb.x, bb.y + 20, bb.width, bb.height);
+//	uv_uislider_init(&this->mb.vol_calib, UW180S_MB_VOL_CALIB_MIN, UW180S_MB_VOL_CALIB_MAX,
+//			dspl.user->uw180s.vol_calib, &uv_uistyles[0]);
+//	uv_uislider_set_vertical(&this->mb.vol_calib);
+//	uv_uislider_set_title(&this->mb.vol_calib, uv_str(STR_SETTINGS_UW180S_SLIDERVOLCAL));
+//	uv_uiwindow_add(this->window, &this->mb.vol_calib,
+//			bb.x, bb.y + 20, bb.width, bb.height);
 
 	uv_uilabel_init(&this->mb.info_label, &UI_FONT_SMALL, ALIGN_CENTER,
 			C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_SETTINGS_UW180S_LABELCALVALS));
@@ -292,40 +302,49 @@ void settings_impl_uw180s_show(void) {
 uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
-	void (*set_params)(uint16_t,
-			uint16_t, bool) = NULL;
+	valve_st *v;
 
 	switch (this->state) {
-	case UW180S_STATE_WHEELS:
-		set_params = ecu_set_uw180s_wheels_params;
+	case UW180S_STATE_FEEDOPEN:
+		v = &dspl.user->uw180s.feedopen;
 		break;
-	case UW180S_STATE_WHEELS_FEED:
-		set_params = ecu_set_uw180s_wheels_feed_params;
+	case UW180S_STATE_FEED:
+		v = &dspl.user->uw180s.feed;
 		break;
-	case UW180S_STATE_DELIMBERS:
-		set_params = ecu_set_uw180s_delimbers_params;
+	case UW180S_STATE_BLADESOPEN:
+		v = &dspl.user->uw180s.bladesopen;
 		break;
 	case UW180S_STATE_SAW:
-		set_params = ecu_set_uw180s_saw_params;
+		v = &dspl.user->uw180s.saw;
 		break;
 	case UW180S_STATE_TILT:
-		set_params = ecu_set_uw180s_tilt_params;
+		v = &dspl.user->uw180s.tilt;
 		break;
 	case UW180S_STATE_ROTATOR:
-		set_params = ecu_set_uw180s_rotator_params;
+		v = &dspl.user->uw180s.rotator;
+		break;
+	case UW180S_STATE_ALLOPEN:
+		v = &dspl.user->uw180s.all_open;
+		break;
+	case UW180S_STATE_IMPL1:
+		v = &dspl.user->uw180s.impl1;
+		break;
+	case UW180S_STATE_IMPL2:
+		v = &dspl.user->uw180s.impl2;
 		break;
 	default:
+		v = NULL;
 		break;
 	}
 	if (this->state == UW180S_STATE_VALVES) {
 		if (uv_uibutton_clicked(&this->valves.wheels)) {
-			show_sliders(UW180S_STATE_WHEELS, uv_uibutton_get_text(&this->valves.wheels));
+			show_sliders(UW180S_STATE_FEEDOPEN, uv_uibutton_get_text(&this->valves.wheels));
 		}
 		else if (uv_uibutton_clicked(&this->valves.wheels_feed)) {
-			show_sliders(UW180S_STATE_WHEELS_FEED, uv_uibutton_get_text(&this->valves.wheels_feed));
+			show_sliders(UW180S_STATE_FEED, uv_uibutton_get_text(&this->valves.wheels_feed));
 		}
 		else if (uv_uibutton_clicked(&this->valves.delimbers)) {
-			show_sliders(UW180S_STATE_DELIMBERS, uv_uibutton_get_text(&this->valves.delimbers));
+			show_sliders(UW180S_STATE_BLADESOPEN, uv_uibutton_get_text(&this->valves.delimbers));
 		}
 		else if (uv_uibutton_clicked(&this->valves.saw)) {
 			show_sliders(UW180S_STATE_SAW, uv_uibutton_get_text(&this->valves.saw));
@@ -335,6 +354,15 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 		}
 		else if (uv_uibutton_clicked(&this->valves.rotator)) {
 			show_sliders(UW180S_STATE_ROTATOR, uv_uibutton_get_text(&this->valves.rotator));
+		}
+		else if (uv_uibutton_clicked(&this->valves.allopen)) {
+			show_sliders(UW180S_STATE_ALLOPEN, uv_uibutton_get_text(&this->valves.allopen));
+		}
+		else if (uv_uibutton_clicked(&this->valves.impl1)) {
+			show_sliders(UW180S_STATE_IMPL1, uv_uibutton_get_text(&this->valves.impl1));
+		}
+		else if (uv_uibutton_clicked(&this->valves.impl2)) {
+			show_sliders(UW180S_STATE_IMPL2, uv_uibutton_get_text(&this->valves.impl2));
 		}
 		else if (uv_uibutton_clicked(&this->back)) {
 			settings_impl_uw180s_show();
@@ -348,10 +376,8 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 				uv_uislider_value_changed(&this->sliders.max_speed_p) ||
 				uv_uitogglebutton_clicked(&this->sliders.invert)) {
 			// call ecu callback function
-			if (set_params) {
-				set_params(uv_uislider_get_value(&this->sliders.max_speed_p),
-						uv_uislider_get_value(&this->sliders.max_speed_n),
-						uv_uitogglebutton_get_state(&this->sliders.invert));
+			if (v != NULL) {
+				v->setter(v);
 			}
 		}
 		if (uv_uibutton_clicked(&this->back)) {
@@ -363,14 +389,8 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 		if (uv_uibutton_clicked(&this->back)) {
 			settings_impl_uw180s_show();
 		}
-		else if (uv_uitogglebutton_clicked(&this->mb.enabled)) {
-			dspl.user->uw180s.mb_enabled = uv_uitogglebutton_get_state(&this->mb.enabled);
-		}
 		else if (uv_uislider_value_changed(&this->mb.len_calib)) {
-			mb_set_length_calib(&dspl.network.uw180s_mb, uv_uislider_get_value(&this->mb.len_calib));
-		}
-		else if (uv_uislider_value_changed(&this->mb.vol_calib)) {
-			mb_set_vol_calib(&dspl.network.uw180s_mb, uv_uislider_get_value(&this->mb.vol_calib));
+			icu_set_len_calib(&dspl.network.icu, uv_uislider_get_value(&this->mb.len_calib));
 		}
 		else if (uv_uislider_value_changed(&this->mb.log_len1)) {
 			dspl.user->uw180s.log_len1 = uv_uislider_get_value(&this->mb.log_len1);
@@ -379,7 +399,8 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 			dspl.user->uw180s.log_len2 = uv_uislider_get_value(&this->mb.log_len2);
 		}
 		else if (uv_uibutton_clicked(&this->mb.vol_reset)) {
-			uv_canopen_sdo_write8(UW180S_MB_NODE_ID, 0x200B, 0, 1);
+			uv_canopen_sdo_write32(ICU_NODE_ID, ICU_VOL_DM3_INDEX,
+					ICU_VOL_DM3_SUBINDEX, 0);
 		}
 //		else if (uv_uibutton_clicked(&this->mb.log_add)) {
 //			if (uv_vector_size(&dspl.user->uw180s.log_types) <
@@ -400,11 +421,11 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 	}
 	else if (this->state == UW180S_STATE_GENERAL) {
 		if (uv_uislider_value_changed(&this->general.rollers_grab_time)) {
-			ecu_set_uw180s_rollers_grab_time(
+			icu_set_feed_grab_time(&dspl.network.icu,
 					uv_uislider_get_value(&this->general.rollers_grab_time));
 		}
 		else if (uv_uislider_value_changed(&this->general.blades_grab_time)) {
-			ecu_set_uw180s_blades_grab_time(
+			icu_set_blades_grab_time(&dspl.network.icu,
 					uv_uislider_get_value(&this->general.blades_grab_time));
 		}
 		else if (uv_uibutton_clicked(&this->back)) {

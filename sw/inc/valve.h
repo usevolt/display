@@ -29,9 +29,10 @@ typedef struct valve_st {
 	int16_t min_speed_n;
 	int16_t max_speed_p;
 	int16_t max_speed_n;
-	int16_t acc;
-	int16_t dec;
-	int16_t invert;
+	uint8_t acc;
+	uint8_t dec;
+	uint8_t invert;
+	uint8_t assembly_invert;
 } valve_st;
 
 

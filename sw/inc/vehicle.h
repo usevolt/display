@@ -16,18 +16,6 @@
 /// default settings
 
 
-#define LKEYPAD_NODE_ID			3
-#define RKEYPAD_NODE_ID			4
-#define MSB_NODE_ID				6
-#define ESB_NODE_ID				6
-#define CSB_NODE_ID				7
-#define FSB_NODE_ID				5
-#define ECU_NODE_ID				0x10
-#define PEDAL_NODE_ID			0x1E
-#define UW180S_ECU_NODE_ID		0xA
-#define UW180S_MB_NODE_ID		0xD
-#define UW180S_MB2_NODE_ID		0xF
-
 
 
 
@@ -62,46 +50,8 @@
 #define UW180S_MB_VOL_CALIB_MAX		100
 
 
-// a work around for eclipse cdt code analysis bug in project symbols.
-// All project symbols are parsed into empty symbols. Thus, this
-// replaces them with the right values.
-#if defined(FM)
-#undef FM
-#define FM 1
-#elif defined(LM)
-#undef LM
-#define LM 1
-#elif defined(CM)
-#undef CM
-#define CM 1
-#endif
+#define BASE_VALVE_COUNT			12
 
-
-/// @brief: Defines the vehicle's base valve count. Base valve settings
-/// are shown on "valve configuration"-screen
-#if FM
-#define BASE_VALVE_COUNT			7
-#elif LM
-#define BASE_VALVE_COUNT			10
-#elif CM
-#define BASE_VALVE_COUNT			9
-#endif
-
-/// @brief: Vehicle's implement valve count. Implement valve settings
-/// are shown on "implement valve configuration"-screen
-#define IMPLEMENT_VALVE_COUNT		3
-
-/// @brief: Amount of Usewood implements
-#define UW_IMPLEMENT_COUNT			3
-
-/// @brief: Defines the available implements
-enum {
-	IMPL_UW180S = 0,
-	IMPL_UW100,
-	IMPL_UW50,
-	IMPL_COUNT
-};
-typedef uint8_t impl_type_e;
 
 /// @brief: Structure defining the vehicle's base
 /// valve construction and factory values

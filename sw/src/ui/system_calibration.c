@@ -32,18 +32,18 @@ void system_calib_show(void) {
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 	// uw180s mb calibration
-	uv_uilabel_init(&this->mb_label, &UI_FONT_SMALL, ALIGN_CENTER,
+	uv_uilabel_init(&this->icu_label, &UI_FONT_SMALL, ALIGN_CENTER,
 			C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_SYSTEM_CALIB_LABELUW180SCAL));
-	uv_uiwindow_add(&this->window, &this->mb_label,
+	uv_uiwindow_add(&this->window, &this->icu_label,
 			bb.x, bb.y, bb.width * 2, UI_FONT_SMALL.char_height);
 
-	uv_uibutton_init(&this->mb_calib_min, uv_str(STR_SYSTEM_CALIB_BUTTONCALIBMIN), &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->mb_calib_min, bb.x + bb.width / 4, bb.y + UI_FONT_SMALL.char_height,
+	uv_uibutton_init(&this->icu_calib_min, uv_str(STR_SYSTEM_CALIB_BUTTONCALIBMIN), &uv_uistyles[0]);
+	uv_uiwindow_add(&this->window, &this->icu_calib_min, bb.x + bb.width / 4, bb.y + UI_FONT_SMALL.char_height,
 			bb.width / 2, bb.height / 2);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->mb_calib_max, uv_str(STR_SYSTEM_CALIB_BUTTONCALIBMAX), &uv_uistyles[0]);
-	uv_uiwindow_add(&this->window, &this->mb_calib_max, bb.x + bb.width / 4,
+	uv_uibutton_init(&this->icu_calib_max, uv_str(STR_SYSTEM_CALIB_BUTTONCALIBMAX), &uv_uistyles[0]);
+	uv_uiwindow_add(&this->window, &this->icu_calib_max, bb.x + bb.width / 4,
 			bb.y + UI_FONT_SMALL.char_height, bb.width / 2, bb.height / 2);
 
 	// Joystick calibration
@@ -107,11 +107,11 @@ void system_calib_show(void) {
 uv_uiobject_ret_e system_calib_step(const uint16_t step_ms) {
 	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
-	if (uv_uibutton_clicked(&this->mb_calib_min)) {
-		uv_canopen_sdo_write8(UW180S_MB_NODE_ID, 0x2007, 2, 1);
+	if (uv_uibutton_clicked(&this->icu_calib_min)) {
+		uv_canopen_sdo_write8(ICU_NODE_ID, ICU_WIDTH_CALIB_REQ_INDEX, 1, 1);
 	}
-	else if (uv_uibutton_clicked(&this->mb_calib_max)) {
-		uv_canopen_sdo_write8(UW180S_MB_NODE_ID, 0x2007, 3, 1);
+	else if (uv_uibutton_clicked(&this->icu_calib_max)) {
+		uv_canopen_sdo_write8(ICU_NODE_ID, ICU_WIDTH_CALIB_REQ_INDEX, 2, 1);
 	}
 
 	if (uv_uitogglebutton_clicked(&this->calib_start)) {

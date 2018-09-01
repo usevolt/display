@@ -145,11 +145,10 @@ static void show(const taskbar_state_e state) {
 		uv_uiwindow_add(&this->taskbar, &this->emcy_label, bb.x, bb.y, bb.width, bb.height);
 		uv_delay_init(BG_ERROR_DELAY_MS, &this->emcy_delay);
 
-#if (LM || CM)
 		// gear
 		bb = uv_uigridlayout_next(&grid);
 		uv_uidigit_init(&this->gear, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
-				taskbar_style.window_c, "%u", ecu_get_gear(&dspl.network.ecu));
+				taskbar_style.window_c, "%u", ccu_get_gear(&dspl.network.ccu));
 		uv_uiwindow_add(&this->taskbar, &this->gear, bb.x, bb.y, bb.width,
 				bb.height - UI_FONT_SMALL.char_height);
 
@@ -161,9 +160,7 @@ static void show(const taskbar_state_e state) {
 		uv_uitoucharea_init(&this->gear_touch);
 		uv_uiwindow_add(&this->taskbar, &this->gear_touch, bb.x, bb.y,
 				bb.width, bb.height);
-#elif FM
-		bb = uv_uigridlayout_next(&grid);
-#endif
+
 		// horn
 		bb = uv_uigridlayout_next(&grid);
 		uv_uilabel_init(&this->horn, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
@@ -225,7 +222,7 @@ static void show(const taskbar_state_e state) {
 		// Fuel level
 		bb = uv_uigridlayout_next(&grid);
 		uv_uiprogressbar_init(&this->fuel_level, 0, 100, &uv_uistyles[0]);
-		uv_uiprogressbar_set_value(&this->fuel_level, esb_get_fuel_level(&dspl.network.esb));
+		uv_uiprogressbar_set_value(&this->fuel_level, fsb_get_fuel_level(&dspl.network.fsb));
 		uv_uiprogressbar_set_vertical(&this->fuel_level);
 		uv_uiprogressbar_set_limit(&this->fuel_level, UI_PROGRESSBAR_LIMIT_UNDER,
 				FUEL_LEVEL_WARNING_LIMIT, ERROR_COLOR);
@@ -341,7 +338,7 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 		if (ret != UIOBJECT_RETURN_KILLED) {
 			if (uv_delay(step_ms, &this->engine_delay)) {
 				uv_delay_init(ENGINE_LIGHT_DELAY_MS, &this->engine_delay);
-				if (ecu_get_engine_shut_down(&dspl.network.ecu)) {
+				if (fsb_get_ignkey_state(&dspl.network.fsb) == FSB_IGNKEY_STATE_OFF) {
 					this->engine_visible = true;
 				}
 				else {
@@ -388,12 +385,10 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 				this->emcy_delay = 0;
 			}
 
-#if (LM || CM)
 			if (uv_uitoucharea_clicked(&this->gear_touch, NULL, NULL)) {
-				ecu_set_gear(ecu_get_gear(&dspl.network.ecu) % ECU_GEAR_COUNT + 1);
+				ccu_set_gear(ccu_get_gear(&dspl.network.ccu) % CCU_GEAR_COUNT + 1);
 			}
-			uv_uidigit_set_value(&this->gear, ecu_get_gear(&dspl.network.ecu));
-#endif
+			uv_uidigit_set_value(&this->gear, ccu_get_gear(&dspl.network.ccu));
 
 			if (uv_uitoucharea_pressed(&this->horn_touch, NULL, NULL)) {
 				uv_uilabel_set_text(&this->horn, "On");
@@ -433,7 +428,7 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 			uv_uidigit_set_value(&this->heat,
 					fsb_get_heater_speed(&dspl.network.fsb));
 			uv_uiprogressbar_set_value(&this->voltage_level, esb_get_voltage(&dspl.network.esb));
-			uv_uiprogressbar_set_value(&this->fuel_level, esb_get_fuel_level(&dspl.network.esb));
+			uv_uiprogressbar_set_value(&this->fuel_level, fsb_get_fuel_level(&dspl.network.fsb));
 			uv_uiprogressbar_set_value(&this->oil_level, esb_get_oil_level(&dspl.network.esb));
 			uv_uiprogressbar_set_value(&this->otemp_bar, esb_get_oil_temp(&dspl.network.esb));
 			uv_uiprogressbar_set_value(&this->mtemp_bar, esb_get_motor_temp(&dspl.network.esb));

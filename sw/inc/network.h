@@ -11,14 +11,14 @@
 #include <uv_utilities.h>
 #include <uv_rtos.h>
 #include <uv_filters.h>
+#include "esb.h"
 #include "csb.h"
 #include "fsb.h"
 #include "pedal.h"
 #include "keypads.h"
-#include "ecu.h"
-#include "network/esb.h"
-#include "uw180s_mb.h"
-#include "uw180s_ecu.h"
+#include "hcu.h"
+#include "ccu.h"
+#include "icu.h"
 /// @file: Provides the interface for communicating to the CAN network.
 
 
@@ -30,10 +30,10 @@ typedef struct {
 	fsb_st fsb;
 	keypad_st r_keypad;
 	keypad_st l_keypad;
-	ecu_st ecu;
+	hcu_st hcu;
+	ccu_st ccu;
 	pedal_st pedal;
-	mb_st uw180s_mb;
-	uw180s_ecu_st uw180s_ecu;
+	icu_st icu;
 
 	/// @brief: moving average filter for can state. 0 = error, non-zero = no errors
 	uv_moving_aver_st can_state;
@@ -42,8 +42,6 @@ typedef struct {
 
 
 void network_init(network_st *this);
-
-void network_receive_emcy(network_st *this, const canopen_emcy_msg_st *emcy);
 
 void network_receive_message(network_st *this, uv_can_message_st *msg);
 
@@ -57,5 +55,19 @@ static inline void network_update(network_st *this) {
 static inline bool network_updating(network_st *this) {
 	return this->updating;
 }
+
+
+/// @brief: Saves the non-volatile settings to all devices on the network
+void network_save_params(network_st *this);
+
+
+
+
+
+
+
+
+
+
 
 #endif /* NETWORK_H_ */

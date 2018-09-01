@@ -80,11 +80,17 @@ static const data_st labels[DEV_COUNT] = {
 				.row2 = STR_SYSTEM_DIAG_LABELCSBCOL1,
 				.row3 = STR_SYSTEM_DIAG_LABELCSBCOL2
 		},
-		// ECU
+		// HCU
 		{
-				.name = STR_SYSTEM_DIAG_LABELECU,
-				.row2 = STR_SYSTEM_DIAG_LABELECUCOL1,
-				.row3 = STR_SYSTEM_DIAG_LABELECUCOL2
+				.name = STR_SYSTEM_DIAG_LABELHCU,
+				.row2 = STR_SYSTEM_DIAG_LABELHCUCOL1,
+				.row3 = STR_SYSTEM_DIAG_LABELHCUCOL2
+		},
+		// CCU
+		{
+				.name = STR_SYSTEM_DIAG_LABELCCU,
+				.row2 = STR_SYSTEM_DIAG_LABELCCUCOL1,
+				.row3 = STR_SYSTEM_DIAG_LABELCCUCOL2
 		},
 		// L_KEYPAD
 		{
@@ -104,17 +110,11 @@ static const data_st labels[DEV_COUNT] = {
 				.row2 = STR_SYSTEM_DIAG_LABELPEDALCOL1,
 				.row3 = STR_SYSTEM_DIAG_LABELPEDALCOL2
 		},
-		// UW180S
+		// ICU
 		{
-				.name = STR_SYSTEM_DIAG_LABELUW180S,
-				.row2 = STR_SYSTEM_DIAG_LABELUW180SCOL1,
-				.row3 = STR_SYSTEM_DIAG_LABELUW180SCOL2
-		},
-		// UW180S_MB
-		{
-				.name = STR_SYSTEM_DIAG_LABELUW180SMB,
-				.row2 = STR_SYSTEM_DIAG_LABELUW180SMBCOL1,
-				.row3 = STR_SYSTEM_DIAG_LABELUW180SMBCOL2
+				.name = STR_SYSTEM_DIAG_LABELICU,
+				.row2 = STR_SYSTEM_DIAG_LABELICUCOL1,
+				.row3 = STR_SYSTEM_DIAG_LABELICUCOL2
 		},
 
 };
@@ -157,7 +157,7 @@ static void update(devices_e dev) {
 						ESB_PUMP_ANGLE_SUBINDEX));
 		uv_ui_refresh(&this->row2_values);
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
+				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
 				uv_canopen_sdo_read16(ESB_NODE_ID,
 						ESB_RPM_INDEX, ESB_RPM_SUBINDEX),
 				uv_canopen_sdo_read8(ESB_NODE_ID,
@@ -172,8 +172,6 @@ static void update(devices_e dev) {
 						ESB_OIL_TEMP_INDEX, ESB_OIL_TEMP_SUBINDEX),
 				uv_canopen_sdo_read8(ESB_NODE_ID,
 						ESB_OIL_LEVEL_INDEX, ESB_OIL_LEVEL_SUBINDEX),
-				uv_canopen_sdo_read8(ESB_NODE_ID,
-						ESB_FUEL_LEVEL_INDEX, ESB_FUEL_LEVEL_SUBINDEX),
 				uv_canopen_sdo_read16(ESB_NODE_ID,
 						ESB_VDD_INDEX, ESB_VDD_SUBINDEX),
 				uv_canopen_sdo_read8(ESB_NODE_ID,
@@ -214,7 +212,7 @@ static void update(devices_e dev) {
 			ignkey = "";
 		}
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%s\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
+				"%s\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
 				ignkey,
 				uv_canopen_sdo_read8(FSB_NODE_ID,
 						FSB_HEATER_SPEED_INDEX, FSB_HEATER_SPEED_SUBINDEX),
@@ -229,7 +227,9 @@ static void update(devices_e dev) {
 				uv_canopen_sdo_read8(FSB_NODE_ID,
 						FSB_DOORSW1_INDEX, FSB_DOORSW1_SUBINDEX),
 				uv_canopen_sdo_read8(FSB_NODE_ID,
-						FSB_DOORSW2_INDEX, FSB_DOORSW2_SUBINDEX));
+						FSB_DOORSW2_INDEX, FSB_DOORSW2_SUBINDEX),
+				uv_canopen_sdo_read8(FSB_NODE_ID,
+						FSB_FUEL_LEVEL_INDEX, FSB_FUEL_LEVEL_SUBINDEX));
 		uv_ui_refresh(&this->row3_values);
 
 		update_netdev(&dspl.network.fsb);
@@ -271,54 +271,23 @@ static void update(devices_e dev) {
 
 		update_netdev(&dspl.network.csb);
 	}
-	else if (dev == ECU) {
+	else if (dev == HCU) {
 		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i",
-				ecu_get_controls_moved(&dspl.network.ecu),
-				ecu_get_engine_shut_down(&dspl.network.ecu),
-				ecu_get_implement(&dspl.network.ecu),
-				ecu_get_legs_down(&dspl.network.ecu),
-				ecu_get_pressure(&dspl.network.ecu));
+				"");
 		uv_ui_refresh(&this->row2_values);
-#if FM
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
-				ecu_get_boom_lift_ma(&dspl.network.ecu),
-				ecu_get_boom_fold_ma(&dspl.network.ecu),
-				ecu_get_boom_rotate_ma(&dspl.network.ecu),
-				ecu_get_drive_ma(&dspl.network.ecu),
-				ecu_get_steer_ma(&dspl.network.ecu),
-				ecu_get_left_leg_ma(&dspl.network.ecu),
-				ecu_get_right_leg_ma(&dspl.network.ecu),
-				ecu_get_impl_valve_ma(&dspl.network.ecu));
-#elif LM
-		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
-				ecu_get_boom_lift_ma(&dspl.network.ecu),
-				ecu_get_boom_fold_ma(&dspl.network.ecu),
-				ecu_get_boom_rotate_ma(&dspl.network.ecu),
-				ecu_get_boom_telescope_ma(&dspl.network.ecu),
-				ecu_get_drive_ma(&dspl.network.ecu),
-				ecu_get_steer_ma(&dspl.network.ecu),
-				ecu_get_steerback_ma(&dspl.network.ecu),
-				ecu_get_left_leg_ma(&dspl.network.ecu),
-				ecu_get_right_leg_ma(&dspl.network.ecu),
-				ecu_get_cab_rot_ma(&dspl.network.ecu));
-#elif CM
-		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
-				ecu_get_boom_lift_ma(&dspl.network.ecu),
-				ecu_get_boom_fold_ma(&dspl.network.ecu),
-				ecu_get_boom_rotate_ma(&dspl.network.ecu),
-				ecu_get_drive_ma(&dspl.network.ecu),
-				ecu_get_steer_ma(&dspl.network.ecu),
-				ecu_get_telescope_ma(&dspl.network.ecu),
-				ecu_get_left_leg_ma(&dspl.network.ecu),
-				ecu_get_right_leg_ma(&dspl.network.ecu),
-				ecu_get_cab_rot_ma(&dspl.network.ecu));
-#endif
+				"");
 		uv_ui_refresh(&this->row3_values);
-		update_netdev(&dspl.network.ecu);
+		update_netdev(&dspl.network.hcu);
+	}
+	else if (dev == CCU) {
+			snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
+					"");
+			uv_ui_refresh(&this->row2_values);
+			snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
+					"");
+			uv_ui_refresh(&this->row3_values);
+			update_netdev(&dspl.network.ccu);
 	}
 	else if (dev == R_KEYPAD || dev == L_KEYPAD) {
 		keypad_st *keypad;
@@ -353,30 +322,18 @@ static void update(devices_e dev) {
 	}
 	else if (dev == PEDAL) {
 		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i", pedal_get_value(&dspl.network.pedal));
+				"%i\n%i", pedal_get_value1(&dspl.network.pedal), pedal_get_value2(&dspl.network.pedal));
 		uv_ui_refresh(&this->row2_values);
 		strcpy(this->row3_val_str, "");
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(&dspl.network.pedal);
 	}
-	else if (dev == UW180S_ECU) {
+	else if (dev == ICU) {
 		strcpy(this->row2_val_str, "");
 		uv_ui_refresh(&this->row2_values);
 		strcpy(this->row3_val_str, "");
 		uv_ui_refresh(&this->row3_values);
-		update_netdev(&dspl.network.uw180s_ecu);
-	}
-	else if (dev == UW180S_MB) {
-		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN, "%i\n%i\n%i\n%i\n%i\n%i",
-				mb_get_length(&dspl.network.uw180s_mb),
-				mb_get_width(&dspl.network.uw180s_mb),
-				mb_get_volume(&dspl.network.uw180s_mb),
-				uv_canopen_sdo_read16(UW180S_MB_NODE_ID, 0x2004, 5),
-				uv_canopen_sdo_read16(UW180S_MB_NODE_ID, 0x200A, 1),
-				uv_canopen_sdo_read16(UW180S_MB_NODE_ID, 0x200A, 2));
-		this->row2_val_str[SYSTEM_NETWORK_ROW_VALUE_LEN - 1] = '\0';
-		uv_ui_refresh(&this->row2_values);
-		update_netdev(&dspl.network.uw180s_mb);
+		update_netdev(&dspl.network.icu);
 	}
 	else {
 

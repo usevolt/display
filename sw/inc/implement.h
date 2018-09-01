@@ -12,6 +12,7 @@
 #include <stdbool.h>
 #include <uv_ui.h>
 #include "vehicle.h"
+#include "can_hcu.h"
 
 
 /// @brief: Implement callback functino pointers.
@@ -23,23 +24,6 @@ typedef struct {
 	void (*settings_show)(void);
 	uv_uiobject_ret_e (*settings_step)(uint16_t step_ms);
 } implement_callbs_st;
-
-/// @brief: Struct which describes a implements valve configurations
-typedef struct {
-	uint16_t max_speed_p;
-	uint16_t max_speed_n;
-	bool invert;
-} impl_valve_st;
-
-/// @brief: Structure for definenin extended implement valve configurations.
-/// Contains also acceleration and deceleration.
-typedef struct {
-	uint16_t max_speed_p;
-	uint16_t max_speed_n;
-	bool invert;
-	uint16_t acc;
-	uint16_t dec;
-} impl_valve_ext_st;
 
 
 
@@ -82,13 +66,18 @@ typedef struct {
 typedef struct {
 	EXTENDS(implement_st);
 
-	impl_valve_st wheels;
-	impl_valve_st wheels_feed;
-	impl_valve_st delimbers;
-	impl_valve_st saw;
-	impl_valve_st tilt;
-	impl_valve_st rotator;
-	bool mb_enabled;
+	valve_st feedopen;
+	valve_st feed;
+	valve_st bladesopen;
+	valve_st saw;
+	valve_st tilt;
+	valve_st rotator;
+	valve_st all_open;
+	valve_st impl1;
+	valve_st impl2;
+	bool len_enabled;
+	bool width_enabled;
+	bool vol_enabled;
 	int16_t len_calib;
 	int16_t vol_calib;
 	int16_t log_len1;
@@ -113,8 +102,8 @@ static inline void uw180s_reset(uw180s_st *this) {
 typedef struct {
 	EXTENDS(implement_st);
 
-	impl_valve_ext_st rotator;
-	impl_valve_ext_st open;
+	valve_st rotator;
+	valve_st open;
 } uw100_st;
 extern const uw100_st uw100;
 
@@ -132,8 +121,8 @@ static inline void uw100_reset(uw100_st *this) {
 typedef struct {
 	EXTENDS(implement_st);
 
-	impl_valve_ext_st saw;
-	impl_valve_ext_st tilt;
+	valve_st saw;
+	valve_st tilt;
 
 } uw50_st;
 /// @brief: UW50 factory settings
@@ -149,7 +138,7 @@ static inline void uw50_reset(uw50_st *this) {
 }
 
 
-void implement_set(impl_type_e implement);
+void implement_set(hcu_impls_e implement);
 
 
 #endif /* IMPLEMENT_H_ */

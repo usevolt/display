@@ -20,10 +20,9 @@
 typedef struct {
 	EXTENDS(netdev_st);
 
-	struct {
-		uint16_t total_current;
-		uint8_t wiper_speed;
-	} read;
+	uint16_t total_current;
+	uint8_t cooler_p;
+	uint8_t wiper_speed;
 } csb_st;
 
 
@@ -35,12 +34,16 @@ void csb_init(csb_st *this);
 
 void csb_step(csb_st *this, unsigned int step_ms);
 
+static inline uint8_t csb_get_cooler_p(csb_st *this) {
+	return this->cooler_p;
+}
+
 static inline uint16_t csb_get_total_current(csb_st *this) {
-	return this->read.total_current;
+	return this->total_current;
 }
 
 static inline uint8_t csb_get_wiper_speed(csb_st *this) {
-	return this->read.wiper_speed;
+	return this->wiper_speed;
 }
 
 void csb_set_wiper_speed(csb_st *this, uint8_t value);

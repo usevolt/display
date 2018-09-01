@@ -77,8 +77,9 @@ uv_uiobject_ret_e settings_step(const uint16_t step_ms) {
 			if (e) {
 				log_add(LOG_MEMORY_SAVE_FAILED);
 			}
-			// save ecu params
-			ecu_save_params();
+			// save all params
+			network_save_params(&dspl.network);
+
 			home_show();
 			ret = UIOBJECT_RETURN_KILLED;
 		}

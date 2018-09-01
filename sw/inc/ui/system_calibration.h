@@ -20,9 +20,9 @@ typedef struct {
 	uv_uiobject_st *buffer[SYSTEM_CALIB_BUF_LEN];
 
 	// uw180s mb calibration
-	uv_uilabel_st mb_label;
-	uv_uibutton_st mb_calib_min;
-	uv_uibutton_st mb_calib_max;
+	uv_uilabel_st icu_label;
+	uv_uibutton_st icu_calib_min;
+	uv_uibutton_st icu_calib_max;
 
 	// joystick calibration
 	uv_uitogglebutton_st calib_start;

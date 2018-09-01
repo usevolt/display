@@ -22,7 +22,7 @@ static void show_sliders(uw100_states_e state, char *label) {
 	uv_uiwindow_clear(this->window);
 
 	this->state = state;
-	impl_valve_ext_st *v;
+	valve_st *v;
 	if (state == UW100_STATE_ROTATOR) { v = &dspl.user->uw100.rotator; }
 	else if (state == UW100_STATE_OPEN) { v = &dspl.user->uw100.open; }
 	else { v = NULL; }
@@ -125,58 +125,36 @@ uv_uiobject_ret_e settings_impl_uw100_step(uint16_t step_ms) {
 		}
 	}
 	else {
-		void (*set_params)(uint16_t,
-				uint16_t, uint16_t, uint16_t, bool) = NULL;
-		impl_valve_ext_st *v = NULL;
+		valve_st *v = NULL;
 
 		if (this->state == UW100_STATE_ROTATOR) {
-			set_params = ecu_set_uw100_rotator_params;
 			v = &dspl.user->uw100.rotator;
+			v->setter(v);
 		}
 		else if (this->state == UW100_STATE_OPEN) {
-			set_params = ecu_set_uw100_open_params;
 			v = &dspl.user->uw100.open;
+			v->setter(v);
 		}
 
 		if (uv_uislider_value_changed(&this->max_speed_p)) {
 			v->max_speed_p = uv_uislider_get_value(&this->max_speed_p);
-			set_params(uv_uislider_get_value(&this->max_speed_p),
-					uv_uislider_get_value(&this->max_speed_n),
-					uv_uislider_get_value(&this->acc),
-					uv_uislider_get_value(&this->dec),
-					uv_uitogglebutton_get_state(&this->invert));
+			v->setter(v);
 		}
 		else if (uv_uislider_value_changed(&this->max_speed_n)) {
 			v->max_speed_n = uv_uislider_get_value(&this->max_speed_n);
-			set_params(uv_uislider_get_value(&this->max_speed_p),
-					uv_uislider_get_value(&this->max_speed_n),
-					uv_uislider_get_value(&this->acc),
-					uv_uislider_get_value(&this->dec),
-					uv_uitogglebutton_get_state(&this->invert));
+			v->setter(v);
 		}
 		else if (uv_uislider_value_changed(&this->acc)) {
 			v->acc = uv_uislider_get_value(&this->acc);
-			set_params(uv_uislider_get_value(&this->max_speed_p),
-					uv_uislider_get_value(&this->max_speed_n),
-					uv_uislider_get_value(&this->acc),
-					uv_uislider_get_value(&this->dec),
-					uv_uitogglebutton_get_state(&this->invert));
+			v->setter(v);
 		}
 		else if (uv_uislider_value_changed(&this->dec)) {
 			v->dec = uv_uislider_get_value(&this->dec);
-			set_params(uv_uislider_get_value(&this->max_speed_p),
-					uv_uislider_get_value(&this->max_speed_n),
-					uv_uislider_get_value(&this->acc),
-					uv_uislider_get_value(&this->dec),
-					uv_uitogglebutton_get_state(&this->invert));
+			v->setter(v);
 		}
 		else if (uv_uitogglebutton_clicked(&this->invert)) {
 			v->invert = uv_uitogglebutton_get_state(&this->invert);
-			set_params(uv_uislider_get_value(&this->max_speed_p),
-					uv_uislider_get_value(&this->max_speed_n),
-					uv_uislider_get_value(&this->acc),
-					uv_uislider_get_value(&this->dec),
-					uv_uitogglebutton_get_state(&this->invert));
+			v->setter(v);
 		}
 		else if (uv_uibutton_clicked(&this->back)) {
 			settings_impl_uw100_show();

@@ -154,7 +154,7 @@ void show_implement_callb(uv_uitreeobject_st *obj) {
 
 	// implement select
 	uv_uilist_init(&this->implement.impls_list, this->implement.impl_names,
-			UW_IMPLEMENT_COUNT, &uv_uistyles[0]);
+			HCU_IMPLEMENT_COUNT, &uv_uistyles[0]);
 
 	// todo: Add all implements here
 	uv_uilist_push_back(&this->implement.impls_list, dspl.user->uw180s.super.name);
