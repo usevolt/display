@@ -61,10 +61,17 @@ void system_settings_show(void) {
 
 	// engine power usage
 	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->power_usage, 0, 100, dspl.user->engine_power_usage, &uv_uistyles[0]);
+	uv_uislider_init(&this->power_usage, 0, 200, dspl.user->engine_power_usage, &uv_uistyles[0]);
 	uv_uislider_set_horizontal(&this->power_usage);
 	uv_uislider_set_title(&this->power_usage, "Engine power\nusage (%)");
-	uv_uiwindow_add(&this->window, &this->power_usage, bb.x, bb.y, bb.width, bb.height);
+	uv_uiwindow_add(&this->window, &this->power_usage, bb.x, bb.y, bb.width, bb.height / 2);
+
+	// oilcooler temp
+	uv_uislider_init(&this->oilc_temp, 0, 100, dspl.user->oilc_temp, &uv_uistyles[0]);
+	uv_uislider_set_horizontal(&this->oilc_temp);
+	uv_uislider_set_title(&this->oilc_temp, "Oil Cooler Temp");
+	uv_uiwindow_add(&this->window, &this->oilc_temp, bb.x, bb.y + bb.height / 2, bb.width, bb.height / 2);
+
 
 	// Joystick calibration
 	bb = uv_uigridlayout_next(&grid);
@@ -229,6 +236,10 @@ uv_uiobject_ret_e system_settings_step(const uint16_t step_ms) {
 	if (uv_uislider_value_changed(&this->power_usage)) {
 		dspl.user->engine_power_usage = uv_uislider_get_value(&this->power_usage);
 		ecu_set_engine_power_usage(dspl.user->engine_power_usage);
+	}
+	else if (uv_uislider_value_changed(&this->oilc_temp)) {
+		dspl.user->oilc_temp = uv_uislider_get_value(&this->oilc_temp);
+		set_oilc_temp(&dspl.network.msb, uv_uislider_get_value(&this->oilc_temp));
 	}
 	else if (uv_uibutton_clicked(&this->year_inc)) {
 		this->date.year++;

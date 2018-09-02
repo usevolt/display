@@ -133,6 +133,8 @@ static inline uint8_t msb_get_heater(msb_st *msb) {
 }
 
 
+void set_oilc_temp(void *me, uint8_t value);
+
 void msb_set_heater(void *me, uint8_t value);
 
 void msb_set_crane_light(void *me, bool value);

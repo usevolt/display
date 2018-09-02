@@ -12,7 +12,7 @@
 #include <uv_ui.h>
 #include <uv_rtc.h>
 
-#define SYSTEM_SETTINGS_BUF_LEN		25
+#define SYSTEM_SETTINGS_BUF_LEN		26
 #define DATE_STR_LEN				40
 #define CALIB_LINE_LEN				40
 
@@ -25,6 +25,8 @@ typedef struct {
 	char *impl_names[UW_IMPLEMENT_COUNT];
 
 	uv_uislider_st power_usage;
+
+	uv_uislider_st oilc_temp;
 
 	// joystick calibration
 	uv_uitogglebutton_st calib_start;

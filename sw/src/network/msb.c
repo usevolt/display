@@ -23,8 +23,16 @@ void msb_step(msb_st *this, unsigned int step_ms) {
 void msb_update(void *me) {
 	msb_set_heater(this, msb_get_heater(&dspl.network.msb));
 	msb_set_crane_light(this, this->read.power.crane_light);
+	set_oilc_temp(this, dspl.user->oilc_temp);
 }
 
+
+
+void set_oilc_temp(void *me, uint8_t value) {
+	uv_canopen_sdo_write(ESB_NODE_ID, ESB_OILCOOLER_TRIGGER_INDEX,
+			ESB_OILCOOLER_TRIGGER_SUBINDEX, 1,
+			&value);
+}
 
 
 void msb_set_heater(void *me, uint8_t value) {
