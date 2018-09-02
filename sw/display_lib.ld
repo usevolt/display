@@ -9,8 +9,6 @@
 
 
  GROUP(
- libgcc.a
- libc.a
- libm.a
- libcr_newlib_semihost.a
+ libcr_c.a
+ libcr_eabihelpers.a
  )
