@@ -54,7 +54,7 @@ static void update_valve_params(valve_st *valve, uint16_t mindex, uint8_t sindex
 	uv_canopen_sdo_write(CCU_NODE_ID,
 			mindex, sindex + 4,
 			data_len,
-			&valve->min_speed_n);
+			&valve->max_speed_n);
 	uv_rtos_task_delay(10);
 	uv_canopen_sdo_write(CCU_NODE_ID,
 			mindex, sindex + 5,

@@ -35,8 +35,10 @@ void dashboard_show(void) {
 			uv_uibb(&this->window)->height - TOPIC_HEIGHT);
 
 	// show the active implement's dashboard UI
-	if (dspl.user->implement && dspl.user->implement->callbacks->dashboard_show) {
-		dspl.user->implement->callbacks->dashboard_show();
+	implement_st *impl = dspl_get_implement_ptr(&dspl);
+	if ((impl != NULL) &&
+			impl->callbacks->dashboard_show) {
+		impl->callbacks->dashboard_show();
 	}
 }
 
@@ -54,8 +56,10 @@ uv_uiobject_ret_e dashboard_step(uint16_t step_ms) {
 		ret = UIOBJECT_RETURN_KILLED;
 	}
 	// active implement dasboard step
-	if (dspl.user->implement && dspl.user->implement->callbacks->dasboard_step) {
-		dspl.user->implement->callbacks->dasboard_step(step_ms);
+	implement_st *impl = dspl_get_implement_ptr(&dspl);
+	if ((impl != NULL) &&
+			impl->callbacks->dasboard_step) {
+		impl->callbacks->dasboard_step(step_ms);
 	}
 	return ret;
 }

@@ -273,19 +273,46 @@ static void update(devices_e dev) {
 	}
 	else if (dev == HCU) {
 		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"");
+				"%i\n%i\n%i\n%i",
+				uv_canopen_sdo_read8(HCU_NODE_ID, HCU_IMPLEMENT_INDEX, HCU_IMPLEMENT_SUBINDEX),
+				uv_canopen_sdo_read8(HCU_NODE_ID, HCU_LEFT_FOOT_STATE_INDEX, HCU_LEFT_FOOT_STATE_SUBINDEX),
+				uv_canopen_sdo_read8(HCU_NODE_ID, HCU_RIGHT_FOOT_STATE_INDEX, HCU_RIGHT_FOOT_STATE_SUBINDEX),
+				(int) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_PRESSURE_INDEX, HCU_PRESSURE_SUBINDEX));
 		uv_ui_refresh(&this->row2_values);
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"");
+				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
+				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_BOOM_LIFT_CURRENT_INDEX, HCU_BOOM_LIFT_CURRENT_SUBINDEX),
+				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_BOOM_FOLD_CURRENT_INDEX, HCU_BOOM_FOLD_CURRENT_SUBINDEX),
+				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_BOOM_ROTATE_CURRENT_INDEX, HCU_BOOM_ROTATE_CURRENT_SUBINDEX),
+				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_BOOM_TELESCOPE_CURRENT_INDEX, HCU_BOOM_TELESCOPE_CURRENT_SUBINDEX),
+				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_LEFT_FOOT_CURRENT_INDEX, HCU_LEFT_FOOT_CURRENT_SUBINDEX),
+				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_RIGHT_FOOT_CURRENT_INDEX, HCU_RIGHT_FOOT_CURRENT_SUBINDEX),
+				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_ROTATOR_CURRENT_INDEX, HCU_ROTATOR_CURRENT_SUBINDEX),
+				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_IMPL1_CURRENT_INDEX, HCU_IMPL1_CURRENT_SUBINDEX),
+				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_IMPL2_CURRENT1_INDEX, HCU_IMPL2_CURRENT1_SUBINDEX) +
+				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_IMPL2_CURRENT2_INDEX, HCU_IMPL2_CURRENT2_SUBINDEX));
+
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(&dspl.network.hcu);
 	}
 	else if (dev == CCU) {
 			snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-					"");
+					"%i\n%s\n%i\n%i",
+					uv_canopen_sdo_read8(CCU_NODE_ID, CCU_CABROT_DIR_INDEX, CCU_CABROT_DIR_SUBINDEX),
+					get_output_state_str(uv_canopen_sdo_read8(CCU_NODE_ID, CCU_BOOM_VDD_STATE_INDEX, CCU_BOOM_VDD_STATE_SUBINDEX)),
+					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_BOOM_VDD_CURRENT_INDEX, CCU_BOOM_VDD_CURRENT_SUBINDEX),
+					uv_canopen_sdo_read8(CCU_NODE_ID, CCU_GEAR_INDEX, CCU_GEAR_SUBINDEX) + 1);
 			uv_ui_refresh(&this->row2_values);
 			snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-					"");
+					"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
+					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_DRIVE_CURRENT1_INDEX, CCU_DRIVE_CURRENT1_SUBINDEX),
+					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_DRIVE_CURRENT2_INDEX, CCU_DRIVE_CURRENT2_SUBINDEX),
+					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_DRIVE_CURRENT3_INDEX, CCU_DRIVE_CURRENT3_SUBINDEX),
+					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_BRAKE_CURRENT_INDEX, CCU_BOOM_VDD_CURRENT_SUBINDEX),
+					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_CABBRAKE_CURRENT_INDEX, CCU_CABBRAKE_CURRENT_SUBINDEX),
+					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_CABROT_CURRENT_INDEX, CCU_CABROT_CURRENT_SUBINDEX),
+					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_TELESCOPE_CURRENT_INDEX, CCU_TELESCOPE_CURRENT_SUBINDEX),
+					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_STEER_CURRENT_INDEX, CCU_STEER_CURRENT_SUBINDEX));
 			uv_ui_refresh(&this->row3_values);
 			update_netdev(&dspl.network.ccu);
 	}

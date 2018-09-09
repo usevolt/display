@@ -49,43 +49,48 @@ void dashboard_uw180s_show() {
 	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->len_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER,
 			C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_DASHBOARD_UW180S_LABELLENGTH));
-	uv_uiwindow_add(window, &this->len_label, bb.x, bb.y, bb.width,
-			UI_FONT_SMALL.char_height);
+	uv_uiwindow_add(window, &this->len_label,
+			bb.x + ((dspl.user->uw180s.width_enabled) ? 0 : (bb.width / 2)),
+			bb.y, bb.width, UI_FONT_SMALL.char_height);
 
 	uv_uidigit_init(&this->len, &UI_DIGIT_BIG, ALIGN_TOP_CENTER, C(0xFFFFFF),
 			uv_uistyles[0].window_c, "%03i", icu_get_length_um(&dspl.network.icu) / 10000);
 	uv_uidigit_set_scale(&this->len, 2.0f);
-	uv_uiwindow_add(window, &this->len, bb.x, bb.y + uv_uibb(&this->len_label)->height,
+	uv_uiwindow_add(window, &this->len, bb.x + ((dspl.user->uw180s.width_enabled) ? 0 : (bb.width / 2)),
+			bb.y + uv_uibb(&this->len_label)->height,
 			bb.width, bb.height - uv_uibb(&this->len_label)->height);
 
+	if (dspl.user->uw180s.width_enabled) {
+		bb = uv_uigridlayout_next(&grid);
+		uv_uilabel_init(&this->wid_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER,
+				C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_DASHBOARD_UW180S_LABELDIAMETER));
+		uv_uiwindow_add(window, &this->wid_label, bb.x, bb.y, bb.width,
+				UI_FONT_SMALL.char_height);
 
-	bb = uv_uigridlayout_next(&grid);
-	uv_uilabel_init(&this->wid_label, &UI_FONT_SMALL, ALIGN_TOP_CENTER,
-			C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_DASHBOARD_UW180S_LABELDIAMETER));
-	uv_uiwindow_add(window, &this->wid_label, bb.x, bb.y, bb.width,
-			UI_FONT_SMALL.char_height);
+		uv_uidigit_init(&this->wid, &UI_DIGIT_BIG, ALIGN_TOP_CENTER, C(0xFFFFFF),
+				uv_uistyles[0].window_c, "%03i", 0);
+		uv_uidigit_set_scale(&this->wid, 2.0f);
+		uv_uiwindow_add(window, &this->wid, bb.x, bb.y + uv_uibb(&this->wid_label)->height,
+				bb.width, bb.height - uv_uibb(&this->wid_label)->height);
 
-	uv_uidigit_init(&this->wid, &UI_DIGIT_BIG, ALIGN_TOP_CENTER, C(0xFFFFFF),
-			uv_uistyles[0].window_c, "%03i", 0);
-	uv_uidigit_set_scale(&this->wid, 2.0f);
-	uv_uiwindow_add(window, &this->wid, bb.x, bb.y + uv_uibb(&this->wid_label)->height,
-			bb.width, bb.height - uv_uibb(&this->wid_label)->height);
+		if (dspl.user->uw180s.vol_enabled) {
+			uv_uigridlayout_next(&grid);
+			bb = uv_uigridlayout_next(&grid);
+			uv_uilabel_init(&this->vol_label, &UI_FONT_SMALL, ALIGN_CENTER,
+					C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_DASHBOARD_UW180S_LABELVOLUME));
+			uv_uiwindow_add(window, &this->vol_label, bb.x - bb.width / 2, bb.y, bb.width,
+					UI_FONT_SMALL.char_height);
 
-	uv_uigridlayout_next(&grid);
-	bb = uv_uigridlayout_next(&grid);
-	uv_uilabel_init(&this->vol_label, &UI_FONT_SMALL, ALIGN_CENTER,
-			C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_DASHBOARD_UW180S_LABELVOLUME));
-	uv_uiwindow_add(window, &this->vol_label, bb.x - bb.width / 2, bb.y, bb.width,
-			UI_FONT_SMALL.char_height);
-
-	uv_uidigit_init(&this->vol, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
-			uv_uistyles[0].window_c, "%i,%01u", 0);
-	uv_uidigit_set_divider(&this->vol, 1000);
-	uv_uiwindow_add(window, &this->vol, bb.x - bb.width / 2, bb.y + uv_uibb(&this->vol_label)->height,
-			bb.width, bb.height - uv_uibb(&this->vol_label)->height);
+			uv_uidigit_init(&this->vol, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
+					uv_uistyles[0].window_c, "%i,%01u", 0);
+			uv_uidigit_set_divider(&this->vol, 1000);
+			uv_uiwindow_add(window, &this->vol, bb.x - bb.width / 2, bb.y + uv_uibb(&this->vol_label)->height,
+					bb.width, bb.height - uv_uibb(&this->vol_label)->height);
+		}
+	}
 
 	this->active_len = 1;
-	icu_set_target_len_um(&dspl.network.icu, dspl.user->uw180s.log_len1);
+	icu_set_target_len_um(&dspl.network.icu, dspl.user->uw180s.log_len1 * 10000);
 }
 
 
@@ -94,8 +99,12 @@ uv_uiobject_ret_e dashboard_uw180s_step(uint16_t step_ms) {
 	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
 	uv_uidigit_set_value(&this->len, icu_get_length_um(&dspl.network.icu) / 10000);
-	uv_uidigit_set_value(&this->wid, icu_get_width_um(&dspl.network.icu) / 1000);
-	uv_uidigit_set_value(&this->vol, icu_get_vol_dm3(&dspl.network.icu) / 1000);
+	if (dspl.user->uw180s.width_enabled) {
+		uv_uidigit_set_value(&this->wid, icu_get_width_um(&dspl.network.icu) / 1000);
+		if (dspl.user->uw180s.vol_enabled) {
+			uv_uidigit_set_value(&this->vol, icu_get_vol_dm3(&dspl.network.icu) / 1000);
+		}
+	}
 
 	if (uv_uibutton_clicked(&this->log_length)) {
 		if (this->active_len == 1) {
@@ -105,7 +114,7 @@ uv_uiobject_ret_e dashboard_uw180s_step(uint16_t step_ms) {
 			snprintf(str, 10, "%03i", dspl.user->uw180s.log_len2);
 			strcat(log_length_str, str);
 			strcat(log_length_str, " cm");
-			icu_set_target_len_um(&dspl.network.icu, dspl.user->uw180s.log_len2);
+			icu_set_target_len_um(&dspl.network.icu, dspl.user->uw180s.log_len2 * 10000);
 		}
 		else {
 			this->active_len = 1;
@@ -114,7 +123,7 @@ uv_uiobject_ret_e dashboard_uw180s_step(uint16_t step_ms) {
 			snprintf(str, 10, "%03i", dspl.user->uw180s.log_len1);
 			strcat(log_length_str, str);
 			strcat(log_length_str, " cm");
-			icu_set_target_len_um(&dspl.network.icu, dspl.user->uw180s.log_len1);
+			icu_set_target_len_um(&dspl.network.icu, dspl.user->uw180s.log_len1 * 10000);
 		}
 	}
 	return ret;

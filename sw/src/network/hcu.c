@@ -16,7 +16,7 @@ void hcu_init(hcu_st *this) {
 	netdev_set_node_id(this, HCU_NODE_ID);
 	netdev_set_disconnected_type(this, LOG_HCU_DISCONNECTED);
 	this->total_current = 0;
-	this->implement = HCU_IMPLEMENT_NONE;
+	this->implement = HCU_IMPLEMENT_UW180S;
 	this->pressure = 0;
 }
 
@@ -28,7 +28,6 @@ void hcu_step(hcu_st *this, unsigned int step_ms) {
 #define this (&(dspl.network.hcu))
 
 void hcu_update(void *me) {
-	hcu_set_implement(dspl.user->active_implement);
 
 	// note: No need to update valve settings,
 	// they are already updated in network.c
@@ -51,7 +50,7 @@ static void update_valve_params(valve_st *valve, uint16_t mindex, uint8_t data_l
 	uv_canopen_sdo_write(HCU_NODE_ID,
 			mindex, 4,
 			data_len,
-			&valve->min_speed_n);
+			&valve->max_speed_n);
 	uv_rtos_task_delay(10);
 	uv_canopen_sdo_write(HCU_NODE_ID,
 			mindex, 5,

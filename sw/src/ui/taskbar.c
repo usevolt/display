@@ -386,9 +386,9 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 			}
 
 			if (uv_uitoucharea_clicked(&this->gear_touch, NULL, NULL)) {
-				ccu_set_gear(ccu_get_gear(&dspl.network.ccu) % CCU_GEAR_COUNT + 1);
+				ccu_set_gear((ccu_get_gear(&dspl.network.ccu) + 1) % CCU_GEAR_COUNT);
 			}
-			uv_uidigit_set_value(&this->gear, ccu_get_gear(&dspl.network.ccu));
+			uv_uidigit_set_value(&this->gear, ccu_get_gear(&dspl.network.ccu) + 1);
 
 			if (uv_uitoucharea_pressed(&this->horn_touch, NULL, NULL)) {
 				uv_uilabel_set_text(&this->horn, "On");

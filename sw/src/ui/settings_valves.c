@@ -126,6 +126,17 @@ static void sliders_show(uv_uitreeobject_st *obj) {
 	uv_uitreeobject_add(obj, &this->invert, bb.x, bb.y,
 			bb.width, CONFIG_UI_SLIDER_WIDTH);
 
+	bb = uv_uigridlayout_next(&grid);
+	sprintf(this->assinv_str, "%s: %u", uv_str(STR_SETTINGS_VALVES_BUTTONASSINV), this->valve->assembly_invert);
+	uv_uilabel_init(&this->assinv_label, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF),
+			C(0xFFFFFFFF), this->assinv_str);
+	uv_ui_hide(&this->assinv_label);
+	uv_uitreeobject_add(obj, &this->assinv_label, bb.x, bb.y, bb.width, bb.height / 2);
+
+	uv_uitoucharea_init(&this->assinv_touch);
+	uv_uitreeobject_add(obj, &this->assinv_touch, bb.x, bb.y, bb.width, bb.height / 2);
+	uv_delay_init(1000, &this->assinv_delay);
+
 }
 
 
@@ -196,6 +207,19 @@ uv_uiobject_ret_e settings_valves_step(const uint16_t step_ms) {
 	}
 	else {
 		uv_uitogglebutton_set_state(&this->invert, this->valve->invert);
+	}
+	if (uv_uitoucharea_is_down(&this->assinv_touch, NULL, NULL)) {
+		if (uv_delay(step_ms, &this->assinv_delay)) {
+			this->valve->assembly_invert = !this->valve->assembly_invert;
+			this->valve->setter(this->valve);
+			sprintf(this->assinv_str, "%s: %u",
+					uv_str(STR_SETTINGS_VALVES_BUTTONASSINV),
+					this->valve->assembly_invert);
+			uv_ui_show(&this->assinv_label);
+		}
+	}
+	else {
+		uv_delay_init(1000, &this->assinv_delay);
 	}
 	return ret;
 }

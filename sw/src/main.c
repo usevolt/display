@@ -207,6 +207,28 @@ void dspl_step(void *me) {
 }
 
 
+implement_st *dspl_get_implement_ptr(void *me) {
+	void *ret = NULL;
+	if (this->user != NULL) {
+		switch (hcu_get_implement(&this->network.hcu)) {
+		case HCU_IMPLEMENT_UW180S:
+			ret = &this->user->uw180s;
+			break;
+		case HCU_IMPLEMENT_UW100:
+			ret = &this->user->uw100;
+			break;
+		case HCU_IMPLEMENT_UW50:
+			ret = &this->user->uw50;
+			break;
+		default:
+			ret = NULL;
+			break;
+		}
+	}
+	return ret;
+}
+
+
 int main(void) {
 
 	uv_init(&dspl);

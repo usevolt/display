@@ -10,6 +10,7 @@
 
 
 #include <uv_ui.h>
+#include <uv_utilities.h>
 #include "vehicle.h"
 
 #define SETTINGS_VALVES_BUFFER_LEN	16
@@ -39,6 +40,10 @@ typedef struct {
 	uv_uilabel_st dec_label;
 	uv_uislider_st dec;
 	uv_uitogglebutton_st invert;
+	uv_uitoucharea_st assinv_touch;
+	uv_uilabel_st assinv_label;
+	char assinv_str[32];
+	int assinv_delay;
 } settings_valves_st;
 
 

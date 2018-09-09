@@ -28,21 +28,6 @@ static void user_init(userdata_st *this) {
 	uw180s_init(&this->uw180s);
 	uw100_init(&this->uw100);
 	uw50_init(&this->uw50);
-	if (this->active_implement >= HCU_IMPLEMENT_COUNT) {
-		this->active_implement = HCU_IMPLEMENT_UW180S;
-	}
-	switch (this->active_implement) {
-	case HCU_IMPLEMENT_UW100:
-		this->implement = (implement_st*) &this->uw100;
-		break;
-	case HCU_IMPLEMENT_UW50:
-		this->implement = (implement_st*) &this->uw50;
-		break;
-	case HCU_IMPLEMENT_UW180S:
-	default:
-		this->implement = (implement_st*) &this->uw180s;
-		break;
-	}
 
 }
 
@@ -53,7 +38,7 @@ static void user_reset(userdata_st *user) {
 
 	strcpy(user->username, "Usewood");
 
-	user->engine_power_usage = 36;
+	user->engine_power_usage = 12;
 
 	user->volume.volume = 100;
 	user->volume.notifications = true;
@@ -71,20 +56,6 @@ static void user_reset(userdata_st *user) {
 	uw180s_reset(&user->uw180s);
 	uw100_reset(&user->uw100);
 	uw50_reset(&user->uw50);
-	user->active_implement = HCU_IMPLEMENT_UW180S;
-
-	switch (user->active_implement) {
-	case HCU_IMPLEMENT_UW100:
-		user->implement = (implement_st*) &user->uw100;
-		break;
-	case HCU_IMPLEMENT_UW50:
-		user->implement = (implement_st*) &user->uw50;
-		break;
-	case HCU_IMPLEMENT_UW180S:
-	default:
-		user->implement = (implement_st*) &user->uw180s;
-		break;
-	}
 
 }
 

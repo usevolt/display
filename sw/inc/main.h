@@ -42,11 +42,6 @@ typedef struct {
 		uw180s_st uw180s;
 		uw50_st uw50;
 		uw100_st uw100;
-		/// @brief: Pointer to the currently active implement. Requires to be casted
-		/// to the implement type.
-		implement_st *implement;
-		/// @brief: Tells the currently selected implement
-		hcu_impls_e active_implement;
 		uint8_t oilcooler_trigg_temp;
 		struct {
 			uint8_t volume;
@@ -94,5 +89,8 @@ extern dspl_st dspl;
 void dspl_init(dspl_st *me);
 
 void dspl_step(void *me);
+
+/// @brief: Returns a pointer to the current implement
+implement_st *dspl_get_implement_ptr(void *me);
 
 #endif /* MAIN_H_ */

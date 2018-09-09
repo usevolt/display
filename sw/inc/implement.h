@@ -107,9 +107,7 @@ typedef struct {
 } uw100_st;
 extern const uw100_st uw100;
 
-static inline void uw100_init(void *me) {
-	implement_init(me, &uw100);
-}
+void uw100_init(uw100_st *this);
 
 static inline void uw100_reset(uw100_st *this) {
 	*this = uw100;
@@ -128,9 +126,7 @@ typedef struct {
 /// @brief: UW50 factory settings
 extern const uw50_st uw50;
 
-static inline void uw50_init(void *me) {
-	implement_init(me, &uw50);
-}
+void uw50_init(uw50_st *this);
 
 static inline void uw50_reset(uw50_st *this) {
 	*this = uw50;

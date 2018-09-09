@@ -48,9 +48,9 @@ static void show_general() {
 	uv_uiwindow_add(this->window, &this->general.rollers_grab_time, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->general.blades_grab_time, 0, 1000,
+	uv_uislider_init(&this->general.blades_grab_time, 0, 300,
 			dspl.user->uw180s.blades_grab_time, &uv_uistyles[0]);
-	uv_uislider_set_inc_step(&this->general.blades_grab_time, 20);
+	uv_uislider_set_inc_step(&this->general.blades_grab_time, 5);
 	uv_uislider_set_vertical(&this->general.blades_grab_time);
 	uv_uislider_set_title(&this->general.blades_grab_time, uv_str(STR_SETTINGS_UW180S_SLIDERBLADESGRABTIME));
 	uv_uiwindow_add(this->window, &this->general.blades_grab_time, bb.x, bb.y, bb.width, bb.height);
@@ -97,16 +97,33 @@ static void show_sliders(uw180s_state_e state, const char *label) {
 	case UW180S_STATE_ROTATOR:
 		v = &dspl.user->uw180s.rotator;
 		break;
+	case UW180S_STATE_ALLOPEN:
+		v = &dspl.user->uw180s.all_open;
+		break;
+	case UW180S_STATE_IMPL1:
+		v = &dspl.user->uw180s.impl1;
+		break;
+	case UW180S_STATE_IMPL2:
+		v = &dspl.user->uw180s.impl2;
+		break;
 	default:
 		v = NULL;
 		break;
 	}
 
 	bb = uv_uigridlayout_next(&grid);
+	uint16_t min_speed = (state == UW180S_STATE_IMPL1 ||
+			state == UW180S_STATE_IMPL2 ||
+			state == UW180S_STATE_ROTATOR) ?
+			VALVE_MIN_CURRENT_MA : UW180S_VALVE_MIN_SPEED;
+	uint16_t max_speed = (state == UW180S_STATE_IMPL1 ||
+			state == UW180S_STATE_IMPL2 ||
+			state == UW180S_STATE_ROTATOR) ?
+			VALVE_MAX_CURRENT_MA : UW180S_VALVE_MAX_SPEED;
 
-	uv_uislider_init(&this->sliders.max_speed_p, VALVE_MIN_CURRENT_MA,
-			VALVE_MAX_CURRENT_MA, v->max_speed_p, &uv_uistyles[0]);
-	uv_uislider_set_inc_step(&this->sliders.max_speed_p, 10);
+	uv_uislider_init(&this->sliders.max_speed_p, min_speed,
+			max_speed, v->max_speed_p, &uv_uistyles[0]);
+	uv_uislider_set_inc_step(&this->sliders.max_speed_p, 5);
 	uv_uislider_set_horizontal(&this->sliders.max_speed_p);
 	uv_uislider_set_title(&this->sliders.max_speed_p, uv_str(STR_SETTINGS_VALVES_SLIDERFORMAXSPEED));
 	uv_uiwindow_add(this->window, &this->sliders.max_speed_p, bb.x, bb.y,
@@ -116,18 +133,33 @@ static void show_sliders(uw180s_state_e state, const char *label) {
 	uv_uitogglebutton_init(&this->sliders.invert, v->invert,
 			uv_str(STR_SETTINGS_UW100_BUTTONINVERT), &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->sliders.invert, bb.x + bb.width / 4,
-			bb.y + bb.height + grid.vpadding / 2 - bb.width / 4,
-			bb.width / 2, bb.width / 2);
+			bb.y, bb.width / 2, bb.width / 2);
 
 	bb = uv_uigridlayout_next(&grid);
 	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->sliders.max_speed_n, VALVE_MIN_CURRENT_MA,
-			VALVE_MAX_CURRENT_MA, v->max_speed_n, &uv_uistyles[0]);
-	uv_uislider_set_inc_step(&this->sliders.max_speed_n, 10);
+	uv_uislider_init(&this->sliders.max_speed_n, min_speed,
+			max_speed, v->max_speed_n, &uv_uistyles[0]);
+	uv_uislider_set_inc_step(&this->sliders.max_speed_n, 5);
 	uv_uislider_set_horizontal(&this->sliders.max_speed_n);
 	uv_uislider_set_title(&this->sliders.max_speed_n, uv_str(STR_SETTINGS_VALVES_SLIDERBACKMAXSPEED));
 	uv_uiwindow_add(this->window, &this->sliders.max_speed_n, bb.x, bb.y,
 			bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	sprintf(this->sliders.assinv_str, "%s: %u",
+			uv_str(STR_SETTINGS_VALVES_BUTTONASSINV),
+			v->assembly_invert);
+	uv_uilabel_init(&this->sliders.assinv_label, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF),
+			C(0xFFFFFFFF), this->sliders.assinv_str);
+	uv_ui_hide(&this->sliders.assinv_label);
+	uv_uiwindow_add(this->window, &this->sliders.assinv_label, bb.x, bb.y, bb.width, bb.height);
+
+	uv_uitoucharea_init(&this->sliders.assinv_touch);
+	uv_uiwindow_add(this->window, &this->sliders.assinv_touch, bb.x, bb.y, bb.width, bb.height);
+	uv_delay_init(1000, &this->sliders.assinv_delay);
+
+
+
 
 }
 
@@ -375,11 +407,28 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 		if (uv_uislider_value_changed(&this->sliders.max_speed_n) ||
 				uv_uislider_value_changed(&this->sliders.max_speed_p) ||
 				uv_uitogglebutton_clicked(&this->sliders.invert)) {
+			v->max_speed_n = uv_uislider_get_value(&this->sliders.max_speed_n);
+			v->max_speed_p = uv_uislider_get_value(&this->sliders.max_speed_p);
+			v->invert = uv_uitogglebutton_get_state(&this->sliders.invert);
 			// call ecu callback function
 			if (v != NULL) {
 				v->setter(v);
 			}
 		}
+		if (uv_uitoucharea_is_down(&this->sliders.assinv_touch, NULL, NULL)) {
+			if (uv_delay(step_ms, &this->sliders.assinv_delay)) {
+				v->assembly_invert = !v->assembly_invert;
+				v->setter(v);
+				sprintf(this->sliders.assinv_str, "%s: %u",
+						uv_str(STR_SETTINGS_VALVES_BUTTONASSINV),
+						v->assembly_invert);
+				uv_ui_show(&this->sliders.assinv_label);
+			}
+		}
+		else {
+			uv_delay_init(1000, &this->sliders.assinv_delay);
+		}
+
 		if (uv_uibutton_clicked(&this->back)) {
 			show_valves();
 			ret = UIOBJECT_RETURN_KILLED;
@@ -390,6 +439,7 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 			settings_impl_uw180s_show();
 		}
 		else if (uv_uislider_value_changed(&this->mb.len_calib)) {
+			dspl.user->uw180s.len_calib = uv_uislider_get_value(&this->mb.len_calib);
 			icu_set_len_calib(&dspl.network.icu, uv_uislider_get_value(&this->mb.len_calib));
 		}
 		else if (uv_uislider_value_changed(&this->mb.log_len1)) {
@@ -425,6 +475,7 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 					uv_uislider_get_value(&this->general.rollers_grab_time));
 		}
 		else if (uv_uislider_value_changed(&this->general.blades_grab_time)) {
+			dspl.user->uw180s.blades_grab_time = uv_uislider_get_value(&this->general.blades_grab_time);
 			icu_set_blades_grab_time(&dspl.network.icu,
 					uv_uislider_get_value(&this->general.blades_grab_time));
 		}

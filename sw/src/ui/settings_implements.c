@@ -30,8 +30,9 @@ void settings_implements_show(void) {
 			uv_uibb(window)->width,
 			uv_uitabwindow_get_contentbb(window).height);
 
-	if (dspl.user->implement) {
-		dspl.user->implement->callbacks->settings_show();
+	implement_st *impl = dspl_get_implement_ptr(&dspl);
+	if (impl != NULL) {
+		impl->callbacks->settings_show();
 	}
 	else {
 		uv_uilabel_init(&this->info, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF),
@@ -52,8 +53,9 @@ uv_uiobject_ret_e settings_implements_step(uint16_t step_ms) {
 
 	// if active implement settings dialog is visible, call it's step function.
 	// otherwise continue with this module's step function.
-	if (dspl.user->implement) {
-		ret = dspl.user->implement->callbacks->settings_step(step_ms);
+	implement_st *impl = dspl_get_implement_ptr(&dspl);
+	if (impl != NULL) {
+		ret = impl->callbacks->settings_step(step_ms);
 	}
 	return ret;
 }

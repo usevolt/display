@@ -107,35 +107,6 @@ static void network_task(void *me) {
 
 			uint8_t update_step_ms = 10;
 
-			// since valve settings are shared across the devices,
-			// update them here
-			for (uint8_t i = 0; i < BASE_VALVE_COUNT; i++) {
-				dspl.user->base_valves[i].setter(&dspl.user->base_valves[i]);
-				uv_rtos_task_delay(update_step_ms);
-			}
-
-			// update implement valves
-			if (dspl.user->active_implement == HCU_IMPLEMENT_UW180S) {
-				dspl.user->uw180s.bladesopen.setter(&dspl.user->uw180s.bladesopen);
-				dspl.user->uw180s.impl1.setter(&dspl.user->uw180s.impl1);
-				dspl.user->uw180s.impl2.setter(&dspl.user->uw180s.impl2);
-				dspl.user->uw180s.rotator.setter(&dspl.user->uw180s.rotator);
-				dspl.user->uw180s.saw.setter(&dspl.user->uw180s.saw);
-				dspl.user->uw180s.tilt.setter(&dspl.user->uw180s.tilt);
-				dspl.user->uw180s.feedopen.setter(&dspl.user->uw180s.feedopen);
-				dspl.user->uw180s.feed.setter(&dspl.user->uw180s.feed);
-			}
-			else if (dspl.user->active_implement == HCU_IMPLEMENT_UW100) {
-				dspl.user->uw100.open.setter(&dspl.user->uw100.open);
-				dspl.user->uw100.rotator.setter(&dspl.user->uw100.rotator);
-			}
-			else if (dspl.user->active_implement == HCU_IMPLEMENT_UW50) {
-				dspl.user->uw50.saw.setter(&dspl.user->uw50.saw);
-				dspl.user->uw50.tilt.setter(&dspl.user->uw50.tilt);
-			}
-			else {
-
-			}
 
 			esb_update(&this->esb);
 			uv_rtos_task_delay(update_step_ms);
@@ -161,7 +132,33 @@ static void network_task(void *me) {
 			keypad_update(&this->r_keypad);
 			uv_rtos_task_delay(update_step_ms);
 
-			icu_update(&this->icu);
+			// since valve settings are shared across the devices,
+			// update them here
+			for (uint8_t i = 0; i < BASE_VALVE_COUNT; i++) {
+				dspl.user->base_valves[i].setter(&dspl.user->base_valves[i]);
+				uv_rtos_task_delay(update_step_ms);
+			}
+
+			// update implement valves
+			implement_st *im = dspl_get_implement_ptr(&dspl);
+			if (im != NULL) {
+				hcu_impls_e impl = hcu_get_implement(&this->hcu);
+
+				if (impl == HCU_IMPLEMENT_UW180S) {
+					// this is done in icu.c
+				}
+				else if (impl == HCU_IMPLEMENT_UW100) {
+					dspl.user->uw100.open.setter(&dspl.user->uw100.open);
+					dspl.user->uw100.rotator.setter(&dspl.user->uw100.rotator);
+				}
+				else if (impl == HCU_IMPLEMENT_UW50) {
+					dspl.user->uw50.saw.setter(&dspl.user->uw50.saw);
+					dspl.user->uw50.tilt.setter(&dspl.user->uw50.tilt);
+				}
+				else {
+
+				}
+			}
 		}
 
 		canopen_emcy_msg_st emcy;

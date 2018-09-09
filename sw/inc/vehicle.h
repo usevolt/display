@@ -32,10 +32,13 @@
 
 
 /// @brief: Defines the maximum and minimum valve current
-#define VALVE_MIN_CURRENT_MA		100
-#define VALVE_MAX_CURRENT_MA		1000
+#define VALVE_MIN_CURRENT_MA		40
+#define VALVE_MAX_CURRENT_MA		1200
 #define VALVE_ACC_MIN				5
 #define VALVE_DEC_MIN				VALVE_ACC_MIN
+
+#define UW180S_VALVE_MIN_SPEED		0
+#define UW180S_VALVE_MAX_SPEED		100
 
 #define RPM_MAX						3500
 #define RPM_WARNING_LIMIT			3000

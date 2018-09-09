@@ -309,6 +309,11 @@ static langstr_st strs[STR_COUNT] = {
 				"Richtung umstellen"
 		},
 		{
+				"System Invert",
+				"Jarjestelma suunta",
+				"System umstellen"
+		},
+		{
 				"Rotator",
 				"Rotaattori",
 				"Rotator"
@@ -881,50 +886,47 @@ static langstr_st strs[STR_COUNT] = {
 				"Fahrlicht (mA)"
 		},
 		{
-				"Controls moved\n"
-				"Engine shut down\n"
 				"Implement\n"
-				"Legs Down\n"
+				"Left Leg State\n"
+				"Right Leg State\n"
 				"Pressure (bar)",
-				"Ohjaus tila\n"
-				"Moottori tila\n"
-				"Tyolaite\n"
-				"Jalat alhaalla\n"
+				"Vasen jalka\n"
+				"Oikea jalka\n"
 				"Paine (bar)",
-				"Steuerung benutzt\n"
-				"Motor abschalten\n"
 				"Arbeitsmaschine\n"
 				"Stutze unten\n"
 				"Druck (bar)"
 		},
 		{
-			"Boom Lift (mA)\n"
-			"Boom Fold (mA)\n"
-			"Boom Rotate (mA)\n"
-			"Drive (mA)\n"
-			"Steer (mA)\n"
-			"Body Telescope (mA)\n"
-			"Left Leg (mA)\n"
-			"Right Leg (mA)\n"
-			"Cabin Rotate (mA)",
-			"Puomi Nosto (mA)\n"
-			"Puomi Taitto (mA)\n"
-			"Puomi Kaanto (mA)\n"
-			"Ajo (mA)\n"
-			"Ohjaus (mA)\n"
-			"Teleskooppi (mA)\n"
-			"Vasen Jalka (mA)\n"
-			"Oikea Jalka (mA)\n"
-			"Hytin Pyoritys (mA)",
-			"Ausleger Hebung (mA)\n"
-			"Ausleger Faltung (mA)\n"
-			"Ausleger Drehung (mA)\n"
-			"Fahrt (mA)\n"
-			"Lenkung (mA)\n"
-			"Verlangerung (mA)\n"
-			"Linke Stutze (mA)\n"
-			"Rechte Stutze (mA)\n"
-			"Kabine Drehung (mA)"
+				"Boom Lift (mA)\n"
+				"Boom Fold (mA)\n"
+				"Boom Rotate (mA)\n"
+				"Boom Telescope (mA)\n"
+				"Left Leg (mA)\n"
+				"Right Leg (mA)\n"
+				"Rotator (mA)\n"
+				"Impl1 (mA)\n"
+				"Impl2 (mA)",
+
+				"Puomi Nosto (mA)\n"
+				"Puomi Taitto (mA)\n"
+				"Puomi Kaanto (mA)\n"
+				"Puomi Tel (mA)\n"
+				"Vasen Jalka (mA)\n"
+				"Oikea Jalka (mA)\n"
+				"Rotaattori (mA)\n"
+				"Tyolaite1 (mA)\n"
+				"Tyolaite2 (mA)",
+
+				"Ausleger Hebung (mA)\n"
+				"Ausleger Faltung (mA)\n"
+				"Ausleger Drehung (mA)\n"
+				"Fahrt (mA)\n"
+				"Lenkung (mA)\n"
+				"Verlangerung (mA)\n"
+				"Linke Stutze (mA)\n"
+				"Rechte Stutze (mA)\n"
+				"Kabine Drehung (mA)"
 		},
 		{
 				"x\nx err\ny\ny err\nz\nz err\nv\nv err",
@@ -947,13 +949,33 @@ static langstr_st strs[STR_COUNT] = {
 				""
 		},
 		{
-				"",
-				"",
+				"Cabin Dir\n"
+				"Boom VDD state\n"
+				"Boom VDD (mA)\n"
+				"Gear",
+				"Ohjaamo suunta\n"
+				"Puomi VDD\n"
+				"Puomi VDD (mA)\n"
+				"Vaihde",
 				""
 		},
 		{
-				"",
-				"",
+				"Drive1 (mA)\n"
+				"Drive2 (mA)\n"
+				"Drive3 (mA)\n"
+				"brake (mA)\n"
+				"Cabin brake (mA)\n"
+				"Cabin Rot (mA)\n"
+				"Telescope (mA)\n"
+				"Steer (mA)",
+				"Ajo1 (mA)\n"
+				"Ajo2 (mA)\n"
+				"Ajo3 (mA)\n"
+				"Jarru (mA)\n"
+				"Hytti jarru (mA)\n"
+				"Hytti kaanto (mA)\n"
+				"Jatke (mA)\n"
+				"Ohjaus (mA)",
 				""
 		},
 		{

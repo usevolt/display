@@ -13,6 +13,8 @@
 #include "vehicle.h"
 #include "can_icu.h"
 
+#define ICU_UPDATE_DELAY_MS		1000
+
 typedef struct {
 	EXTENDS(netdev_st);
 
@@ -20,7 +22,7 @@ typedef struct {
 	int32_t length_um;
 	int32_t width_um;
 	int32_t vol_dm3;
-
+	int update_delay;
 } icu_st;
 
 
@@ -36,15 +38,15 @@ static inline uint16_t icu_get_total_current(icu_st *this) {
 	return this->total_current;
 }
 
-static inline uint32_t icu_get_length_um(icu_st *this) {
+static inline int32_t icu_get_length_um(icu_st *this) {
 	return this->length_um;
 }
 
-static inline uint32_t icu_get_width_um(icu_st *this) {
+static inline int32_t icu_get_width_um(icu_st *this) {
 	return this->width_um;
 }
 
-static inline uint32_t icu_get_vol_dm3(icu_st *this) {
+static inline int32_t icu_get_vol_dm3(icu_st *this) {
 	return this->vol_dm3;
 }
 

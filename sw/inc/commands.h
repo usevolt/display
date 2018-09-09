@@ -28,6 +28,7 @@ typedef enum {
 	CMD_HOURS,
 	CMD_SHOW,
 	CMD_SCREENSHOT,
+	CMD_ICU,
 	CMD_COUNT
 } dspl_commands_e;
 
@@ -59,6 +60,7 @@ void hours_callb(void *me, unsigned int cmd, unsigned int args, argument_st *arg
 void show_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 void valvecfg_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 void screenshot_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void icu_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 
 
 #endif /* COMMANDS_H_ */

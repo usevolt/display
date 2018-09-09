@@ -71,6 +71,10 @@ typedef struct {
 			uv_uislider_st max_speed_n;
 			uv_uitogglebutton_st invert;
 			char str[32];
+			uv_uitoucharea_st assinv_touch;
+			uv_uilabel_st assinv_label;
+			char assinv_str[32];
+			int assinv_delay;
 		} sliders;
 		struct {
 			uv_uislider_st rollers_grab_time;

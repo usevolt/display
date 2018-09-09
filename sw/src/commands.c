@@ -127,6 +127,13 @@ const uv_command_st terminal_commands[] = {
 						"To save the screenshot, save it first as a text file and then run\n"
 						"'xxd -r -p file.txt > file.bmp', to convert it to readable bmp file.",
 				.callback = screenshot_callb
+		},
+		{
+				.id = CMD_ICU,
+				.str = "icu",
+				.instructions = "Enables or disabes ICU length, width and volume measurement.\n"
+						"Usage: icu <\"len\"/\"vol\"/\"wid\"> (1/0)",
+				.callback = &icu_callb
 		}
 };
 
@@ -333,5 +340,30 @@ void screenshot_callb(void *me, unsigned int cmd, unsigned int args, argument_st
 			CONFIG_LCD_PIXELS_PER_LINE * CONFIG_LCD_LINES_PER_PANEL * sizeof(LCD_PIXEL_TYPE));
 }
 
+
+void icu_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
+	if (args >= 2 &&
+			argv[0].type == ARG_STRING &&
+			argv[1].type == ARG_INTEGER) {
+		char *str = argv[0].str;
+		bool value = argv[1].number;
+		if (strcmp(str, "len") == 0) {
+			this->user->uw180s.len_enabled = value;
+		}
+		else if (strcmp(str, "vol") == 0) {
+			this->user->uw180s.vol_enabled = value;
+		}
+		else if (strcmp(str, "wid") == 0) {
+			this->user->uw180s.width_enabled = value;
+		}
+		else {
+
+		}
+	}
+	printf("UW180s length enabled: %u\n   Width enabled: %u\n   Volume enabled: %u\n",
+			this->user->uw180s.len_enabled,
+			this->user->uw180s.width_enabled,
+			this->user->uw180s.vol_enabled);
+}
 
 

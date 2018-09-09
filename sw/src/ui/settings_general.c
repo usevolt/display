@@ -161,7 +161,7 @@ void show_implement_callb(uv_uitreeobject_st *obj) {
 	uv_uilist_push_back(&this->implement.impls_list, dspl.user->uw100.super.name);
 	uv_uilist_push_back(&this->implement.impls_list, dspl.user->uw50.super.name);
 
-	uv_uilist_select(&this->implement.impls_list, dspl.user->active_implement);
+	uv_uilist_select(&this->implement.impls_list, hcu_get_implement(&dspl.network.hcu));
 
 	uv_uitreeobject_add(&this->implementobj, &this->implement.impls_list, bb.x, bb.y,
 			bb.width, bb.height - UI_FONT_SMALL.char_height);
@@ -343,7 +343,7 @@ uv_uiobject_ret_e settings_system_step(const uint16_t step_ms) {
 uv_uiobject_ret_e settings_implement_step(const uint16_t step_ms) {
 	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
-	if (uv_uilist_get_selected(&this->implement.impls_list) != dspl.user->active_implement) {
+	if (uv_uilist_get_selected(&this->implement.impls_list) != hcu_get_implement(&dspl.network.hcu)) {
 		implement_set(uv_uilist_get_selected(&this->implement.impls_list));
 	}
 

@@ -39,10 +39,6 @@ void fsb_update(void *me) {
 
 
 void fsb_set_heater_speed(fsb_st *this, uint8_t value) {
-	if (value) {
-		value = 100;
-	}
-
 	this->heater_speed = value;
 	uv_canopen_sdo_write8(FSB_NODE_ID, FSB_HEATER_SPEED_INDEX,
 			FSB_HEATER_SPEED_SUBINDEX, value);
