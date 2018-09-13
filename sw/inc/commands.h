@@ -29,6 +29,7 @@ typedef enum {
 	CMD_SHOW,
 	CMD_SCREENSHOT,
 	CMD_ICU,
+	CMD_NETWORK,
 	CMD_COUNT
 } dspl_commands_e;
 
@@ -61,6 +62,7 @@ void show_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv
 void valvecfg_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 void screenshot_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 void icu_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
+void network_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv);
 
 
 #endif /* COMMANDS_H_ */

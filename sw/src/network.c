@@ -19,6 +19,7 @@ static void network_task(void *me);
 
 void network_init(network_st *this) {
 	this->updating = true;
+	this->update_disabled = false;
 	this->can_last_state = CAN_ERROR_ACTIVE;
 	uv_moving_aver_init(&this->can_state, NETWORK_CAN_BUS_OFF_AVER_COUNT);
 
@@ -102,7 +103,7 @@ static void network_task(void *me) {
 		keypad_step(&this->r_keypad, step_ms);
 		icu_step(&this->icu, step_ms);
 
-		if(this->updating) {
+		if(this->updating && !this->update_disabled) {
 			this->updating = false;
 
 			uint8_t update_step_ms = 10;

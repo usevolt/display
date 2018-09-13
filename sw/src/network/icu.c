@@ -31,7 +31,7 @@ void icu_step(icu_st *this, unsigned int step_ms) {
 		uv_delay_init(ICU_UPDATE_DELAY_MS, &this->update_delay);
 	}
 	else {
-		if (uv_delay(step_ms, &this->update_delay)) {
+		if (uv_delay(step_ms, &this->update_delay) && !dspl.network.update_disabled) {
 			if (hcu_get_implement(&dspl.network.hcu) == HCU_IMPLEMENT_UW180S) {
 				icu_update(this);
 			}

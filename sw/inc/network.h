@@ -25,6 +25,7 @@
 
 typedef struct {
 	bool updating;
+	bool update_disabled;
 	esb_st esb;
 	csb_st csb;
 	fsb_st fsb;

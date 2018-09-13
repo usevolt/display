@@ -134,6 +134,14 @@ const uv_command_st terminal_commands[] = {
 				.instructions = "Enables or disabes ICU length, width and volume measurement.\n"
 						"Usage: icu <\"len\"/\"vol\"/\"wid\"> (1/0)",
 				.callback = &icu_callb
+		},
+		{
+				.id = CMD_NETWORK,
+				.str = "network",
+				.instructions = "Enabled the network parameter upload. \n"
+						"Can be used to disable SDO messages when flashing nnew software to controllers.\n"
+						"Usage: network <1/0>",
+				.callback = &network_callb
 		}
 };
 
@@ -366,4 +374,12 @@ void icu_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv)
 			this->user->uw180s.vol_enabled);
 }
 
+
+
+void network_callb(void *me, unsigned int cmd, unsigned int args, argument_st *argv) {
+	if (args && argv[0].type == ARG_INTEGER) {
+		this->network.update_disabled = !(argv[0].number);
+	}
+	printf("Network update %s.\n", (this->network.update_disabled) ? "disabled" : "enabled");
+}
 
