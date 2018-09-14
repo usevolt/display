@@ -39,8 +39,9 @@ void esb_step(esb_st *this, unsigned int step_ms) {
 
 #define this ((esb_st*)me)
 void esb_update(void *me) {
-	uv_canopen_sdo_write(ESB_NODE_ID, ESB_ENGINE_POWER_USAGE_INDEX, ESB_ENGINE_POWER_USAGE_SUBINDEX,
-			CANOPEN_TYPE_LEN(ESB_ENGINE_POWER_USAGE_TYPE), &dspl.user->engine_power_usage);
+	// engine power usage resides in ecu
+	uv_canopen_sdo_write(ECU_NODE_ID, 0x2200, 0,
+			2, &dspl.user->engine_power_usage);
 
 }
 #undef this

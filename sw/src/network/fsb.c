@@ -38,8 +38,8 @@ void fsb_update(void *me) {
 
 
 void fsb_set_heater_speed(fsb_st *this, uint8_t value) {
-	if (value > FSB_HEATER_MAX_SPEED) {
-		value = FSB_HEATER_MAX_SPEED;
+	if (value) {
+		value = 100;
 	}
 
 	this->read.heater_speed = value;
