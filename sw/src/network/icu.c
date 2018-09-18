@@ -118,7 +118,7 @@ void icu_set_saw_params(valve_st *valve) {
 			CANOPEN_TYPE_LEN(ICU_SAW_PARAM_TYPE),
 			&valve->invert);
 	uv_canopen_sdo_write(ICU_NODE_ID,
-			ICU_BLADEOPEN_PARAM_INDEX, 6,
+			ICU_SAW_PARAM_INDEX, 6,
 			CANOPEN_TYPE_LEN(ICU_BLADEOPEN_PARAM_TYPE),
 			&valve->assembly_invert);
 }
@@ -137,7 +137,7 @@ void icu_set_tilt_params(valve_st *valve) {
 			CANOPEN_TYPE_LEN(ICU_TILT_PARAM_TYPE),
 			&valve->invert);
 	uv_canopen_sdo_write(ICU_NODE_ID,
-			ICU_BLADEOPEN_PARAM_INDEX, 6,
+			ICU_TILT_PARAM_INDEX, 6,
 			CANOPEN_TYPE_LEN(ICU_BLADEOPEN_PARAM_TYPE),
 			&valve->assembly_invert);
 }
@@ -156,7 +156,7 @@ void icu_set_feed_params(valve_st *valve) {
 			CANOPEN_TYPE_LEN(ICU_FEED_PARAM_TYPE),
 			&valve->invert);
 	uv_canopen_sdo_write(ICU_NODE_ID,
-			ICU_BLADEOPEN_PARAM_INDEX, 6,
+			ICU_FEED_PARAM_INDEX, 6,
 			CANOPEN_TYPE_LEN(ICU_BLADEOPEN_PARAM_TYPE),
 			&valve->assembly_invert);
 
@@ -176,7 +176,7 @@ void icu_set_feedopen_params(valve_st *valve) {
 			CANOPEN_TYPE_LEN(ICU_FEEDOPEN_PARAM_TYPE),
 			&valve->invert);
 	uv_canopen_sdo_write(ICU_NODE_ID,
-			ICU_BLADEOPEN_PARAM_INDEX, 6,
+			ICU_FEEDOPEN_PARAM_INDEX, 6,
 			CANOPEN_TYPE_LEN(ICU_BLADEOPEN_PARAM_TYPE),
 			&valve->assembly_invert);
 
@@ -196,7 +196,7 @@ void icu_set_allopen_params(valve_st *valve) {
 			CANOPEN_TYPE_LEN(ICU_ALLOPEN_PARAM_TYPE),
 			&valve->invert);
 	uv_canopen_sdo_write(ICU_NODE_ID,
-			ICU_BLADEOPEN_PARAM_INDEX, 6,
+			ICU_ALLOPEN_PARAM_INDEX, 6,
 			CANOPEN_TYPE_LEN(ICU_BLADEOPEN_PARAM_TYPE),
 			&valve->assembly_invert);
 

@@ -120,10 +120,14 @@ static void show_sliders(uw180s_state_e state, const char *label) {
 			state == UW180S_STATE_IMPL2 ||
 			state == UW180S_STATE_ROTATOR) ?
 			VALVE_MAX_CURRENT_MA : UW180S_VALVE_MAX_SPEED;
+	uint16_t incstep = (state == UW180S_STATE_IMPL1 ||
+			state == UW180S_STATE_IMPL2 ||
+			state == UW180S_STATE_ROTATOR) ?
+			10 : 5;
 
 	uv_uislider_init(&this->sliders.max_speed_p, min_speed,
 			max_speed, v->max_speed_p, &uv_uistyles[0]);
-	uv_uislider_set_inc_step(&this->sliders.max_speed_p, 5);
+	uv_uislider_set_inc_step(&this->sliders.max_speed_p, incstep);
 	uv_uislider_set_horizontal(&this->sliders.max_speed_p);
 	uv_uislider_set_title(&this->sliders.max_speed_p, uv_str(STR_SETTINGS_VALVES_SLIDERFORMAXSPEED));
 	uv_uiwindow_add(this->window, &this->sliders.max_speed_p, bb.x, bb.y,
@@ -139,7 +143,7 @@ static void show_sliders(uw180s_state_e state, const char *label) {
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->sliders.max_speed_n, min_speed,
 			max_speed, v->max_speed_n, &uv_uistyles[0]);
-	uv_uislider_set_inc_step(&this->sliders.max_speed_n, 5);
+	uv_uislider_set_inc_step(&this->sliders.max_speed_n, incstep);
 	uv_uislider_set_horizontal(&this->sliders.max_speed_n);
 	uv_uislider_set_title(&this->sliders.max_speed_n, uv_str(STR_SETTINGS_VALVES_SLIDERBACKMAXSPEED));
 	uv_uiwindow_add(this->window, &this->sliders.max_speed_n, bb.x, bb.y,

@@ -30,11 +30,27 @@ void settings_valves_show() {
 			uv_uitabwindow_get_contentbb(window).width,
 			uv_uitabwindow_get_contentbb(window).height);
 
+	// read ccu assembly settings if telescope or cabrot is installed
+	uint8_t ccu_assembly[CCU_ASSEMBLY_ARRAY_SIZE];
+	for (uint8_t i = 0; i < CCU_ASSEMBLY_ARRAY_SIZE; i++) {
+		uv_canopen_sdo_read(CCU_NODE_ID, CCU_ASSEMBLY_INDEX, i + 1,
+				CANOPEN_TYPE_LEN(CCU_ASSEMBLY_TYPE), &ccu_assembly[i]);
+	}
+
 	for (int16_t i = 0; i < BASE_VALVE_COUNT; i++) {
-		uv_uitreeobject_init(&this->valves[i], this->buffer,
-				uv_str(dspl.user->base_valves[i].name), &sliders_show, &uv_uistyles[0]);
-		uv_uitreeobject_set_step_callback(&this->valves[i], &settings_valves_step);
-		uv_uitreeview_add(&this->treeview, &this->valves[i], SLIDERS_HEIGHT, false);
+		if ((dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREECABROTATE &&
+				!ccu_assembly[CCU_ASSEMBLY_CABROT_INDEX - 1]) ||
+			(dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREETELESCOPE &&
+					!ccu_assembly[CCU_ASSEMBLY_TELESCOPE_INDEX - 1])) {
+			// jump over valves which depend on the assembly settings
+			continue;
+		}
+		else {
+			uv_uitreeobject_init(&this->valves[i], this->buffer,
+					uv_str(dspl.user->base_valves[i].name), &sliders_show, &uv_uistyles[0]);
+			uv_uitreeobject_set_step_callback(&this->valves[i], &settings_valves_step);
+			uv_uitreeview_add(&this->treeview, &this->valves[i], SLIDERS_HEIGHT, false);
+		}
 	}
 
 	this->valve = NULL;
