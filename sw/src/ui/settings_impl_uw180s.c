@@ -40,7 +40,7 @@ static void show_general() {
 			uv_str(STR_SETTINGS_UW180S_LABELUW180SGENERAL));
 	uv_uiwindow_add(this->window, &this->label, LABEL_X, LABEL_Y, LABEL_W, LABEL_H);
 
-	uv_uislider_init(&this->general.rollers_grab_time, 0, 1000,
+	uv_uislider_init(&this->general.rollers_grab_time, 0, 200,
 			dspl.user->uw180s.roller_grab_time, &uv_uistyles[0]);
 	uv_uislider_set_inc_step(&this->general.rollers_grab_time, 20);
 	uv_uislider_set_vertical(&this->general.rollers_grab_time);
@@ -48,7 +48,7 @@ static void show_general() {
 	uv_uiwindow_add(this->window, &this->general.rollers_grab_time, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->general.blades_grab_time, 0, 300,
+	uv_uislider_init(&this->general.blades_grab_time, 0, 200,
 			dspl.user->uw180s.blades_grab_time, &uv_uistyles[0]);
 	uv_uislider_set_inc_step(&this->general.blades_grab_time, 5);
 	uv_uislider_set_vertical(&this->general.blades_grab_time);

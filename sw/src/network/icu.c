@@ -61,12 +61,11 @@ void icu_update(void *me) {
 
 
 void icu_set_blades_grab_time(icu_st *this, uint16_t value) {
-	uv_canopen_sdo_write(ICU_NODE_ID, ICU_FEED_PARAM_INDEX,
-			7, CANOPEN_TYPE_LEN(ICU_FEED_PARAM_TYPE), &value);
 }
 
 void icu_set_feed_grab_time(icu_st *this, uint16_t value) {
-#warning "todo"
+	uv_canopen_sdo_write(ICU_NODE_ID, ICU_FEED_PARAM_INDEX,
+			7, CANOPEN_TYPE_LEN(ICU_FEED_PARAM_TYPE), &value);
 }
 
 
