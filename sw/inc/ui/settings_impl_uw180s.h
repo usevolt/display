@@ -13,10 +13,13 @@
 #include <uv_ui.h>
 
 
+#define UW180S_CALIB_DATA_STR_LEN	64
+
 
 enum {
 	UW180S_STATE_NONE = 0,
 	UW180S_STATE_MB,
+	UW180S_STATE_WIDTH_CALIB,
 	UW180S_STATE_GENERAL,
 	// put new states here
 
@@ -49,7 +52,16 @@ typedef struct {
 			uv_uislider_st vol_calib;
 			uv_uilabel_st info_label;
 			uv_uibutton_st vol_reset;
+			uv_uibutton_st calib;
 		} mb;
+		struct {
+			uint16_t diam_count;
+			char calib_data_str[UW180S_CALIB_DATA_STR_LEN];
+			uv_uilabel_st calib_data;
+			uv_uibutton_st add_diam;
+			uv_uitogglebutton_st start_calib;
+			uv_uibutton_st clear_diam;
+		} width_calib;
 		struct {
 			uv_uibutton_st general;
 			uv_uibutton_st valves;

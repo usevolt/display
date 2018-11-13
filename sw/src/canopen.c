@@ -162,6 +162,13 @@ const canopen_object_st obj_dict[] = {
 				.data_ptr = (void*) &dspl.network.esb.voltage
 		},
 		{
+				.main_index = DSPL_ESB_OFFSET + ESB_GLOW_STATUS_INDEX,
+				.sub_index = ESB_GLOW_STATUS_SUBINDEX,
+				.permissions = CANOPEN_WO,
+				.type = ESB_GLOW_STATUS_TYPE,
+				.data_ptr = (void*) &dspl.network.esb.glow_plugs
+		},
+		{
 				.main_index = DSPL_FSB_OFFSET + FSB_TOTAL_CURRENT_INDEX,
 				.sub_index = FSB_TOTAL_CURRENT_SUBINDEX,
 				.permissions = CANOPEN_WO,
@@ -279,6 +286,20 @@ const canopen_object_st obj_dict[] = {
 				.permissions = CANOPEN_RW,
 				.type = ICU_LENGTH_UM_TYPE,
 				.data_ptr = (void*) &dspl.network.icu.length_um
+		},
+		{
+				.main_index = DSPL_ICU_OFFSET + ICU_WIDTH_MM_INDEX,
+				.sub_index = ICU_WIDTH_MM_SUBINDEX,
+				.permissions = CANOPEN_RW,
+				.type = ICU_WIDTH_MM_TYPE,
+				.data_ptr = (void*) &dspl.network.icu.width_mm
+		},
+		{
+				.main_index = DSPL_ICU_OFFSET + ICU_VOL_DM3_INDEX,
+				.sub_index = ICU_VOL_DM3_SUBINDEX,
+				.permissions = CANOPEN_RW,
+				.type = ICU_VOL_DM3_TYPE,
+				.data_ptr = (void*) &dspl.network.icu.vol_dm3
 		}
 };
 

@@ -68,7 +68,7 @@ void dashboard_uw180s_show() {
 				UI_FONT_SMALL.char_height);
 
 		uv_uidigit_init(&this->wid, &UI_DIGIT_BIG, ALIGN_TOP_CENTER, C(0xFFFFFF),
-				uv_uistyles[0].window_c, "%03i", 0);
+				uv_uistyles[0].window_c, "%03i", icu_get_width_mm(&dspl.network.icu));
 		uv_uidigit_set_scale(&this->wid, 2.0f);
 		uv_uiwindow_add(window, &this->wid, bb.x, bb.y + uv_uibb(&this->wid_label)->height,
 				bb.width, bb.height - uv_uibb(&this->wid_label)->height);
@@ -82,7 +82,7 @@ void dashboard_uw180s_show() {
 					UI_FONT_SMALL.char_height);
 
 			uv_uidigit_init(&this->vol, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
-					uv_uistyles[0].window_c, "%i,%01u", 0);
+					uv_uistyles[0].window_c, "%i,%01u", icu_get_vol_dm3(&dspl.network.icu) / 1000);
 			uv_uidigit_set_divider(&this->vol, 1000);
 			uv_uiwindow_add(window, &this->vol, bb.x - bb.width / 2, bb.y + uv_uibb(&this->vol_label)->height,
 					bb.width, bb.height - uv_uibb(&this->vol_label)->height);
@@ -100,9 +100,9 @@ uv_uiobject_ret_e dashboard_uw180s_step(uint16_t step_ms) {
 
 	uv_uidigit_set_value(&this->len, icu_get_length_um(&dspl.network.icu) / 10000);
 	if (dspl.user->uw180s.width_enabled) {
-		uv_uidigit_set_value(&this->wid, icu_get_width_um(&dspl.network.icu) / 1000);
+		uv_uidigit_set_value(&this->wid, icu_get_width_mm(&dspl.network.icu));
 		if (dspl.user->uw180s.vol_enabled) {
-			uv_uidigit_set_value(&this->vol, icu_get_vol_dm3(&dspl.network.icu) / 1000);
+			uv_uidigit_set_value(&this->vol, icu_get_vol_dm3(&dspl.network.icu));
 		}
 	}
 

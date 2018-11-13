@@ -156,8 +156,35 @@ static void update(devices_e dev) {
 				uv_canopen_sdo_read16(ESB_NODE_ID, ESB_PUMP_ANGLE_INDEX,
 						ESB_PUMP_ANGLE_SUBINDEX));
 		uv_ui_refresh(&this->row2_values);
+		char stop_cause[32] = { '\0' };
+		uint8_t cause = uv_canopen_sdo_read8(ESB_NODE_ID,
+				ESB_ENGINE_STOP_CAUSE_INDEX, ESB_ENGINE_STOP_CAUSE_SUBINDEX);
+		if (cause == ESB_STOP_OIL_PRESS) {
+			strcpy(stop_cause, "Oil");
+		}
+		else if (cause == ESB_STOP_WATER_TEMP) {
+			strcpy(stop_cause, "Water");
+		}
+		else if (cause == ESB_STOP_SOLENOID1_OVERCURRENT) {
+			strcpy(stop_cause, "Sol1");
+		}
+		else if (cause == ESB_STOP_SOLENOID2_OVERCURRENT) {
+			strcpy(stop_cause, "Sol2");
+		}
+		else if (cause == ESB_STOP_FSB_DISCONNECTED) {
+			strcpy(stop_cause, "FSB");
+		}
+		else if (cause == ESB_STOP_EMCY) {
+			strcpy(stop_cause, "EMCY");
+		}
+		else if (cause == ESB_STOP_IGNKEY) {
+			strcpy(stop_cause, "key");
+		}
+		else {
+			strcpy(stop_cause, "None");
+		}
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
+				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%s",
 				uv_canopen_sdo_read16(ESB_NODE_ID,
 						ESB_RPM_INDEX, ESB_RPM_SUBINDEX),
 				uv_canopen_sdo_read8(ESB_NODE_ID,
@@ -175,7 +202,8 @@ static void update(devices_e dev) {
 				uv_canopen_sdo_read16(ESB_NODE_ID,
 						ESB_VDD_INDEX, ESB_VDD_SUBINDEX),
 				uv_canopen_sdo_read8(ESB_NODE_ID,
-						ESB_OILCOOLER_TRIGGER_INDEX, ESB_OILCOOLER_TRIGGER_SUBINDEX));
+						ESB_OILCOOLER_TRIGGER_INDEX, ESB_OILCOOLER_TRIGGER_SUBINDEX),
+				stop_cause);
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(&dspl.network.esb);
 	}
@@ -277,7 +305,7 @@ static void update(devices_e dev) {
 				uv_canopen_sdo_read8(HCU_NODE_ID, HCU_IMPLEMENT_INDEX, HCU_IMPLEMENT_SUBINDEX),
 				uv_canopen_sdo_read8(HCU_NODE_ID, HCU_LEFT_FOOT_STATE_INDEX, HCU_LEFT_FOOT_STATE_SUBINDEX),
 				uv_canopen_sdo_read8(HCU_NODE_ID, HCU_RIGHT_FOOT_STATE_INDEX, HCU_RIGHT_FOOT_STATE_SUBINDEX),
-				(int) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_PRESSURE_INDEX, HCU_PRESSURE_SUBINDEX));
+				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_PRESSURE_INDEX, HCU_PRESSURE_SUBINDEX));
 		uv_ui_refresh(&this->row2_values);
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
 				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
@@ -297,8 +325,9 @@ static void update(devices_e dev) {
 	}
 	else if (dev == CCU) {
 			snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-					"%i\n%s\n%i\n%i",
-					uv_canopen_sdo_read8(CCU_NODE_ID, CCU_CABROT_DIR_INDEX, CCU_CABROT_DIR_SUBINDEX),
+					"%s\n%s\n%i\n%i",
+					(uv_canopen_sdo_read8(CCU_NODE_ID, CCU_CABROT_DIR_INDEX, CCU_CABROT_DIR_SUBINDEX) == CCU_CABDIR_FORWARD) ?
+							"WORK" : "DRIVE",
 					get_output_state_str(uv_canopen_sdo_read8(CCU_NODE_ID, CCU_BOOM_VDD_STATE_INDEX, CCU_BOOM_VDD_STATE_SUBINDEX)),
 					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_BOOM_VDD_CURRENT_INDEX, CCU_BOOM_VDD_CURRENT_SUBINDEX),
 					uv_canopen_sdo_read8(CCU_NODE_ID, CCU_GEAR_INDEX, CCU_GEAR_SUBINDEX) + 1);
@@ -356,9 +385,21 @@ static void update(devices_e dev) {
 		update_netdev(&dspl.network.pedal);
 	}
 	else if (dev == ICU) {
-		strcpy(this->row2_val_str, "");
+		sprintf(this->row2_val_str, "%i\n%i\n%i\n%i\n%i\n%i\n%i",
+				(int32_t) uv_canopen_sdo_read32(ICU_NODE_ID, ICU_LENGTH_UM_INDEX, ICU_LENGTH_UM_SUBINDEX) / 1000,
+				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_WIDTH_MM_INDEX, ICU_WIDTH_MM_SUBINDEX),
+				(int32_t) uv_canopen_sdo_read32(ICU_NODE_ID, ICU_VOL_DM3_INDEX, ICU_VOL_DM3_SUBINDEX),
+				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_WIDTH_REL_INDEX, ICU_WIDTH_REL_SUBINDEX),
+				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_WIDTH_RAW1_INDEX, ICU_WIDTH_RAW1_SUBINDEX),
+				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_WIDTH_RAW2_INDEX, ICU_WIDTH_RAW2_SUBINDEX),
+				(int8_t) uv_canopen_sdo_read8(ICU_NODE_ID, ICU_SAW_IN_INDEX, ICU_SAW_IN_SUBINDEX));
 		uv_ui_refresh(&this->row2_values);
-		strcpy(this->row3_val_str, "");
+		sprintf(this->row3_val_str, "%i\n%i\n%i\n%i\n%i",
+				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_BLADEOPEN_CURRENT_INDEX, ICU_BLADEOPEN_CURRENT_SUBINDEX),
+				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_FEEDOPEN_CURRENT_INDEX, ICU_FEEDOPEN_CURRENT_SUBINDEX),
+				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_TILT_CURRENT_INDEX, ICU_TILT_CURRENT_SUBINDEX),
+				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_SAW_CURRENT_INDEX, ICU_SAW_CURRENT_SUBINDEX),
+				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_FEED_CURRENT_INDEX, ICU_FEED_CURRENT_SUBINDEX));
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(&dspl.network.icu);
 	}

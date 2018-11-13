@@ -108,12 +108,14 @@ uv_uiobject_ret_e system_calib_step(const uint16_t step_ms) {
 	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
 	if (uv_uibutton_clicked(&this->icu_calib_min)) {
-		uv_canopen_sdo_write8(ICU_NODE_ID, ICU_WIDTH_CALIB_REQ_INDEX, 1, 1);
+		icu_width_calib_min();
 	}
 	else if (uv_uibutton_clicked(&this->icu_calib_max)) {
-		uv_canopen_sdo_write8(ICU_NODE_ID, ICU_WIDTH_CALIB_REQ_INDEX, 2, 1);
+		icu_width_calib_max();
 	}
+	else {
 
+	}
 	if (uv_uitogglebutton_clicked(&this->calib_start)) {
 		if (uv_uitogglebutton_get_state(&this->calib_start)) {
 			keypad_calib_start(&dspl.network.l_keypad);

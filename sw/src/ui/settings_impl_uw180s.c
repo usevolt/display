@@ -41,7 +41,7 @@ static void show_general() {
 	uv_uiwindow_add(this->window, &this->label, LABEL_X, LABEL_Y, LABEL_W, LABEL_H);
 
 	uv_uislider_init(&this->general.rollers_grab_time, 0, 200,
-			dspl.user->uw180s.roller_grab_time, &uv_uistyles[0]);
+			uv_canopen_sdo_read16(ICU_NODE_ID, ICU_FEED_PARAM_INDEX, 7), &uv_uistyles[0]);
 	uv_uislider_set_inc_step(&this->general.rollers_grab_time, 20);
 	uv_uislider_set_vertical(&this->general.rollers_grab_time);
 	uv_uislider_set_title(&this->general.rollers_grab_time, uv_str(STR_SETTINGS_UW180S_SLIDERROLLERSGRABTIME));
@@ -287,17 +287,13 @@ static void show_mb() {
 			bb.x, bb.y + 20, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
-//	uv_uislider_init(&this->mb.vol_calib, UW180S_MB_VOL_CALIB_MIN, UW180S_MB_VOL_CALIB_MAX,
-//			dspl.user->uw180s.vol_calib, &uv_uistyles[0]);
-//	uv_uislider_set_vertical(&this->mb.vol_calib);
-//	uv_uislider_set_title(&this->mb.vol_calib, uv_str(STR_SETTINGS_UW180S_SLIDERVOLCAL));
-//	uv_uiwindow_add(this->window, &this->mb.vol_calib,
-//			bb.x, bb.y + 20, bb.width, bb.height);
+	uv_uibutton_init(&this->mb.calib, uv_str(STR_SETTINGS_UW180S_BUTTONWCALIB), &uv_uistyles[0]);
+	uv_uiwindow_add(this->window, &this->mb.calib, bb.x, bb.y, bb.width, bb.height);
 
 	uv_uilabel_init(&this->mb.info_label, &UI_FONT_SMALL, ALIGN_CENTER,
 			C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_SETTINGS_UW180S_LABELCALVALS));
 	uv_uiwindow_add(this->window, &this->mb.info_label,
-			uv_uibb(&this->mb.len_calib)->x, BACK_Y + BACK_H + 10,
+			uv_uibb(&this->mb.len_calib)->x, BACK_Y + BACK_H,
 			bb.x + bb.width - uv_uibb(&this->mb.len_calib)->x, 30);
 
 	bb = uv_uigridlayout_next(&grid);
@@ -306,6 +302,51 @@ static void show_mb() {
 			bb.x, bb.y, bb.width, bb.height);
 
 }
+
+static void show_width_calib() {
+	uv_uiwindow_clear(this->window);
+	this->state = UW180S_STATE_WIDTH_CALIB;
+
+	uv_uigridlayout_st grid;
+	uv_uigridlayout_init(&grid, 0, BACK_Y + BACK_H, uv_uibb(this->window)->width,
+			uv_uibb(this->window)->height - BACK_Y - BACK_H, 4, 1);
+	uv_uigridlayout_set_padding(&grid, 10, 30);
+	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
+
+	uv_uibutton_init(&this->back, uv_str(STR_BACK), &uv_uistyles[0]);
+	uv_uiwindow_add(this->window, &this->back, BACK_X, BACK_X, BACK_W, BACK_H);
+
+	uv_uilabel_init(&this->label, &UI_FONT_BIG, ALIGN_CENTER_LEFT,
+			C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_SETTINGS_UW180S_LABELWCALIB));
+	uv_uiwindow_add(this->window, &this->label, LABEL_X, LABEL_Y, LABEL_W, LABEL_H);
+
+	uv_uilabel_init(&this->width_calib.calib_data, &UI_FONT_SMALL, ALIGN_TOP_CENTER,
+			C(0xFFFFFFFF), C(0x00000000), "Start the calibration by pressing\n"
+					"\"Start Calibration\" button.\n"
+					" \n"
+					"NOTE: Calibration cannot be\n"
+					"cancelled after starting.\n"
+					"Failing to calibrate causes\n"
+					"width measurement to be disabled.");
+	uv_uiwindow_add(this->window, &this->width_calib.calib_data, bb.x, bb.y, bb.width * 2, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	bb = uv_uigridlayout_next(&grid);
+	uv_uibutton_init(&this->width_calib.add_diam, "Add\nDiameter", &uv_uistyles[0]);
+	uv_ui_set_enabled(&this->width_calib.add_diam, false);
+	uv_uiwindow_add(this->window, &this->width_calib.add_diam, bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uitogglebutton_init(&this->width_calib.start_calib, false, "Start\nCalibration", &uv_uistyles[0]);
+	uv_uiwindow_add(this->window, &this->width_calib.start_calib,
+			bb.x, bb.y, bb.width, bb.height / 2 - grid.vpadding);
+
+	uv_uibutton_init(&this->width_calib.clear_diam, "Clear\nData", &uv_uistyles[0]);
+	uv_uiwindow_add(this->window, &this->width_calib.clear_diam,
+			bb.x, bb.y + bb.height / 2 + grid.vpadding, bb.width, bb.height / 2 - grid.vpadding);
+
+}
+
 
 void settings_impl_uw180s_show(void) {
 	this->window = &gui.windows.settings.implements.window;
@@ -453,10 +494,15 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 			dspl.user->uw180s.log_len2 = uv_uislider_get_value(&this->mb.log_len2);
 		}
 		else if (uv_uibutton_clicked(&this->mb.vol_reset)) {
-			uv_canopen_sdo_write32(ICU_NODE_ID, ICU_VOL_DM3_INDEX,
-					ICU_VOL_DM3_SUBINDEX, 0);
+			uv_canopen_sdo_write8(ICU_NODE_ID, ICU_VOL_RESET_INDEX,
+					ICU_VOL_RESET_SUBINDEX, 1);
 		}
-//		else if (uv_uibutton_clicked(&this->mb.log_add)) {
+		else if (uv_uibutton_clicked(&this->mb.calib)) {
+			show_width_calib();
+		}
+		else {
+
+		}
 //			if (uv_vector_size(&dspl.user->uw180s.log_types) <
 //					uv_vector_max_size(&dspl.user->uw180s.log_types)) {
 //				if (uv_uikeyboard_show("Add new log type",
@@ -472,6 +518,62 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 //				printf("Log count is at maximum\n");
 //			}
 //		}
+	}
+	else if (this->state == UW180S_STATE_WIDTH_CALIB) {
+		if (uv_uibutton_clicked(&this->back)) {
+			icu_set_width_calib(false);
+			show_mb();
+		}
+		else if (uv_uitogglebutton_clicked(&this->width_calib.start_calib)) {
+			if (uv_uitogglebutton_get_state(&this->width_calib.start_calib)) {
+				icu_set_width_calib(true);
+				uv_ui_set_enabled(&this->width_calib.add_diam, true);
+				this->width_calib.diam_count = 0;
+				uv_uilabel_set_text(&this->width_calib.calib_data, "Calibration sequence:\n"
+						" \n"
+						"Fell a straight tree with \n"
+						"small branches, and cut it\n"
+						"into logs. After that, measure\n"
+						"the diameters of the logs with \n"
+						"500 mm steps and enter the\n"
+						"diameters with\n"
+						"\"Add Diameter\" button.");
+			}
+			else {
+				icu_set_width_calib(false);
+				uv_ui_set_enabled(&this->width_calib.add_diam, false);
+				uv_uilabel_set_text(&this->width_calib.calib_data,
+						"Width calibration finished.\n");
+			}
+		}
+		else if (uv_uibutton_clicked(&this->width_calib.add_diam)) {
+			char diam[64];
+			if (uv_uikeyboard_show("Give log diameter", diam, 64, &uv_uistyles[0])) {
+				uint16_t value = strtol(diam, NULL, 10);
+				if (value != 0) {
+					icu_set_width_calib_diam(value);
+					this->width_calib.diam_count++;
+					memset(this->width_calib.calib_data_str, '\0', UW180S_CALIB_DATA_STR_LEN);
+					snprintf(this->width_calib.calib_data_str, UW180S_CALIB_DATA_STR_LEN - 1,
+							"Diameter count: %u\n"
+							"Last diameter: %i mm",
+							this->width_calib.diam_count,
+							value);
+					uv_uilabel_set_text(&this->width_calib.calib_data, this->width_calib.calib_data_str);
+				}
+				else {
+					uv_uilabel_set_text(&this->width_calib.calib_data, "Invalid diameter value");
+				}
+			}
+			uv_ui_refresh(&gui.display);
+		}
+		else if (uv_uibutton_clicked(&this->width_calib.clear_diam)) {
+			uv_canopen_sdo_write8(ICU_NODE_ID, ICU_WIDTH_CALIB_CLEAR_REQ_INDEX,
+					ICU_WIDTH_CALIB_CLEAR_REQ_SUBINDEX, 1);
+		}
+		else {
+
+		}
 	}
 	else if (this->state == UW180S_STATE_GENERAL) {
 		if (uv_uislider_value_changed(&this->general.rollers_grab_time)) {

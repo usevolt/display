@@ -17,7 +17,7 @@ void icu_init(icu_st *this) {
 	netdev_set_disconnected_type(this, LOG_ICU_DISCONNECTED);
 	this->total_current = 0;
 	this->length_um = 0;
-	this->width_um = 0;
+	this->width_mm = 0;
 	this->vol_dm3 = 0;
 	uv_delay_init(ICU_UPDATE_DELAY_MS, &this->update_delay);
 }
@@ -45,7 +45,6 @@ void icu_update(void *me) {
 	// valve settings are updated in network.c if UW180S is selected
 	icu_set_len_calib(&dspl.network.icu, dspl.user->uw180s.len_calib);
 	icu_set_target_len_um(&dspl.network.icu, dspl.user->uw180s.log_len1);
-	icu_set_feed_grab_time(&dspl.network.icu, dspl.user->uw180s.roller_grab_time);
 	uv_rtos_task_delay(10);
 	dspl.user->uw180s.bladesopen.setter(&dspl.user->uw180s.bladesopen);
 	dspl.user->uw180s.impl1.setter(&dspl.user->uw180s.impl1);
@@ -199,4 +198,32 @@ void icu_set_allopen_params(valve_st *valve) {
 			CANOPEN_TYPE_LEN(ICU_BLADEOPEN_PARAM_TYPE),
 			&valve->assembly_invert);
 
+}
+
+void icu_set_width_calib(uint8_t value) {
+	uv_canopen_sdo_write(ICU_NODE_ID,
+			ICU_WIDTH_CALIB_REQ_INDEX,
+			ICU_WIDTH_CALIB_REQ_SUBINDEX,
+			CANOPEN_TYPE_LEN(ICU_WIDTH_CALIB_REQ_TYPE),
+			&value);
+}
+
+void icu_set_width_calib_diam(uint16_t value_mm) {
+	uv_canopen_sdo_write(ICU_NODE_ID,
+			ICU_WIDTH_CALIB_ADD_REQ_INDEX,
+			ICU_WIDTH_CALIB_ADD_REQ_SUBINDEX,
+			CANOPEN_TYPE_LEN(ICU_WIDTH_CALIB_ADD_REQ_TYPE),
+			&value_mm);
+}
+
+void icu_width_calib_max(void) {
+	uv_canopen_sdo_write8(ICU_NODE_ID,
+			ICU_WIDTH_CALIB_MAX_REQ_INDEX,
+			ICU_WIDTH_CALIB_MAX_REQ_SUBINDEX, 1);
+}
+
+void icu_width_calib_min(void) {
+	uv_canopen_sdo_write8(ICU_NODE_ID,
+			ICU_WIDTH_CALIB_MIN_REQ_INDEX,
+			ICU_WIDTH_CALIB_MIN_REQ_SUBINDEX, 1);
 }

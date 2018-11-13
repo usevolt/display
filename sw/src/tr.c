@@ -457,6 +457,16 @@ static langstr_st strs[STR_COUNT] = {
 				"Volumen\nResetieren"
 		},
 		{
+				"Width\nCalibration",
+				"Paksuus\nkalibrointi",
+				"Width\nCalibration"
+		},
+		{
+				"UW180S Width Calibration",
+				"UW180S Paksuus kalibrointi",
+				"UW180S Width Calibration"
+		},
+		{
 				"General",
 				"Yleiset",
 				"Allgemeines"
@@ -779,7 +789,8 @@ static langstr_st strs[STR_COUNT] = {
 				"Oil Temp (C)\n"
 				"Oil Level (%)\n"
 				"Voltage (mV)\n"
-				"OilC trig temp (C)",
+				"OilC trig temp (C)\n"
+				"Stop cause\n",
 				"RPM\n"
 				"Laturi L\n"
 				"Jaahdytinneste\n"
@@ -788,7 +799,8 @@ static langstr_st strs[STR_COUNT] = {
 				"Oljy T (C)\n"
 				"Oljy M (%)\n"
 				"Jannite (mV)\n"
-				"Lauhdutin raja(C)",
+				"Lauhdutin raja(C)\n"
+				"Pysahdys syy",
 				"U/min\n"
 				"Lichtm. L\n"
 				"Kuhlflussigheit\n"
@@ -797,7 +809,8 @@ static langstr_st strs[STR_COUNT] = {
 				"Oltemp. (C)\n"
 				"Olstand (%)\n"
 				"Spannung (mV)\n"
-				"Kuhler Auslostemp. (C)"
+				"Kuhler Auslostemp. (C)\n"
+				"Stop cause"
 		},
 		{
 				"Total Current\n"
@@ -979,14 +992,26 @@ static langstr_st strs[STR_COUNT] = {
 				""
 		},
 		{
-				"Length\nWidth\nVolume\nRel width\n\nWSensor 1\nWSensor 2",
-				"Pituus\nPaksuus\nTilavuus\nSuht paksuus\n\nWAnturi 1\nWAnturi 2",
-				"Lange\nDurchm.\nVolumen\nRel Durchm.\n\nWSensor 1\nWSensor 2"
+				"Length\nWidth\nVolume\nRel width\n\nWSensor 1\nWSensor 2\nSaw in",
+				"Pituus\nPaksuus\nTilavuus\nSuht paksuus\n\nWAnturi 1\nWAnturi 2\nSaha kotona",
+				"Lange\nDurchm.\nVolumen\nRel Durchm.\n\nWSensor 1\nWSensor 2\nSaw in"
 		},
 		{
-				"",
-				"",
-				""
+				"Blades (mA)\n"
+				"Feed open (mA)\n"
+				"Tilt (mA)\n"
+				"Saw (mA)\n"
+				"Feed (mA)\n",
+				"Terat (mA)\n"
+				"Rullat auki (mA)\n"
+				"Tiltti (mA)\n"
+				"Saha (mA)\n"
+				"Rullat (mA)\n",
+				"Blades (mA)\n"
+				"Feed open (mA)\n"
+				"Tilt (mA)\n"
+				"Saw (mA)\n"
+				"Feed (mA)\n"
 		}
 };
 

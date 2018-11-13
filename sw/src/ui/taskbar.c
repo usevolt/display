@@ -351,7 +351,8 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 				uv_ui_set_enabled(&this->engine_alt,
 						esb_get_alt_l(&dspl.network.esb) ? this->engine_visible : false);
 				uv_ui_set_enabled(&this->engine_glow_plugs,
-						esb_get_glow_plugs(&dspl.network.esb) ? this->engine_visible : false);
+						(esb_get_glow_plugs(&dspl.network.esb) == OUTPUT_STATE_ON) ?
+								this->engine_visible : false);
 			}
 
 			if (fsb_get_emcy(&dspl.network.fsb) ||

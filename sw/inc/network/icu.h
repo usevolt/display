@@ -13,14 +13,14 @@
 #include "vehicle.h"
 #include "can_icu.h"
 
-#define ICU_UPDATE_DELAY_MS		1000
+#define ICU_UPDATE_DELAY_MS		2000
 
 typedef struct {
 	EXTENDS(netdev_st);
 
 	uint16_t total_current;
 	int32_t length_um;
-	int32_t width_um;
+	int32_t width_mm;
 	int32_t vol_dm3;
 	int update_delay;
 } icu_st;
@@ -42,8 +42,8 @@ static inline int32_t icu_get_length_um(icu_st *this) {
 	return this->length_um;
 }
 
-static inline int32_t icu_get_width_um(icu_st *this) {
-	return this->width_um;
+static inline int32_t icu_get_width_mm(icu_st *this) {
+	return this->width_mm;
 }
 
 static inline int32_t icu_get_vol_dm3(icu_st *this) {
@@ -70,5 +70,14 @@ void icu_set_feedopen_params(valve_st *valve);
 
 void icu_set_allopen_params(valve_st *valve);
 
+/// @brief: Sets the width calibration sequence either on or off
+void icu_set_width_calib(uint8_t value);
+
+/// @brief: Sets a single tree diameter when the width calibration is on
+void icu_set_width_calib_diam(uint16_t value_mm);
+
+void icu_width_calib_max(void);
+
+void icu_width_calib_min(void);
 
 #endif /* NETWORK_ICU_H_ */
