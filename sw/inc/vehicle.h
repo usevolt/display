@@ -33,7 +33,7 @@
 
 /// @brief: Defines the maximum and minimum valve current
 #define VALVE_MIN_CURRENT_MA		40
-#define VALVE_MAX_CURRENT_MA		1200
+#define VALVE_MAX_CURRENT_MA		2000
 #define VALVE_ACC_MIN				5
 #define VALVE_DEC_MIN				VALVE_ACC_MIN
 

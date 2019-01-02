@@ -36,12 +36,20 @@ void settings_valves_show() {
 		uv_canopen_sdo_read(CCU_NODE_ID, CCU_ASSEMBLY_INDEX, i + 1,
 				CANOPEN_TYPE_LEN(CCU_ASSEMBLY_TYPE), &ccu_assembly[i]);
 	}
+	// read hcu assembly settings to check if boom telescope is installed
+	uint8_t hcu_assembly[HCU_ASSEMBLY_ARRAY_SIZE];
+	for (uint8_t i = 0; i < HCU_ASSEMBLY_ARRAY_SIZE; i++) {
+		uv_canopen_sdo_read(HCU_NODE_ID, HCU_ASSEMBLY_INDEX, i + 1,
+				CANOPEN_TYPE_LEN(HCU_ASSEMBLY_TYPE), &hcu_assembly[i]);
+	}
 
 	for (int16_t i = 0; i < BASE_VALVE_COUNT; i++) {
 		if ((dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREECABROTATE &&
 				!ccu_assembly[CCU_ASSEMBLY_CABROT_INDEX - 1]) ||
 			(dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREETELESCOPE &&
-					!ccu_assembly[CCU_ASSEMBLY_TELESCOPE_INDEX - 1])) {
+					!ccu_assembly[CCU_ASSEMBLY_TELESCOPE_INDEX - 1]) ||
+			(dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREEBOOMTELESCOPE &&
+					!hcu_assembly[HCU_ASSEMBLY_BOOMTELESCOPE_INDEX - 1])) {
 			// jump over valves which depend on the assembly settings
 			continue;
 		}
@@ -86,7 +94,7 @@ static void sliders_show(uv_uitreeobject_st *obj) {
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->max_speed_p, VALVE_MIN_CURRENT_MA, VALVE_MAX_CURRENT_MA,
 			this->valve->max_speed_p, &uv_uistyles[0]);
-	uv_uislider_set_inc_step(&this->max_speed_p, 10);
+	uv_uislider_set_inc_step(&this->max_speed_p, 25);
 	uv_uitreeobject_add(obj, &this->max_speed_p,
 			bb.x, bb.y, bb.width, bb.height / 2);
 	uv_uilabel_init(&this->max_speed_p_label, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF),
@@ -118,7 +126,7 @@ static void sliders_show(uv_uitreeobject_st *obj) {
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->max_speed_n, VALVE_MIN_CURRENT_MA, VALVE_MAX_CURRENT_MA,
 			this->valve->max_speed_n, &uv_uistyles[0]);
-	uv_uislider_set_inc_step(&this->max_speed_n, 10);
+	uv_uislider_set_inc_step(&this->max_speed_n, 25);
 	uv_uitreeobject_add(obj, &this->max_speed_n,
 			bb.x, bb.y, bb.width, bb.height / 2);
 	uv_uilabel_init(&this->max_speed_n_label, &UI_FONT_SMALL, ALIGN_CENTER, C(0xFFFFFF),
