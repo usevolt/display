@@ -66,7 +66,7 @@ void dspl_init(dspl_st *me) {
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + CCU_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + ICU_NODE_ID, CAN_STD);
 #endif
-
+	printf("mita kakkaa\n");
 
 	// the first thing to do: if display is pressed for 10 s, restore system defaults
 	bool restore = false;
