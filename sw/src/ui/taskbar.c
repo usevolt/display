@@ -416,8 +416,7 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 					value = 0;
 				}
 				else {
-					uint8_t inc = ((FSB_HEATER_MAX_SPEED / 4) == 0) ?
-							1 : (FSB_HEATER_MAX_SPEED / 4);
+					uint8_t inc = FSB_HEATER_MAX_SPEED;
 					value += inc;
 				}
 				fsb_set_heater_speed(&dspl.network.fsb, value);
