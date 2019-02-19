@@ -31,6 +31,10 @@ void users_init(void);
 /// @brief: Adds a new user. Returns false if adding failed.
 bool users_add(char *username);
 
+/// @brief: Copies a user in *index* and creates a new user from that one with
+/// name of *username*
+bool users_copy(uint8_t index, char *username);
+
 /// @brief: Deletes a user. Returns false if deleting failed.
 bool users_delete(char *username);
 

@@ -104,6 +104,25 @@ bool users_add(char *username) {
 }
 
 
+bool users_copy(uint8_t index, char *username) {
+	bool ret = true;
+	if ((users_count() < users_max_count()) &&
+			(index < users_count())) {
+		userdata_st data = *((userdata_st*) uv_vector_at(&dspl.users, index));
+		strncpy(data.username, username, USERNAME_MAX_LEN);
+		data.username[USERNAME_MAX_LEN - 1] = '\0';
+		uv_vector_push_back(&dspl.users, &data);
+
+		uv_memory_save();
+	}
+	else {
+		ret = false;
+	}
+
+	return ret;
+}
+
+
 
 bool users_delete(char *username) {
 	if (users_count() <= 1) {

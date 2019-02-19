@@ -86,6 +86,11 @@ static langstr_st strs[STR_COUNT] = {
 				"Fahrer zugeben"
 		},
 		{
+				"Copy User",
+				"kopioi kujettaja",
+				"Kopie zugeben"
+		},
+		{
 				"Delete User",
 				"Poista kuljettaja",
 				"Fahrer entfernen"

@@ -25,6 +25,7 @@ typedef struct {
 
 	uv_uibutton_st login;
 	uv_uibutton_st add_user;
+	uv_uibutton_st copy_user;
 	uv_uibutton_st delete_user;
 
 } login_st;

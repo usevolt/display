@@ -529,9 +529,10 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 				icu_set_width_calib(true);
 				uv_ui_set_enabled(&this->width_calib.add_diam, true);
 				this->width_calib.diam_count = 0;
-				uv_uilabel_set_text(&this->width_calib.calib_data, "Calibration sequence:\n"
+				uv_uilabel_set_text(&this->width_calib.calib_data,
+						"Calibration sequence:\n"
 						" \n"
-						"Fell a straight tree with \n"
+						"Fall a straight tree with \n"
 						"small branches, and cut it\n"
 						"into logs. After that, measure\n"
 						"the diameters of the logs with \n"
