@@ -394,12 +394,15 @@ static void update(devices_e dev) {
 				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_WIDTH_RAW2_INDEX, ICU_WIDTH_RAW2_SUBINDEX),
 				(int8_t) uv_canopen_sdo_read8(ICU_NODE_ID, ICU_SAW_IN_INDEX, ICU_SAW_IN_SUBINDEX));
 		uv_ui_refresh(&this->row2_values);
-		sprintf(this->row3_val_str, "%i\n%i\n%i\n%i\n%i",
+		sprintf(this->row3_val_str, "%i\n%i\n%i\n%i\n%i\n%i\n%s",
 				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_BLADEOPEN_CURRENT_INDEX, ICU_BLADEOPEN_CURRENT_SUBINDEX),
 				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_FEEDOPEN_CURRENT_INDEX, ICU_FEEDOPEN_CURRENT_SUBINDEX),
 				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_TILT_CURRENT_INDEX, ICU_TILT_CURRENT_SUBINDEX),
 				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_SAW_CURRENT_INDEX, ICU_SAW_CURRENT_SUBINDEX),
-				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_FEED_CURRENT_INDEX, ICU_FEED_CURRENT_SUBINDEX));
+				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_FEED_CURRENT_INDEX, ICU_FEED_CURRENT_SUBINDEX),
+				(int16_t) uv_canopen_sdo_read16(ICU_NODE_ID, ICU_TILTFLOAT_CURRENT_INDEX, ICU_TILTFLOAT_CURRENT_SUBINDEX),
+				(uv_canopen_sdo_read8(ICU_NODE_ID, ICU_TILT_DIR_INDEX, ICU_TILT_DIR_SUBINDEX) == ICU_TILT_DIR_UP) ?
+						"UP" : "DOWN");
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(&dspl.network.icu);
 	}

@@ -29,7 +29,7 @@ static void show_general() {
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, BACK_Y + BACK_H, uv_uibb(this->window)->width,
-			uv_uibb(this->window)->height - BACK_Y - BACK_H, 2, 1);
+			uv_uibb(this->window)->height - BACK_Y - BACK_H, 3, 1);
 	uv_uigridlayout_set_padding(&grid, 10, 30);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
@@ -54,6 +54,11 @@ static void show_general() {
 	uv_uislider_set_vertical(&this->general.blades_grab_time);
 	uv_uislider_set_title(&this->general.blades_grab_time, uv_str(STR_SETTINGS_UW180S_SLIDERBLADESGRABTIME));
 	uv_uiwindow_add(this->window, &this->general.blades_grab_time, bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uitogglebutton_init(&this->general.tilt_float, dspl.user->uw180s.tiltfloat_enable,
+			uv_str(STR_SETTINGS_UW180S_TOGGLETILTFLOAT), &uv_uistyles[0]);
+	uv_uiwindow_add(this->window, &this->general.tilt_float, bb.x, bb.y, bb.width, bb.height / 2);
 
 }
 
@@ -585,6 +590,11 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 			dspl.user->uw180s.blades_grab_time = uv_uislider_get_value(&this->general.blades_grab_time);
 			icu_set_blades_grab_time(&dspl.network.icu,
 					uv_uislider_get_value(&this->general.blades_grab_time));
+		}
+		else if (uv_uitogglebutton_clicked(&this->general.tilt_float)) {
+			dspl.user->uw180s.tiltfloat_enable = uv_uitogglebutton_get_state(&this->general.tilt_float);
+			icu_set_tiltfloat_enable(&dspl.network.icu,
+					dspl.user->uw180s.tiltfloat_enable);
 		}
 		else if (uv_uibutton_clicked(&this->back)) {
 			settings_impl_uw180s_show();

@@ -369,6 +369,11 @@ static langstr_st strs[STR_COUNT] = {
 				"Klingen\nGreifzeit (ms)"
 		},
 		{
+				"Tilt float\nenable",
+				"Tiltin kellunta",
+				"Tilt float\nenable"
+		},
+		{
 				"UW180S Valves",
 				"UW180S venttiilit",
 				"UW180S Ventile"
@@ -1006,17 +1011,23 @@ static langstr_st strs[STR_COUNT] = {
 				"Feed open (mA)\n"
 				"Tilt (mA)\n"
 				"Saw (mA)\n"
-				"Feed (mA)\n",
+				"Feed (mA)\n"
+				"Tilt float (mA)\n"
+				"Tilt dir",
 				"Terat (mA)\n"
 				"Rullat auki (mA)\n"
 				"Tiltti (mA)\n"
 				"Saha (mA)\n"
-				"Rullat (mA)\n",
+				"Rullat (mA)\n"
+				"Tiltti kellunta (mA)\n"
+				"Tiltin suunta",
 				"Blades (mA)\n"
 				"Feed open (mA)\n"
 				"Tilt (mA)\n"
 				"Saw (mA)\n"
 				"Feed (mA)\n"
+				"Tilt Float (mA)\n"
+				"Tilt dir"
 		}
 };
 

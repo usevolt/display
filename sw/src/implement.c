@@ -173,7 +173,8 @@ const uw180s_st uw180s = {
 		.log_len1 = 310,
 		.log_len2 = 500,
 		.roller_grab_time = 400,
-		.blades_grab_time = 60
+		.blades_grab_time = 60,
+		.tiltfloat_enable = 1
 };
 
 

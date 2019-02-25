@@ -67,6 +67,11 @@ void icu_set_feed_grab_time(icu_st *this, uint16_t value) {
 			7, CANOPEN_TYPE_LEN(ICU_FEED_PARAM_TYPE), &value);
 }
 
+void icu_set_tiltfloat_enable(icu_st *this, uint8_t value) {
+	uv_canopen_sdo_write(ICU_NODE_ID, ICU_TILTFLOAT_ENABLE_INDEX,
+			ICU_TILTFLOAT_ENABLE_SUBINDEX, 1, &value);
+}
+
 
 void icu_set_len_calib(icu_st *this, uint16_t value) {
 	uv_canopen_sdo_write(ICU_NODE_ID, ICU_LEN_CALIB_INDEX,
