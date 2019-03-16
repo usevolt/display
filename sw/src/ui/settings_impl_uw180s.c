@@ -129,6 +129,9 @@ static void show_sliders(uw180s_state_e state, const char *label) {
 			state == UW180S_STATE_IMPL2 ||
 			state == UW180S_STATE_ROTATOR) ?
 			10 : 5;
+	if (state == UW180S_STATE_TILT) {
+		state = 2;
+	}
 
 	uv_uislider_init(&this->sliders.max_speed_p, min_speed,
 			max_speed, v->max_speed_p, &uv_uistyles[0]);
@@ -531,6 +534,7 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 		}
 		else if (uv_uitogglebutton_clicked(&this->width_calib.start_calib)) {
 			if (uv_uitogglebutton_get_state(&this->width_calib.start_calib)) {
+				uv_uitogglebutton_set_text(&this->width_calib.start_calib, "Stop\ncalibration");
 				icu_set_width_calib(true);
 				uv_ui_set_enabled(&this->width_calib.add_diam, true);
 				this->width_calib.diam_count = 0;
@@ -543,11 +547,15 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 						"the diameters of the logs with \n"
 						"500 mm steps and enter the\n"
 						"diameters with\n"
-						"\"Add Diameter\" button.");
+						"\"Add Diameter\" button.\n"
+						"\n"
+						"Once done, click the end calibration\n"
+						"button.");
 			}
 			else {
 				icu_set_width_calib(false);
 				uv_ui_set_enabled(&this->width_calib.add_diam, false);
+				uv_uitogglebutton_set_text(&this->width_calib.start_calib, "Start\ncalibration");
 				uv_uilabel_set_text(&this->width_calib.calib_data,
 						"Width calibration finished.\n");
 			}
