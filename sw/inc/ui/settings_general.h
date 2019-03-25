@@ -39,6 +39,8 @@ typedef struct {
 		struct {
 			uv_uislider_st brightness;
 			uv_uislider_st oilcooler_trigger;
+			uv_uislider_st drivef_comp;
+			uv_uislider_st driveb_comp;
 		} system;
 		struct {
 			uv_uilist_st impls_list;

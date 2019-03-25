@@ -6,8 +6,9 @@
  */
 
 #include <ccu.h>
-#include "netdev.h"
 #include <uv_rtos.h>
+#include "netdev.h"
+#include "main.h"
 
 
 void ccu_init(ccu_st *this) {
@@ -16,6 +17,8 @@ void ccu_init(ccu_st *this) {
 	netdev_set_disconnected_type(this, LOG_CCU_DISCONNECTED);
 	this->total_current = 0;
 	this->gear = CCU_GEAR_1;
+	uv_canopen_sdo_write8(CCU_NODE_ID, CCU_DRIVE_COMP_INDEX, 1, dspl.user->drivef_comp);
+	uv_canopen_sdo_write8(CCU_NODE_ID, CCU_DRIVE_COMP_INDEX, 2, dspl.user->driveb_comp);
 }
 
 
@@ -27,7 +30,8 @@ void ccu_step(ccu_st *this, unsigned int step_ms) {
 #define this ((ccu_st*)me)
 
 void ccu_update(void *me) {
-
+	uv_canopen_sdo_write8(CCU_NODE_ID, CCU_DRIVE_COMP_INDEX, 1, dspl.user->drivef_comp);
+	uv_canopen_sdo_write8(CCU_NODE_ID, CCU_DRIVE_COMP_INDEX, 2, dspl.user->driveb_comp);
 }
 
 

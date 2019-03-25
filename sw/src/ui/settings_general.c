@@ -16,7 +16,7 @@
 #define this (&gui.windows.settings.general)
 
 #define GENERAL_HEIGHT		180
-#define DISPLAY_HEIGHT		140
+#define DISPLAY_HEIGHT		200
 #define IMPLEMENT_HEIGHT	200
 #define DATE_HEIGHT			160
 #define LANG_HEIGHT			180
@@ -117,9 +117,9 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0,
-			uv_uitreeobject_get_content_bb(&this->displayobj).width,
-			uv_uitreeobject_get_content_bb(&this->displayobj).height, 2, 1);
-	uv_uigridlayout_set_padding(&grid, 30, 0);
+			uv_uitreeobject_get_content_bb(&this->displayobj).width - 10,
+			uv_uitreeobject_get_content_bb(&this->displayobj).height - 20, 2, 2);
+	uv_uigridlayout_set_padding(&grid, 5, 0);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 	// brightness
@@ -129,6 +129,15 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 	uv_uitreeobject_add(&this->displayobj, &this->system.brightness,
 			bb.x, bb.y, bb.width, bb.height);
 
+	// drivef comp
+	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->system.drivef_comp, -100, 100,
+			dspl.user->drivef_comp, &uv_uistyles[0]);
+	uv_uislider_set_horizontal(&this->system.drivef_comp);
+	uv_uislider_set_title(&this->system.drivef_comp, uv_str(STR_SETTINGS_GENERAL_SLIDERDRIVEFCOMP));
+	uv_uitreeobject_add(&this->displayobj, &this->system.drivef_comp,
+			bb.x, bb.y, bb.width, bb.height);
+
 	// oil cooler trigger temp
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->system.oilcooler_trigger, 0, 90,
@@ -136,6 +145,15 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 	uv_uislider_set_horizontal(&this->system.oilcooler_trigger);
 	uv_uislider_set_title(&this->system.oilcooler_trigger, uv_str(STR_SETTINGS_GENERAL_SLIDEROILCTEMP));
 	uv_uitreeobject_add(&this->displayobj, &this->system.oilcooler_trigger,
+			bb.x, bb.y, bb.width, bb.height);
+
+	// driveb comp
+	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->system.driveb_comp, -100, 100,
+			dspl.user->driveb_comp, &uv_uistyles[0]);
+	uv_uislider_set_horizontal(&this->system.driveb_comp);
+	uv_uislider_set_title(&this->system.driveb_comp, uv_str(STR_SETTINGS_GENERAL_SLIDERDRIVEBCOMP));
+	uv_uitreeobject_add(&this->displayobj, &this->system.driveb_comp,
 			bb.x, bb.y, bb.width, bb.height);
 
 }
@@ -333,6 +351,20 @@ uv_uiobject_ret_e settings_system_step(const uint16_t step_ms) {
 				ESB_OILCOOLER_TRIGGER_INDEX, ESB_OILCOOLER_TRIGGER_SUBINDEX,
 				uv_uislider_get_value(&this->system.oilcooler_trigger));
 	}
+	else if (uv_uislider_value_changed(&this->system.drivef_comp)) {
+		dspl.user->drivef_comp = uv_uislider_get_value(&this->system.drivef_comp);
+		uv_canopen_sdo_write8(CCU_NODE_ID,
+				CCU_DRIVE_COMP_INDEX, 1, uv_uislider_get_value(&this->system.drivef_comp));
+	}
+	else if (uv_uislider_value_changed(&this->system.driveb_comp)) {
+		dspl.user->driveb_comp = uv_uislider_get_value(&this->system.driveb_comp);
+		uv_canopen_sdo_write8(CCU_NODE_ID,
+				CCU_DRIVE_COMP_INDEX, 2, uv_uislider_get_value(&this->system.driveb_comp));
+	}
+	else {
+
+	}
+
 
 
 	return ret;

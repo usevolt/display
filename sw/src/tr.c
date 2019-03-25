@@ -256,6 +256,16 @@ static langstr_st strs[STR_COUNT] = {
 				"Display Helligkeit"
 		},
 		{
+				"Drive Forward\ncompensation",
+				"Ajo eteen\nkompensointi",
+				"Drive Forward\ncompensation"
+		},
+		{
+				"Drive Backward\ncompensation",
+				"Ajo taakse\nkompensointi",
+				"Drive Bacward\ncompensation"
+		},
+		{
 				"Oil Cooler\nTrigger Temp",
 				"Oljynlauhduttimen\nliipaisulampotila",
 				"Olkuhler Auslos\ntemperatur"

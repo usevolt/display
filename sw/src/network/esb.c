@@ -41,6 +41,10 @@ void esb_update(void *me) {
 	uv_canopen_sdo_write(ESB_NODE_ID, ESB_ENGINE_POWER_USAGE_INDEX, ESB_ENGINE_POWER_USAGE_SUBINDEX,
 			CANOPEN_TYPE_LEN(ESB_ENGINE_POWER_USAGE_TYPE), &dspl.user->engine_power_usage);
 
+	uv_canopen_sdo_write(ESB_NODE_ID, ESB_OILCOOLER_TRIGGER_INDEX,
+			ESB_OILCOOLER_TRIGGER_SUBINDEX, CANOPEN_TYPE_LEN(ESB_OILCOOLER_TRIGGER_TYPE),
+			&dspl.user->oilcooler_trigg_temp);
+
 }
 #undef this
 

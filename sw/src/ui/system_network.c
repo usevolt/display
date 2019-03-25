@@ -209,7 +209,7 @@ static void update(devices_e dev) {
 	}
 	else if (dev == FSB) {
 		snprintf(this->row2_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%s\n%s\n%s\n%s",
+				"%i\n%s\n%s\n%s\n%s\n%s",
 				uv_canopen_sdo_read16(FSB_NODE_ID,
 						FSB_TOTAL_CURRENT_INDEX, FSB_TOTAL_CURRENT_SUBINDEX),
 				get_output_state_str(uv_canopen_sdo_read8(FSB_NODE_ID,
@@ -219,7 +219,9 @@ static void update(devices_e dev) {
 				get_output_state_str(uv_canopen_sdo_read8(FSB_NODE_ID,
 						FSB_AUX_STATUS_INDEX, FSB_AUX_STATUS_SUBINDEX)),
 				get_output_state_str(uv_canopen_sdo_read8(FSB_NODE_ID,
-						FSB_HEATER_STATUS_INDEX, FSB_HEATER_STATUS_SUBINDEX)));
+						FSB_HEATER1_STATUS_INDEX, FSB_HEATER1_STATUS_SUBINDEX)),
+				get_output_state_str(uv_canopen_sdo_read8(FSB_NODE_ID,
+						FSB_HEATER2_STATUS_INDEX, FSB_HEATER2_STATUS_SUBINDEX)));
 		uv_ui_refresh(&this->row2_values);
 		fsb_ignkey_states_e ignkey_state = uv_canopen_sdo_read8(FSB_NODE_ID,
 				FSB_IGNKEY_INDEX, FSB_IGNKEY_SUBINDEX);

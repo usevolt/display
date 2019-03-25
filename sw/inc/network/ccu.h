@@ -18,6 +18,8 @@ typedef struct {
 
 	uint16_t total_current;
 	ccu_gear_e gear;
+	uint8_t drivef_comp;
+	uint8_t driveb_comp;
 
 } ccu_st;
 

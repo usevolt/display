@@ -25,6 +25,14 @@ static void user_init(userdata_st *this) {
 	if (this->volume.volume > 100) {
 		this->volume.volume = 100;
 	}
+	if (this->drivef_comp > 100  ||
+			this->drivef_comp < -100) {
+		this->drivef_comp = 0;
+	}
+	if (this->driveb_comp > 100  ||
+			this->driveb_comp < -100) {
+		this->driveb_comp = 0;
+	}
 	uw180s_init(&this->uw180s);
 	uw100_init(&this->uw100);
 	uw50_init(&this->uw50);
@@ -38,7 +46,9 @@ static void user_reset(userdata_st *user) {
 
 	strcpy(user->username, "Usewood");
 
-	user->engine_power_usage = 55;
+	user->engine_power_usage = 35;
+	user->driveb_comp = 0;
+	user->drivef_comp = 0;
 
 	user->volume.volume = 100;
 	user->volume.notifications = true;
