@@ -221,6 +221,9 @@ implement_st *dspl_get_implement_ptr(void *me) {
 		case HCU_IMPLEMENT_UW50:
 			ret = &this->user->uw50;
 			break;
+		case HCU_IMPLEMENT_HYDOUTPUT:
+			ret = &this->user->hydout;
+			break;
 		default:
 			ret = NULL;
 			break;
@@ -234,7 +237,7 @@ int main(void) {
 
 	uv_init(&dspl);
 
-	uv_rtos_task_create(dspl_step, "dspl_step", UV_RTOS_MIN_STACK_SIZE * 5,
+	uv_rtos_task_create(dspl_step, "dspl_step", UV_RTOS_MIN_STACK_SIZE * 6,
 			&dspl, UV_RTOS_IDLE_PRIORITY + 2, NULL);
 
 	uv_rtos_start_scheduler();

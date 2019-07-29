@@ -809,7 +809,7 @@ static langstr_st strs[STR_COUNT] = {
 				"Oil Temp (C)\n"
 				"Oil Level (%)\n"
 				"Voltage (mV)\n"
-				"OilC trig temp (C)\n"
+				"Radiator state\n"
 				"Stop cause\n",
 				"RPM\n"
 				"Laturi L\n"
@@ -1000,7 +1000,8 @@ static langstr_st strs[STR_COUNT] = {
 				"Cabin brake (mA)\n"
 				"Cabin Rot (mA)\n"
 				"Telescope (mA)\n"
-				"Steer (mA)",
+				"Steer (mA)\n"
+				"Gear3 (mA)",
 				"Ajo1 (mA)\n"
 				"Ajo2 (mA)\n"
 				"Ajo3 (mA)\n"
@@ -1008,7 +1009,8 @@ static langstr_st strs[STR_COUNT] = {
 				"Hytti jarru (mA)\n"
 				"Hytti kaanto (mA)\n"
 				"Jatke (mA)\n"
-				"Ohjaus (mA)",
+				"Ohjaus (mA)\n"
+				"3. vaihde(mA)",
 				""
 		},
 		{

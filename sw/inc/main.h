@@ -42,6 +42,7 @@ typedef struct {
 		uw180s_st uw180s;
 		uw50_st uw50;
 		uw100_st uw100;
+		hydout_st hydout;
 		uint8_t oilcooler_trigg_temp;
 		struct {
 			uint8_t volume;

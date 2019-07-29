@@ -17,7 +17,7 @@
 
 #define GENERAL_HEIGHT		180
 #define DISPLAY_HEIGHT		200
-#define IMPLEMENT_HEIGHT	200
+#define IMPLEMENT_HEIGHT	220
 #define DATE_HEIGHT			160
 #define LANG_HEIGHT			180
 
@@ -178,6 +178,7 @@ void show_implement_callb(uv_uitreeobject_st *obj) {
 	uv_uilist_push_back(&this->implement.impls_list, dspl.user->uw180s.super.name);
 	uv_uilist_push_back(&this->implement.impls_list, dspl.user->uw100.super.name);
 	uv_uilist_push_back(&this->implement.impls_list, dspl.user->uw50.super.name);
+	uv_uilist_push_back(&this->implement.impls_list, dspl.user->hydout.super.name);
 
 	uv_uilist_select(&this->implement.impls_list, hcu_get_implement(&dspl.network.hcu));
 
@@ -378,7 +379,6 @@ uv_uiobject_ret_e settings_implement_step(const uint16_t step_ms) {
 	if (uv_uilist_get_selected(&this->implement.impls_list) != hcu_get_implement(&dspl.network.hcu)) {
 		implement_set(uv_uilist_get_selected(&this->implement.impls_list));
 	}
-
 
 	return ret;
 }

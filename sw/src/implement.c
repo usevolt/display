@@ -15,6 +15,7 @@
 #include "settings_impl_uw180s.h"
 #include "settings_impl_uw50.h"
 #include "settings_impl_uw100.h"
+#include "settings_impl_hydout.h"
 
 #define this 	((implement_st*)me)
 
@@ -74,8 +75,8 @@ const uw180s_st uw180s = {
 				.setter = &hcu_set_rotator_params,
 				.max_speed_p = 900,
 				.max_speed_n = 900,
-				.min_speed_p = 600,
-				.min_speed_n = 600,
+				.min_speed_p = 300,
+				.min_speed_n = 300,
 				.acc = 100,
 				.dec = 100,
 				.invert = false,
@@ -146,8 +147,8 @@ const uw180s_st uw180s = {
 				.setter = &hcu_set_impl1_params,
 				.max_speed_p = 2000,
 				.max_speed_n = 2000,
-				.min_speed_p = 600,
-				.min_speed_n = 600,
+				.min_speed_p = 300,
+				.min_speed_n = 300,
 				.acc = 100,
 				.dec = 100,
 				.invert = false,
@@ -158,8 +159,8 @@ const uw180s_st uw180s = {
 				.setter = &hcu_set_impl2_params,
 				.max_speed_p = 2000,
 				.max_speed_n = 2000,
-				.min_speed_p = 600,
-				.min_speed_n = 600,
+				.min_speed_p = 300,
+				.min_speed_n = 300,
 				.acc = 100,
 				.dec = 100,
 				.invert = false,
@@ -216,9 +217,9 @@ const uw50_st uw50 = {
 				.name = STR_SETTINGS_UW180S_BUTTONSAW,
 				.setter = &hcu_set_impl2_params,
 				.max_speed_p = 1200,
-				.min_speed_p = 500,
+				.min_speed_p = 300,
 				.max_speed_n = 1200,
-				.min_speed_n = 500,
+				.min_speed_n = 300,
 				.invert = false,
 				.assembly_invert = false,
 				.acc = 10,
@@ -228,9 +229,9 @@ const uw50_st uw50 = {
 				.name = STR_SETTINGS_UW180S_BUTTONTILT,
 				.setter = &hcu_set_rotator_params,
 				.max_speed_p = 1200,
-				.min_speed_p = 500,
+				.min_speed_p = 300,
 				.max_speed_n = 1200,
-				.min_speed_n = 500,
+				.min_speed_n = 300,
 				.invert = false,
 				.assembly_invert = false,
 				.acc = 10,
@@ -262,9 +263,9 @@ const uw100_st uw100 = {
 				.name = STR_SETTINGS_UW100_BUTTONROTATOR,
 				.setter = &hcu_set_rotator_params,
 				.max_speed_p = 900,
-				.min_speed_p = 500,
+				.min_speed_p = 300,
 				.max_speed_n = 900,
-				.min_speed_n = 500,
+				.min_speed_n = 300,
 				.invert = false,
 				.assembly_invert = false,
 				.acc = 100,
@@ -274,9 +275,43 @@ const uw100_st uw100 = {
 				.name = STR_SETTINGS_UW100_BUTTONOPENCLOSE,
 				.setter = &hcu_set_impl1_params,
 				.max_speed_p = 1200,
-				.min_speed_p = 500,
+				.min_speed_p = 300,
 				.max_speed_n = 1200,
-				.min_speed_n = 500,
+				.min_speed_n = 300,
+				.invert = false,
+				.assembly_invert = false,
+				.acc = 100,
+				.dec = 100
+		}
+};
+
+
+
+void hydout_init(hydout_st *this) {
+	implement_init(this, &hydout);
+	valve_init(&this->impl2, &hydout.impl2);
+}
+
+
+const implement_callbs_st hydout_callbacks = {
+		.dasboard_step = dashboard_uw100_step,
+		.dashboard_show = dashboard_uw100_show,
+		.settings_step = settings_impl_hydout_step,
+		.settings_show = settings_impl_hydout_show
+};
+
+const hydout_st hydout = {
+		.super = {
+				.name = "Hydraulic out",
+				.callbacks = &hydout_callbacks,
+		},
+		.impl2 = {
+				.name = STR_SETTINGS_UW180S_BUTTONIMPL2,
+				.setter = &hcu_set_impl2_params,
+				.max_speed_p = 2000,
+				.min_speed_p = 300,
+				.max_speed_n = 2000,
+				.min_speed_n = 300,
 				.invert = false,
 				.assembly_invert = false,
 				.acc = 100,

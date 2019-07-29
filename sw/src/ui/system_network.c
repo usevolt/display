@@ -184,7 +184,7 @@ static void update(devices_e dev) {
 			strcpy(stop_cause, "None");
 		}
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%s",
+				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%s\n%s",
 				uv_canopen_sdo_read16(ESB_NODE_ID,
 						ESB_RPM_INDEX, ESB_RPM_SUBINDEX),
 				uv_canopen_sdo_read8(ESB_NODE_ID,
@@ -201,8 +201,8 @@ static void update(devices_e dev) {
 						ESB_OIL_LEVEL_INDEX, ESB_OIL_LEVEL_SUBINDEX),
 				uv_canopen_sdo_read16(ESB_NODE_ID,
 						ESB_VDD_INDEX, ESB_VDD_SUBINDEX),
-				uv_canopen_sdo_read8(ESB_NODE_ID,
-						ESB_OILCOOLER_TRIGGER_INDEX, ESB_OILCOOLER_TRIGGER_SUBINDEX),
+				get_output_state_str(uv_canopen_sdo_read8(ESB_NODE_ID,
+						ESB_RADIATOR_STATUS_INDEX, ESB_RADIATOR_STATUS_SUBINDEX)),
 				stop_cause);
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(&dspl.network.esb);
@@ -335,7 +335,7 @@ static void update(devices_e dev) {
 					uv_canopen_sdo_read8(CCU_NODE_ID, CCU_GEAR_INDEX, CCU_GEAR_SUBINDEX) + 1);
 			uv_ui_refresh(&this->row2_values);
 			snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-					"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
+					"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
 					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_DRIVE_CURRENT1_INDEX, CCU_DRIVE_CURRENT1_SUBINDEX),
 					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_DRIVE_CURRENT2_INDEX, CCU_DRIVE_CURRENT2_SUBINDEX),
 					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_DRIVE_CURRENT3_INDEX, CCU_DRIVE_CURRENT3_SUBINDEX),
@@ -343,7 +343,8 @@ static void update(devices_e dev) {
 					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_CABBRAKE_CURRENT_INDEX, CCU_CABBRAKE_CURRENT_SUBINDEX),
 					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_CABROT_CURRENT_INDEX, CCU_CABROT_CURRENT_SUBINDEX),
 					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_TELESCOPE_CURRENT_INDEX, CCU_TELESCOPE_CURRENT_SUBINDEX),
-					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_STEER_CURRENT_INDEX, CCU_STEER_CURRENT_SUBINDEX));
+					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_STEER_CURRENT_INDEX, CCU_STEER_CURRENT_SUBINDEX),
+					(int16_t) uv_canopen_sdo_read16(CCU_NODE_ID, CCU_D4WD_REQ_INDEX, CCU_D4WD_REQ_SUBINDEX));
 			uv_ui_refresh(&this->row3_values);
 			update_netdev(&dspl.network.ccu);
 	}

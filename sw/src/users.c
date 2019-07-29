@@ -36,6 +36,7 @@ static void user_init(userdata_st *this) {
 	uw180s_init(&this->uw180s);
 	uw100_init(&this->uw100);
 	uw50_init(&this->uw50);
+	hydout_init(&this->hydout);
 
 }
 
@@ -66,6 +67,7 @@ static void user_reset(userdata_st *user) {
 	uw180s_reset(&user->uw180s);
 	uw100_reset(&user->uw100);
 	uw50_reset(&user->uw50);
+	hydout_reset(&user->hydout);
 
 }
 

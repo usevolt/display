@@ -135,6 +135,23 @@ static inline void uw50_reset(uw50_st *this) {
 }
 
 
+
+
+typedef struct {
+	EXTENDS(implement_st);
+
+	valve_st impl2;
+} hydout_st;
+extern const hydout_st hydout;
+
+void hydout_init(hydout_st *this);
+
+static inline void hydout_reset(hydout_st *this) {
+	*this = hydout;
+	hydout_init(this);
+}
+
+
 void implement_set(hcu_impls_e implement);
 
 
