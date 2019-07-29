@@ -156,6 +156,9 @@ static void network_task(void *me) {
 					dspl.user->uw50.saw.setter(&dspl.user->uw50.saw);
 					dspl.user->uw50.tilt.setter(&dspl.user->uw50.tilt);
 				}
+				else if (impl == HCU_IMPLEMENT_HYDOUTPUT) {
+					dspl.user->hydout.impl2.setter(&dspl.user->hydout.impl2);
+				}
 				else {
 
 				}

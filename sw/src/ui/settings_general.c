@@ -100,14 +100,18 @@ void show_general_callb(uv_uitreeobject_st *obj) {
 			CSB_WORK_LIGHT_STATUS_INDEX, CSB_WORK_LIGHT_STATUS_SUBINDEX);
 	uv_uitogglebutton_init(&this->general.work_lights, (state == OUTPUT_STATE_ON),
 			uv_str(STR_SETTINGS_GENERAL_BUTTONWORKLIGHT), &uv_uistyles[0]);
-	uv_uitreeobject_add(&this->generalobj, &this->general.work_lights, bb.x, bb.y + bb.height / 2 + 5,
+	uv_uitreeobject_add(&this->generalobj,
+			&this->general.work_lights, bb.x, bb.y + bb.height / 2 + 5,
 			bb.width, bb.height / 2 - 5);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->general.power_usage, 0, 100, dspl.user->engine_power_usage, &uv_uistyles[0]);
+	uv_uislider_init(&this->general.power_usage,
+			0, 100, dspl.user->engine_power_usage, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->general.power_usage);
-	uv_uislider_set_title(&this->general.power_usage, uv_str(STR_SETTINGS_GENERAL_SLIDERENGINEPOWER));
-	uv_uitreeobject_add(&this->generalobj, &this->general.power_usage, bb.x, bb.y, bb.width, bb.height);
+	uv_uislider_set_title(&this->general.power_usage,
+			uv_str(STR_SETTINGS_GENERAL_SLIDERENGINEPOWER));
+	uv_uitreeobject_add(&this->generalobj,
+			&this->general.power_usage, bb.x, bb.y, bb.width, bb.height);
 }
 
 
@@ -125,7 +129,8 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 	// brightness
 	uv_uislider_init(&this->system.brightness, 1, 100, gui_get_backlight(), &uv_uistyles[0]);
 	uv_uislider_set_horizontal(&this->system.brightness);
-	uv_uislider_set_title(&this->system.brightness, uv_str(STR_SETTINGS_GENERAL_SLIDERBRIGHTNESS));
+	uv_uislider_set_title(&this->system.brightness,
+			uv_str(STR_SETTINGS_GENERAL_SLIDERBRIGHTNESS));
 	uv_uitreeobject_add(&this->displayobj, &this->system.brightness,
 			bb.x, bb.y, bb.width, bb.height);
 
@@ -134,7 +139,8 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 	uv_uislider_init(&this->system.drivef_comp, -100, 100,
 			dspl.user->drivef_comp, &uv_uistyles[0]);
 	uv_uislider_set_horizontal(&this->system.drivef_comp);
-	uv_uislider_set_title(&this->system.drivef_comp, uv_str(STR_SETTINGS_GENERAL_SLIDERDRIVEFCOMP));
+	uv_uislider_set_title(&this->system.drivef_comp,
+			uv_str(STR_SETTINGS_GENERAL_SLIDERDRIVEFCOMP));
 	uv_uitreeobject_add(&this->displayobj, &this->system.drivef_comp,
 			bb.x, bb.y, bb.width, bb.height);
 
@@ -143,7 +149,8 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 	uv_uislider_init(&this->system.oilcooler_trigger, 0, 90,
 			dspl.user->oilcooler_trigg_temp, &uv_uistyles[0]);
 	uv_uislider_set_horizontal(&this->system.oilcooler_trigger);
-	uv_uislider_set_title(&this->system.oilcooler_trigger, uv_str(STR_SETTINGS_GENERAL_SLIDEROILCTEMP));
+	uv_uislider_set_title(&this->system.oilcooler_trigger,
+			uv_str(STR_SETTINGS_GENERAL_SLIDEROILCTEMP));
 	uv_uitreeobject_add(&this->displayobj, &this->system.oilcooler_trigger,
 			bb.x, bb.y, bb.width, bb.height);
 
@@ -152,7 +159,8 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 	uv_uislider_init(&this->system.driveb_comp, -100, 100,
 			dspl.user->driveb_comp, &uv_uistyles[0]);
 	uv_uislider_set_horizontal(&this->system.driveb_comp);
-	uv_uislider_set_title(&this->system.driveb_comp, uv_str(STR_SETTINGS_GENERAL_SLIDERDRIVEBCOMP));
+	uv_uislider_set_title(&this->system.driveb_comp,
+			uv_str(STR_SETTINGS_GENERAL_SLIDERDRIVEBCOMP));
 	uv_uitreeobject_add(&this->displayobj, &this->system.driveb_comp,
 			bb.x, bb.y, bb.width, bb.height);
 
@@ -292,7 +300,8 @@ void show_lang_callb(uv_uitreeobject_st *obj) {
 	uv_uitreeobject_add(&this->langobj, &this->lang.languages, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
-	uv_uibutton_init(&this->lang.setlang, uv_str(STR_SETTINGS_GENERAL_BUTTONSETLANG), &uv_uistyles[0]);
+	uv_uibutton_init(&this->lang.setlang,
+			uv_str(STR_SETTINGS_GENERAL_BUTTONSETLANG), &uv_uistyles[0]);
 	uv_uitreeobject_add(&this->langobj, &this->lang.setlang,
 			bb.x, bb.y, bb.width, bb.height / 2);
 
@@ -376,7 +385,8 @@ uv_uiobject_ret_e settings_system_step(const uint16_t step_ms) {
 uv_uiobject_ret_e settings_implement_step(const uint16_t step_ms) {
 	uv_uiobject_ret_e ret = UIOBJECT_RETURN_ALIVE;
 
-	if (uv_uilist_get_selected(&this->implement.impls_list) != hcu_get_implement(&dspl.network.hcu)) {
+	if (uv_uilist_get_selected(&this->implement.impls_list) !=
+			hcu_get_implement(&dspl.network.hcu)) {
 		implement_set(uv_uilist_get_selected(&this->implement.impls_list));
 	}
 
