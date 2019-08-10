@@ -32,6 +32,7 @@
 #define DISPLAY_BUF_LEN			10
 
 
+
 /// @brief: Height of the topic-section. Not mandatory for all windows...
 #define TOPIC_HEIGHT		50
 
@@ -90,6 +91,10 @@ typedef struct {
 	uv_uilabel_st pressure_200;
 	uv_uilabel_st pressure_100;
 	uv_uilabel_st pressure_0;
+
+	// canopen mapped request for setting the brightness
+	int8_t brightness_req;
+	int brightness_delay;
 
 	/// @brief: Union which holds all the other windows
 	union {

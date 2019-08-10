@@ -24,8 +24,8 @@ gui_st gui;
 #define PBAR_WIDTH			70
 #define PBAR_LABEL_X		53
 #define PBAR_LABEL_WIDTH	25
-
-
+#define BRIGHTNESS_DELAY_MS	500
+#define BRIGHTNESS_STEP		20
 
 static void display_touch_callback(const uv_touch_st *touch);
 
@@ -113,6 +113,9 @@ void gui_init() {
 
 	taskbar_init(&this->display);
 
+	this->brightness_req = 0;
+	this->brightness_delay = 1;
+
 	uv_rtos_task_create(gui_step, "gui", UV_RTOS_MIN_STACK_SIZE * 21,
 			NULL, UV_RTOS_IDLE_PRIORITY + 1, NULL);
 
@@ -130,6 +133,29 @@ void gui_step(void *nullptr) {
 		// write brightness to EEPROM if modification delay has passed
 		if (uv_delay(step_ms, &this->backlight_delay)) {
 			uv_eeprom_write(&this->backlight, sizeof(this->backlight), BRIGHTNESS_EEPROM_ADDR);
+		}
+
+		if (this->brightness_req) {
+			if (uv_delay(step_ms, &this->brightness_delay)) {
+				uv_delay_init(BRIGHTNESS_DELAY_MS, &this->brightness_delay);
+				if (this->brightness_req > 0) {
+					this->backlight += BRIGHTNESS_STEP;
+					if (this->backlight > 100) {
+						this->backlight = 0;
+					}
+				}
+				else {
+					if (this->backlight > BRIGHTNESS_STEP) {
+						this->backlight -= BRIGHTNESS_STEP;
+					}
+					else {
+						this->backlight = 0;
+					}
+				}
+			}
+		}
+		else {
+			this->brightness_delay = 1;
 		}
 
 		// note: not full scale of duty cycle is used, since the fuse on pcb cannot hold full current

@@ -7,6 +7,7 @@
 
 #include <canopen.h>
 #include <uv_canopen.h>
+#include "gui.h"
 #include "can_display.h"
 #include "can_keypad.h"
 #include "can_pedal.h"
@@ -21,6 +22,13 @@
 extern dspl_st dspl;
 
 const canopen_object_st obj_dict[] = {
+		{
+				.main_index = DSPL_BRIGHTNESS_REQ_INDEX,
+				.sub_index = DSPL_BRIGHTNESS_REQ_SUBINDEX,
+				.permissions = DSPL_BRIGHTNESS_REQ_PERMISSIONS,
+				.type = DSPL_BRIGHTNESS_REQ_TYPE,
+				.data_ptr = (void*) &gui.brightness_req
+		},
 		{
 				.main_index = DSPL_LKEYP_OFFSET + KEYP_JOYX_INDEX,
 				.array_max_size = KEYP_JOYX_ARRAY_MAX_SIZE,
