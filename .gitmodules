@@ -1,6 +1,6 @@
 [submodule "sw/hal"]
 	path = sw/hal
-	url = ssh://u33867@sftp.shellit.org/home/u33867/version_control/public/hal
+	url = git@github.com:usevolt/uv_hal
 [submodule "sw/uw_can"]
 	path = sw/uw_can
-	url = ssh://u33867@sftp.shellit.org/home/u33867/version_control/uw/uw_can
+	url = git@github.com:usevolt/uw_can
