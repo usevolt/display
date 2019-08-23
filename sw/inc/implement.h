@@ -105,6 +105,7 @@ typedef struct {
 
 	valve_st rotator;
 	valve_st open;
+	valve_st impl2;
 } uw100_st;
 extern const uw100_st uw100;
 

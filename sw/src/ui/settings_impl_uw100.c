@@ -87,26 +87,25 @@ void settings_impl_uw100_show(void) {
 
 	this->state = UW100_STATE_NONE;
 
-	uv_uigridlayout_st grid;
-	uv_uigridlayout_init(&grid, 0, BACK_Y, uv_uibb(this->window)->width,
-			uv_uibb(this->window)->height - BACK_Y, 3, 3);
-	uv_uigridlayout_set_padding(&grid, 30, 10);
-	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
-	bb = uv_uigridlayout_next(&grid);
-
 	uv_uilabel_init(&this->label, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF), C(0xFFFFFFFF), "UW100");
-	uv_uiwindow_add(this->window, &this->label, bb.x, bb.y, bb.width, BACK_H);
-	uv_uigridlayout_next(&grid);
+	uv_uiwindow_add(this->window, &this->label, 0, BACK_Y, uv_uibb(this->window)->width, BACK_H);
 
-	bb = uv_uigridlayout_next(&grid);
+	uv_uigridlayout_st grid;
+	uv_uigridlayout_init(&grid, 0, BACK_Y + BACK_H, uv_uibb(this->window)->width,
+			uv_uibb(this->window)->height - BACK_Y - BACK_H, 3, 3);
+	uv_uigridlayout_set_padding(&grid, 30, 10);
+
+	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->rotator, uv_str(STR_SETTINGS_UW100_BUTTONROTATOR), &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->rotator, bb.x + bb.width / 2 + grid.hpadding,
-			bb.y, bb.width, bb.height);
+	uv_uiwindow_add(this->window, &this->rotator, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->open, uv_str(STR_SETTINGS_UW100_BUTTONOPENCLOSE), &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->open, bb.x + bb.width / 2 + grid.hpadding,
-			bb.y, bb.width, bb.height);
+	uv_uiwindow_add(this->window, &this->open, bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uibutton_init(&this->impl2, uv_str(STR_SETTINGS_UW180S_BUTTONIMPL2), &uv_uistyles[0]);
+	uv_uiwindow_add(this->window, &this->impl2, bb.x, bb.y, bb.width, bb.height);
 
 }
 
@@ -123,6 +122,13 @@ uv_uiobject_ret_e settings_impl_uw100_step(uint16_t step_ms) {
 			show_sliders(UW100_STATE_OPEN, uv_uibutton_get_text(&this->open));
 			ret = UIOBJECT_RETURN_KILLED;
 		}
+		else if (uv_uibutton_clicked(&this->impl2)) {
+			show_sliders(UW100_STATE_IMPL2, uv_uibutton_get_text(&this->impl2));
+			ret = UIOBJECT_RETURN_KILLED;
+		}
+		else {
+
+		}
 	}
 	else {
 		valve_st *v = NULL;
@@ -134,6 +140,13 @@ uv_uiobject_ret_e settings_impl_uw100_step(uint16_t step_ms) {
 		else if (this->state == UW100_STATE_OPEN) {
 			v = &dspl.user->uw100.open;
 			v->setter(v);
+		}
+		else if (this->state == UW100_STATE_IMPL2) {
+			v = &dspl.user->uw100.impl2;
+			v->setter(v);
+		}
+		else {
+
 		}
 
 		if (uv_uislider_value_changed(&this->max_speed_p)) {

@@ -282,6 +282,18 @@ const uw100_st uw100 = {
 				.assembly_invert = false,
 				.acc = 100,
 				.dec = 100
+		},
+		.impl2 = {
+				.name = STR_SETTINGS_UW180S_BUTTONIMPL2,
+				.setter = &hcu_set_impl2_params,
+				.max_speed_p = 1200,
+				.min_speed_p = 300,
+				.max_speed_n = 1200,
+				.min_speed_n = 300,
+				.invert = false,
+				.assembly_invert = false,
+				.acc = 100,
+				.dec = 100
 		}
 };
 

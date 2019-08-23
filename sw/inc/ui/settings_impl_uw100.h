@@ -16,7 +16,8 @@
 enum {
 	UW100_STATE_NONE = 0,
 	UW100_STATE_ROTATOR,
-	UW100_STATE_OPEN
+	UW100_STATE_OPEN,
+	UW100_STATE_IMPL2
 };
 typedef uint8_t uw100_states_e;
 
@@ -31,6 +32,7 @@ typedef struct {
 		struct {
 			uv_uibutton_st rotator;
 			uv_uibutton_st open;
+			uv_uibutton_st impl2;
 		};
 		struct {
 			uv_uislider_st max_speed_p;
