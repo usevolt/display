@@ -1,6 +1,6 @@
 [submodule "sw/hal"]
 	path = sw/hal
-	url = git@github.com:usevolt/uv_hal
+	url = https://github.com/usevolt/uv_hal.git
 [submodule "sw/uw_can"]
 	path = sw/uw_can
-	url = git@github.com:usevolt/uw_can
+	url = https://github.com/usevolt/uw_can.git
