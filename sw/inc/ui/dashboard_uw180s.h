@@ -28,7 +28,7 @@ typedef struct {
 	uv_uibutton_st log_length;
 
 	uint8_t active_len;
-
+	uint8_t last_len_change_req;
 
 } dashboard_uw180s_st;
 

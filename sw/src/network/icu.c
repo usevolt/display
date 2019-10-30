@@ -80,10 +80,16 @@ void icu_set_len_calib(icu_st *this, uint16_t value) {
 }
 
 void icu_set_target_len_um(icu_st *this, uint32_t value) {
-	uv_canopen_sdo_write(ICU_NODE_ID,
-			ICU_TARGET_LEN_UM_INDEX, ICU_TARGET_LEN_UM_SUBINDEX,
-			CANOPEN_TYPE_LEN(ICU_TARGET_LEN_UM_TYPE),
-			&value);
+	uv_errors_e ret = !ERR_NONE;
+	uint8_t p = 0;
+	// try to write the target length 5 times to the ICU
+	while (ret != ERR_NONE && p < 5) {
+		ret = uv_canopen_sdo_write(ICU_NODE_ID,
+					ICU_TARGET_LEN_UM_INDEX, ICU_TARGET_LEN_UM_SUBINDEX,
+					CANOPEN_TYPE_LEN(ICU_TARGET_LEN_UM_TYPE),
+					&value);
+		p++;
+	}
 }
 
 #define this ((icu_st*)me)

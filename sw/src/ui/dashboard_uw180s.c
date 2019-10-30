@@ -90,6 +90,8 @@ void dashboard_uw180s_show() {
 	}
 
 	this->active_len = 1;
+	this->last_len_change_req = 0;
+
 	icu_set_target_len_um(&dspl.network.icu, dspl.user->uw180s.log_len1 * 10000);
 }
 
@@ -106,7 +108,9 @@ uv_uiobject_ret_e dashboard_uw180s_step(uint16_t step_ms) {
 		}
 	}
 
-	if (uv_uibutton_clicked(&this->log_length)) {
+	int8_t change_req = dspl.network.r_keypad.b[3];
+	if (uv_uibutton_clicked(&this->log_length) ||
+			(change_req && !this->last_len_change_req)) {
 		if (this->active_len == 1) {
 			this->active_len = 2;
 			strcpy(log_length_str, uv_str(STR_DASHBOARD_UW180S_LABELTARGETLENGTH));
@@ -125,6 +129,9 @@ uv_uiobject_ret_e dashboard_uw180s_step(uint16_t step_ms) {
 			strcat(log_length_str, " cm");
 			icu_set_target_len_um(&dspl.network.icu, dspl.user->uw180s.log_len1 * 10000);
 		}
+		uv_ui_refresh(&this->log_length);
 	}
+
+	this->last_len_change_req = change_req;
 	return ret;
 }
