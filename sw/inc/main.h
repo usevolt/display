@@ -50,8 +50,8 @@ typedef struct {
 			bool notifications;
 			bool warnings;
 		} volume;
-		uint8_t drivef_comp;
-		uint8_t driveb_comp;
+		int8_t drivef_comp;
+		int8_t driveb_comp;
 } userdata_st;
 
 

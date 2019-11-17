@@ -364,12 +364,14 @@ uv_uiobject_ret_e settings_system_step(const uint16_t step_ms) {
 	else if (uv_uislider_value_changed(&this->system.drivef_comp)) {
 		dspl.user->drivef_comp = uv_uislider_get_value(&this->system.drivef_comp);
 		uv_canopen_sdo_write8(CCU_NODE_ID,
-				CCU_DRIVE_COMP_INDEX, 1, uv_uislider_get_value(&this->system.drivef_comp));
+				CCU_DRIVE_COMP_INDEX, 1,
+				(int8_t) uv_uislider_get_value(&this->system.drivef_comp));
 	}
 	else if (uv_uislider_value_changed(&this->system.driveb_comp)) {
 		dspl.user->driveb_comp = uv_uislider_get_value(&this->system.driveb_comp);
 		uv_canopen_sdo_write8(CCU_NODE_ID,
-				CCU_DRIVE_COMP_INDEX, 2, uv_uislider_get_value(&this->system.driveb_comp));
+				CCU_DRIVE_COMP_INDEX, 2,
+				(int8_t) uv_uislider_get_value(&this->system.driveb_comp));
 	}
 	else {
 
