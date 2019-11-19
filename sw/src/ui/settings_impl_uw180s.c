@@ -58,7 +58,14 @@ static void show_general() {
 	bb = uv_uigridlayout_next(&grid);
 	uv_uitogglebutton_init(&this->general.tilt_float, dspl.user->uw180s.tiltfloat_enable,
 			uv_str(STR_SETTINGS_UW180S_TOGGLETILTFLOAT), &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->general.tilt_float, bb.x, bb.y, bb.width, bb.height / 2);
+	uv_uiwindow_add(this->window, &this->general.tilt_float, bb.x, bb.y,
+			bb.width, bb.height / 2 - 5);
+
+	uv_uitogglebutton_init(&this->general.tilt_onthumb, dspl.user->uw180s.tilt_onthumb,
+			uv_str(STR_SETTINGS_UW180S_TOGGLETILTONTHUMB), &uv_uistyles[0]);
+	uv_uiwindow_add(this->window, &this->general.tilt_onthumb, bb.x, bb.y + bb.width / 2 + 5,
+			bb.width, bb.height / 2 - 5);
+
 
 }
 
@@ -511,21 +518,6 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 		else {
 
 		}
-//			if (uv_vector_size(&dspl.user->uw180s.log_types) <
-//					uv_vector_max_size(&dspl.user->uw180s.log_types)) {
-//				if (uv_uikeyboard_show("Add new log type",
-//						((log_type_st*) uv_vector_at(&dspl.user->uw180s.log_types,
-//								uv_vector_size(&dspl.user->uw180s.log_types) + 1))->name,
-//						LOG_NAME_LEN, &uv_uistyles[0])) {
-//					uv_vector_push_back(&dspl.user->uw180s.log_types, NULL);
-//					uv_uilist_push_back(&this->mb.logs,
-//							((log_type_st*) uv_vector_at(&dspl.user->uw180s.log_types))->name);
-//				}
-//			}
-//			else {
-//				printf("Log count is at maximum\n");
-//			}
-//		}
 	}
 	else if (this->state == UW180S_STATE_WIDTH_CALIB) {
 		if (uv_uibutton_clicked(&this->back)) {
@@ -603,6 +595,11 @@ uv_uiobject_ret_e settings_impl_uw180s_step(uint16_t step_ms) {
 			dspl.user->uw180s.tiltfloat_enable = uv_uitogglebutton_get_state(&this->general.tilt_float);
 			icu_set_tiltfloat_enable(&dspl.network.icu,
 					dspl.user->uw180s.tiltfloat_enable);
+		}
+		else if (uv_uitogglebutton_clicked(&this->general.tilt_onthumb)) {
+			dspl.user->uw180s.tilt_onthumb = uv_uitogglebutton_get_state(&this->general.tilt_onthumb);
+			icu_set_tilt_onthumb(&dspl.network.icu,
+					dspl.user->uw180s.tilt_onthumb);
 		}
 		else if (uv_uibutton_clicked(&this->back)) {
 			settings_impl_uw180s_show();

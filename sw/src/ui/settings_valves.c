@@ -31,8 +31,8 @@ void settings_valves_show() {
 			uv_uitabwindow_get_contentbb(window).height);
 
 	// read ccu assembly settings if telescope, back steer or cabrot is installed
-	uint8_t ccu_assembly[3];
-	for (uint8_t i = 0; i < 3; i++) {
+	uint8_t ccu_assembly[CCU_ASSEMBLY_ARRAY_SIZE];
+	for (uint8_t i = 0; i < CCU_ASSEMBLY_ARRAY_SIZE; i++) {
 		uv_canopen_sdo_read(CCU_NODE_ID, CCU_ASSEMBLY_INDEX, i + 1,
 				CANOPEN_TYPE_LEN(CCU_ASSEMBLY_TYPE), &ccu_assembly[i]);
 	}
@@ -51,7 +51,13 @@ void settings_valves_show() {
 			(dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREESTEERBACK &&
 					!ccu_assembly[3 - 1]) ||
 			(dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREEBOOMTELESCOPE &&
-					!hcu_assembly[HCU_ASSEMBLY_BOOMTELESCOPE_INDEX - 1])) {
+					!hcu_assembly[HCU_ASSEMBLY_BOOMTELESCOPE_INDEX - 1]) ||
+			(dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREEGEAR2 &&
+					ccu_assembly[CCU_ASSEMBLY_INSTALLED_GEARS_INDEX - 1] < 2) ||
+			(dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREEGEAR3 &&
+					ccu_assembly[CCU_ASSEMBLY_INSTALLED_GEARS_INDEX - 1] < 3) ||
+			(dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREESTEERBACK &&
+					!ccu_assembly[CCU_ASSEMBLY_BACKSTEER_INDEX - 1])) {
 			// jump over valves which depend on the assembly settings
 			continue;
 		}

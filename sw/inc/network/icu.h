@@ -56,6 +56,8 @@ void icu_set_feed_grab_time(icu_st *this, uint16_t value);
 
 void icu_set_tiltfloat_enable(icu_st *this, uint8_t value);
 
+void icu_set_tilt_onthumb(icu_st *this, uint8_t value);
+
 void icu_set_len_calib(icu_st *this, uint16_t value);
 
 void icu_set_target_len_um(icu_st *this, uint32_t value);

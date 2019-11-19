@@ -385,6 +385,11 @@ static langstr_st strs[STR_COUNT] = {
 				"Tilt flyta\naktivera"
 		},
 		{
+				"Tilt on\nleft thumb",
+				"Tiltti\nvasemmalla\npeukalolla",
+				"Tilt pa\nvanster tumme"
+		},
+		{
 				"UW180S Valves",
 				"UW180S Venttiilit",
 				"UW180S Ventiler"
@@ -392,7 +397,7 @@ static langstr_st strs[STR_COUNT] = {
 		{
 				"Wheels\nopen/close",
 				"Rullat\nauki/kiinni",
-				"Rullar\oppen/stanga"
+				"Rullar\noppen/stanga"
 		},
 		{
 				"Feeding",
@@ -407,7 +412,7 @@ static langstr_st strs[STR_COUNT] = {
 		{
 				"Saw",
 				"Saha",
-				"saqg"
+				"sag"
 		},
 		{
 				"Tilt",

@@ -92,6 +92,7 @@ typedef struct {
 			uv_uislider_st rollers_grab_time;
 			uv_uislider_st blades_grab_time;
 			uv_uitogglebutton_st tilt_float;
+			uv_uitogglebutton_st tilt_onthumb;
 		} general;
 	};
 

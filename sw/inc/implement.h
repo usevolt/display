@@ -85,6 +85,7 @@ typedef struct {
 	uint16_t roller_grab_time;
 	uint16_t blades_grab_time;
 	uint8_t tiltfloat_enable;
+	uint8_t tilt_onthumb;
 } uw180s_st;
 /// @brief: Uw180s factory settings
 extern const uw180s_st uw180s;

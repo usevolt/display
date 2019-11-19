@@ -72,6 +72,11 @@ void icu_set_tiltfloat_enable(icu_st *this, uint8_t value) {
 			ICU_TILTFLOAT_ENABLE_SUBINDEX, 1, &value);
 }
 
+void icu_set_tilt_onthumb(icu_st *this, uint8_t value) {
+	uv_canopen_sdo_write(ICU_NODE_ID, ICU_TILT_ONTHUMB_STATUS_INDEX,
+			ICU_TILT_ONTHUMB_STATUS_SUBINDEX, 1, &value);
+}
+
 
 void icu_set_len_calib(icu_st *this, uint16_t value) {
 	uv_canopen_sdo_write(ICU_NODE_ID, ICU_LEN_CALIB_INDEX,
