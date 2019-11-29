@@ -1,0 +1,353 @@
+\documentclass[12pt,a4paper,finnish]{uvmanual}
+\special{papersize=210mm,297mm}
+
+
+\title{Bruksanvisning för Usewood-pekskärmar}
+
+
+\renewcommand{\labelitemii}{}
+
+
+\begin{document}
+
+
+%	
+% Create the title page.
+% First the logo. Check its language.
+\thispagestyle{empty}
+%\vspace*{-.5cm}\noindent
+\vspace*{-1cm}\noindent
+\begin{center}
+\includegraphics[width=8cm]{img/uw_logo_color.png}   % Bilingual logo
+\end{center}
+\vspace{1cm}
+\begin{center}
+\end{center}
+
+
+
+% Then lay out the author, title and type to the center of page.
+\vspace{2.8cm}
+\maketitle
+\vspace{2.8cm}
+
+
+% Last some additional info to the bottom-right corner
+\begin{minipage}[c]{8.8cm}
+  \begin{spacing}{1.0}
+    \textsf{Usewood Forest Tec Oy}\\
+    \textsf{www.usewood.fi}\\
+    \textsf{Usevolt Oy}\\
+    \textsf{www.usevolt.fi}\\
+  \end{spacing}
+\end{minipage}
+
+% Leave the backside of title page empty in twoside mode
+\if@twoside
+\clearpage
+\fi
+
+\pagenumbering{roman} 
+\setcounter{page}{0} % Start numbering from zero because command 'chapter*' does page break
+
+
+% Some fields in abstract are automated, namely those with \@ (author,
+% title in the main language, thesis type, examiner).
+
+
+
+% Add the table of contents, optionally also the lists of figures,
+% tables and codes.
+
+
+\renewcommand\contentsname{Innehållsförteckning}         % Set Finnish name
+\setcounter{tocdepth}{2}                      % How many header level are included
+\tableofcontents                              % Create TOC
+
+% Leave the backside of abbreviation list empty in twoside mode
+\cleardoublepage
+
+% The actual text begins here and page numbering changes to 1,2...
+\newpage             % needed for page numbering
+\pagenumbering{arabic}
+\setcounter{page}{1} % Start numbering from zero because command
+                     % 'chapter*' does page break
+\renewcommand{\chaptername}{} % This disables the prefix 'Chapter' or
+                              % 'Luku' in page headers (in 'twoside'
+                              % mode)
+
+\chapter{Inledning}
+
+Det här är en bruksanvisning för användargränssnittet i pekskärmarna som finns i Usewoods små skogsmaskiner.  Skärmens huvudsakliga ändamål är att fungera som ett användargränssnitt för justering av maskinens parametrar och förmedling av information om körningen till föraren. Flera av maskinens parametrar är sådana att de kan ställas in endast via skärmen. Därför ska föraren ha goda färdigheter att använda skärmen. Om man inte justerar maskinens inställningar kan det vara svårare att arbeta med maskinen och användarna kan till och med bli utsatta för farliga situationer.
+
+\warning{Allmän varningssymbol}
+{Bruksanvisningens allmänna varningssymboler betonar punkter som är särskilt viktiga när det gäller maskinens säkerhet. Läs beskrivningarna med varningssymboler mycket noggrant.}
+
+\chapter{Informationspanel}\label{ch:taskbar}
+Informationspanelen är en panel som finns alltid i nedre delen av rutan. Den innehåller de viktigaste uppgifterna om Usewood-skogsmaskinen när den är under drift. Också mätarna i vänstra och högra kanten av rutan är synliga hela tiden.
+
+\fig{img/taskbar}{Informationspanel}{taskbar}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{RPM} & Motorns varvtal (varv per minut) \\
+\textbf{Pressure} & Hydrauliskt tryck som ges av den hydrauliska pumpen. \\
+\textbf{Hours} & Motorns drifttimräknare. Räknarens värde kan inte justeras. Den räknar motorns drifttimmar kontinuerligt. \\
+\textbf{Horn} & Ljudsignal. Tryck här för att ge en varnande ljudsignal. \\
+\textbf{Bat V} & Batteriets spänning. Om batteriets spänning blir för lågt kan batteriet skadas. \\
+\textbf{Fuel L} & Bränslemängd. \\
+\textbf{Oil L} & Hydrauloljemängd. \\
+\textbf{Oil T} & Hydrauloljans temperatur. \\
+\textbf{Motor T} & Motorns temperatur. \\
+\textbf{Clock} & Klockslag. \\
+\end{tabular}
+
+\warning{Varning}{Om batteriets spänning blir för lågt eller om hydrauloljans temperatur blir för högt kan maskinen få bestående skador. Användaren ska alltid hålla koll på dessa värden via skärmen när maskinen är i drift.}
+
+\chapter{Inloggning}\label{ch:login}
+
+Inloggningsrutan visas varje gång maskinen slås på. Med den kan du skapa nya förare och välja aktiv förare. När du byter förare, laddar skärmen automatiskt ner ifrågavarande förares inställningar. Standardanvändaren heter \textbf{Usewood} och du kan skapa max. 4 förare.
+
+\fig{img/login.png}{Inloggning}{login}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Log in} & Loggar in den användare som du har valt på vänstra sidan av skärmen och laddar ner användarens inställningar. \\
+\textbf{Add user} & Skapar en ny användare. Ett tangentbord visas på skärmen. Namnge användaren. \\
+\textbf{Delete user} & Raderar användaren och inställningar kopplade till den. Användaren kan inte återställas. Om endast en användare har skapats, kan denna användare inte raderas. \\
+\end{tabular}
+
+
+\chapter{Hemskärm}\label{ch:home}
+
+\fig{img/home}{Hemskärm}{home}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Dashboard} & Visar hemskärmen för vald arbetsmaskin. Då du använder Uw180s skördaraggregat visar ``Dashboard'' längden och tjockleken av trädet som ska kvistas. \\
+\textbf{Settings} & Visar användarspecifika inställningar. Maskinens parametrar justeras via denna meny.  \\
+\textbf{System} & Visar systemdiagnostikfönstret. Systemets feldiagnostisering och kalibrering sker via detta fönster.  \\
+\textbf{Log out} & Loggar nuvarande användare ut och återgår till inloggningsrutan.  \\
+\end{tabular}
+
+
+
+\chapter{Arbetsskärm}\label{ch:dashboard}
+
+Arbetsskärmens innehåll varierar beroende på vald arbetsmaskin. Välj arbetsmaskin via inställningarna. Arbetsskärmen är nyttig särskilt då man använder UW180s-skördaraggregat.
+
+\fig{img/dashboard}{Arbetsskärm}{dashboard}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Cancel \& OK} & Återvänd till hemskärmen. \\
+\textbf{Log length} & Ändra på stockens målmått. Eventuella värden ställs in i inställningarna för UW180s-skördaraggregat.\\
+\textbf{Length} & Ändra på stockens målmått. Eventuella värden ställs in i inställningarna för UW180s-skördaraggregat. \\
+\textbf{Diameter} & Visar tjocklek (i millimeter) av trädet som kvistas för tillfället.  \\
+\textbf{Volume} & Visar sammanlagd volym av skördade stockar. Volymen kan nollställas via inställningarna för UW180s-skördaraggregat.  \\
+\end{tabular}
+
+
+\chapter{Inställningar}\label{ch:settings}
+
+Via inställningarna kan du justera alla maskinens användarspecifika inställningar. Alla ändringar laddas till styrsystemet automatiskt, men ändringarna är permanenta först när användaren har tryckt på OK-knappen. Tryck på ``Cancel'' för att återkalla alla ändringar. Inställningarna har delats in i följande grupper:
+
+\begin{itemize}
+ \item General settings (\autoref{ch:settings_general})
+ \item Valve Configurations (\autoref{ch:settings_valves})
+ \item Implement settings (\autoref{ch:settings_implement})
+\end{itemize}
+
+
+\warning{Varning}{Även om det är omöjligt för användaren att förstöra maskinen med felaktiga parameterinställningar, är det möjligt att användaren justerar parametrarna så att maskinen fungerar dåligt eller att den blir svår att använda. Det är på användarens ansvar att justera parametrarna med försiktighet för att förebygga försämrad prestanda.}
+
+\section{Allmänna inställningar}\label{ch:settings_general}
+
+
+\fig{img/settings_general}{Allmänna inställningar}{settings_general}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Screen brightness} & Justera skärmens ljusstyrka.\\
+\textbf{Drive Lights} & Slår strålkastarna på eller av. Stråklastarna består av kraftiga, framåtriktade LED-ljus och en röd signallampa som är riktad bakåt.  \\
+\textbf{Work Lights} & Slår arbetsljuset på eller av. Arbetsljusen består av kraftiga LED-ljus som är riktade åt sidan.  \\
+\textbf{Wiper} & Justerar vindrutetorkarnas hastighet. \\
+\textbf{Heater} & Slår varmluftsanordningen på eller av. \\
+\end{tabular}
+
+
+
+
+\section{Ventiler}\label{ch:settings_valves}
+
+Att justera parametrarna för de hydrauliska ventilerna är mycket viktigt. Varje förare bör justera dem så att de passar dem själv och ger dem den bästa möjliga körerfarenheten. Varje användare kan justera inställningarna för varje rörelse så att de passliga för dem själva.
+
+
+\warning{Varning}{En bra och noggrann justering av ventilinstallationerna förbättrar körupplevelsen väsentligt. Om inställningarna är dåligt justerade, kan maskinen vara till och med farlig. Tänk saken igenom innan du justerar ventilernas inställningar.}
+
+
+Varje ventil har samma justerbara inställningar. Små Usewood-skogsmaskiner har åtminstone följande ventiler:
+
+\begin{itemize}
+ \item Höjning av bommen
+ \item Böjning av bommen
+ \item Vändning av bommen
+ \item Körläge
+ \item Styrläge
+ \item Vänstra stödbenet
+ \item Högra stödbenet
+\end{itemize}
+
+Tryck på ventilens namn för att öppna ventilens parametrar för inställning.
+
+\fig{img/settings_valves}{Maskinstommens ventilinställningar}{settings_valves}
+
+\fig{img/settings_valves_boom_lift}{Inställningar för enskilda ventiler}{settings_valves_boom_lift}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Back} & Återgå till val av ventil. \\
+\textbf{Boom Lift} & Namn på den valda ventilen vars inställningar justeras för tillfället.  \\
+\textbf{Invert Direction} & Omvändning av ventilens riktning. Alla ventiler är dubbelverkande. Detta byter ventilens funktionsriktning.  \\
+\textbf{Forward min speed} & Ställer in ventilernas min. styrström (i milliampere). Alla hydrauliska ventiler börjar släppa olja igenom vid ett visst strömvärde.  \\
+\textbf{Forward max speed} & Ställer in ventilernas max. styrström (i milliampere). Fungerar som inställning av max. rörelsehastighet.  \\
+\textbf{Acceleration} & Ställer in ventilströmmens stigacceleration. Detta kallas även för stigramp. Med ett lågt värde accelererar rörelsen i lugn takt.  \\
+\textbf{Backward min speed} & Identisk med ``Forward min speed``, men i motsatt riktning.  \\
+\textbf{Backward max speed} & Identisk med ''Forward max speed'', men i motsatt riktning. \\
+\textbf{Deceleration} & Ställer in ventilströmmens sänkhastighet. Detta kallas även för sänkramp. Ett lågt värde får ventilströmmen att sänka långsamt mot noll. Då stannar rörelsen på ett smidigt sätt.  \\
+\end{tabular}
+
+\warning{Varning}{Var aktsam när du ställer in minimiströmmen. Om minimiströmmen är för hög, startar rörelsen med en knyck oavsett hur försiktigt föraren vrider på styrhandtaget.}
+
+\warning{Varning}{Var aktsam när du ställer in fördröjningen. Om fördröjningen är för liten, fortsätter rörelsen även efter att föraren har slutat styra.}
+
+\section{Maskininställningar}\label{ch:settings_implement}
+
+Maskininställningarna justerar inställningarna för den valda maskinen. Välj maskin via ``Allmänt``-fliken. Denna bruksanvisning handlar om inställningarna för UW180S-skördaraggregat eftersom de är de är de mest invecklade inställningarna. Inställningarna för de andra maskinerna baserar sig på dem.
+
+\fig{img/settings_uw180s}{Maskininställningar}{settings_implement}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Log Measurement} & Inställningar för mätning av stockar och mätningsinstrumentets kalibreringsinställningar. \\
+\textbf{Valve Configurations} & UW180s Ventilinställningar 
+\end{tabular}
+
+\FloatBarrier
+\subsection{UW180s mätinstrumentets inställningar}\label{ch:settings_uw180s_meas}
+
+\fig{img/settings_uw180s_meas}{UW180s mätinstrumentets inställningar}{settings_uw180s_meas}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Back} & Återgå till inställningarna för UW180s.  \\
+\textbf{Log length 1} & Första stockens längd i millimeter. \\
+\textbf{Log length 2} & Andra stockens längd i millimeter. \\
+\textbf{Length Calibration} & Kalibreringsvärde för längdmått. Desto större värde du ställer in, desto kortare stockar gör maskinen.  \\
+\textbf{Volume Calibration} & Volymkalkyleringens korrektionsfaktor. \\
+\end{tabular}
+
+\FloatBarrier
+\subsection{Ventilinställningar för UW180s}\label{ch:settings_uw180s_valves}
+
+Ventilinställningarna fungerar på samma sätt som maskinstommens ventilinställningar.
+
+\fig{img/settings_uw180s_valves}{Ventilinställningar för UW180s}{settings_uw180s_valves}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Wheels} & Öppna/stäng matarvalsar \\
+\textbf{Wheels feed} & Kvistning av träd \\
+\textbf{Delimbers} & Kvistknivar \\
+\textbf{Saw} & Sågning \\
+\textbf{Tilt} & Luta skördaraggregatet / fäll trädet  \\
+\textbf{Rotator} & Vrid på skördaraggretatet \\
+\end{tabular}
+
+\chapter{System}\label{ch:system}
+
+Systemmenyn är organiserad på samma sätt som inställningsmenyn. ''OK``-knappen sparar inställningarna och ''Cancel``-knappen återkallar ändringarna som gjorts.
+
+\section{Inställningar}\label{ch:system_settings}
+
+Systeminställningarna påverkar hela maskinens funktionalitet och inställningarna är samma för alla användare.
+
+\fig{img/system_settings_1}{Systeminställningarna 1/2}{system_settings_1}
+
+\fig{img/system_settings_2}{Systeminställningarna 2/2}{system_settings_2}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Engine power usage} & Ställ in hur mycket effekt maskinen tar av motorn. Om värdet är för litet, fungerar maskinen på halveffekt. Om värdet är för stort, ansträngs motorn, vilket orsakar att den börjar ge svart rök och kan till och med slockna mitt i arbetet. \\
+\textbf{Joystick Calibration} & Kalibrering av styrhandtag. När du har tryckt på knappen ska du vrida om styrhandtagen så att de går igenom alla sina axlars max- och minimivärden. Slutför kalibreringen genom att trycka på knappen igen. Styrhandtagen bör kalibreras med några hundra timmars mellanrum.  \\
+\textbf{Date and time} & Ställer in tid och datum. \\
+\end{tabular}
+
+
+
+\warning{Varning}{En felaktig kalibrering av styrhandtagen försämrar användbarheten av maskinen. Det är dock onödigt att göra en extra kalibrering av styrhandtagen.}
+
+\warning{Varning}{Om maskinen glömmer tid och datum varje gång batteriet avlägsnas, har skärmens 2032-knappcell blivit tom.}
+
+\section{Diagnostik}\label{ch:system_diagnostics}
+
+Diagnostikskärmens syfte är att utreda felsituationer i anslutning till styrsystemet. Den visar all rådata som går igenom styrsystemet. Styrsystemet omfattar följande manöverdon:
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{ESB} & Motordon \\
+\textbf{CSB} & Takdon \\
+\textbf{FSB} & Främre konsoldon \\
+\textbf{Left Keypad} & Vänster styrhandtag och tangentbord \\
+\textbf{Right Keypad} & Höger styrhandtag och tangentbord \\
+\textbf{Pedal} & Körpedal \\
+\textbf{HCU} & Styrdon för huvudventil \\
+\textbf{CCU} & Styrdon för sidoventil \\
+\textbf{ICU} & Styrdon för UW180s-skördaraggregat  \\
+\end{tabular}
+
+
+
+\fig{img/system_diagnostics}{Diagnostikskärmen}{system_diagnostics}
+
+Även om en del av data som visas på skärmen är nyttigt bara för att lösa felsituationer, kan en del av det användas till nytta även om maskinen inte har något större fel.
+
+\FloatBarrier
+\subsection{ESB Diagnostik}\label{ch:system_diagnostics_msb}
+
+\fig{img/system_diagnostics_msb}{ESB Diagnostik}{system_diagnostics_msb}
+
+''ESB`` underhåller största delen av informationen i informationspanelen. Den berättar om bl.a. motorns temperatur och varvtal samt om mängden av hydraulolja.
+
+\FloatBarrier
+\subsection{HCU Diagnostik}\label{ch:system_diagnostics_ecu}
+
+\fig{img/system_diagnostics_ecu}{HCU Diagnostik}{system_diagnostics_ecu}
+
+''HCU`` ansvarar för att styra maskinens huvudventil. Med den och ''CCU`` kan man se all styrström som för tillfället går till varje enskilda ventil.
+
+
+
+\section{Återställ fabriksinställningar}\label{ch:system_restore}
+
+''System Restore`` återställer fabriksinställningarna i hela styrsystemet.
+
+\fig{img/system_restore}{Återställ fabriksinställningar}{system_restore}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Restore System Defaults} & Tryck på knappen så länge att en timer dyker upp på skärmen. När den har räknat ner från 10 till 0, återställs fabriksinställningarna. Att återställa fabriksinställningarna raderar inställningarna för alla sparade användare.  \\
+\end{tabular}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
