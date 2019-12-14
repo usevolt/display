@@ -83,7 +83,7 @@ void show_general_callb(uv_uitreeobject_st *obj) {
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0,
 			uv_uitreeobject_get_content_bb(&this->generalobj).width,
-			uv_uitreeobject_get_content_bb(&this->generalobj).height, 2, 1);
+			uv_uitreeobject_get_content_bb(&this->generalobj).height, 3, 1);
 	uv_uigridlayout_set_padding(&grid, 5, 10);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
@@ -112,6 +112,12 @@ void show_general_callb(uv_uitreeobject_st *obj) {
 			uv_str(STR_SETTINGS_GENERAL_SLIDERENGINEPOWER));
 	uv_uitreeobject_add(&this->generalobj,
 			&this->general.power_usage, bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uitogglebutton_init(&this->general.radiator_enable, dspl.radiator_enabled,
+			"Radiator enabled", &uv_uistyles[0]);
+	uv_uitreeobject_add(&this->generalobj, &this->general.radiator_enable,
+			bb.x, bb.y, bb.width - 10, bb.height);
 }
 
 
@@ -336,6 +342,15 @@ uv_uiobject_ret_e settings_general_step(const uint16_t step_ms) {
 		uv_canopen_sdo_write(ESB_NODE_ID, ESB_ENGINE_POWER_USAGE_INDEX,
 				ESB_ENGINE_POWER_USAGE_SUBINDEX, CANOPEN_TYPE_LEN(ESB_ENGINE_POWER_USAGE_TYPE),
 				&dspl.user->engine_power_usage);
+	}
+
+	// radiator enable
+	if (uv_uitogglebutton_clicked(&this->general.radiator_enable)) {
+		uint8_t val = uv_uitogglebutton_get_state(&this->general.radiator_enable);
+		uv_canopen_sdo_write(ESB_NODE_ID, ESB_RADIATOR_ENABLED_INDEX,
+				ESB_RADIATOR_ENABLED__SUBINDEX, 1, &val);
+		uv_uitogglebutton_set_text(&this->general.radiator_enable, val ?
+				"Radiator enabled" : "Radiator disabled");
 	}
 
 

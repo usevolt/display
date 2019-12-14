@@ -60,6 +60,7 @@ typedef struct _dspl_st {
 	uint32_t hour_counter;
 	uint16_t min_counter;
 	uint8_t last_min;
+	uint8_t radiator_enabled;
 
 	int canopen_heartbeat;
 
