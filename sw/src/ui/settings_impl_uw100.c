@@ -23,9 +23,18 @@ static void show_sliders(uw100_states_e state, char *label) {
 
 	this->state = state;
 	valve_st *v;
-	if (state == UW100_STATE_ROTATOR) { v = &dspl.user->uw100.rotator; }
-	else if (state == UW100_STATE_OPEN) { v = &dspl.user->uw100.open; }
-	else { v = NULL; }
+	if (state == UW100_STATE_ROTATOR) {
+		v = &dspl.user->uw100.rotator;
+	}
+	else if (state == UW100_STATE_OPEN) {
+		v = &dspl.user->uw100.open;
+	}
+	else if (state == UW100_STATE_IMPL2) {
+		v = &dspl.user->uw100.impl2;
+	}
+	else {
+		v = NULL;
+	}
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, BACK_Y, uv_uibb(this->window)->width,
@@ -35,15 +44,20 @@ static void show_sliders(uw100_states_e state, char *label) {
 
 	uv_uibutton_init(&this->back, uv_str(STR_BACK), &uv_uistyles[0]);
 	uv_uiwindow_add(this->window, &this->back, bb.x, bb.y, bb.width, BACK_H);
-	bb = uv_uigridlayout_next(&grid);
 
+	bb = uv_uigridlayout_next(&grid);
 	uv_uilabel_init(&this->label, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF), C(0xFFFFFFFF), label);
 	uv_uiwindow_add(this->window, &this->label, bb.x, bb.y, bb.width, BACK_H);
-	uv_uigridlayout_next(&grid);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uitogglebutton_init(&this->invert, v->invert,
+			uv_str(STR_SETTINGS_UW100_BUTTONINVERT), &uv_uistyles[0]);
+	uv_uiwindow_add(this->window, &this->invert, bb.x, bb.y + bb.height / 5,
+			bb.width, bb.height / 2);
 
 	uv_uigridlayout_init(&grid, 0, uv_uibb(&this->back)->y + uv_uibb(&this->back)->height,
 			uv_uibb(this->window)->width,
-			uv_uibb(this->window)->height - uv_uibb(&this->back)->y - uv_uibb(&this->back)->height, 5, 1);
+			uv_uibb(this->window)->height - uv_uibb(&this->back)->y - uv_uibb(&this->back)->height, 6, 1);
 	uv_uigridlayout_set_padding(&grid, 20, 20);
 
 	bb = uv_uigridlayout_next(&grid);
@@ -63,6 +77,22 @@ static void show_sliders(uw100_states_e state, char *label) {
 	uv_uiwindow_add(this->window, &this->max_speed_n, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->min_speed_p, 0, VALVE_MAX_CURRENT_MA / 2,
+			v->min_speed_n, &uv_uistyles[0]);
+	uv_uislider_set_inc_step(&this->min_speed_p, 10);
+	uv_uislider_set_vertical(&this->min_speed_p);
+	uv_uislider_set_title(&this->min_speed_p, uv_str(STR_SETTINGS_UW100_SLIDERFORMINSPEED));
+	uv_uiwindow_add(this->window, &this->min_speed_p, bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->min_speed_n, 0, VALVE_MAX_CURRENT_MA / 2,
+			v->min_speed_n, &uv_uistyles[0]);
+	uv_uislider_set_inc_step(&this->min_speed_n, 10);
+	uv_uislider_set_vertical(&this->min_speed_n);
+	uv_uislider_set_title(&this->min_speed_n, uv_str(STR_SETTINGS_UW100_SLIDERBACKMINSPEED));
+	uv_uiwindow_add(this->window, &this->min_speed_n, bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->acc, VALVE_ACC_MIN, 100, v->acc, &uv_uistyles[0]);
 	uv_uislider_set_vertical(&this->acc);
 	uv_uislider_set_title(&this->acc, uv_str(STR_SETTINGS_UW100_SLIDERACC));
@@ -74,11 +104,6 @@ static void show_sliders(uw100_states_e state, char *label) {
 	uv_uislider_set_title(&this->dec, uv_str(STR_SETTINGS_UW100_SLIDERDEC));
 	uv_uiwindow_add(this->window, &this->dec, bb.x, bb.y, bb.width, bb.height);
 
-	bb = uv_uigridlayout_next(&grid);
-	uv_uitogglebutton_init(&this->invert, v->invert,
-			uv_str(STR_SETTINGS_UW100_BUTTONINVERT), &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->invert, bb.x, bb.y + bb.height / 5,
-			bb.width, bb.height / 2);
 }
 
 void settings_impl_uw100_show(void) {
@@ -155,6 +180,14 @@ uv_uiobject_ret_e settings_impl_uw100_step(uint16_t step_ms) {
 		}
 		else if (uv_uislider_value_changed(&this->max_speed_n)) {
 			v->max_speed_n = uv_uislider_get_value(&this->max_speed_n);
+			v->setter(v);
+		}
+		else if (uv_uislider_value_changed(&this->min_speed_n)) {
+			v->min_speed_n = uv_uislider_get_value(&this->min_speed_n);
+			v->setter(v);
+		}
+		else if (uv_uislider_value_changed(&this->min_speed_p)) {
+			v->min_speed_p = uv_uislider_get_value(&this->min_speed_p);
 			v->setter(v);
 		}
 		else if (uv_uislider_value_changed(&this->acc)) {

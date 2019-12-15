@@ -37,6 +37,8 @@ typedef struct {
 		struct {
 			uv_uislider_st max_speed_p;
 			uv_uislider_st max_speed_n;
+			uv_uislider_st min_speed_p;
+			uv_uislider_st min_speed_n;
 			uv_uislider_st acc;
 			uv_uislider_st dec;
 			uv_uitogglebutton_st invert;

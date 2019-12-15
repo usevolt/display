@@ -350,6 +350,16 @@ static langstr_st strs[STR_COUNT] = {
 				"Max hastighet\nbakat (mA)"
 		},
 		{
+				"Forward\nMin Speed (mA)",
+				"Min Nopeus\nEteen (mA)",
+				"Min hastighet\nframat (mA)"
+		},
+		{
+				"Backward\nMin Speed (mA)",
+				"Min Nopeus\nTaakse (mA)",
+				"Min hastighet\nbakat (mA)"
+		},
+		{
 				"Acceleration\n(%)",
 				"Kiihtyvyys\n(%)",
 				"Acceleration\n(%)"

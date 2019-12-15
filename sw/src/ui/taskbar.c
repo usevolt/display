@@ -336,6 +336,8 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 		}
 
 		if (ret != UIOBJECT_RETURN_KILLED) {
+			uv_uidigit_set_value(&this->hours, dspl.hour_counter);
+
 			if (uv_delay(step_ms, &this->engine_delay)) {
 				uv_delay_init(ENGINE_LIGHT_DELAY_MS, &this->engine_delay);
 				if (fsb_get_ignkey_state(&dspl.network.fsb) == FSB_IGNKEY_STATE_OFF) {
