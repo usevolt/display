@@ -80,6 +80,8 @@ typedef struct {
 	bool vol_enabled;
 	int16_t len_calib;
 	int16_t vol_calib;
+	uint16_t max_width_mm;
+	uint16_t min_width_mm;
 	int16_t log_len1;
 	int16_t log_len2;
 	uint16_t roller_grab_time;

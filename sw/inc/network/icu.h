@@ -74,14 +74,12 @@ void icu_set_feedopen_params(valve_st *valve);
 
 void icu_set_allopen_params(valve_st *valve);
 
-/// @brief: Sets the width calibration sequence either on or off
-void icu_set_width_calib(uint8_t value);
-
-/// @brief: Sets a single tree diameter when the width calibration is on
-void icu_set_width_calib_diam(uint16_t value_mm);
-
 void icu_width_calib_max(void);
 
 void icu_width_calib_min(void);
+
+void icu_set_width_calib_max_mm(uint16_t value_mm);
+
+void icu_set_width_calib_min_mm(uint16_t value_mm);
 
 #endif /* NETWORK_ICU_H_ */

@@ -66,7 +66,7 @@ void network_save_params(network_st *this) {
 			CANOPEN_TYPE_LEN(CANOPEN_UNSIGNED32),
 			"save");
 
-	uv_canopen_sdo_write(CSB_NODE_ID, CONFIG_CANOPEN_STORE_PARAMS_INDEX, 1,
+	uv_canopen_sdo_write(ICU_NODE_ID, CONFIG_CANOPEN_STORE_PARAMS_INDEX, 1,
 			CANOPEN_TYPE_LEN(CANOPEN_UNSIGNED32),
 			"save");
 
@@ -80,7 +80,7 @@ void network_save_params(network_st *this) {
 			CANOPEN_TYPE_LEN(CANOPEN_UNSIGNED32),
 			"save");
 
-	uv_canopen_sdo_write(ICU_NODE_ID, CONFIG_CANOPEN_STORE_PARAMS_INDEX, 1,
+	uv_canopen_sdo_write(CSB_NODE_ID, CONFIG_CANOPEN_STORE_PARAMS_INDEX, 1,
 			CANOPEN_TYPE_LEN(CANOPEN_UNSIGNED32),
 			"save");
 }

@@ -176,7 +176,9 @@ const uw180s_st uw180s = {
 		.roller_grab_time = 400,
 		.blades_grab_time = 60,
 		.tiltfloat_enable = 1,
-		.tilt_onthumb = 0
+		.tilt_onthumb = 0,
+		.max_width_mm = 250,
+		.min_width_mm = 40
 };
 
 

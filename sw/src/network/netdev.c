@@ -61,7 +61,8 @@ void netdev_set_transmit_failure(void *me) {
 
 
 void netdev_receive_heartbeat(void *me, uv_can_message_st *msg) {
-	if (msg->type == CAN_STD && (msg->id & 0xFF) == this->node_id) {
+	if (msg->type == CAN_STD && (msg->id & 0xFF) == this->node_id &&
+			msg->data_8bit[0] == CANOPEN_OPERATIONAL) {
 		if (!this->connected) {
 			this->connected = true;
 			this->notified = false;

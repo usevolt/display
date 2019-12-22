@@ -55,12 +55,10 @@ typedef struct {
 			uv_uibutton_st calib;
 		} mb;
 		struct {
-			uint16_t diam_count;
-			char calib_data_str[UW180S_CALIB_DATA_STR_LEN];
-			uv_uilabel_st calib_data;
-			uv_uibutton_st add_diam;
-			uv_uitogglebutton_st start_calib;
-			uv_uibutton_st clear_diam;
+			uv_uibutton_st calibmax_button;
+			uv_uibutton_st calibmin_button;
+			uv_uislider_st	maxmm_slider;
+			uv_uislider_st minmm_slider;
 		} width_calib;
 		struct {
 			uv_uibutton_st general;
