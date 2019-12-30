@@ -56,6 +56,7 @@ void dspl_init(dspl_st *me) {
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + RKEYPAD_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + CCU_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + ICU_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_SDO_RESPONSE_ID + TCU_NODE_ID, CAN_STD);
 
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + HCU_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + CSB_NODE_ID, CAN_STD);
@@ -65,6 +66,7 @@ void dspl_init(dspl_st *me) {
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + RKEYPAD_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + CCU_NODE_ID, CAN_STD);
 	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + ICU_NODE_ID, CAN_STD);
+	uv_can_config_rx_message(CONFIG_CANOPEN_CHANNEL, CANOPEN_EMCY_ID + TCU_NODE_ID, CAN_STD);
 #endif
 
 	// the first thing to do: if display is pressed for 10 s, restore system defaults
@@ -172,7 +174,7 @@ void dspl_init(dspl_st *me) {
 	// the display lives it's own life. It is allowed to boot itself up into operational mode
 	uv_canopen_set_state(CANOPEN_OPERATIONAL);
 
-//	printf("asd\n");
+	printf("asd\n");
 
 }
 

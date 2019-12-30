@@ -34,6 +34,7 @@ void network_init(network_st *this) {
 	ccu_init(&this->ccu);
 	pedal_init(&this->pedal);
 	icu_init(&this->icu);
+	tcu_init(&this->tcu);
 }
 
 
@@ -102,6 +103,7 @@ static void network_task(void *me) {
 		keypad_step(&this->l_keypad, step_ms);
 		keypad_step(&this->r_keypad, step_ms);
 		icu_step(&this->icu, step_ms);
+		tcu_step(&this->tcu, step_ms);
 
 		if(this->updating && !this->update_disabled) {
 			this->updating = false;
@@ -131,6 +133,9 @@ static void network_task(void *me) {
 			uv_rtos_task_delay(update_step_ms);
 
 			keypad_update(&this->r_keypad);
+			uv_rtos_task_delay(update_step_ms);
+
+			tcu_update(&this->tcu);
 			uv_rtos_task_delay(update_step_ms);
 
 			// since valve settings are shared across the devices,

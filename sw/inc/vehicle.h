@@ -53,7 +53,7 @@
 #define UW180S_MB_VOL_CALIB_MAX		100
 
 
-#define BASE_VALVE_COUNT			13
+#define BASE_VALVE_COUNT			15
 
 
 /// @brief: Structure defining the vehicle's base

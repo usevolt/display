@@ -19,6 +19,7 @@
 #include "hcu.h"
 #include "ccu.h"
 #include "icu.h"
+#include "tcu.h"
 /// @file: Provides the interface for communicating to the CAN network.
 
 
@@ -35,6 +36,7 @@ typedef struct {
 	ccu_st ccu;
 	pedal_st pedal;
 	icu_st icu;
+	tcu_st tcu;
 
 	/// @brief: moving average filter for can state. 0 = error, non-zero = no errors
 	uv_moving_aver_st can_state;

@@ -593,6 +593,16 @@ static langstr_st strs[STR_COUNT] = {
 				"Hytten rotera"
 		},
 		{
+				"Trailer drive",
+				"Karry ajo",
+				"Trailer koring"
+		},
+		{
+				"Trailer telescope",
+				"Karry teleskooppi",
+				"Trailer teleskop"
+		},
+		{
 				"RPM",
 				"RPM",
 				"RPM"

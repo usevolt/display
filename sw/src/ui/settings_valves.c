@@ -57,7 +57,12 @@ void settings_valves_show() {
 			(dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREEGEAR3 &&
 					ccu_assembly[CCU_ASSEMBLY_INSTALLED_GEARS_INDEX - 1] < 3) ||
 			(dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREESTEERBACK &&
-					!ccu_assembly[CCU_ASSEMBLY_BACKSTEER_INDEX - 1])) {
+					!ccu_assembly[CCU_ASSEMBLY_BACKSTEER_INDEX - 1]) ||
+			(dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREETCUDRIVE &&
+					!netdev_get_connected(&dspl.network.tcu)) ||
+			(dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREETCUTELESCOPE &&
+					!netdev_get_connected(&dspl.network.tcu))
+			) {
 			// jump over valves which depend on the assembly settings
 			continue;
 		}
