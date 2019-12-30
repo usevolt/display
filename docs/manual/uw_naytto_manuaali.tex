@@ -222,21 +222,49 @@ Työlaiteasetukset määrittävät valitun työlaitteen asetukset. Työlaitteen 
 \fig{img/settings_uw180s}{Työlaitteen asetukset}{settings_implement}
 
 \begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{General} & UW180s hakkuukouran yleiset asetukset. \\
 \textbf{Log Measurement} & Pöllin mittausasetukset ja mittalaitteen kalibrointiasetukset\\
 \textbf{Valve Configurations} & UW180s Venttiiliasetukset 
 \end{tabular}
 
 \FloatBarrier
-\subsection{UW180s mittalaiteasetukset}\label{ch:settings_uw180s_meas}
+\subsection{UW180s yleiset asetukset}\label{ch:settings_uw180s_meas}
+
+\fig{img/settings_uw180s_general}{UW180s measurement settings screen}{settings_uw180s_general}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Back} & Palaa takaisin UW180s asetukset -näyttöön. \\
+\textbf{Rollers grab time} & Määrittelee puristusvoiman, millä UW180s puristaa puura vetorullilla sitä karsiessa. Mitä suurempi lukema, sitä kovempi puun puristus. \\
+\textbf{Blades grab time} & Määrittelee puristusvoiman, millä UW180s puristaa puuta vetorullilla sitä karsiessa. Mitä suurempi lukema, sitä kovempi puun puristus. \\
+\textbf{Tilt float enable} & Jos UW180s on varustettu tiltin kelluntaventtiilillä, tämä painike kytkee tiltin kellumaan sen jälkeen, kun puu on kaadettu sahaa käyttämällä. Tiltin kellunta kytketään pois käyttämällä tilttiä manuaalisesti. \\
+\textbf{Tilt on left thumb} & Jos tämä painike on valittuna, tilttiä hallitaan vasemman ohjauskahvan peukalon keinukytkimellä. Jos painike ei ole valittuna, tilttiä hallitaan vasemman näppäimistön näppäimillä. \\
+\end{tabular}
+
+\FloatBarrier
+\subsection{UW180s mittalaitteen asetukset}\label{ch:settings_uw180s_meas}
 
 \fig{img/settings_uw180s_meas}{UW180s measurement settings screen}{settings_uw180s_meas}
 
 \begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
-\textbf{Back} & Palaa takaisin UW180s asetuksiin. \\
-\textbf{Log length 1} & Ensimmäinen pöllin pituus millimetreissä. \\
-\textbf{Log length 2} & Toinen pöllin pituus millimetreissä. \\
-\textbf{Length Calibration} & Kalibrointiarvo pituusmitalle. Mitä suurempi arvo tähän laitetaan, sitä lyhyempiä pöllejä kone tekee. \\
-\textbf{Volume Calibration} & Tilavuuden laskennan korjauskerroin. \\
+\textbf{Back} & Palaa takaisin UW180s asetukset -näyttöön. \\
+\textbf{Log length 1} & Ensimmäinen valittu pöllin tavoitepituus millimetreissä. \\
+\textbf{Log length 2} & Toinen pöllin tavoitepituus millimetreissä. \\
+\textbf{Length Calibration} & Kalibroi pituusmittalaitteen. Arvo määrittelee, kuinka pitkänä mittalaite laskee jokaisen mitta-anturin pulssin. Arvoa kasvattamalla pöllin pituus lyhenee. \\
+\textbf{Width Calibration} & Avaa paksuuden ja tilavuuden kalibroimisnäytön. \\
+\textbf{Reset Volume} & Resetoi lasketun tilavuuden nollaksi. \\
+\end{tabular}
+
+\FloatBarrier
+\subsection{UW180s paksuuden kalibrointiasetukset}\label{ch:settings_uw180s_width}
+
+\fig{img/settings_uw180s_meas_width}{UW180s width settings screen}{settings_uw180s_width}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Back} & Palaa takaisin UW180s asetukset -näyttöön. \\
+\textbf{Calibrate MIN angles} & Kalibroi UW180s hakkuuukouran rullien suljetun asennon. Rullat tulee olla täysin suljettuna kun tätä painiketta painetaan. \\
+\textbf{Calibrate MAX angles} & Kalibroi UW180s hakkuukouran rullien avatun asennon. Rullat tulee olla täysin avattuna kun tätä painiketta painetaan. \\
+\textbf{Min diam} & Asettaa puun halkaisijan millimetreissä kun rullat ovat täysin suljetut. \\
+\textbf{Max diam} & Asettaa puun halkaisijan millimetreissä kun rullat ovat täysin avatut. \\
 \end{tabular}
 
 \FloatBarrier

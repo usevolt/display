@@ -348,10 +348,7 @@ void screenshot_callb(void *me, unsigned int cmd, unsigned int args, argument_st
 			CONFIG_LCD_LINES_PER_PANEL *
 			sizeof(LCD_PIXEL_TYPE);
 
-	for (uint32_t i = 0; i < len; i++) {
-		uint8_t *l = (uint8_t*) lcd;
-		printf("%x", l[i]);
-	}
+	printf("display buffer address: 0x%x, len: 0x%x\n", (unsigned int) lcd, len);
 
 }
 

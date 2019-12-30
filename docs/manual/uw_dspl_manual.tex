@@ -22,7 +22,6 @@
 \end{center}
 \vspace{1cm}
 \begin{center}
-\includegraphics[width=8cm]{img/Usevolt.png}   % Bilingual logo
 \end{center}
 
 
@@ -224,8 +223,22 @@ Implement settings are used to configure the settings in the currently selected 
 \fig{img/settings_uw180s}{Implement settings screen}{settings_implement}
 
 \begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{General} & UW180s general settings define miscellaneous settings that affect the overall performance of the UW180s harvester head. \\
 \textbf{Log Measurement} & UW180s measurement device settings are used to enabled of disable the measuring system as well as calibrating it. \\
 \textbf{Valve Configurations} & UW180s hydraulic valve configurations. Similar to base machine valve configurations in \autoref{ch:settings_valves}. \\
+\end{tabular}
+
+\FloatBarrier
+\subsection{UW180s general settings}\label{ch:settings_uw180s_meas}
+
+\fig{img/settings_uw180s_general}{UW180s measurement settings screen}{settings_uw180s_general}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Back} & Returns back to UW180s Implement settings screen \\
+\textbf{Rollers grab time} & Specifies the amount of closing force that UW180s holds the tree with rollers while feeding. Higher value results in stronger grab of the tree. \\
+\textbf{Blades grab time} & Specifies the amount of closing force that UW180s holds the tree with blades while feeding. Higher value results in stronger grab of the tree. \\
+\textbf{Tilt float enable} & If the UW180s is assemblied with a tilt floating valve, enabling this button will enable the tilt float feature after using the saw to fell a tree. The float is disabled by manually using the tilt. \\
+\textbf{Tilt on left thumb} & If this button is enabled, the left thumb joystick rocker switch is used to manually control the tilt. When this button is disabled, tilt is controlled with left keypad buttons. \\
 \end{tabular}
 
 \FloatBarrier
@@ -238,8 +251,22 @@ Implement settings are used to configure the settings in the currently selected 
 \textbf{Enabled} & When selected (button is green), the measuring device is enabled. \\
 \textbf{Log length 1} & The 1st log target length in millimeters. \\
 \textbf{Log length 2} & The 2nd log target length in millimeters. \\
-\textbf{Length Calibration} & Calibrates the length measurement. The value indicates how logn distance the log travels on each length measurement sensor's pulse. Increasing the calibration value decreases the actual length of the logs. \\
-\textbf{Volume Calibration} & Calibrates the volume calculation. Works as a after-scaler in the volume calculation. Increasing the calibration value causes the calculated volume to increase as well. \\
+\textbf{Length Calibration} & Calibrates the length measurement. The value indicates how long distance the log travels on each length measurement sensor's pulse. Increasing the calibration value decreases the actual length of the logs. \\
+\textbf{Width Calibration} & Shows the width and volume calibration window. \\
+\textbf{Reset Volume} & Resets the calculated volume to 0. \\
+\end{tabular}
+
+\FloatBarrier
+\subsection{UW180s width calibration settings}\label{ch:settings_uw180s_width}
+
+\fig{img/settings_uw180s_meas_width}{UW180s width settings screen}{settings_uw180s_width}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Back} & Returns back to UW180s Implement settings screen \\
+\textbf{Calibrate MIN angles} & Calibrates the closed-state of the UW180s rollers. The rollers should be closed to their minimum position before clicking this button. \\
+\textbf{Calibrate MAX angles} & Calibrates the open-state of the UW180s rollers. The rollers should be opened to their maximum position before clicking this button. \\
+\textbf{Min diam} & Sets the diameter of the tree in millimeters when the UW180s rollers are fully closed. \\
+\textbf{Max diam} & Sets the diameter of the tree in millimeters when the UW180s rollers are fully opened. \\
 \end{tabular}
 
 \FloatBarrier

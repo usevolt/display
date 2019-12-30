@@ -2,8 +2,8 @@ This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**uw_dspl_manual.tex
-(./uw_dspl_manual.tex
+**uw_naytto_manuaali.tex
+(./uw_naytto_manuaali.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 3 language(s) loaded.
 (./uvmanual.cls
@@ -597,13 +597,13 @@ l.44 \msg_fatal:nn {fontspec} {cannot-use-pdftex}
 
  ) ) ) 
 Here is how much of TeX's memory you used:
- 16525 strings out of 494923
- 293466 string characters out of 6180741
- 365900 words of memory out of 5000000
- 19752 multiletter control sequences out of 15000+600000
+ 16527 strings out of 494923
+ 293492 string characters out of 6180741
+ 366000 words of memory out of 5000000
+ 19753 multiletter control sequences out of 15000+600000
  531334 words of font info for 24 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 51i,1n,45p,10429b,275s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 51i,1n,45p,10433b,275s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 No pages of output.
 PDF statistics:
