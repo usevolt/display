@@ -53,6 +53,7 @@ void network_receive_message(network_st *this, uv_can_message_st *msg) {
 			netdev_receive_heartbeat(&this->hcu, msg);
 			netdev_receive_heartbeat(&this->ccu, msg);
 			netdev_receive_heartbeat(&this->icu, msg);
+			netdev_receive_heartbeat(&this->tcu, msg);
 		}
 	}
 }
@@ -84,6 +85,13 @@ void network_save_params(network_st *this) {
 	uv_canopen_sdo_write(CSB_NODE_ID, CONFIG_CANOPEN_STORE_PARAMS_INDEX, 1,
 			CANOPEN_TYPE_LEN(CANOPEN_UNSIGNED32),
 			"save");
+
+	uv_rtos_task_delay(10);
+
+	uv_canopen_sdo_write(TCU_NODE_ID, CONFIG_CANOPEN_STORE_PARAMS_INDEX, 1,
+			CANOPEN_TYPE_LEN(CANOPEN_UNSIGNED32),
+			"save");
+
 }
 
 

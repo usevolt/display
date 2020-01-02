@@ -35,6 +35,8 @@ typedef struct {
 			uv_uitogglebutton_st drive_lights;
 			uv_uitogglebutton_st work_lights;
 			uv_uislider_st power_usage;
+			uv_uibutton_st tcutelpos_button;
+			uv_uibutton_st tcutelneg_button;
 		} general;
 		struct {
 			uv_uislider_st brightness;

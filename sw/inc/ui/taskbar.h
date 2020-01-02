@@ -37,6 +37,8 @@ typedef struct {
 			uv_uidigit_st hours;
 			uv_uilabel_st hours_label;
 
+			uv_uiwindow_st engine_window;
+			uv_uiobject_st *engine_buffer[4];
 			uv_uilabel_st engine_water;
 			uv_uilabel_st engine_oil_press;
 			uv_uilabel_st engine_alt;

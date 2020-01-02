@@ -174,7 +174,7 @@ void dspl_init(dspl_st *me) {
 	// the display lives it's own life. It is allowed to boot itself up into operational mode
 	uv_canopen_set_state(CANOPEN_OPERATIONAL);
 
-	printf("asd\n");
+//	printf("asd\n");
 
 }
 

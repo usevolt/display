@@ -83,8 +83,8 @@ void show_general_callb(uv_uitreeobject_st *obj) {
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0,
 			uv_uitreeobject_get_content_bb(&this->generalobj).width,
-			uv_uitreeobject_get_content_bb(&this->generalobj).height, 2, 1);
-	uv_uigridlayout_set_padding(&grid, 5, 10);
+			uv_uitreeobject_get_content_bb(&this->generalobj).height, 4, 1);
+	uv_uigridlayout_set_padding(&grid, 10, 10);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
 	// drive lights
@@ -93,7 +93,7 @@ void show_general_callb(uv_uitreeobject_st *obj) {
 	uv_uitogglebutton_init(&this->general.drive_lights, (state == OUTPUT_STATE_ON),
 			uv_str(STR_SETTINGS_GENERAL_BUTTONDRIVELIGHT), &uv_uistyles[0]);
 	uv_uitreeobject_add(&this->generalobj, &this->general.drive_lights, bb.x, bb.y,
-			bb.width, bb.height / 2 - 5);
+			bb.width * 2, bb.height / 2 - 5);
 
 	// work lights
 	state = uv_canopen_sdo_read8(CSB_NODE_ID,
@@ -102,8 +102,9 @@ void show_general_callb(uv_uitreeobject_st *obj) {
 			uv_str(STR_SETTINGS_GENERAL_BUTTONWORKLIGHT), &uv_uistyles[0]);
 	uv_uitreeobject_add(&this->generalobj,
 			&this->general.work_lights, bb.x, bb.y + bb.height / 2 + 5,
-			bb.width, bb.height / 2 - 5);
+			bb.width * 2, bb.height / 2 - 5);
 
+	bb = uv_uigridlayout_next(&grid);
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->general.power_usage,
 			0, 100, dspl.user->engine_power_usage, &uv_uistyles[0]);
@@ -112,6 +113,22 @@ void show_general_callb(uv_uitreeobject_st *obj) {
 			uv_str(STR_SETTINGS_GENERAL_SLIDERENGINEPOWER));
 	uv_uitreeobject_add(&this->generalobj,
 			&this->general.power_usage, bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uibutton_init(&this->general.tcutelpos_button,
+			uv_str(STR_SETTINGS_GENERAL_TCUTELPOS), &uv_uistyles[0]);
+	uv_uitreeobject_add(&this->generalobj, &this->general.tcutelpos_button,
+			bb.x, bb.y, bb.width, bb.height / 2);
+	if (!netdev_get_connected(&dspl.network.tcu)) {
+		uv_ui_hide(&this->general.tcutelpos_button);
+	}
+	uv_uibutton_init(&this->general.tcutelneg_button,
+			uv_str(STR_SETTINGS_GENERAL_TCUTELNEG), &uv_uistyles[0]);
+	uv_uitreeobject_add(&this->generalobj, &this->general.tcutelneg_button,
+			bb.x, bb.y + bb.height / 2 + grid.vpadding, bb.width, bb.height / 2);
+	if (!netdev_get_connected(&dspl.network.tcu)) {
+		uv_ui_hide(&this->general.tcutelpos_button);
+	}
 }
 
 
@@ -320,22 +337,36 @@ uv_uiobject_ret_e settings_general_step(const uint16_t step_ms) {
 				CSB_DRIVE_LIGHT_STATUS_SUBINDEX,
 				CANOPEN_TYPE_LEN(CSB_DRIVE_LIGHT_STATUS_TYPE), &state);
 	}
-
 	// work lights
-	if (uv_uitogglebutton_clicked(&this->general.work_lights)) {
+	else if (uv_uitogglebutton_clicked(&this->general.work_lights)) {
 		uv_output_state_e state = (uv_uitogglebutton_get_state(&this->general.work_lights)) ?
 				OUTPUT_STATE_ON : OUTPUT_STATE_OFF;
 		uv_canopen_sdo_write(CSB_NODE_ID, CSB_WORK_LIGHT_STATUS_INDEX,
 				CSB_WORK_LIGHT_STATUS_SUBINDEX,
 				CANOPEN_TYPE_LEN(CSB_WORK_LIGHT_STATUS_TYPE), &state);
 	}
-
 	// power usage
-	if (uv_uislider_value_changed(&this->general.power_usage)) {
+	else if (uv_uislider_value_changed(&this->general.power_usage)) {
 		dspl.user->engine_power_usage = uv_uislider_get_value(&this->general.power_usage);
 		uv_canopen_sdo_write(ESB_NODE_ID, ESB_ENGINE_POWER_USAGE_INDEX,
 				ESB_ENGINE_POWER_USAGE_SUBINDEX, CANOPEN_TYPE_LEN(ESB_ENGINE_POWER_USAGE_TYPE),
 				&dspl.user->engine_power_usage);
+	}
+	else if (uv_uibutton_is_down(&this->general.tcutelpos_button)) {
+		uv_canopen_sdo_write8(TCU_NODE_ID, TCU_TELESCOPE_REQ_INDEX,
+				TCU_TELESCOPE_REQ_SUBINDEX, INT8_MAX);
+	}
+	else if (uv_uibutton_is_down(&this->general.tcutelneg_button)) {
+		uv_canopen_sdo_write8(TCU_NODE_ID, TCU_TELESCOPE_REQ_INDEX,
+				TCU_TELESCOPE_REQ_SUBINDEX, INT8_MIN + 1);
+	}
+	else if (uv_uibutton_clicked(&this->general.tcutelpos_button) ||
+			uv_uibutton_clicked(&this->general.tcutelneg_button)) {
+		uv_canopen_sdo_write8(TCU_NODE_ID, TCU_TELESCOPE_REQ_INDEX,
+				TCU_TELESCOPE_REQ_SUBINDEX, 0);
+	}
+	else {
+
 	}
 
 
