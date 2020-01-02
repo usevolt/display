@@ -251,16 +251,6 @@ static langstr_st strs[STR_COUNT] = {
 				"Motoreffekt (%)"
 		},
 		{
-				"Trailer\ntelescope out",
-				"Karry\nteleskooppi ulos",
-				"Trailer\ntelskop ut"
-		},
-		{
-				"Trailer\ntelescope in",
-				"Karry\nteleskooppi sisaan",
-				"Trailer\ntelskop in"
-		},
-		{
 				"Screen Brightness",
 				"Nayton kirkkaus",
 				"Displayens ljusstyrka"
