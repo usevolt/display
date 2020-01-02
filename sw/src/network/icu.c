@@ -42,24 +42,20 @@ void icu_step(icu_st *this, unsigned int step_ms) {
 
 
 void icu_update(void *me) {
-	if (dspl.network.icu.super.connected) {
-		// valve settings are updated in network.c if UW180S is selected
-		icu_set_len_calib(&dspl.network.icu, dspl.user->uw180s.len_calib);
-		icu_set_target_len_um(&dspl.network.icu, dspl.user->uw180s.log_len1);
-		icu_set_width_calib_max_mm(dspl.user->uw180s.max_width_mm);
-		icu_set_width_calib_min_mm(dspl.user->uw180s.min_width_mm);
-		uv_rtos_task_delay(10);
-		dspl.user->uw180s.bladesopen.setter(&dspl.user->uw180s.bladesopen);
-		dspl.user->uw180s.impl1.setter(&dspl.user->uw180s.impl1);
-		dspl.user->uw180s.impl2.setter(&dspl.user->uw180s.impl2);
-		dspl.user->uw180s.rotator.setter(&dspl.user->uw180s.rotator);
-		dspl.user->uw180s.saw.setter(&dspl.user->uw180s.saw);
-		uv_rtos_task_delay(10);
-		dspl.user->uw180s.tilt.setter(&dspl.user->uw180s.tilt);
-		dspl.user->uw180s.feedopen.setter(&dspl.user->uw180s.feedopen);
-		dspl.user->uw180s.feed.setter(&dspl.user->uw180s.feed);
-		dspl.user->uw180s.all_open.setter(&dspl.user->uw180s.all_open);
-	}
+	// valve settings are updated in network.c if UW180S is selected
+	icu_set_len_calib(&dspl.network.icu, dspl.user->uw180s.len_calib);
+	icu_set_target_len_um(&dspl.network.icu, dspl.user->uw180s.log_len1);
+	uv_rtos_task_delay(10);
+	dspl.user->uw180s.bladesopen.setter(&dspl.user->uw180s.bladesopen);
+	dspl.user->uw180s.impl1.setter(&dspl.user->uw180s.impl1);
+	dspl.user->uw180s.impl2.setter(&dspl.user->uw180s.impl2);
+	dspl.user->uw180s.rotator.setter(&dspl.user->uw180s.rotator);
+	dspl.user->uw180s.saw.setter(&dspl.user->uw180s.saw);
+	uv_rtos_task_delay(10);
+	dspl.user->uw180s.tilt.setter(&dspl.user->uw180s.tilt);
+	dspl.user->uw180s.feedopen.setter(&dspl.user->uw180s.feedopen);
+	dspl.user->uw180s.feed.setter(&dspl.user->uw180s.feed);
+	dspl.user->uw180s.all_open.setter(&dspl.user->uw180s.all_open);
 }
 
 
@@ -220,6 +216,21 @@ void icu_set_allopen_params(valve_st *valve) {
 
 }
 
+void icu_set_width_calib(uint8_t value) {
+	uv_canopen_sdo_write(ICU_NODE_ID,
+			ICU_WIDTH_CALIB_REQ_INDEX,
+			ICU_WIDTH_CALIB_REQ_SUBINDEX,
+			CANOPEN_TYPE_LEN(ICU_WIDTH_CALIB_REQ_TYPE),
+			&value);
+}
+
+void icu_set_width_calib_diam(uint16_t value_mm) {
+	uv_canopen_sdo_write(ICU_NODE_ID,
+			ICU_WIDTH_CALIB_ADD_REQ_INDEX,
+			ICU_WIDTH_CALIB_ADD_REQ_SUBINDEX,
+			CANOPEN_TYPE_LEN(ICU_WIDTH_CALIB_ADD_REQ_TYPE),
+			&value_mm);
+}
 
 void icu_width_calib_max(void) {
 	uv_canopen_sdo_write8(ICU_NODE_ID,
@@ -232,16 +243,3 @@ void icu_width_calib_min(void) {
 			ICU_WIDTH_CALIB_MIN_REQ_INDEX,
 			ICU_WIDTH_CALIB_MIN_REQ_SUBINDEX, 1);
 }
-
-
-void icu_set_width_calib_max_mm(uint16_t value_mm) {
-	uv_canopen_sdo_write16(ICU_NODE_ID,
-			ICU_WIDTH_MAXMM_INDEX, ICU_WIDTH_MAXMM_SUBINDEX, value_mm);
-}
-
-
-void icu_set_width_calib_min_mm(uint16_t value_mm) {
-	uv_canopen_sdo_write16(ICU_NODE_ID,
-			ICU_WIDTH_MINMM_INDEX, ICU_WIDTH_MINMM_SUBINDEX, value_mm);
-}
-
