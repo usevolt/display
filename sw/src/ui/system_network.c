@@ -310,7 +310,7 @@ static void update(devices_e dev) {
 				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_PRESSURE_INDEX, HCU_PRESSURE_SUBINDEX));
 		uv_ui_refresh(&this->row2_values);
 		snprintf(this->row3_val_str, SYSTEM_NETWORK_ROW_VALUE_LEN,
-				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
+				"%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i\n%i",
 				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_BOOM_LIFT_CURRENT_INDEX, HCU_BOOM_LIFT_CURRENT_SUBINDEX),
 				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_BOOM_FOLD_CURRENT_INDEX, HCU_BOOM_FOLD_CURRENT_SUBINDEX),
 				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_BOOM_ROTATE_CURRENT_INDEX, HCU_BOOM_ROTATE_CURRENT_SUBINDEX),
@@ -320,7 +320,8 @@ static void update(devices_e dev) {
 				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_ROTATOR_CURRENT_INDEX, HCU_ROTATOR_CURRENT_SUBINDEX),
 				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_IMPL1_CURRENT_INDEX, HCU_IMPL1_CURRENT_SUBINDEX),
 				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_IMPL2_CURRENT1_INDEX, HCU_IMPL2_CURRENT1_SUBINDEX) +
-				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_IMPL2_CURRENT2_INDEX, HCU_IMPL2_CURRENT2_SUBINDEX));
+				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_IMPL2_CURRENT2_INDEX, HCU_IMPL2_CURRENT2_SUBINDEX) +
+				(int16_t) uv_canopen_sdo_read16(HCU_NODE_ID, HCU_D4WD_CURRENT_INDEX, HCU_D4WD_CURRENT_SUBINDEX));
 
 		uv_ui_refresh(&this->row3_values);
 		update_netdev(&dspl.network.hcu);

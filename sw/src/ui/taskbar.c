@@ -102,7 +102,7 @@ static void show(const taskbar_state_e state) {
 		bb = uv_uigridlayout_next(&grid);
 		uv_uiwindow_init(&this->engine_window, this->engine_buffer, &taskbar_style);
 		uv_uiwindow_add(&this->taskbar, &this->engine_window,
-				bb.x, bb.y, bb.width * 2 + grid.hpadding * 2, bb.height);
+				bb.x - 30, bb.y, bb.width * 2 + grid.hpadding * 2 + 10, bb.height);
 		uv_uigridlayout_st engine_grid;
 		uv_uigridlayout_init(&engine_grid, 0, 0,
 				uv_uibb(&this->engine_window)->width, uv_uibb(&this->engine_window)->height, 1, 4);

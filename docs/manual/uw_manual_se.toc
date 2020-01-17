@@ -14,13 +14,15 @@
 \contentsline {subsubsection}{Varning}{9}{figure.caption.8}
 \contentsline {subsubsection}{Varning}{9}{figure.caption.8}
 \contentsline {section}{\numberline {6.3}Maskininställningar}{10}{section.6.3}
-\contentsline {subsection}{\numberline {6.3.1}UW180s mätinstrumentets inställningar}{11}{subsection.6.3.1}
-\contentsline {subsection}{\numberline {6.3.2}Ventilinställningar för UW180s}{12}{subsection.6.3.2}
-\contentsline {chapter}{\numberline {7}System}{14}{chapter.7}
-\contentsline {section}{\numberline {7.1}Inställningar}{14}{section.7.1}
-\contentsline {subsubsection}{Varning}{14}{figure.caption.13}
-\contentsline {subsubsection}{Varning}{15}{figure.caption.13}
-\contentsline {section}{\numberline {7.2}Diagnostik}{16}{section.7.2}
-\contentsline {subsection}{\numberline {7.2.1}ESB Diagnostik}{16}{subsection.7.2.1}
-\contentsline {subsection}{\numberline {7.2.2}HCU Diagnostik}{17}{subsection.7.2.2}
-\contentsline {section}{\numberline {7.3}Återställ fabriksinställningar}{18}{section.7.3}
+\contentsline {subsection}{\numberline {6.3.1}UW180s Allmänna inställningar}{11}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}Inställningar för UW180s mätenhet}{12}{subsection.6.3.2}
+\contentsline {subsection}{\numberline {6.3.3}UW180s diameter inställningar}{13}{subsection.6.3.3}
+\contentsline {subsection}{\numberline {6.3.4}Ventilinställningar för UW180s}{14}{subsection.6.3.4}
+\contentsline {chapter}{\numberline {7}System}{16}{chapter.7}
+\contentsline {section}{\numberline {7.1}Inställningar}{16}{section.7.1}
+\contentsline {subsubsection}{Varning}{16}{figure.caption.15}
+\contentsline {subsubsection}{Varning}{17}{figure.caption.15}
+\contentsline {section}{\numberline {7.2}Diagnostik}{18}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}ESB Diagnostik}{18}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}HCU Diagnostik}{19}{subsection.7.2.2}
+\contentsline {section}{\numberline {7.3}Återställ fabriksinställningar}{20}{section.7.3}

@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.0.4 (TeX Live 2017/Debian)  (format=lualatex 2018.10.15)  22 NOV 2019 17:34
+This is LuaTeX, Version 1.0.4 (TeX Live 2017/Debian)  (format=lualatex 2018.10.15)  9 JAN 2020 11:55
  restricted system commands enabled.
 **uw_manual_se.tex
 (./uw_manual_se.tex
@@ -34,7 +34,7 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.108 seconds
+luaotfload | main : initialization completed in 0.109 seconds
 Babel <3.18> and hyphenation patterns for 1 language(s) loaded.
 (./uvmanual.cls
 Document Class: uvmanual 2014/07/28 v0.5 Extension to basic LaTeX document class
@@ -905,7 +905,11 @@ Package: geometry 2010/09/12 v5.6 Page Geometry
 LaTeX Warning: Unused global option(s):
     [finnish].
 
-(./uw_manual_se.aux)
+(./uw_manual_se.aux
+
+LaTeX Warning: Label `ch:settings_uw180s_meas' multiply defined.
+
+)
 \openout1 = uw_manual_se.aux
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
@@ -924,8 +928,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
-
-(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+ (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count289
 \scratchdimen=\dimen177
@@ -1014,7 +1017,7 @@ LaTeX Info: Redefining \nameref on input line 11.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<img/uw_logo_color.png, id=72, 368.37625pt x 329.23pt>
+<img/uw_logo_color.png, id=80, 368.37625pt x 329.23pt>
 File: img/uw_logo_color.png Graphic file (type png)
 <use img/uw_logo_color.png>
 Package luatex.def Info: img/uw_logo_color.png  used on input line 21.
@@ -1088,7 +1091,7 @@ LaTeX Font Info:    Font shape `TU/EkMuktaExtraLight(0)/bx/n' will be
 
 ]
  1.
-<img/warning.png, id=105, 88.35008pt x 80.76172pt>
+<img/warning.png, id=115, 88.35008pt x 80.76172pt>
 File: img/warning.png Graphic file (type png)
 <use img/warning.png>
 Package luatex.def Info: img/warning.png  used on input line 84.
@@ -1107,7 +1110,7 @@ LaTeX Font Info:    Font shape `TU/EkMuktaExtraLight(0)/bx/n' will be
 
 <./img/warning.png>]
  2.
-<img/taskbar.png, id=111, 803.0pt x 481.8pt>
+<img/taskbar.png, id=121, 803.0pt x 481.8pt>
 File: img/taskbar.png Graphic file (type png)
 <use img/taskbar.png>
 Package luatex.def Info: img/taskbar.png  used on input line 89.
@@ -1125,7 +1128,7 @@ Overfull \hbox (2.9916pt too wide) in paragraph at lines 104--104
 
 <./img/taskbar.png>] [3]
  3.
-<img/login.png, id=122, 803.0pt x 481.8pt>
+<img/login.png, id=132, 803.0pt x 481.8pt>
 File: img/login.png Graphic file (type png)
 <use img/login.png>
 Package luatex.def Info: img/login.png  used on input line 110.
@@ -1134,7 +1137,7 @@ Package luatex.def Info: img/login.png  used on input line 110.
 
 <./img/login.png>]
  4.
-<img/home.png, id=129, 803.0pt x 481.8pt>
+<img/home.png, id=139, 803.0pt x 481.8pt>
 File: img/home.png Graphic file (type png)
 <use img/home.png>
 Package luatex.def Info: img/home.png  used on input line 121.
@@ -1143,7 +1146,7 @@ Package luatex.def Info: img/home.png  used on input line 121.
 
 <./img/home.png>]
  5.
-<img/dashboard.png, id=136, 803.0pt x 481.8pt>
+<img/dashboard.png, id=146, 803.0pt x 481.8pt>
 File: img/dashboard.png Graphic file (type png)
 <use img/dashboard.png>
 Package luatex.def Info: img/dashboard.png  used on input line 136.
@@ -1161,7 +1164,7 @@ Overfull \hbox (2.9916pt too wide) in paragraph at lines 158--158
 []|[]| 
  []
 
-<img/settings_general.png, id=146, 803.0pt x 481.8pt>
+<img/settings_general.png, id=156, 803.0pt x 481.8pt>
 File: img/settings_general.png Graphic file (type png)
 <use img/settings_general.png>
 Package luatex.def Info: img/settings_general.png  used on input line 163.
@@ -1178,12 +1181,12 @@ Overfull \hbox (2.9916pt too wide) in paragraph at lines 181--181
 []|[]| 
  []
 
-<img/settings_valves.png, id=154, 803.0pt x 481.8pt>
+<img/settings_valves.png, id=165, 803.0pt x 481.8pt>
 File: img/settings_valves.png Graphic file (type png)
 <use img/settings_valves.png>
 Package luatex.def Info: img/settings_valves.png  used on input line 198.
 (luatex.def)             Requested size: 483.69687pt x 290.22173pt.
-<img/settings_valves_boom_lift.png, id=155, 803.0pt x 481.8pt>
+<img/settings_valves_boom_lift.png, id=166, 803.0pt x 481.8pt>
 File: img/settings_valves_boom_lift.png Graphic file (type png)
 <use img/settings_valves_boom_lift.png>
 Package luatex.def Info: img/settings_valves_boom_lift.png  used on input line 2
@@ -1209,114 +1212,133 @@ Overfull \hbox (2.9916pt too wide) in paragraph at lines 216--216
  []
 
 [9<./img/settings_valves.png>]
-<img/settings_uw180s.png, id=168, 803.0pt x 481.8pt>
+<img/settings_uw180s.png, id=178, 192.72pt x 115.632pt>
 File: img/settings_uw180s.png Graphic file (type png)
 <use img/settings_uw180s.png>
 Package luatex.def Info: img/settings_uw180s.png  used on input line 222.
-(luatex.def)             Requested size: 483.69687pt x 290.22173pt.
+(luatex.def)             Requested size: 483.69687pt x 290.21909pt.
  [10<./img/settings_valves_boom_lift.png>]
-<img/settings_uw180s_meas.png, id=175, 803.0pt x 481.8pt>
-File: img/settings_uw180s_meas.png Graphic file (type png)
-<use img/settings_uw180s_meas.png>
-Package luatex.def Info: img/settings_uw180s_meas.png  used on input line 232.
-(luatex.def)             Requested size: 483.69687pt x 290.22173pt.
+<img/settings_uw180s_general.png, id=185, 192.72pt x 115.632pt>
+File: img/settings_uw180s_general.png Graphic file (type png)
+<use img/settings_uw180s_general.png>
+Package luatex.def Info: img/settings_uw180s_general.png  used on input line 233
+.
+(luatex.def)             Requested size: 483.69687pt x 290.21909pt.
 
 [11<./img/settings_uw180s.png>]
-<img/settings_uw180s_valves.png, id=182, 803.0pt x 481.8pt>
+<img/settings_uw180s_meas.png, id=191, 192.72pt x 115.632pt>
+File: img/settings_uw180s_meas.png Graphic file (type png)
+<use img/settings_uw180s_meas.png>
+Package luatex.def Info: img/settings_uw180s_meas.png  used on input line 246.
+(luatex.def)             Requested size: 483.69687pt x 290.21909pt.
+ [12<./img/settings_uw180s_general.png>]
+<img/settings_uw180s_meas_width.png, id=197, 192.72pt x 115.632pt>
+File: img/settings_uw180s_meas_width.png Graphic file (type png)
+<use img/settings_uw180s_meas_width.png>
+Package luatex.def Info: img/settings_uw180s_meas_width.png  used on input line 
+260.
+(luatex.def)             Requested size: 483.69687pt x 290.21909pt.
+
+[13<./img/settings_uw180s_meas.png>]
+<img/settings_uw180s_valves.png, id=203, 803.0pt x 481.8pt>
 File: img/settings_uw180s_valves.png Graphic file (type png)
 <use img/settings_uw180s_valves.png>
-Package luatex.def Info: img/settings_uw180s_valves.png  used on input line 247.
+Package luatex.def Info: img/settings_uw180s_valves.png  used on input line 277.
 
 (luatex.def)             Requested size: 483.69687pt x 290.22173pt.
- [12<./img/settings_uw180s_meas.png>] [13<./img/settings_uw180s_valves.png>]
+ [14<./img/settings_uw180s_meas_width.png>] [15<./img/settings_uw180s_valves.png
+>]
  7.
-<img/system_settings_1.png, id=195, 803.0pt x 481.8pt>
+<img/system_settings_1.png, id=215, 803.0pt x 481.8pt>
 File: img/system_settings_1.png Graphic file (type png)
 <use img/system_settings_1.png>
-Package luatex.def Info: img/system_settings_1.png  used on input line 266.
+Package luatex.def Info: img/system_settings_1.png  used on input line 296.
 (luatex.def)             Requested size: 483.69687pt x 290.22173pt.
-<img/system_settings_2.png, id=196, 803.0pt x 481.8pt>
+<img/system_settings_2.png, id=216, 803.0pt x 481.8pt>
 File: img/system_settings_2.png Graphic file (type png)
 <use img/system_settings_2.png>
-Package luatex.def Info: img/system_settings_2.png  used on input line 268.
+Package luatex.def Info: img/system_settings_2.png  used on input line 298.
 (luatex.def)             Requested size: 483.69687pt x 290.22173pt.
 File: img/warning.png Graphic file (type png)
 <use img/warning.png>
-Package luatex.def Info: img/warning.png  used on input line 278.
+Package luatex.def Info: img/warning.png  used on input line 308.
 (luatex.def)             Requested size: 88.34985pt x 80.7615pt.
 
-Overfull \hbox (2.9916pt too wide) in paragraph at lines 278--278
+Overfull \hbox (2.9916pt too wide) in paragraph at lines 308--308
 []|[]| 
  []
 
 File: img/warning.png Graphic file (type png)
 <use img/warning.png>
-Package luatex.def Info: img/warning.png  used on input line 280.
+Package luatex.def Info: img/warning.png  used on input line 310.
 (luatex.def)             Requested size: 88.34985pt x 80.7615pt.
 
-Overfull \hbox (2.9916pt too wide) in paragraph at lines 280--280
+Overfull \hbox (2.9916pt too wide) in paragraph at lines 310--310
 []|[]| 
  []
 
-[14
+[16
 
-<./img/system_settings_1.png>] [15<./img/system_settings_2.png>]
-<img/system_diagnostics.png, id=209, 803.0pt x 481.8pt>
+<./img/system_settings_1.png>] [17<./img/system_settings_2.png>]
+<img/system_diagnostics.png, id=229, 803.0pt x 481.8pt>
 File: img/system_diagnostics.png Graphic file (type png)
 <use img/system_diagnostics.png>
-Package luatex.def Info: img/system_diagnostics.png  used on input line 300.
+Package luatex.def Info: img/system_diagnostics.png  used on input line 330.
 (luatex.def)             Requested size: 483.69687pt x 290.22173pt.
-<img/system_diagnostics_msb.png, id=210, 803.0pt x 481.8pt>
+<img/system_diagnostics_msb.png, id=230, 803.0pt x 481.8pt>
 File: img/system_diagnostics_msb.png Graphic file (type png)
 <use img/system_diagnostics_msb.png>
-Package luatex.def Info: img/system_diagnostics_msb.png  used on input line 307.
+Package luatex.def Info: img/system_diagnostics_msb.png  used on input line 337.
 
 (luatex.def)             Requested size: 483.69687pt x 290.22173pt.
- [16<./img/system_diagnostics.png>]
-<img/system_diagnostics_ecu.png, id=217, 803.0pt x 481.8pt>
+ [18<./img/system_diagnostics.png>]
+<img/system_diagnostics_ecu.png, id=237, 803.0pt x 481.8pt>
 File: img/system_diagnostics_ecu.png Graphic file (type png)
 <use img/system_diagnostics_ecu.png>
-Package luatex.def Info: img/system_diagnostics_ecu.png  used on input line 314.
+Package luatex.def Info: img/system_diagnostics_ecu.png  used on input line 344.
 
 (luatex.def)             Requested size: 483.69687pt x 290.22173pt.
- [17<./img/system_diagnostics_msb.png>]
-<img/system_restore.png, id=224, 803.0pt x 481.8pt>
+ [19<./img/system_diagnostics_msb.png>]
+<img/system_restore.png, id=245, 803.0pt x 481.8pt>
 File: img/system_restore.png Graphic file (type png)
 <use img/system_restore.png>
-Package luatex.def Info: img/system_restore.png  used on input line 324.
+Package luatex.def Info: img/system_restore.png  used on input line 354.
 (luatex.def)             Requested size: 483.69687pt x 290.22173pt.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 353.
- [18<./img/system_diagnostics_ecu.png>] [19<./img/system_restore.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 353.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 383.
+ [20<./img/system_diagnostics_ecu.png>] [21<./img/system_restore.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 383.
  (./uw_manual_se.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 353.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 353.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 383.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 383.
 Package rerunfilecheck Info: File `uw_manual_se.out' has not changed.
-(rerunfilecheck)             Checksum: 0BA24D8727E6E15661D99863887F9705;1026.
+(rerunfilecheck)             Checksum: 8BB8CBF829ED5C0CE4BE66336B874CC4;1192.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 353.
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 383.
 )
 
 Here is how much of LuaTeX's memory you used:
- 19977 strings out of 494480
+ 20014 strings out of 494480
  100000,552014 words of node,token memory allocated
  518 words of node memory still in use:
    6 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 6 attribute, 64 glue_spec, 6 attrib
 ute_list, 1 write nodes
    avail lists: 2:650,3:172,4:110,5:119,6:2392,7:896,8:169,9:273,10:16,11:183
- 23299 multiletter control sequences out of 65536+600000
+ 23312 multiletter control sequences out of 65536+600000
  87 fonts using 10654519 bytes
  52i,16n,118p,626b,359s stack positions out of 5000i,500n,10000p,200000b,100000s
 </home/usevolt/.local/share/fonts/EkMukta-ExtraLight.ttf></usr/share/texmf/fonts
 /opentype/public/lm/lmsans12-regular.otf></usr/share/texmf/fonts/opentype/public
 /lm/lmsans10-bold.otf>
-Output written on uw_manual_se.pdf (21 pages, 157859 bytes).
+Output written on uw_manual_se.pdf (23 pages, 186945 bytes).
 
-PDF statistics: 264 PDF objects out of 1000 (max. 8388607)
- 194 compressed objects within 2 object streams
- 56 named destinations out of 1000 (max. 131072)
- 137 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 285 PDF objects out of 1000 (max. 8388607)
+ 212 compressed objects within 3 object streams
+ 62 named destinations out of 1000 (max. 131072)
+ 153 words of extra memory for PDF output out of 10000 (max. 100000000)
 

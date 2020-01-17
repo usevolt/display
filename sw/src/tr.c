@@ -956,7 +956,8 @@ static langstr_st strs[STR_COUNT] = {
 				"Right Leg (mA)\n"
 				"Rotator (mA)\n"
 				"Impl1 (mA)\n"
-				"Impl2 (mA)",
+				"Impl2 (mA)\n"
+				"4WD (mA)",
 
 				"Puomi Nosto (mA)\n"
 				"Puomi Taitto (mA)\n"
@@ -966,7 +967,8 @@ static langstr_st strs[STR_COUNT] = {
 				"Oikea Jalka (mA)\n"
 				"Rotaattori (mA)\n"
 				"Tyolaite1 (mA)\n"
-				"Tyolaite2 (mA)",
+				"Tyolaite2 (mA)\n"
+				"4WD (mA)",
 
 				"Kran lyft (mA)\n"
 				"Kran vik (mA)\n"
@@ -976,7 +978,8 @@ static langstr_st strs[STR_COUNT] = {
 				"Hoger ben (mA)\n"
 				"Rotator (mA)\n"
 				"Verktyg1 (mA)\n"
-				"Verktyg2 (mA)"
+				"Verktyg2 (mA\n"
+				"4WD (mA))"
 		},
 		{
 				"x\nx err\ny\ny err\nz\nz err\nv\nv err",
