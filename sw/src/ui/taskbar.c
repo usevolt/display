@@ -89,8 +89,7 @@ static void show(const taskbar_state_e state) {
 
 		uv_uidigit_init(&this->hours, &UI_FONT_SMALL, ALIGN_CENTER,
 				C(0xFFFFFF), taskbar_style.window_c, "%u", dspl.hour_counter);
-		uv_uiwindow_add(&this->taskbar, &this->hours, bb.x, bb.y, bb.width,
-				bb.height - UI_FONT_SMALL.char_height);
+		uv_bounding_box_st hours_bb = bb;
 
 		uv_uilabel_init(&this->hours_label, &UI_FONT_SMALL, ALIGN_BOTTOM_CENTER,
 				C(0xFFFFFF), C(0xFFFFFFFF), uv_str(STR_TASKBAR_LABELHOURS));
@@ -101,8 +100,14 @@ static void show(const taskbar_state_e state) {
 		this->engine_visible = false;
 		bb = uv_uigridlayout_next(&grid);
 		uv_uiwindow_init(&this->engine_window, this->engine_buffer, &taskbar_style);
+		uv_uiwindow_set_transparent(&this->engine_window, true);
 		uv_uiwindow_add(&this->taskbar, &this->engine_window,
 				bb.x - 30, bb.y, bb.width * 2 + grid.hpadding * 2 + 10, bb.height);
+
+		// hours uidigit is added to window here, after the engine_window to render it on top
+		uv_uiwindow_add(&this->taskbar, &this->hours, hours_bb.x, hours_bb.y, hours_bb.width,
+				hours_bb.height - UI_FONT_SMALL.char_height);
+
 		uv_uigridlayout_st engine_grid;
 		uv_uigridlayout_init(&engine_grid, 0, 0,
 				uv_uibb(&this->engine_window)->width, uv_uibb(&this->engine_window)->height, 1, 4);
