@@ -169,7 +169,7 @@ bool users_set(char *username) {
 			uv_eeprom_write((unsigned char*) &dspl.user_index,
 					sizeof(dspl.user_index), CURRENT_USER_EEPROM_ADDR);
 			// update network parameters
-			network_update(&dspl.network);
+			network_update_save(&dspl.network);
 			return true;
 		}
 	}
