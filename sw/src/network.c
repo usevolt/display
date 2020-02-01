@@ -19,6 +19,7 @@ static void network_task(void *me);
 
 void network_init(network_st *this) {
 	this->updating = true;
+	this->save = false;
 	this->update_disabled = false;
 	this->can_last_state = CAN_ERROR_ACTIVE;
 	uv_moving_aver_init(&this->can_state, NETWORK_CAN_BUS_OFF_AVER_COUNT);
@@ -196,6 +197,11 @@ static void network_task(void *me) {
 				else {
 
 				}
+			}
+
+			if (this->save) {
+				this->save = false;
+				network_save_params(this);
 			}
 		}
 

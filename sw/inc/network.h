@@ -26,6 +26,7 @@
 
 typedef struct {
 	bool updating;
+	bool save;
 	bool update_disabled;
 	esb_st esb;
 	csb_st csb;
@@ -51,6 +52,11 @@ void network_receive_message(network_st *this, uv_can_message_st *msg);
 /// @brief: Updates the all modified parameters to the CAN network devices
 static inline void network_update(network_st *this) {
 	this->updating = true;
+}
+
+static inline void network_update_save(network_st *this) {
+	this->updating = true;
+	this->save = true;
 }
 
 /// @brief: Returns true if the SDO parameter update process is
