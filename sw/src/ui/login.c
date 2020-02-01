@@ -82,6 +82,8 @@ uv_uiobject_ret_e login_step(const uint16_t step_ms) {
 
 	if (uv_uibutton_clicked(&this->login)) {
 		users_set(uv_uilist_at(&this->users, uv_uilist_get_selected(&this->users)));
+		// save changed user parameters to all devices
+		network_save_params(&dspl.network);
 
 		// show home page
 		home_show();

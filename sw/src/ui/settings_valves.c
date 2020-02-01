@@ -49,7 +49,7 @@ void settings_valves_show() {
 			(dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREETELESCOPE &&
 					!ccu_assembly[CCU_ASSEMBLY_TELESCOPE_INDEX - 1]) ||
 			(dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREESTEERBACK &&
-					!ccu_assembly[3 - 1]) ||
+					!ccu_assembly[CCU_ASSEMBLY_BACKSTEER_INDEX - 1]) ||
 			(dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREEBOOMTELESCOPE &&
 					!hcu_assembly[HCU_ASSEMBLY_BOOMTELESCOPE_INDEX - 1]) ||
 			(dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREEGEAR2 &&

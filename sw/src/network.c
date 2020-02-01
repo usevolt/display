@@ -146,10 +146,31 @@ static void network_task(void *me) {
 			tcu_update(&this->tcu);
 			uv_rtos_task_delay(update_step_ms);
 
+			// read CCU assembly parameters to check if telescope or backsteer is enabled
+			uint8_t ccu_assembly[CCU_ASSEMBLY_ARRAY_SIZE];
+			for (uint8_t i = 0; i < CCU_ASSEMBLY_ARRAY_SIZE; i++) {
+				uv_canopen_sdo_read(CCU_NODE_ID, CCU_ASSEMBLY_INDEX, i + 1,
+						CANOPEN_TYPE_LEN(CCU_ASSEMBLY_TYPE), &ccu_assembly[i]);
+			}
 			// since valve settings are shared across the devices,
 			// update them here
 			for (uint8_t i = 0; i < BASE_VALVE_COUNT; i++) {
-				dspl.user->base_valves[i].setter(&dspl.user->base_valves[i]);
+				// CCU telescope and backsteer are special cases since they use
+				// same parameters and only one of them can be enabled.
+				// We want to update values only on the enabled one
+				if (dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREETELESCOPE) {
+					if (ccu_assembly[CCU_ASSEMBLY_TELESCOPE_INDEX]) {
+						dspl.user->base_valves[i].setter(&dspl.user->base_valves[i]);
+					}
+				}
+				else if (dspl.user->base_valves[i].name == STR_SETTINGS_VALVES_TREESTEERBACK) {
+					if (ccu_assembly[CCU_ASSEMBLY_BACKSTEER_INDEX]) {
+						dspl.user->base_valves[i].setter(&dspl.user->base_valves[i]);
+					}
+				}
+				else {
+					dspl.user->base_valves[i].setter(&dspl.user->base_valves[i]);
+				}
 				uv_rtos_task_delay(update_step_ms);
 			}
 
