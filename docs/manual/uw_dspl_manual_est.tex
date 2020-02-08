@@ -1,0 +1,367 @@
+\documentclass[12pt,a4paper,english]{uvmanual}
+\special{papersize=210mm,297mm}
+
+
+\title{Usewood puutetundlik ekraan}
+
+
+\renewcommand{\labelitemii}{}
+
+
+\begin{document}
+
+
+%	
+% Create the title page.
+% First the logo. Check its language.
+\thispagestyle{empty}
+%\vspace*{-.5cm}\noindent
+\vspace*{-1cm}\noindent
+\begin{center}
+\includegraphics[width=8cm]{img/uw_logo_color.png}   % Bilingual logo
+\end{center}
+\vspace{1cm}
+\begin{center}
+\end{center}
+
+
+
+% Then lay out the author, title and type to the center of page.
+\vspace{2.8cm}
+\maketitle
+\vspace{2.8cm}
+
+
+% Last some additional info to the bottom-right corner
+\begin{minipage}[c]{8.8cm}
+  \begin{spacing}{1.0}
+    \textsf{Usewood Forest Tec Oy}\\
+    \textsf{www.usewood.fi}\\
+    \textsf{Usevolt Oy}\\
+    \textsf{www.usevolt.fi}\\
+  \end{spacing}
+\end{minipage}
+
+% Leave the backside of title page empty in twoside mode
+\if@twoside
+\clearpage
+\fi
+
+\pagenumbering{roman} 
+\setcounter{page}{0} % Start numbering from zero because command 'chapter*' does page break
+
+
+% Some fields in abstract are automated, namely those with \@ (author,
+% title in the main language, thesis type, examiner).
+
+
+
+% Add the table of contents, optionally also the lists of figures,
+% tables and codes.
+
+
+\renewcommand\contentsname{Table of content}         % Set Finnish name
+\setcounter{tocdepth}{2}                      % How many header level are included
+\tableofcontents                              % Create TOC
+
+% Leave the backside of abbreviation list empty in twoside mode
+\cleardoublepage
+
+% The actual text begins here and page numbering changes to 1,2...
+\newpage             % needed for page numbering
+\pagenumbering{arabic}
+\setcounter{page}{1} % Start numbering from zero because command
+                     % 'chapter*' does page break
+\renewcommand{\chaptername}{} % This disables the prefix 'Chapter' or
+                              % 'Luku' in page headers (in 'twoside'
+                              % mode)
+
+\chapter{Sissejuhatus}
+
+See dokument on Usewoodi väikemetsamasinate ekraani kasutajaliidese kasutusjuhend. Ekraani põhieesmärk on toimida kasutajaliidesena masina parameetrite reguleerimiseks ja juhile teabe kuvamiseks sõidu ajal. Mitmeid masina parameetreid saab seadistada ainult ekraani kaudu, seetõttu peab juht oskama seda põhjalikult kasutada. Masina seadistamata jätmine võib raskendada masinaga töötamist või isegi seda juhi ohtu.
+
+\warning{Üldine hoiatussümbol}
+{Hoiatussümboleid kasutatakse käesolevas manuaalis selleks, et rõhutada kohti, mis on olulised masina turvalisuse seisukohalt. Hoiatussümboliga kirjeldused tuleks lugeda eriti hoolikalt.}
+
+\chapter{Infotahvel}\label{ch:taskbar}
+Infotahvel on alati ekraani alaosas asuv paneel, mis sisaldab kasutusajal kõige olulisemat teavet Usewoodi väikemetsamasina kohta. Lisaks alaosa paneelile on kogu aeg ekraani vasakus ja paremas ääres nähtaval mõõdikud.
+
+\fig{img/taskbar}{Infotahvel}{taskbar}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{RPM} & Mootori RPM (pöörded minutis) \\
+\textbf{Pressure} & Hüdrauliline rõhk hüdropumbast. \\
+\textbf{Hours} & Mootoritundide loendur. Loenduri väärtust ei saa muuta, see arvestab mootori töötunde.  \\
+\textbf{Horn} & Signaal. Signaali andmiseks vajutada siia. \\
+\textbf{Bat V} & Aku pinge. Aku pinge laskmine liiga madalale võib seda kahjustada. \\
+\textbf{Fuel L} & Kütuse tase. \\
+\textbf{Oil L} & Hüdraulikaõli tase. \\
+\textbf{Oil T} & Hüdraulikaõli temperatuur. \\
+\textbf{Motor T} & Mootori temperatuur. \\
+\textbf{Clock} & Kellaaeg. \\
+\end{tabular}
+
+\warning{Warning}{Aku pinge liigne alandamine või hüdraulikaõli temperatuuri liiga kõrgeks laskmine võib masinat püsivalt kahjustada. Neid näite peaks kasutaja sellel ekraanil jälgima masinaga töötamise ajal.}
+
+\chapter{Sisse logimine}\label{ch:login}
+
+Sisse peab logima kohe kui masin pannakse tööle. Sedasi saab luua uusi kasutajaid ja valida aktiivset juhti. Juhi vahetamisega laetakse ekraanile automaatselt tema kasutajaseaded masinas. Vaikimisi kasutajanimi on Usewood ja maksimaalselt saab luua kuni 4 kasutajat.
+
+\fig{img/login.png}{Sisse logimine}{login}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Log in} & Logige sisse lehe vasakus servas valitud kasutajanimega ja laadige kasutaja seaded masinasse. \\
+\textbf{Add user} & Uue kasutaja loomine. Ekraanile ilmub klaviatuur, mille kaudu saab kasutajanime sisestada.  \\
+\textbf{Delete user} & Eemalda kasutaja ja selle seaded. Seda kasutajat ei saa enam taastada. Kui masinasse on sisestatud vaid üks kasutaja, siis seda ei saa eemaldada. \\
+\end{tabular}
+
+
+\chapter{Avakuva}\label{ch:home}
+
+\fig{img/home}{Avakuva}{home}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Dashboard} & Kuvab valitud masina töökuva. Eriti harvesterihaarde UW180S kasutamisel näitab "Dashboard" pügatava puu pikkust ja paksust. \\
+\textbf{Settings} & Näitab kasutaja seadeid. Selles menüüs seadistatakse masina parameetrid.  \\
+\textbf{System} & Kuvatakse süsteemidiagnostika aken. Süsteemi diagnostika ja kalibreerimine toimub siin.  \\
+\textbf{Log out} & Praeguse kasutaja väljalogimine ja sisselogimiskuvale naasmine.  \\
+\end{tabular}
+
+
+
+\chapter{Töökuva}\label{ch:dashboard}
+
+Töökuva sisu sõltub valitust tööseadmest. Tööseade valitakse seadmete alt. Töökuva on eriti kasulik harvesterihaarde UW180S kasutamisel.
+
+\fig{img/dashboard}{Töökuva}{dashboard}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Cancel \& OK} & Mine tagasi avakuvale. \\
+\textbf{Log length} & Muutke palgi kontrollmõõtu. Soovitud mõõdud tuleb seadistada harvesterihaaratsi UW180S seadetes. \\
+\textbf{Length} & Kärbitava puu pikkust näidatakse sentimeetrites. \\
+\textbf{Diameter} & Kärbitava puu paksust näidatakse millimeetrites. \\
+\textbf{Volume} & Kuvatakse langetatud puude kogumaht. Mahu saab nullida harvesterihaaratsi UW180S seadetes.  \\
+\end{tabular}
+
+
+\chapter{Seaded}\label{ch:settings}
+
+Seadetest reguleeritakse kõiki masina kasutajaspetsiifilisi sätteid. Seadete muudatused laaditakse automaatselt juhtimissüsteem, kuid muudatusi ei salvestata lõplikult enne, kui kasutaja vajutab nuppu OK. Vajutades Cancel kõik tehtud muudatused tühistatakse. Seaded on klassifitseeritud järgmistesse vahelehtedesse:
+
+\begin{itemize}
+ \item General settings (\autoref{ch:settings_general})
+ \item Valve Configurations (\autoref{ch:settings_valves})
+ \item Implement settings (\autoref{ch:settings_implement})
+\end{itemize}
+
+\warning{Warning}{Ehkki halvasti konfigureeritud parameetrite järgi pole masinat võimalik rikkuda, on kasutajal siiski võimalik parameetreid reguleerida nii, et masin töötab halvasti või on see raskendatud. Kasutaja kohustus on parameetreid hoolikalt reguleerida, et vältida masina jõudluse halvenemist.}
+
+\section{Üldised seaded}\label{ch:settings_general}
+
+
+\fig{img/settings_general}{Üldised seaded}{settings_general}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Screen brightness} & Seadista ekraani heledus. \\
+\textbf{Drive Lights} & Lülitab sõidutuled sisse või välja. Sõidutuled koosnevad ettepoole suunatud LED-lampidest ja tahapoole suunatud punasest tulest.  \\
+\textbf{Work Lights} & Lülitab töötuled sisse või välja. Töötuled koosnevad kõrvale suunatud LED-lampidest.  \\
+\textbf{Wiper} & Seadistab klaasipuhastaja kiiruse.  \\
+\textbf{Heater} & Lülitab soojaõhupuhuri sisse või välja. \\
+\end{tabular}
+
+
+
+
+\section{Ventiilid}\label{ch:settings_valves}
+
+Hüdraulikaventiilide parameetrite reguleerimine on üks olulisemaid asju, mida iga juht peaks endale parima juhtimiskogemuse saamiseks kohandama. Iga kasutaja saab reguleerida iga liigutuse sätteid vastavalt oma soovidele. 
+
+\warning{Warning}{Ventiili sätete hea ja hoolikas reguleerimine parandab sõiduelamust tunduvalt. Halvasti reguleeritud sätted võivad seevastu masina isegi ohtlikuks muuta. Olge sätete reguleerimisel alati ettevaatlik.}
+
+Igal ventiilil on samad reguleeritavad sätted. Usewoodi väikemetsamasinatel on vähemalt järgnevad ventiilid:
+
+\begin{itemize}
+ \item Kraana tõstmine
+ \item Kraana kokkupanemine
+ \item Kraana pööramine
+ \item Sõit
+ \item Juhtimine
+ \item Vasak tugijalg
+ \item Parem tugijalg
+\end{itemize}
+
+Mis tahes ventiili nime vajutamisel avatakse selle ventiili parameetrid sätestamiseks.
+
+\fig{img/settings_valves}{Masina ventiili seaded}{settings_valves}
+
+\fig{img/settings_valves_boom_lift}{Ventiili individuaalsed seaded}{settings_valves_boom_lift}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Back} & Mine tagasi ventiilide valikuekraanile.  \\
+\textbf{Boom Lift} & Reguleeritava ventiili nimi.  \\
+\textbf{Invert Direction} & Ventiili suuna inverteerimine. Kõik ventiilid on mitmeotstarbelised. See vahetab ventiili töösuunda.  \\
+\textbf{Forward min speed} & Seadistab ventiili minimaalvõimsust milliamprites. Kõigil hüdroventiilidel on kindel võimsus, millega nad hakkavad õli läbi laskma.  \\
+\textbf{Forward max speed} & Seadistab ventiili maskimaalvõimsust milliamprites. Töötab maksimaalse sõidukiiruse reguleerijana.  \\
+\textbf{Acceleration} & Seadistab ventiili võimsuse kasvukiirenduse. Seda tuntakse ka tõusurambina. Madal väärtus saab liikumise rahulikult kiirenema.  \\
+\textbf{Backward min speed} & Sama kui \textbf{Forward min speed}, aga vastupidises suunas.  \\
+\textbf{Backward max speed} & Sama kui \textbf{Forward max speed}, aga vastupidises suunas.  \\
+\textbf{Deceleration} & Seadistab ventiili võimsuse pidurduskiiruse. Tuntakse ka aeglustusrambina. Madal väärtus tekitab ventiili võimsuse aeglase pidurduse kuni nullini, põhjustades liikumise sujuva peatumise.  \\
+\end{tabular}
+
+\warning{Warning}{Minimaalvõimsus tuleks määratleda ettevaatlikult. Liigne minimaalvõimsus põhjustab kohalt liikumise kiirelt, hoolimata sellest, kui ettevaatlikult juht keerab juhtkangi.}
+
+\warning{Warning}{Aeglustus tuleks määratleda ettevaatlikult. Liiga väike aeglustus põhjustab liikumise jätkumise ka siis, kui juht on juba tegevuse lõpetanud.}
+
+\section{Mehhanismi seaded}\label{ch:settings_implement}
+
+Mehhanismi seaded määravad valitud mehhanismi seaded. Mehhanismi seadistamine toimub ''Üldised'' vahelehelt. Selles juhendis käsitletakse UW180S harvesterihaaratsi sätteid, kuna need on kõige keerukamad ja muude mehhanismide seaded põhinevad nendel.
+
+\fig{img/settings_uw180s}{Mehhanismi seaded}{settings_implement}
+
+
+\FloatBarrier
+\subsection{UW180S üldseaded}\label{ch:settings_uw180s_meas}
+
+\fig{img/settings_uw180s_general}{UW180S üldseaded}{settings_uw180s_general}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Back} & Mine tagasi UW180S seaded ekraanile.  \\
+\textbf{Rollers grab time} & Määra survejõud, millega kärpimise ajal UW180S pigistab rullikutega palki. Mida suurem arv, seda tugevamini pigistab.  \\
+\textbf{Blades grab time} & Määra survejõud, millega kärpimise ajal UW180S pigistab rullikutega puitu. Mida suurem arv, seda tugevamini pigistab.  \\
+\textbf{Tilt float enable} & Kui UW180S on varustatud kallutava ujukventiiliga, paneb see nupp pärast puu saagimisega langetamist ujuki hõljuma. Ujuk hõljumise saab väljalülitada, juhtides ujukit manuaalselt.  \\
+\textbf{Tilt on left thumb} & Kui see on valitud, toimub ujuki juhtimine vasaku juhtkangi pöidlalülitiga. Kui seda ei soovita, toimub ujuki juhtimine vasaku klaviatuuri nuppudega.  \\
+\end{tabular}
+
+\FloatBarrier
+\subsection{UW180S mõõteseadme üldseaded}\label{ch:settings_uw180s_meas}
+
+\fig{img/settings_uw180s_meas}{UW180S mõõteseadme üldseaded}{settings_uw180s_meas}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Back} & Mine tagasi UW180S seaded ekraanile. \\
+\textbf{Log length 1} & Esimene valitud palgi soovitud pikkus millimeetrites.  \\
+\textbf{Log length 2} &  Teise palgi soovitud pikkus millimeetrites.  \\
+\textbf{Length Calibration} & Kalibreerib pikkuse mõõteseadme. Väärtus määratleb, kui kaua arvesti arvutab iga anduri impulsi. Väärtuse suurendamine vähendab palgi pikkust.  \\
+\textbf{Width Calibration} & Avage paksuse ja mahutavuse kalibreerimisekraan.  \\
+\textbf{Reset Volume} & Lähtestab arvutatud mahud nullini. \\
+\end{tabular}
+
+\FloatBarrier
+\subsection{UW180s paksuse ja mahutavuse kalibreerimisekraan}\label{ch:settings_uw180s_width}
+
+\fig{img/settings_uw180s_meas_width}{UW180s paksuse ja mahutavuse kalibreerimisekraan}{settings_uw180s_width}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Back} & Mine tagasi UW180S seaded ekraanile. \\
+\textbf{Calibrate MIN angles} & Kalibreerib UW180S harvesterihaaratsi rullikute suletud asendi. Selle nupu vajutamisel peaksid rullikud olema täielikult suletud.  \\
+\textbf{Calibrate MAX angles} & Kalibreerib UW180S harvesterihaaratsi rullikute avatud asendi. Selle nupu vajutamisel peaksid rullid olema täielikult avatud.  \\
+\textbf{Min diam} & Määrab puidu läbimõõdu millimeetrites, kui rullikud on täielikult suletud.  \\
+\textbf{Max diam} & Määrab puidu läbimõõdu millimeetrites, kui rullikud on täielikult avatud.  \\
+\end{tabular}
+
+\FloatBarrier
+\subsection{UW180S Ventiiliseaded}\label{ch:settings_uw180s_valves}
+
+
+\fig{img/settings_uw180s_valves}{UW180S Ventiiliseaded}{settings_uw180s_valves}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Wheels} & Veorullide avamine / sulgemine \\
+\textbf{Wheels feed} & Puu raie \\
+\textbf{Delimbers} & Raieterad \\
+\textbf{Saw} & Saagimine \\
+\textbf{Tilt} & Harvesterihaaratsi kallutamine / puu raie \\
+\textbf{Rotator} & Harvesterihaaratsi pöörlemine \\
+\end{tabular}
+
+\chapter{Süsteem}\label{ch:system}
+
+Süsteemimenüü on korraldatud samamoodi kui seadistusmenüü. \textbf{OK}-nupp salvestab seaded jäädavalt ja \textbf{Cancel}-nupp tühistab tehtud muudatused.
+
+\section{Seaded}\label{ch:system_settings}
+
+Süsteemseaded on kõigi kasutajate vahel jagatavad seaded, mis mõjutavad kogu masina tööd.
+
+\fig{img/system_settings_1}{Seaded 1/2}{system_settings_1}
+
+\fig{img/system_settings_2}{Seaded 2/2}{system_settings_2}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Engine power usage} & Määrab kui palju võimsust mootorilt saadakse. Kui see on liiga väike, töötab masin ebaefektiivselt. Kui väärtus on liiga kõrge, koormatakse mootorit musta suitsuga ja see võib isegi keset töötamist seisata. \\
+\textbf{Joystick Calibration} & Juhtkangide kalibreerimine. Kui nuppu on korra vajutatud, tuleb juhtkangidega käia läbi kõikide telgede maksimaal- ja minimaalväärtused. Seejärel, kui nuppu uuesti vajutatakse, on kalibreerimine lõppenud. Juhtkangi tuleb kalibreerida iga mõnesaja tunni tagant.  \\
+\textbf{Date and time} & Seadistab kellaaja ja kuupäeva. \\
+\end{tabular}
+
+
+
+\warning{Warning}{Juhtkangi ebaõnnestunud kalibreerimine vähendab masina juhitavust. Juhtkangide liigne kalibreerimine on mõttetu.}
+
+\warning{Warning}{Kui kellaaeg ja kuupäev kustub iga kord kui aku eemaldatakse, on ekraani sisemise 2032-aku tühjaks saanud.}
+
+\section{Diagnostika}\label{ch:system_diagnostics}
+
+Diagnostikanäit on vajalik juhtsüsteemi veateadete edastamiseks. See näitab juhtsüsteemis olevaid töötlemata andmeid. Juhtsüsteem koosneb järgmistest kontrolleritest:
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{MSB} & Mootori kontroller \\
+\textbf{CSB} & katuse kontroller \\
+\textbf{FSB} & Esikonsooli kontroller \\
+\textbf{Left Keypad} & Vasak juhtkang ja klaviatuur \\
+\textbf{Right Keypad} & Parem juhtkang ja klaviatuur \\
+\textbf{Pedal} & Sõidupedaal \\
+\\textbf{HCU} & Peaventiili kontroller \\
+\\textbf{CCU} & Kõrvalventiili kontroller \\
+\textbf{ICU} & UW180S harvesterihaaratsi kontroller \\
+\end{tabular}
+
+
+
+\fig{img/system_diagnostics}{Diagnostikanäit}{system_diagnostics}
+
+Kuigi osa ekraanil nähtavatest andmetest on kasulikud vaid veasituatsioonide lahendamisel, on osa neist vajaliku isegi kui masinas ei ole erilist viga.
+
+\FloatBarrier
+\subsection{ESB Diagnostikanäit}\label{ch:system_diagnostics_msb}
+
+\fig{img/system_diagnostics_msb}{ESB Diagnostikanäit}{system_diagnostics_msb}
+
+\textbf{ESB} vastutab suurema osa armatuurlaual kuvatava teabe säilitamise eest. See näitab mh. mootori temperatuuri, pöörete arvu ja hüdraulikaõli määra.
+
+\FloatBarrier
+\subsection{HCU Diagnostikanäit}\label{ch:system_diagnostics_ecu}
+
+\fig{img/system_diagnostics_ecu}{HCU Diagnostikanäit}{system_diagnostics_ecu}
+
+\textbf{HCU} vastutab masina peaventiili kontrolli eest. Selle ja "CCU" kaudu näete igasse ventiili minevat juhtimisvõimsust.
+
+
+
+\section{Tehaseseadete taastamine}\label{ch:system_restore}
+
+\textbf{System Restore} ''System Restore'' taastab kogu juhtsüsteemi tehaseseaded.
+
+\fig{img/system_restore}{Tehaseseadete taastamine}{system_restore}
+
+\begin{tabular}{ L{0.2\textwidth} L{0.66\textwidth} }
+\textbf{Restore System Defaults} & Vajutades nuppu, kuni süsteem loendab väärtust 10 nullini, taastatakse süsteemi tehaseseaded. Tehaseseadete taastamine kustutab kõik salvestatud kasutajad.  \\
+\end{tabular}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
