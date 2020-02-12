@@ -70,9 +70,6 @@ void dspl_init(dspl_st *me) {
 #endif
 
 	// the first thing to do: if display is pressed for 10 s, restore system defaults
-	bool restore = false;
-	int counter = 10;
-	char str[3];
 	char coord[30];
 	int16_t x,y;
 	while (uv_lcd_touch_get(&x, &y)) {
@@ -80,31 +77,19 @@ void dspl_init(dspl_st *me) {
 
 		uv_lcd_draw_rect(0, 0, LCD_W(1.0f), LCD_H(1.0f), C(0x000000));
 		_uv_ui_draw_text(LCD_W(0.5f), LCD_H(0.5f) - 120, &UI_FONT_BIG, ALIGN_CENTER,
-				C(0xFFFFFF), C(0xFFFFFFFF), "Press the screen for 10 seconds to\n"
-						"restore factory settings\n \n"
-						"WARNING: This will clear all\nparameters from all users", 1.0f);
-		sprintf(str, "%u", counter);
-		_uv_ui_draw_text(LCD_W(0.5f), LCD_H(0.5f), &UI_FONT_BIG, ALIGN_CENTER,
-				(counter <= 5) ? C(0xFF0000) : C(0xFFFFFF), C(0xFFFFFFFF), str, 1.0f);
+				C(0xFFFFFF), C(0xFFFFFFFF), "The screen is pressed.\n"
+						"Release the screen to continue.", 1.0f);
 		sprintf(coord, "(%i,%i)", x, y);
 		_uv_ui_draw_text(5, LCD_H(1.0f) - UI_FONT_SMALL.char_height - 5, &UI_FONT_SMALL,
 				ALIGN_TOP_LEFT, C(0xFFFFFF), C(0), coord, 1.0f);
 		uv_lcd_draw_rect(x - 5, y - 5, 10, 10, C(0xFF0000));
 
-
-		if (!counter) {
-			restore = true;
-			break;
-		}
-
-		counter--;
-
 		uv_lcd_double_buffer_swap();
 
-		uv_rtos_task_delay(1000);
+		uv_rtos_task_delay(200);
 	}
 
-	if (restore || uv_memory_load()) {
+	if (uv_memory_load()) {
 		// non-volatile data load failed, initialize factory settings
 
 		this->lang = LANG_EN;
