@@ -181,7 +181,9 @@ static void network_task(void *me) {
 				hcu_impls_e impl = hcu_get_implement(&this->hcu);
 
 				if (impl == HCU_IMPLEMENT_UW180S) {
-					// this is done in icu.c
+					// this is done in icu.c, expect for impl1 & impl2 valves
+					dspl.user->uw180s.impl1.setter(&dspl.user->uw180s.impl1);
+					dspl.user->uw180s.impl2.setter(&dspl.user->uw180s.impl2);
 				}
 				else if (impl == HCU_IMPLEMENT_UW100) {
 					dspl.user->uw100.open.setter(&dspl.user->uw100.open);

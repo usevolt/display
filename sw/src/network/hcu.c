@@ -29,7 +29,7 @@ void hcu_step(hcu_st *this, unsigned int step_ms) {
 
 void hcu_update(void *me) {
 
-	// note: No need to update valve settings,
+	// note: No need to update base machine valve settings,
 	// they are already updated in network.c
 }
 
