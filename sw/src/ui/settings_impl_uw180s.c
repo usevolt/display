@@ -53,7 +53,7 @@ static void show_general() {
 	uv_uislider_set_inc_step(&this->general.blades_grab_time, 5);
 	uv_uislider_set_vertical(&this->general.blades_grab_time);
 	uv_uislider_set_title(&this->general.blades_grab_time, uv_str(STR_SETTINGS_UW180S_SLIDERBLADESGRABTIME));
-	uv_uiwindow_add(this->window, &this->general.blades_grab_time, bb.x, bb.y, bb.width, bb.height);
+//	uv_uiwindow_add(this->window, &this->general.blades_grab_time, bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uitogglebutton_init(&this->general.tilt_float, dspl.user->uw180s.tiltfloat_enable,
