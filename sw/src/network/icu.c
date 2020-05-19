@@ -45,7 +45,7 @@ void icu_update(void *me) {
 	if (dspl.network.icu.super.connected) {
 		// valve settings are updated in network.c if UW180S is selected
 		icu_set_len_calib(&dspl.network.icu, dspl.user->uw180s.len_calib);
-		icu_set_target_len_um(&dspl.network.icu, dspl.user->uw180s.log_len1);
+		icu_set_target_len_um(&dspl.network.icu, dspl.user->uw180s.log_len1 * 10000);
 		icu_set_width_calib_max_mm(dspl.user->uw180s.max_width_mm);
 		icu_set_width_calib_min_mm(dspl.user->uw180s.min_width_mm);
 		uv_rtos_task_delay(10);
