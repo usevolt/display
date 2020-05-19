@@ -100,9 +100,8 @@ static void show(const taskbar_state_e state) {
 		this->engine_visible = false;
 		bb = uv_uigridlayout_next(&grid);
 		uv_uiwindow_init(&this->engine_window, this->engine_buffer, &taskbar_style);
-		uv_uiwindow_set_transparent(&this->engine_window, true);
 		uv_uiwindow_add(&this->taskbar, &this->engine_window,
-				bb.x - 30, bb.y, bb.width * 2 + grid.hpadding * 2 + 10, bb.height);
+				bb.x - 10, bb.y, bb.width * 2 + grid.hpadding * 2 - 10, bb.height);
 
 		// hours uidigit is added to window here, after the engine_window to render it on top
 		uv_uiwindow_add(&this->taskbar, &this->hours, hours_bb.x, hours_bb.y, hours_bb.width,
@@ -345,24 +344,14 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 		}
 
 		if (ret != UIOBJECT_RETURN_KILLED) {
-			if (uv_delay(step_ms, &this->engine_delay)) {
-				uv_delay_init(ENGINE_LIGHT_DELAY_MS, &this->engine_delay);
-				if (fsb_get_ignkey_state(&dspl.network.fsb) == FSB_IGNKEY_STATE_OFF) {
-					this->engine_visible = true;
-				}
-				else {
-					this->engine_visible = !this->engine_visible;
-				}
-				uv_ui_set_enabled(&this->engine_water,
-						esb_get_motor_water(&dspl.network.esb) ? this->engine_visible : false);
-				uv_ui_set_enabled(&this->engine_oil_press,
-						esb_get_motor_oil_press(&dspl.network.esb) ? this->engine_visible : false);
-				uv_ui_set_enabled(&this->engine_alt,
-						esb_get_alt_l(&dspl.network.esb) ? this->engine_visible : false);
-				uv_ui_set_enabled(&this->engine_glow_plugs,
-						(esb_get_glow_plugs(&dspl.network.esb) == OUTPUT_STATE_ON) ?
-								this->engine_visible : false);
-			}
+			uv_ui_set_enabled(&this->engine_water,
+					esb_get_motor_water(&dspl.network.esb));
+			uv_ui_set_enabled(&this->engine_oil_press,
+					esb_get_motor_oil_press(&dspl.network.esb));
+			uv_ui_set_enabled(&this->engine_alt,
+					esb_get_alt_l(&dspl.network.esb));
+			uv_ui_set_enabled(&this->engine_glow_plugs,
+					esb_get_glow_plugs(&dspl.network.esb) == OUTPUT_STATE_ON);
 
 			if (fsb_get_emcy(&dspl.network.fsb) ||
 					!fsb_get_doorsw1(&dspl.network.fsb) ||
