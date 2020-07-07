@@ -32,6 +32,7 @@ void ccu_step(ccu_st *this, unsigned int step_ms) {
 void ccu_update(void *me) {
 	uv_canopen_sdo_write8(CCU_NODE_ID, CCU_DRIVE_COMP_INDEX, 1, dspl.user->drivef_comp);
 	uv_canopen_sdo_write8(CCU_NODE_ID, CCU_DRIVE_COMP_INDEX, 2, dspl.user->driveb_comp);
+	ccu_set_impl2_reqs(dspl.user->impl2_ain1_req, dspl.user->impl2_ain2_req);
 }
 
 
@@ -106,4 +107,17 @@ void ccu_set_telescope_params(valve_st *valve) {
 void ccu_set_cab_rot_params(valve_st *valve) {
 	update_valve_params(valve, CCU_CABROT_PARAM_INDEX, 0,
 			CANOPEN_TYPE_LEN(CCU_CABROT_PARAM_TYPE));
+}
+
+void ccu_set_impl2_reqs(int8_t ain1_value, int8_t ain2_value) {
+	uv_canopen_sdo_write(CCU_NODE_ID,
+			CCU_IMPL2_AIN1_REQ_INDEX,
+			CCU_IMPL2_AIN1_REQ_SUBINDEX,
+			CANOPEN_TYPE_LEN(CCU_IMPL2_AIN1_REQ_TYPE),
+			&ain1_value);
+	uv_canopen_sdo_write(CCU_NODE_ID,
+			CCU_IMPL2_AIN2_REQ_INDEX,
+			CCU_IMPL2_AIN2_REQ_SUBINDEX,
+			CANOPEN_TYPE_LEN(CCU_IMPL2_AIN2_REQ_TYPE),
+			&ain2_value);
 }

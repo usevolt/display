@@ -41,6 +41,8 @@ typedef struct {
 			uv_uislider_st oilcooler_trigger;
 			uv_uislider_st drivef_comp;
 			uv_uislider_st driveb_comp;
+			uv_uislider_st impl2_ain1_req;
+			uv_uislider_st impl2_ain2_req;
 		} system;
 		struct {
 			uv_uilist_st impls_list;

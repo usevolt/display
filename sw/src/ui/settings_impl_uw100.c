@@ -25,6 +25,7 @@ static void show_sliders(uw100_states_e state, char *label) {
 	valve_st *v;
 	if (state == UW100_STATE_ROTATOR) { v = &dspl.user->uw100.rotator; }
 	else if (state == UW100_STATE_OPEN) { v = &dspl.user->uw100.open; }
+	else if (state == UW100_STATE_IMPL2) { v = &dspl.user->uw100.impl2; }
 	else { v = NULL; }
 
 	uv_uigridlayout_st grid;

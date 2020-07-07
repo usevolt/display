@@ -53,5 +53,7 @@ void ccu_set_telescope_params(valve_st *valve);
 
 void ccu_set_cab_rot_params(valve_st *valve);
 
+void ccu_set_impl2_reqs(int8_t ain1_value, int8_t ain2_value);
+
 
 #endif /* NETWORK_CCU_H_ */

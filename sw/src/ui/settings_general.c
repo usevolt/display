@@ -16,7 +16,7 @@
 #define this (&gui.windows.settings.general)
 
 #define GENERAL_HEIGHT		180
-#define DISPLAY_HEIGHT		200
+#define DISPLAY_HEIGHT		300
 #define IMPLEMENT_HEIGHT	220
 #define DATE_HEIGHT			160
 #define LANG_HEIGHT			180
@@ -123,7 +123,7 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0,
 			uv_uitreeobject_get_content_bb(&this->displayobj).width - 10,
-			uv_uitreeobject_get_content_bb(&this->displayobj).height - 20, 2, 2);
+			uv_uitreeobject_get_content_bb(&this->displayobj).height - 20, 2, 3);
 	uv_uigridlayout_set_padding(&grid, 5, 0);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
@@ -163,6 +163,25 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 	uv_uislider_set_title(&this->system.driveb_comp,
 			uv_str(STR_SETTINGS_GENERAL_SLIDERDRIVEBCOMP));
 	uv_uitreeobject_add(&this->displayobj, &this->system.driveb_comp,
+			bb.x, bb.y, bb.width, bb.height);
+
+	//impl2 req for CCU ain1 & ain2
+	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->system.impl2_ain1_req, 0, 127, dspl.user->impl2_ain1_req,
+			&uv_uistyles[0]);
+	uv_uislider_set_horizontal(&this->system.impl2_ain1_req);
+	uv_uislider_set_title(&this->system.impl2_ain1_req,
+			"IMPL2 req for CCU AIN1");
+	uv_uitreeobject_add(&this->displayobj, &this->system.impl2_ain1_req,
+			bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->system.impl2_ain2_req, 0, 127, dspl.user->impl2_ain2_req,
+			&uv_uistyles[0]);
+	uv_uislider_set_horizontal(&this->system.impl2_ain2_req);
+	uv_uislider_set_title(&this->system.impl2_ain2_req,
+			"IMPL2 req for CCU AIN2");
+	uv_uitreeobject_add(&this->displayobj, &this->system.impl2_ain2_req,
 			bb.x, bb.y, bb.width, bb.height);
 
 }
@@ -374,6 +393,12 @@ uv_uiobject_ret_e settings_system_step(const uint16_t step_ms) {
 		uv_canopen_sdo_write8(CCU_NODE_ID,
 				CCU_DRIVE_COMP_INDEX, 2,
 				(int8_t) uv_uislider_get_value(&this->system.driveb_comp));
+	}
+	else if (uv_uislider_value_changed(&this->system.impl2_ain1_req) ||
+			uv_uislider_value_changed(&this->system.impl2_ain2_req)) {
+		dspl.user->impl2_ain1_req = uv_uislider_get_value(&this->system.impl2_ain1_req);
+		dspl.user->impl2_ain2_req = uv_uislider_get_value(&this->system.impl2_ain2_req);
+		ccu_set_impl2_reqs(dspl.user->impl2_ain1_req, dspl.user->impl2_ain2_req);
 	}
 	else {
 

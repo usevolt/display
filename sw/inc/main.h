@@ -52,6 +52,8 @@ typedef struct {
 		} volume;
 		int8_t drivef_comp;
 		int8_t driveb_comp;
+		int8_t impl2_ain1_req;
+		int8_t impl2_ain2_req;
 } userdata_st;
 
 

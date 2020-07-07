@@ -57,6 +57,8 @@ static void user_reset(userdata_st *user) {
 	user->volume.warnings = true;
 
 	user->oilcooler_trigg_temp = 70;
+	user->impl2_ain1_req = INT8_MAX / 2;
+	user->impl2_ain2_req = INT8_MAX;
 
 	// base valves
 	for (uint16_t i = 0; i < BASE_VALVE_COUNT; i++) {
