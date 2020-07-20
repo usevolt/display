@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 7
+Sheet 2 3
 Title "Power supply"
 Date "2016-08-20"
 Rev "1"
@@ -32,6 +32,53 @@ F 7 "SMBJ33ALFCT-ND" H 3510 4460 60  0001 C CNN "1st Source Part Number"
 	0    -1   -1   0   
 $EndComp
 $Comp
+L kemet:100nF C9
+U 1 1 57B8217A
+P 3200 3950
+F 0 "C9" V 3208 4023 45  0000 L CNN
+F 1 "100nF" V 3292 4023 45  0000 L CNN
+F 2 "kemet:Kemet-CAPC1608X85N" H 3230 4100 20  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2062872.pdf?_ga=1.250530118.1948984246.1460023966" H 3104 3959 60  0001 C CNN
+F 4 "1288255" H 3504 4359 60  0001 C CNN "1st Source Part Number"
+F 5 "C0603C104K5RACTU" H 3304 4159 60  0001 C CNN "Manufacturer Part Number"
+F 6 "Farnell" H 3404 4259 60  0001 C CNN "1st Source"
+F 7 "KEMET" H 3204 4059 60  0001 C CNN "Manufacturer"
+	1    3200 3950
+	0    1    1    0   
+$EndComp
+$Comp
+L display-rescue:LM2671SOIC8 VR1
+U 1 1 57B82261
+P 4850 4150
+F 0 "VR1" H 5050 4804 45  0000 C CNN
+F 1 "LM2671SOIC8" H 5050 4720 45  0000 C CNN
+F 2 "usevolt:SOIC8" H 4880 4300 20  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/1902681.pdf?_ga=1.246738500.1948984246.1460023966" H 4650 4670 60  0001 C CNN
+F 4 "1469200" H 5050 5070 60  0001 C CNN "1st Source Part Number"
+F 5 "926-LM2671M-5.0/NOPB" H 5250 5270 60  0001 C CNN "2nd Source Part Number"
+F 6 "Farnell" H 4950 4970 60  0001 C CNN "1st Source"
+F 7 "LM2671M-5.0/NOPB" H 4850 4870 60  0001 C CNN "Manufacturer Part Number"
+F 8 "Mouser" H 5150 5170 60  0001 C CNN "2nd Source"
+F 9 "TEXAS INSTRUMENTS" H 4750 4770 60  0001 C CNN "Manufacturer"
+	1    4850 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L kemet:10nF C11
+U 1 1 57B822C5
+P 5800 3950
+F 0 "C11" H 5850 4149 45  0000 C CNN
+F 1 "10nF" H 5850 4065 45  0000 C CNN
+F 2 "kemet:Kemet-CAPC1608X85N" H 5830 4100 20  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2064086.pdf?_ga=1.250530118.1948984246.1460023966" H 5704 3959 60  0001 C CNN
+F 4 "1457729" H 6104 4359 60  0001 C CNN "1st Source Part Number"
+F 5 "C0603C103J3GACTU" H 5904 4159 60  0001 C CNN "Manufacturer Part Number"
+F 6 "Farnell" H 6004 4259 60  0001 C CNN "1st Source"
+F 7 "KEMET" H 5804 4059 60  0001 C CNN "Manufacturer"
+	1    5800 3950
+	1    0    0    -1  
+$EndComp
+$Comp
 L usevolt:DIODE_RS07J-GS18 D2
 U 1 1 57B82329
 P 6200 3950
@@ -49,21 +96,19 @@ F 9 "Vishay Semiconductor Diodes Division" H 6320 4070 60  0001 C CNN "Manufactu
 	0    -1   -1   0   
 $EndComp
 $Comp
-L usevolt:REG_MCP1700 VR2
-U 1 1 57B82857
-P 8000 3950
-F 0 "VR2" H 8000 4305 45  0000 C CNN
-F 1 "REG_MCP1700" H 8000 3950 45  0001 L BNN
-F 2 "usevolt:SOT-23_3-PIN" H 8030 4100 20  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/1784514.pdf?_ga=1.221693144.1948984246.1460023966" H 7700 4270 60  0001 C CNN
-F 4 "1296592" H 8100 4670 60  0001 C CNN "1st Source Part Number"
-F 5 "Digi-Key" H 8200 4770 60  0001 C CNN "2nd Source"
-F 6 "Farnell" H 8000 4570 60  0001 C CNN "1st Source"
-F 7 "MCP1700T-3302E/TT" H 7900 4470 60  0001 C CNN "Manufacturer Part Number"
-F 8 "MCP1700T3302ETTCT-ND" H 8300 4870 60  0001 C CNN "2nd Source Part Number"
-F 9 "MICROCHIP" H 7800 4370 60  0001 C CNN "Manufacturer"
-	1    8000 3950
-	1    0    0    -1  
+L kemet:100nF C13
+U 1 1 57B82A3F
+P 8600 3950
+F 0 "C13" V 8608 4023 45  0000 L CNN
+F 1 "100nF" V 8692 4023 45  0000 L CNN
+F 2 "kemet:Kemet-CAPC1608X85N" H 8630 4100 20  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2062872.pdf?_ga=1.250530118.1948984246.1460023966" H 8504 3959 60  0001 C CNN
+F 4 "1288255" H 8904 4359 60  0001 C CNN "1st Source Part Number"
+F 5 "C0603C104K5RACTU" H 8704 4159 60  0001 C CNN "Manufacturer Part Number"
+F 6 "Farnell" H 8804 4259 60  0001 C CNN "1st Source"
+F 7 "KEMET" H 8604 4059 60  0001 C CNN "Manufacturer"
+	1    8600 3950
+	0    1    1    0   
 $EndComp
 Wire Wire Line
 	8000 4300 8000 4250
@@ -111,7 +156,7 @@ Wire Wire Line
 Wire Wire Line
 	3400 3550 3400 3600
 $Comp
-L power1:VDD #PWR0201
+L display-rescue:VDD #PWR0201
 U 1 1 57B83157
 P 3400 3550
 F 0 "#PWR0201" H 3400 3400 50  0001 C CNN
@@ -122,7 +167,7 @@ F 3 "" H 3400 3550 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power1:+5V #PWR0204
+L display-rescue:+5V #PWR0204
 U 1 1 57B831F8
 P 6850 3600
 F 0 "#PWR0204" H 6850 3450 50  0001 C CNN
@@ -134,9 +179,11 @@ F 3 "" H 6850 3600 50  0000 C CNN
 $EndComp
 Connection ~ 6850 3750
 $Comp
-L power1:+3V3 #PWR0205
+L display-rescue:+3V3 #PWR205
 U 1 1 57B83259
 P 8600 3600
+AR Path="/57B83259" Ref="#PWR205"  Part="1" 
+AR Path="/57B81D4F/57B83259" Ref="#PWR0205"  Part="1" 
 F 0 "#PWR0205" H 8600 3450 50  0001 C CNN
 F 1 "+3V3" H 8615 3773 50  0000 C CNN
 F 2 "" H 8600 3600 50  0000 C CNN
@@ -145,7 +192,7 @@ F 3 "" H 8600 3600 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1950 3850 2150 3850
+	2400 3850 2150 3850
 Wire Wire Line
 	3400 3700 4550 3700
 Wire Wire Line
@@ -171,7 +218,7 @@ NoConn ~ 4550 3850
 NoConn ~ 4550 3950
 NoConn ~ 4550 4050
 $Comp
-L power1:VDD #PWR0202
+L display-rescue:VDD #PWR0202
 U 1 1 57B9C56A
 P 3800 2100
 F 0 "#PWR0202" H 3800 1950 50  0001 C CNN
@@ -182,7 +229,7 @@ F 3 "" H 3800 2100 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power1:PWR_FLAG #FLG0201
+L display-rescue:PWR_FLAG #FLG0201
 U 1 1 57B9C59C
 P 3800 2300
 F 0 "#FLG0201" H 3800 2395 50  0001 C CNN
@@ -195,7 +242,7 @@ $EndComp
 Wire Wire Line
 	3800 2300 3800 2100
 $Comp
-L power1:GND #PWR0203
+L display-rescue:GND #PWR0203
 U 1 1 57B9D351
 P 4300 2350
 F 0 "#PWR0203" H 4300 2100 50  0001 C CNN
@@ -206,7 +253,7 @@ F 3 "" H 4300 2350 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power1:PWR_FLAG #FLG0202
+L display-rescue:PWR_FLAG #FLG0202
 U 1 1 57B9D3A1
 P 4300 2150
 F 0 "#FLG0202" H 4300 2245 50  0001 C CNN
@@ -239,119 +286,47 @@ F 9 "1457504" H 7250 4390 60  0001 C CNN "1st Source Part Number"
 	1    6850 4050
 	0    1    1    0   
 $EndComp
-Connection ~ 2150 3850
-Text HLabel 3300 3050 2    60   Output ~ 0
-VLCD
 $Comp
-L usevolt:INDUCTOR_SDR1005-101KL L201
-U 1 1 5A0C53F2
-P 6500 3850
-F 0 "L201" H 6500 4041 45  0000 C CNN
-F 1 "INDUCTOR_SDR1005-101KL" H 6500 3957 45  0000 C CNN
-F 2 "usevolt:INDUCTOR_BOURNS_10X13X5MM" H 6530 4000 20  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/1695384.pdf?_ga=1.223340891.1948984246.1460023966" H 6400 3790 60  0001 C CNN
-F 4 "1828057" H 6800 4190 60  0001 C CNN "1st Source Part Number"
-F 5 "BOURNS" H 6500 3890 60  0001 C CNN "Manufacturer"
-F 6 "Digi-Key" H 6900 4290 60  0001 C CNN "2nd Source"
-F 7 "Farnell" H 6700 4090 60  0001 C CNN "1st Source"
-F 8 "SDR1005-101KL" H 6600 3990 60  0001 C CNN "Manufacturer Part Number"
-F 9 "SDR1005-101KLCT-ND" H 7000 4390 60  0001 C CNN "2nd Source Part Number"
-	1    6500 3850
-	1    0    0    -1  
-$EndComp
-$Comp
-L usevolt:LM2671SOIC8 VR201
-U 1 1 5A0C5926
-P 4850 4150
-F 0 "VR201" H 5050 4804 45  0000 C CNN
-F 1 "LM2671SOIC8" H 5050 4720 45  0000 C CNN
-F 2 "usevolt:SOIC8" H 4880 4300 20  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/1902681.pdf?_ga=1.246738500.1948984246.1460023966" H 4650 4670 60  0001 C CNN
-F 4 "1469200" H 5050 5070 60  0001 C CNN "1st Source Part Number"
-F 5 "926-LM2671M-5.0/NOPB" H 5250 5270 60  0001 C CNN "2nd Source Part Number"
-F 6 "Farnell" H 4950 4970 60  0001 C CNN "1st Source"
-F 7 "LM2671M-5.0/NOPB" H 4850 4870 60  0001 C CNN "Manufacturer Part Number"
-F 8 "Mouser" H 5150 5170 60  0001 C CNN "2nd Source"
-F 9 "TEXAS INSTRUMENTS" H 4750 4770 60  0001 C CNN "Manufacturer"
-	1    4850 4150
-	1    0    0    -1  
-$EndComp
-$Comp
-L kemet:100nF C204
-U 1 1 5A0C68D3
-P 5800 3950
-F 0 "C204" H 5850 4149 45  0000 C CNN
-F 1 "100nF" H 5850 4065 45  0000 C CNN
-F 2 "kemet:0603" H 5830 4100 20  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/2062872.pdf?_ga=1.250530118.1948984246.1460023966" H 5704 3959 60  0001 C CNN
-F 4 "1288255" H 6104 4359 60  0001 C CNN "1st Source Part Number"
-F 5 "C0603C104K5RACTU" H 5904 4159 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Farnell" H 6004 4259 60  0001 C CNN "1st Source"
-F 7 "KEMET" H 5804 4059 60  0001 C CNN "Manufacturer"
-	1    5800 3950
-	1    0    0    -1  
-$EndComp
-$Comp
-L kemet:100nF C205
-U 1 1 5A0C6963
-P 8600 3950
-F 0 "C205" V 8608 4023 45  0000 L CNN
-F 1 "100nF" V 8692 4023 45  0000 L CNN
-F 2 "kemet:0603" H 8630 4100 20  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/2062872.pdf?_ga=1.250530118.1948984246.1460023966" H 8504 3959 60  0001 C CNN
-F 4 "1288255" H 8904 4359 60  0001 C CNN "1st Source Part Number"
-F 5 "C0603C104K5RACTU" H 8704 4159 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Farnell" H 8804 4259 60  0001 C CNN "1st Source"
-F 7 "KEMET" H 8604 4059 60  0001 C CNN "Manufacturer"
-	1    8600 3950
-	0    1    1    0   
-$EndComp
-$Comp
-L kemet:100nF C203
-U 1 1 5A0C6A34
-P 3200 3950
-F 0 "C203" V 3208 4023 45  0000 L CNN
-F 1 "100nF" V 3292 4023 45  0000 L CNN
-F 2 "kemet:0603" H 3230 4100 20  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/2062872.pdf?_ga=1.250530118.1948984246.1460023966" H 3104 3959 60  0001 C CNN
-F 4 "1288255" H 3504 4359 60  0001 C CNN "1st Source Part Number"
-F 5 "C0603C104K5RACTU" H 3304 4159 60  0001 C CNN "Manufacturer Part Number"
-F 6 "Farnell" H 3404 4259 60  0001 C CNN "1st Source"
-F 7 "KEMET" H 3204 4059 60  0001 C CNN "Manufacturer"
-	1    3200 3950
-	0    1    1    0   
-$EndComp
-$Comp
-L usevolt:CAP_EEE-FK1H470P C201
-U 1 1 5A1029C5
+L kemet:T491D226K035AT C201
+U 1 1 58F3D42E
 P 3400 4050
 F 0 "C201" V 3308 4153 45  0000 L CNN
-F 1 "CAP_EEE-FK1H470P" V 3392 4153 45  0000 L CNN
-F 2 "usevolt:CAP_EEE-FK1H470P" H 3430 4200 20  0001 C CNN
-F 3 "http://industrial.panasonic.com/www-cgi/jvcr13pz.cgi?E+PZ+3+ABA0120+EEEFK1H470P+7+WW" H 3400 3990 60  0001 C CNN
-F 4 "667-EEE-FK1H470P" H 4000 4590 60  0001 C CNN "2nd Source Part Number"
-F 5 "Digi-Key" H 3700 4290 60  0001 C CNN "1st Source"
-F 6 "EEE-FK1H470P" H 3600 4190 60  0001 C CNN "Manufacturer Part Number"
-F 7 "Mouser" H 3900 4490 60  0001 C CNN "2nd Source"
-F 8 "Panasonic Electronic Components" H 3500 4090 60  0001 C CNN "Manufacturer"
-F 9 "PCE3815CT-ND" H 3800 4390 60  0001 C CNN "1st Source Part Number"
+F 1 "T491D226K035AT" V 3392 4153 45  0000 L CNN
+F 2 "kemet:7343" H 3430 4200 20  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2121523.pdf?_ga=1.259966538.1948984246.1460023966" H 3400 3990 60  0001 C CNN
+F 4 "399-8375-1-ND" H 4000 4590 60  0001 C CNN "2nd Source Part Number"
+F 5 "Farnell" H 3700 4290 60  0001 C CNN "1st Source"
+F 6 "T491D226K035AT" H 3600 4190 60  0001 C CNN "Manufacturer Part Number"
+F 7 "Digikey" H 3900 4490 60  0001 C CNN "2nd Source"
+F 8 "Kemet" H 3500 4090 60  0001 C CNN "Manufacturer"
+F 9 "1457504" H 3800 4390 60  0001 C CNN "1st Source Part Number"
 	1    3400 4050
 	0    1    1    0   
 $EndComp
-Connection ~ 3400 3850
+Wire Wire Line
+	2150 3850 2150 3050
+Wire Wire Line
+	2150 3050 2500 3050
+Connection ~ 2150 3850
+Wire Wire Line
+	2900 3050 3300 3050
+Text HLabel 3300 3050 2    60   Output ~ 0
+VLCD
 $Comp
-L usevolt:FUSE_0ZCH0075AF2E F203
-U 1 1 5A39B376
-P 2600 3850
-F 0 "F203" H 2600 4054 45  0000 C CNN
-F 1 "FUSE_0ZCH0075AF2E" H 2600 3970 45  0000 C CNN
-F 2 "usevolt:1210" H 2630 4000 20  0001 C CNN
-F 3 "https://belfuse.com/resources/CircuitProtection/datasheets/0ZCH%20Nov2016.pdf" H 2720 3870 60  0001 C CNN
-F 4 "507-1788-1-ND" H 3120 4270 60  0001 C CNN "1st Source Part Number"
-F 5 "Digikey" H 3020 4170 60  0001 C CNN "1st Source"
-F 6 "0ZCH0075AF2E" H 2920 4070 60  0001 C CNN "Manufacturer Part Number"
-F 7 "Bel Fuse Inc." H 2820 3970 60  0001 C CNN "Manufacturer"
-	1    2600 3850
+L usevolt:IND_744045210 L201
+U 1 1 594FF8F5
+P 6500 3850
+F 0 "L201" H 6500 4041 45  0000 C CNN
+F 1 "IND_744045210" H 6500 3957 45  0000 C CNN
+F 2 "usevolt:IND_744045210" H 6530 4000 20  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/1735442.pdf?_ga=1.223184091.1948984246.1460023966" H 6400 3790 60  0001 C CNN
+F 4 "1800416" H 6800 4190 60  0001 C CNN "1st Source Part Number"
+F 5 "WURTH ELEKTRONIK" H 6500 3890 60  0001 C CNN "Manufacturer"
+F 6 "Digi-Key" H 6900 4290 60  0001 C CNN "2nd Source"
+F 7 "Farnell" H 6700 4090 60  0001 C CNN "1st Source"
+F 8 "744045210" H 6600 3990 60  0001 C CNN "Manufacturer Part Number"
+F 9 "732-3072-1-ND" H 7000 4390 60  0001 C CNN "2nd Source Part Number"
+	1    6500 3850
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -371,7 +346,7 @@ Wire Wire Line
 Wire Wire Line
 	3200 3850 3000 3850
 Wire Wire Line
-	6850 3850 7600 3850
+	6850 3850 7450 3850
 Wire Wire Line
 	6200 3850 6300 3850
 Wire Wire Line
@@ -379,32 +354,100 @@ Wire Wire Line
 Wire Wire Line
 	6850 3750 6850 3850
 Wire Wire Line
-	3400 3700 3400 3850
-Wire Wire Line
 	3400 3600 3400 3700
 Wire Wire Line
 	3000 4300 3200 4300
 Wire Wire Line
-	2150 3850 2400 3850
+	2150 3850 1950 3850
 Wire Wire Line
-	2150 3050 2150 3850
+	3400 3700 3400 3850
 $Comp
-L usevolt:FUSE_0ZCH0075AF2E F201
-U 1 1 5B056247
+L usevolt:FUSE_0ZCH0075AF2E F1
+U 1 1 5F1AD29E
+P 2600 3850
+F 0 "F1" H 2600 4054 45  0000 C CNN
+F 1 "FUSE_0ZCH0075AF2E" H 2600 3970 45  0000 C CNN
+F 2 "usevolt:1210" H 2630 4000 20  0001 C CNN
+F 3 "https://www.belfuse.com/resources/datasheets/circuitprotection/ds-cp-0zch-series.pdf" H 2720 3870 60  0001 C CNN
+F 4 "Bel Fuse Inc." H 2820 3970 60  0001 C CNN "Manufacturer"
+F 5 "0ZCH0075AF2E" H 2920 4070 60  0001 C CNN "Manufacturer Part Number"
+F 6 "Digikey" H 3020 4170 60  0001 C CNN "1st Source"
+F 7 "507-1788-1-ND" H 3120 4270 60  0001 C CNN "1st Source Part Number"
+	1    2600 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L usevolt:FUSE_0ZCH0075AF2E F2
+U 1 1 5F1AD2EC
 P 2700 3050
-F 0 "F201" H 2700 3254 45  0000 C CNN
+F 0 "F2" H 2700 3254 45  0000 C CNN
 F 1 "FUSE_0ZCH0075AF2E" H 2700 3170 45  0000 C CNN
 F 2 "usevolt:1210" H 2730 3200 20  0001 C CNN
-F 3 "https://belfuse.com/resources/CircuitProtection/datasheets/0ZCH%20Nov2016.pdf" H 2820 3070 60  0001 C CNN
-F 4 "507-1788-1-ND" H 3220 3470 60  0001 C CNN "1st Source Part Number"
-F 5 "Digikey" H 3120 3370 60  0001 C CNN "1st Source"
-F 6 "0ZCH0075AF2E" H 3020 3270 60  0001 C CNN "Manufacturer Part Number"
-F 7 "Bel Fuse Inc." H 2920 3170 60  0001 C CNN "Manufacturer"
+F 3 "https://www.belfuse.com/resources/datasheets/circuitprotection/ds-cp-0zch-series.pdf" H 2820 3070 60  0001 C CNN
+F 4 "Bel Fuse Inc." H 2920 3170 60  0001 C CNN "Manufacturer"
+F 5 "0ZCH0075AF2E" H 3020 3270 60  0001 C CNN "Manufacturer Part Number"
+F 6 "Digikey" H 3120 3370 60  0001 C CNN "1st Source"
+F 7 "507-1788-1-ND" H 3220 3470 60  0001 C CNN "1st Source Part Number"
 	1    2700 3050
 	1    0    0    -1  
 $EndComp
+$Comp
+L display-rescue:GND #PWR0109
+U 1 1 5F28343B
+P 8000 3400
+F 0 "#PWR0109" H 8000 3150 50  0001 C CNN
+F 1 "GND" H 8005 3227 50  0000 C CNN
+F 2 "" H 8000 3400 50  0000 C CNN
+F 3 "" H 8000 3400 50  0000 C CNN
+	1    8000 3400
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	2900 3050 3300 3050
+	8000 3400 8000 3350
 Wire Wire Line
-	2500 3050 2150 3050
+	8400 2950 8400 3600
+Wire Wire Line
+	8400 3600 8600 3600
+Connection ~ 8600 3600
+Wire Wire Line
+	7600 2950 7450 2950
+Wire Wire Line
+	7450 2950 7450 3850
+Connection ~ 7450 3850
+Wire Wire Line
+	7450 3850 7600 3850
+$Comp
+L usevolt:REG_MCP1700 VR2
+U 1 1 5F2857C9
+P 8000 3050
+F 0 "VR2" H 8000 3405 45  0000 C CNN
+F 1 "REG_MCP1700" H 8000 3050 45  0001 L BNN
+F 2 "usevolt:SOT-23_3-PIN" H 8030 3200 20  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/1784514.pdf?_ga=1.221693144.1948984246.1460023966" H 7700 3370 60  0001 C CNN
+F 4 "1296592" H 8100 3770 60  0001 C CNN "1st Source Part Number"
+F 5 "Digi-Key" H 8200 3870 60  0001 C CNN "2nd Source"
+F 6 "Farnell" H 8000 3670 60  0001 C CNN "1st Source"
+F 7 "MCP1700T-3302E/TT" H 7900 3570 60  0001 C CNN "Manufacturer Part Number"
+F 8 "MCP1700T3302ETTCT-ND" H 8300 3970 60  0001 C CNN "2nd Source Part Number"
+F 9 "MICROCHIP" H 7800 3470 60  0001 C CNN "Manufacturer"
+	1    8000 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L usevolt:REG_MCP1700 VR3
+U 1 1 5F286F86
+P 8000 3950
+F 0 "VR3" H 8000 4305 45  0000 C CNN
+F 1 "REG_MCP1700" H 8000 3950 45  0001 L BNN
+F 2 "usevolt:SOT-23_3-PIN" H 8030 4100 20  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/1784514.pdf?_ga=1.221693144.1948984246.1460023966" H 7700 4270 60  0001 C CNN
+F 4 "1296592" H 8100 4670 60  0001 C CNN "1st Source Part Number"
+F 5 "Digi-Key" H 8200 4770 60  0001 C CNN "2nd Source"
+F 6 "Farnell" H 8000 4570 60  0001 C CNN "1st Source"
+F 7 "MCP1700T-3302E/TT" H 7900 4470 60  0001 C CNN "Manufacturer Part Number"
+F 8 "MCP1700T3302ETTCT-ND" H 8300 4870 60  0001 C CNN "2nd Source Part Number"
+F 9 "MICROCHIP" H 7800 4370 60  0001 C CNN "Manufacturer"
+	1    8000 3950
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

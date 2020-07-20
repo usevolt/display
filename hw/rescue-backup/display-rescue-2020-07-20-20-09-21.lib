@@ -1,0 +1,36 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#
+# MCP2551_SOIC8-RESCUE-display
+#
+DEF MCP2551_SOIC8-RESCUE-display U 0 40 Y Y 1 L N
+F0 "U" 0 220 45 H V L BNN
+F1 "MCP2551_SOIC8-RESCUE-display" 0 -380 45 H V L BNN
+F2 "usevolt:SOIC8" 30 150 20 H I C CNN
+F3 "http://www.microchip.com/mymicrochip/filehandler.aspx?ddocname=en011797" 0 220 60 H I C CNN
+F4 "9758569" 600 820 60 H I C CNN "2nd Source Part Number"
+F5 "Digi-Key" 300 520 60 H I C CNN "1st Source"
+F6 "Farnell" 500 720 60 H I C CNN "2nd Source"
+F7 "MCP2551-I/SN" 200 420 60 H I C CNN "Manufacturer Part Number"
+F8 "MCP2551-I/SN-ND" 400 620 60 H I C CNN "1st Source Part Number"
+F9 "MICROCHIP" 100 320 60 H I C CNN "Manufacturer"
+$FPLIST
+ *SOIC8*
+$ENDFPLIST
+DRAW
+P 2 1 0 0 0 -300 0 200 N
+P 2 1 0 0 0 200 700 200 N
+P 2 1 0 0 700 -300 0 -300 N
+P 2 1 0 0 700 200 700 -300 N
+X TXD P$1 -100 100 100 R 40 40 1 1 B
+X VSS P$2 -100 0 100 R 40 40 1 1 B
+X VDD P$3 -100 -100 100 R 40 40 1 1 B
+X RXD P$4 -100 -200 100 R 40 40 1 1 B
+X VREF P$5 800 -200 100 L 40 40 1 1 B
+X CANL P$6 800 -100 100 L 40 40 1 1 B
+X CANH P$7 800 0 100 L 40 40 1 1 B
+X RS P$8 800 100 100 L 40 40 1 1 B
+ENDDRAW
+ENDDEF
+#
+#End Library
