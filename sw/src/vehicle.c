@@ -208,6 +208,17 @@ const valve_st vehicle_valves[BASE_VALVE_COUNT] = {
 				.acc = 30,
 				.dec = 30,
 				.invert = false
+		},
+		{
+				.name = STR_SETTINGS_VALVES_TREEDRIVEBACK,
+				.setter = ecu_set_driveback_params,
+				.min_speed_p = 230,
+				.max_speed_p = 890,
+				.min_speed_n = 230,
+				.max_speed_n = 890,
+				.acc = 30,
+				.dec = 25,
+				.invert = false
 		}
 };
 

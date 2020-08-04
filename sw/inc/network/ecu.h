@@ -240,6 +240,8 @@ void ecu_set_boom_rotate_params(valve_st *valve);
 
 void ecu_set_drive_params(valve_st *valve);
 
+void ecu_set_driveback_params(valve_st *valve);
+
 void ecu_set_steer_params(valve_st *valve);
 
 #if FM
@@ -309,6 +311,8 @@ void ecu_set_uw50_saw_params(uint16_t speed_f,
 
 void ecu_set_uw50_tilt_params(uint16_t speed_f,
 		uint16_t speed_b, uint16_t acc, uint16_t dec, bool invert);
+
+void ecu_set_drive_comp(int8_t value);
 
 void ecu_save_params();
 

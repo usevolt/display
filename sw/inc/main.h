@@ -53,6 +53,7 @@ typedef struct {
 			bool notifications;
 			bool warnings;
 		} volume;
+		int8_t drive_comp;
 } userdata_st;
 
 

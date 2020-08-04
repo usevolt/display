@@ -497,6 +497,11 @@ static langstr_st strs[STR_COUNT] = {
 				"Fur"
 		},
 		{
+				"Drive Back",
+				"Ajo takaporat",
+				"Fur back"
+		},
+		{
 				"Steer",
 				"Ohjaus",
 				"Steuerung"

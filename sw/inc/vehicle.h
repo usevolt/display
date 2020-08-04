@@ -82,7 +82,7 @@
 #if FM
 #define BASE_VALVE_COUNT			7
 #elif LM
-#define BASE_VALVE_COUNT			10
+#define BASE_VALVE_COUNT			11
 #elif CM
 #define BASE_VALVE_COUNT			9
 #endif

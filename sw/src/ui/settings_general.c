@@ -16,7 +16,7 @@
 #define this (&gui.windows.settings.general)
 
 #define GENERAL_HEIGHT		180
-#define DISPLAY_HEIGHT		140
+#define DISPLAY_HEIGHT		240
 #define IMPLEMENT_HEIGHT	200
 #define DATE_HEIGHT			160
 #define LANG_HEIGHT			180
@@ -118,7 +118,7 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0,
 			uv_uitreeobject_get_content_bb(&this->displayobj).width,
-			uv_uitreeobject_get_content_bb(&this->displayobj).height, 2, 1);
+			uv_uitreeobject_get_content_bb(&this->displayobj).height, 2, 2);
 	uv_uigridlayout_set_padding(&grid, 30, 0);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
@@ -136,6 +136,14 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 	uv_uislider_set_horizontal(&this->system.oilcooler_trigger);
 	uv_uislider_set_title(&this->system.oilcooler_trigger, uv_str(STR_SETTINGS_GENERAL_SLIDEROILCTEMP));
 	uv_uitreeobject_add(&this->displayobj, &this->system.oilcooler_trigger,
+			bb.x, bb.y, bb.width, bb.height);
+
+	// drive compensation
+	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->system.drivecomp, -100, 100, dspl.user->drive_comp, &uv_uistyles[0]);
+	uv_uislider_set_horizontal(&this->system.drivecomp);
+	uv_uislider_set_title(&this->system.drivecomp, "Drive Compensation");
+	uv_uitreeobject_add(&this->displayobj, &this->system.drivecomp,
 			bb.x, bb.y, bb.width, bb.height);
 
 }
@@ -330,6 +338,13 @@ uv_uiobject_ret_e settings_system_step(const uint16_t step_ms) {
 		uv_canopen_sdo_write8(ESB_NODE_ID,
 				ESB_OILCOOLER_TRIGGER_INDEX, ESB_OILCOOLER_TRIGGER_SUBINDEX,
 				uv_uislider_get_value(&this->system.oilcooler_trigger));
+	}
+	else if (uv_uislider_value_changed(&this->system.drivecomp)) {
+		dspl.user->drive_comp = uv_uislider_get_value(&this->system.drivecomp);
+		ecu_set_drive_comp(dspl.user->drive_comp);
+	}
+	else {
+
 	}
 
 

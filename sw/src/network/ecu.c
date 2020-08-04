@@ -82,6 +82,9 @@ void ecu_update(void *me) {
 	uv_rtos_task_delay(10);
 	ecu_set_uw180s_rollers_grab_time(dspl.user->uw180s.roller_grab_time);
 	ecu_set_uw180s_blades_grab_time(dspl.user->uw180s.blades_grab_time);
+	ecu_set_drive_comp(dspl.user->drive_comp);
+
+
 }
 
 
@@ -146,6 +149,23 @@ void ecu_set_drive_params(valve_st *valve) {
 		netdev_set_transmit_failure(&dspl.network.ecu);
 	}
 }
+
+
+void ecu_set_driveback_params(valve_st *valve) {
+	uv_errors_e e = ERR_NONE;
+	valve_st v = *valve;
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 1, 2, &v.max_speed_p));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 2, 2, &v.min_speed_p));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 3, 2, &v.max_speed_n));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 4, 2, &v.min_speed_n));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 5, 2, &v.acc));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 6, 2, &v.dec));
+	e |= (uv_canopen_sdo_write( ECU_NODE_ID, 0x2007, 7, 1, &v.invert));
+	if (e) {
+		netdev_set_transmit_failure(&dspl.network.ecu);
+	}
+}
+
 
 void ecu_set_steer_params(valve_st *valve) {
 	uv_errors_e e = ERR_NONE;
@@ -483,6 +503,18 @@ void ecu_set_uw50_tilt_params(uint16_t speed_f,
 		netdev_set_transmit_failure(&dspl.network.ecu);
 	}
 }
+
+
+void ecu_set_drive_comp(int8_t value) {
+	dspl.user->drive_comp = value;
+	uv_errors_e e = ERR_NONE;
+	e = uv_canopen_sdo_write(ECU_NODE_ID, 0x2060, 0, 1, &value);
+
+	if (e) {
+		netdev_set_transmit_failure(&dspl.network.ecu);
+	}
+}
+
 
 
 void ecu_save_params() {
