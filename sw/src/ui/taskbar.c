@@ -254,8 +254,8 @@ static void show(const taskbar_state_e state) {
 		uv_uiprogressbar_init(&this->otemp_bar, 0, 100, &uv_uistyles[0]);
 		uv_uiprogressbar_set_value(&this->otemp_bar, esb_get_oil_temp(&dspl.network.esb));
 		uv_uiprogressbar_set_vertical(&this->otemp_bar);
-		uv_uiprogressbar_set_limit(&this->otemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
-				OIL_TEMP_WARNING_LIMIT, ERROR_COLOR);
+//		uv_uiprogressbar_set_limit(&this->otemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
+//				OIL_TEMP_WARNING_LIMIT, ERROR_COLOR);
 		uv_uiprogressbar_set_title(&this->otemp_bar, uv_str(STR_TASKBAR_OILT));
 		uv_uiwindow_add(&this->taskbar, &this->otemp_bar, bb.x, bb.y,
 				bb.width, bb.height);
@@ -266,8 +266,8 @@ static void show(const taskbar_state_e state) {
 		uv_uiprogressbar_init(&this->mtemp_bar, 50, 100, &uv_uistyles[0]);
 		uv_uiprogressbar_set_vertical(&this->mtemp_bar);
 		uv_uiprogressbar_set_value(&this->mtemp_bar, esb_get_motor_temp(&dspl.network.esb));
-		uv_uiprogressbar_set_limit(&this->mtemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
-				MOTOR_TEMP_WARNING_LIMIT, ERROR_COLOR);
+//		uv_uiprogressbar_set_limit(&this->mtemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
+//				MOTOR_TEMP_WARNING_LIMIT, ERROR_COLOR);
 		uv_uiprogressbar_set_title(&this->mtemp_bar, uv_str(STR_TASKBAR_MOTORT));
 		uv_uiwindow_add(&this->taskbar, &this->mtemp_bar, bb.x, bb.y,
 				bb.width, bb.height);
@@ -428,8 +428,18 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 			uv_uiprogressbar_set_value(&this->voltage_level, esb_get_voltage(&dspl.network.esb));
 			uv_uiprogressbar_set_value(&this->fuel_level, fsb_get_fuel_level(&dspl.network.fsb));
 			uv_uiprogressbar_set_value(&this->oil_level, esb_get_oil_level(&dspl.network.esb));
+			if (esb_get_motor_water(&dspl.network.esb)) {
+				uv_uiprogressbar_set_limit(&this->mtemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
+						0, ERROR_COLOR);
+				uv_ui_refresh(&this->mtemp_bar);
+			}
+			else {
+				uv_uiprogressbar_set_limit(&this->mtemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
+						120, ERROR_COLOR);
+			}
 			uv_uiprogressbar_set_value(&this->otemp_bar, esb_get_oil_temp(&dspl.network.esb));
 			uv_uiprogressbar_set_value(&this->mtemp_bar, esb_get_motor_temp(&dspl.network.esb));
+
 
 			if (uv_delay(step_ms, &this->delay)) {
 				uv_time_st t;
