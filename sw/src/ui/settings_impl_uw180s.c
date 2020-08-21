@@ -63,8 +63,8 @@ static void show_general() {
 
 	uv_uitogglebutton_init(&this->general.tilt_onthumb, dspl.user->uw180s.tilt_onthumb,
 			uv_str(STR_SETTINGS_UW180S_TOGGLETILTONTHUMB), &uv_uistyles[0]);
-	uv_uiwindow_add(this->window, &this->general.tilt_onthumb, bb.x, bb.y + bb.width / 2 + 5,
-			bb.width, bb.height / 2 - 5);
+//	uv_uiwindow_add(this->window, &this->general.tilt_onthumb, bb.x, bb.y + bb.width / 2 + 5,
+//			bb.width, bb.height / 2 - 5);
 
 
 }
