@@ -56,8 +56,8 @@ void login_show(void) {
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->add_user, uv_str(STR_LOGIN_BUTADDUSER),
 			&uv_uistyles[DEFAULT_BUTTON_STYLE_INDEX]);
-	uv_uiwindow_add(&this->window, &this->add_user,
-			bb.x, bb.y, bb.width, bb.height);
+//	uv_uiwindow_add(&this->window, &this->add_user,
+//			bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uibutton_init(&this->copy_user, uv_str(STR_LOGIN_BUTCOPYUSER),
