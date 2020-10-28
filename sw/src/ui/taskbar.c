@@ -409,15 +409,24 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 						CSB_WIPER_REQ_SUBINDEX, 1);
 			}
 			else if (uv_uitoucharea_pressed(&this->heat_touch, NULL, NULL)) {
-				uint8_t value = fsb_get_heater_speed(&dspl.network.fsb);
-				if (value >= FSB_HEATER_MAX_SPEED) {
-					value = 0;
-				}
-				else {
-					uint8_t inc = FSB_HEATER_MAX_SPEED;
-					value += inc;
+				int8_t value = fsb_get_heater_speed(&dspl.network.fsb);
+				value++;
+				if (value >= FSB_HEATER_SPEED_COUNT) {
+					value = FSB_HEATER_OFF;
 				}
 				fsb_set_heater_speed(&dspl.network.fsb, value);
+				if (value == FSB_HEATER_SPEED_COLD1 ||
+						value == FSB_HEATER_SPEED_COLD2) {
+					uv_uidigit_set_color(&this->heat, C(0x0000FF));
+				}
+				else if (value == FSB_HEATER_SPEED_WARM1 ||
+						value == FSB_HEATER_SPEED_WARM2) {
+					uv_uidigit_set_color(&this->heat, C(0xFF0000));
+				}
+				else {
+					uv_uidigit_set_color(&this->heat, C(0xFFFFFF));
+				}
+				uv_ui_refresh(&this->heat);
 			}
 
 
