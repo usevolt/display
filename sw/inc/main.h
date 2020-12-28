@@ -54,6 +54,9 @@ typedef struct {
 		int8_t driveb_comp;
 		int8_t impl2_ain1_req;
 		int8_t impl2_ain2_req;
+		uint16_t idle_rpm;
+		uint16_t work_rpm;
+		uint16_t drive_rpm;
 } userdata_st;
 
 

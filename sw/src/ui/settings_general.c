@@ -16,7 +16,7 @@
 #define this (&gui.windows.settings.general)
 
 #define GENERAL_HEIGHT		180
-#define DISPLAY_HEIGHT		300
+#define DISPLAY_HEIGHT		500
 #define IMPLEMENT_HEIGHT	220
 #define DATE_HEIGHT			160
 #define LANG_HEIGHT			180
@@ -123,7 +123,7 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0,
 			uv_uitreeobject_get_content_bb(&this->displayobj).width - 10,
-			uv_uitreeobject_get_content_bb(&this->displayobj).height - 20, 2, 3);
+			uv_uitreeobject_get_content_bb(&this->displayobj).height - 20, 2, 5);
 	uv_uigridlayout_set_padding(&grid, 5, 0);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
@@ -182,6 +182,31 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 	uv_uislider_set_title(&this->system.impl2_ain2_req,
 			"IMPL2 req for CCU AIN2");
 	uv_uitreeobject_add(&this->displayobj, &this->system.impl2_ain2_req,
+			bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->system.idle_rpm_slider, 0, 2500, dspl.user->idle_rpm, &uv_uistyles[0]);
+	uv_uislider_set_horizontal(&this->system.idle_rpm_slider);
+	uv_uislider_set_title(&this->system.idle_rpm_slider,
+			"Idle RPM");
+	uv_uislider_set_inc_step(&this->system.idle_rpm_slider, 25);
+	uv_uitreeobject_add(&this->displayobj, &this->system.idle_rpm_slider,
+			bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->system.work_rpm_slider, 0, 2500, dspl.user->work_rpm, &uv_uistyles[0]);
+	uv_uislider_set_horizontal(&this->system.work_rpm_slider);
+	uv_uislider_set_title(&this->system.work_rpm_slider, "Work RPM");
+	uv_uislider_set_inc_step(&this->system.work_rpm_slider, 25);
+	uv_uitreeobject_add(&this->displayobj, &this->system.work_rpm_slider,
+			bb.x, bb.y, bb.width, bb.height);
+
+	bb = uv_uigridlayout_next(&grid);
+	uv_uislider_init(&this->system.drive_rpm_slider, 0, 2500, dspl.user->drive_rpm, &uv_uistyles[0]);
+	uv_uislider_set_horizontal(&this->system.drive_rpm_slider);
+	uv_uislider_set_title(&this->system.drive_rpm_slider, "Drive RPM");
+	uv_uislider_set_inc_step(&this->system.drive_rpm_slider, 25);
+	uv_uitreeobject_add(&this->displayobj, &this->system.drive_rpm_slider,
 			bb.x, bb.y, bb.width, bb.height);
 
 }
@@ -399,6 +424,18 @@ uv_uiobject_ret_e settings_system_step(const uint16_t step_ms) {
 		dspl.user->impl2_ain1_req = uv_uislider_get_value(&this->system.impl2_ain1_req);
 		dspl.user->impl2_ain2_req = uv_uislider_get_value(&this->system.impl2_ain2_req);
 		ccu_set_impl2_reqs(dspl.user->impl2_ain1_req, dspl.user->impl2_ain2_req);
+	}
+	else if (uv_uislider_value_changed(&this->system.idle_rpm_slider)) {
+		dspl.user->idle_rpm = uv_uislider_get_value(&this->system.idle_rpm_slider);
+		esb_set_idle_rpm(&dspl.network.esb, dspl.user->idle_rpm);
+	}
+	else if (uv_uislider_value_changed(&this->system.work_rpm_slider)) {
+		dspl.user->work_rpm = uv_uislider_get_value(&this->system.work_rpm_slider);
+		esb_set_work_rpm(&dspl.network.esb, dspl.user->work_rpm);
+	}
+	else if (uv_uislider_value_changed(&this->system.drive_rpm_slider)) {
+		dspl.user->drive_rpm = uv_uislider_get_value(&this->system.drive_rpm_slider);
+		esb_set_drive_rpm(&dspl.network.esb, dspl.user->drive_rpm);
 	}
 	else {
 

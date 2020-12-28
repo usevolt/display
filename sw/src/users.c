@@ -40,8 +40,6 @@ static void user_init(userdata_st *this) {
 
 }
 
-
-
 static void user_reset(userdata_st *user) {
 	// todo: initialize user variables to default settings
 
@@ -59,6 +57,10 @@ static void user_reset(userdata_st *user) {
 	user->oilcooler_trigg_temp = 70;
 	user->impl2_ain1_req = INT8_MAX / 2;
 	user->impl2_ain2_req = INT8_MAX;
+
+	user->idle_rpm = 500;
+	user->work_rpm = 1700;
+	user->drive_rpm = 2000;
 
 	// base valves
 	for (uint16_t i = 0; i < BASE_VALVE_COUNT; i++) {

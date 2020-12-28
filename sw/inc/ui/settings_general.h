@@ -43,6 +43,9 @@ typedef struct {
 			uv_uislider_st driveb_comp;
 			uv_uislider_st impl2_ain1_req;
 			uv_uislider_st impl2_ain2_req;
+			uv_uislider_st idle_rpm_slider;
+			uv_uislider_st work_rpm_slider;
+			uv_uislider_st drive_rpm_slider;
 		} system;
 		struct {
 			uv_uilist_st impls_list;

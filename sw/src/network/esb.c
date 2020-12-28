@@ -45,6 +45,33 @@ void esb_update(void *me) {
 			ESB_OILCOOLER_TRIGGER_SUBINDEX, CANOPEN_TYPE_LEN(ESB_OILCOOLER_TRIGGER_TYPE),
 			&dspl.user->oilcooler_trigg_temp);
 
+	esb_set_idle_rpm(this, dspl.user->idle_rpm);
+
+	esb_set_work_rpm(this, dspl.user->work_rpm);
+
+	esb_set_drive_rpm(this, dspl.user->drive_rpm);
+
 }
 #undef this
+
+
+void esb_set_idle_rpm(esb_st *this, uint16_t value) {
+	uv_canopen_sdo_write(ESB_NODE_ID, ESB_IDLE_RPM_INDEX,
+			ESB_IDLE_RPM_SUBINDEX, CANOPEN_TYPE_LEN(ESB_IDLE_RPM_TYPE),
+			&value);
+
+}
+
+void esb_set_work_rpm(esb_st *this, uint16_t value) {
+	uv_canopen_sdo_write(ESB_NODE_ID, ESB_WORK_RPM_INDEX,
+			ESB_WORK_RPM_SUBINDEX, CANOPEN_TYPE_LEN(ESB_WORK_RPM_TYPE),
+			&value);
+
+}
+
+void esb_set_drive_rpm(esb_st *this, uint16_t value) {
+	uv_canopen_sdo_write(ESB_NODE_ID, ESB_DRIVE_RPM_INDEX,
+			ESB_DRIVE_RPM_SUBINDEX, CANOPEN_TYPE_LEN(ESB_DRIVE_RPM_TYPE),
+			&value);
+}
 

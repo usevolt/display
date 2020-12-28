@@ -78,5 +78,11 @@ static inline uint8_t esb_get_glow_plugs(esb_st *this) {
 	return this->glow_plugs;
 }
 
+void esb_set_idle_rpm(esb_st *this, uint16_t value);
+
+void esb_set_work_rpm(esb_st *this, uint16_t value);
+
+void esb_set_drive_rpm(esb_st *this, uint16_t value);
+
 
 #endif /* ESB_H_ */
