@@ -408,9 +408,12 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 				uv_canopen_sdo_write8(CSB_NODE_ID, CSB_WIPER_REQ_INDEX,
 						CSB_WIPER_REQ_SUBINDEX, 1);
 			}
-			else if (uv_uitoucharea_pressed(&this->heat_touch, NULL, NULL)) {
+			else if (uv_uitoucharea_pressed(&this->heat_touch, NULL, NULL) ||
+					uv_uidigit_get_value(&this->heat) != fsb_get_heater_speed(&dspl.network.fsb)) {
 				int8_t value = fsb_get_heater_speed(&dspl.network.fsb);
-				value++;
+				if (uv_uitoucharea_pressed(&this->heat_touch, NULL, NULL)) {
+					value++;
+				}
 				if (value >= FSB_HEATER_SPEED_COUNT) {
 					value = FSB_HEATER_OFF;
 				}
