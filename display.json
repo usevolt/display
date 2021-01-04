@@ -1,0 +1,20 @@
+{
+	"DEV": "Display",
+	
+	"NODEID": 0x0E,
+
+	"EMCY": [
+	],
+	
+	"DEFINES": [
+	],
+	
+	
+	"OBJ_DICT": [
+	],
+	"RXPDO": [
+	],
+	"TXPDO": [
+	]
+	
+}

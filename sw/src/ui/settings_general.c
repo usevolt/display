@@ -190,24 +190,24 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 	uv_uislider_set_title(&this->system.idle_rpm_slider,
 			"Idle RPM");
 	uv_uislider_set_inc_step(&this->system.idle_rpm_slider, 25);
-	uv_uitreeobject_add(&this->displayobj, &this->system.idle_rpm_slider,
-			bb.x, bb.y, bb.width, bb.height);
+//	uv_uitreeobject_add(&this->displayobj, &this->system.idle_rpm_slider,
+//			bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->system.work_rpm_slider, 0, 2500, dspl.user->work_rpm, &uv_uistyles[0]);
 	uv_uislider_set_horizontal(&this->system.work_rpm_slider);
 	uv_uislider_set_title(&this->system.work_rpm_slider, "Work RPM");
 	uv_uislider_set_inc_step(&this->system.work_rpm_slider, 25);
-	uv_uitreeobject_add(&this->displayobj, &this->system.work_rpm_slider,
-			bb.x, bb.y, bb.width, bb.height);
+//	uv_uitreeobject_add(&this->displayobj, &this->system.work_rpm_slider,
+//			bb.x, bb.y, bb.width, bb.height);
 
 	bb = uv_uigridlayout_next(&grid);
 	uv_uislider_init(&this->system.drive_rpm_slider, 0, 2500, dspl.user->drive_rpm, &uv_uistyles[0]);
 	uv_uislider_set_horizontal(&this->system.drive_rpm_slider);
 	uv_uislider_set_title(&this->system.drive_rpm_slider, "Drive RPM");
 	uv_uislider_set_inc_step(&this->system.drive_rpm_slider, 25);
-	uv_uitreeobject_add(&this->displayobj, &this->system.drive_rpm_slider,
-			bb.x, bb.y, bb.width, bb.height);
+//	uv_uitreeobject_add(&this->displayobj, &this->system.drive_rpm_slider,
+//			bb.x, bb.y, bb.width, bb.height);
 
 }
 
