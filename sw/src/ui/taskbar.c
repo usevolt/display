@@ -412,12 +412,23 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 					uv_uidigit_get_value(&this->heat) != fsb_get_heater_speed(&dspl.network.fsb)) {
 				int8_t value = fsb_get_heater_speed(&dspl.network.fsb);
 				if (uv_uitoucharea_pressed(&this->heat_touch, NULL, NULL)) {
-					value += 100 / 2;
-					if (value > 100) {
-						value = 0;
-					}
+					value++;
+				}
+				if (value >= FSB_HEATER_SPEED_COUNT) {
+					value = FSB_HEATER_OFF;
 				}
 				fsb_set_heater_speed(&dspl.network.fsb, value);
+				if (value == FSB_HEATER_SPEED_COLD1 ||
+						value == FSB_HEATER_SPEED_COLD2) {
+					uv_uidigit_set_color(&this->heat, C(0x0000FF));
+				}
+				else if (value == FSB_HEATER_SPEED_WARM1 ||
+						value == FSB_HEATER_SPEED_WARM2) {
+					uv_uidigit_set_color(&this->heat, C(0xFF0000));
+				}
+				else {
+					uv_uidigit_set_color(&this->heat, C(0xFFFFFF));
+				}
 				uv_ui_refresh(&this->heat);
 			}
 
