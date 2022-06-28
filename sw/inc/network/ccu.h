@@ -20,7 +20,7 @@ typedef struct {
 	ccu_gear_e gear;
 	uint8_t drivef_comp;
 	uint8_t driveb_comp;
-
+	int8_t drive_dir;
 } ccu_st;
 
 

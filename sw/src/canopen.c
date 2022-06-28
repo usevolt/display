@@ -282,6 +282,13 @@ const canopen_object_st obj_dict[] = {
 				.data_ptr = (void*) &dspl.network.ccu.gear
 		},
 		{
+				.main_index = DSPL_CCU_OFFSET + CCU_DRIVE_DIR_INDEX,
+				.sub_index = CCU_DRIVE_DIR_SUBINDEX,
+				.permissions = CANOPEN_WO,
+				.type = CCU_DRIVE_DIR_TYPE,
+				.data_ptr = (void*) &dspl.network.ccu.drive_dir
+		},
+		{
 				.main_index = DSPL_ICU_OFFSET + ICU_TOTAL_CURRENT_INDEX,
 				.sub_index = ICU_TOTAL_CURRENT_SUBINDEX,
 				.permissions = CANOPEN_WO,

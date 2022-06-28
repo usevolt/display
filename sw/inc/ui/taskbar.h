@@ -52,7 +52,8 @@ typedef struct {
 
 #if (LM || CM)
 			uv_uitoucharea_st gear_touch;
-			uv_uidigit_st gear;
+			uv_uilabel_st gear;
+			char gear_str[10];
 			uv_uilabel_st gear_label;
 #endif
 			uv_uilabel_st horn;

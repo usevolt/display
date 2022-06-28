@@ -19,6 +19,7 @@ void ccu_init(ccu_st *this) {
 	this->gear = CCU_GEAR_1;
 	uv_canopen_sdo_write8(CCU_NODE_ID, CCU_DRIVE_COMP_INDEX, 1, dspl.user->drivef_comp);
 	uv_canopen_sdo_write8(CCU_NODE_ID, CCU_DRIVE_COMP_INDEX, 2, dspl.user->driveb_comp);
+	this->drive_dir = 0;
 }
 
 

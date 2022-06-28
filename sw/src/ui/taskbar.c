@@ -73,6 +73,17 @@ void taskbar_update_clock(void) {
 	uv_delay_init(0, &this->delay);
 }
 
+
+static void gear_update(void) {
+	char str[10];
+	sprintf(str, "%i%s", ccu_get_gear(&dspl.network.ccu) + 1,
+			dspl.network.ccu.drive_dir ? "B" : "F");
+	if (strcmp(this->gear_str, str) != 0) {
+		strcpy(this->gear_str, str);
+		uv_ui_refresh(&this->gear);
+	}
+}
+
 static void show(const taskbar_state_e state) {
 
 	this->state = state;
@@ -155,8 +166,10 @@ static void show(const taskbar_state_e state) {
 
 		// gear
 		bb = uv_uigridlayout_next(&grid);
-		uv_uidigit_init(&this->gear, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
-				taskbar_style.window_c, "%u", ccu_get_gear(&dspl.network.ccu));
+		memset(this->gear_str, 0, sizeof(this->gear_str));
+		uv_uilabel_init(&this->gear, &UI_FONT_BIG, ALIGN_CENTER, C(0xFFFFFF),
+				taskbar_style.window_c, this->gear_str);
+		gear_update();
 		uv_uiwindow_add(&this->taskbar, &this->gear, bb.x, bb.y, bb.width,
 				bb.height - UI_FONT_SMALL.char_height);
 
@@ -387,7 +400,7 @@ uv_uiobject_ret_e taskbar_step(const uint16_t step_ms) {
 			if (uv_uitoucharea_clicked(&this->gear_touch, NULL, NULL)) {
 				ccu_set_gear((ccu_get_gear(&dspl.network.ccu) + 1) % CCU_GEAR_COUNT);
 			}
-			uv_uidigit_set_value(&this->gear, ccu_get_gear(&dspl.network.ccu) + 1);
+			gear_update();
 
 			if (uv_uitoucharea_pressed(&this->horn_touch, NULL, NULL)) {
 				uv_uilabel_set_text(&this->horn, "On");
