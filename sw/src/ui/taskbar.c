@@ -235,7 +235,7 @@ static void show(const taskbar_state_e state) {
 
 		// Oil level
 		bb = uv_uigridlayout_next(&grid);
-		uv_uiprogressbar_init(&this->oil_level, 20, 100, &uv_uistyles[0]);
+		uv_uiprogressbar_init(&this->oil_level, 0, 100, &uv_uistyles[0]);
 		uv_uiprogressbar_set_value(&this->oil_level, esb_get_oil_level(&dspl.network.esb));
 		uv_uiprogressbar_set_vertical(&this->oil_level);
 		uv_uiprogressbar_set_limit(&this->oil_level, UI_PROGRESSBAR_LIMIT_UNDER,
@@ -246,7 +246,7 @@ static void show(const taskbar_state_e state) {
 
 		// Oil temp
 		bb = uv_uigridlayout_next(&grid);
-		uv_uiprogressbar_init(&this->otemp_bar, 0, 100, &uv_uistyles[0]);
+		uv_uiprogressbar_init(&this->otemp_bar, 70, 150, &uv_uistyles[0]);
 		uv_uiprogressbar_set_value(&this->otemp_bar, esb_get_oil_temp(&dspl.network.esb));
 		uv_uiprogressbar_set_vertical(&this->otemp_bar);
 		uv_uiprogressbar_set_limit(&this->otemp_bar, UI_PROGRESSBAR_LIMIT_OVER,
@@ -258,7 +258,7 @@ static void show(const taskbar_state_e state) {
 
 		// Motor temp
 		bb = uv_uigridlayout_next(&grid);
-		uv_uiprogressbar_init(&this->mtemp_bar, 50, 100, &uv_uistyles[0]);
+		uv_uiprogressbar_init(&this->mtemp_bar, 70, 150, &uv_uistyles[0]);
 		uv_uiprogressbar_set_vertical(&this->mtemp_bar);
 		uv_uiprogressbar_set_value(&this->mtemp_bar, esb_get_motor_temp(&dspl.network.esb));
 		uv_uiprogressbar_set_limit(&this->mtemp_bar, UI_PROGRESSBAR_LIMIT_OVER,

@@ -85,5 +85,7 @@ static inline uint8_t esb_get_glow_plugs(esb_st *this) {
 	return this->read.glow_plugs;
 }
 
+void esb_save_params();
+
 
 #endif /* ESB_H_ */

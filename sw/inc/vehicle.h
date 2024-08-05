@@ -33,8 +33,8 @@
 
 /// @brief: Temperature warning limits
 /// Warning will be generated when the value goes over these
-#define MOTOR_TEMP_WARNING_LIMIT	90
-#define OIL_TEMP_WARNING_LIMIT		80
+#define MOTOR_TEMP_WARNING_LIMIT	140
+#define OIL_TEMP_WARNING_LIMIT		140
 #define VOLTAGE_WARNING_LIMIT		11800
 
 /// @brief: Fuel & oil level warning limits

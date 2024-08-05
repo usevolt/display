@@ -43,5 +43,14 @@ void esb_update(void *me) {
 			CANOPEN_TYPE_LEN(ESB_ENGINE_POWER_USAGE_TYPE), &dspl.user->engine_power_usage);
 
 }
+
+
+void esb_save_params() {
+	uint8_t c[4] = {
+			's', 'a', 'v', 'e'
+	};
+	uv_canopen_sdo_write(ESB_NODE_ID, 0x1010, 1, 4, ((uint32_t*)(c)));
+}
+
 #undef this
 

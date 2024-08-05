@@ -131,7 +131,7 @@ void show_system_callb(uv_uitreeobject_st *obj) {
 
 	// oil cooler trigger temp
 	bb = uv_uigridlayout_next(&grid);
-	uv_uislider_init(&this->system.oilcooler_trigger, 0, 90,
+	uv_uislider_init(&this->system.oilcooler_trigger, 0, 150,
 			dspl.user->oilcooler_trigg_temp, &uv_uistyles[0]);
 	uv_uislider_set_horizontal(&this->system.oilcooler_trigger);
 	uv_uislider_set_title(&this->system.oilcooler_trigger, uv_str(STR_SETTINGS_GENERAL_SLIDEROILCTEMP));

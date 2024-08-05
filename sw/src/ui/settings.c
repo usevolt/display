@@ -79,6 +79,7 @@ uv_uiobject_ret_e settings_step(const uint16_t step_ms) {
 			}
 			// save ecu params
 			ecu_save_params();
+			esb_save_params();
 			home_show();
 			ret = UIOBJECT_RETURN_KILLED;
 		}
