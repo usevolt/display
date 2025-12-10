@@ -13,7 +13,7 @@
 #include <uv_rtc.h>
 
 #define CALIB_LINE_LEN				40
-#define SYSTEM_CALIB_BUF_LEN		11
+#define SYSTEM_CALIB_BUF_LEN		13
 
 typedef struct {
 	uv_uiwindow_st window;
@@ -36,6 +36,12 @@ typedef struct {
 	char calib_values2_str[CALIB_LINE_LEN];
 	uv_uilabel_st calib_values3;
 	char calib_values3_str[CALIB_LINE_LEN];
+
+	// ESB common-rail engine regen
+	uv_uilabel_st partfilterstatus_label;
+	char partfilterstatus_str[64];
+	uv_uitogglebutton_st regenforce_togglebutton;
+	int delay;
 
 } system_calib_st;
 

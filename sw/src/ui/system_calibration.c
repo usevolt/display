@@ -27,7 +27,7 @@ void system_calib_show(void) {
 
 	uv_uigridlayout_st grid;
 	uv_uigridlayout_init(&grid, 0, 0, uv_uiwindow_get_contentbb(&this->window).width,
-			uv_uiwindow_get_contentbb(&this->window).height, 2, 2);
+			uv_uiwindow_get_contentbb(&this->window).height, 2, 3);
 	uv_uigridlayout_set_padding(&grid, 10, 10);
 	uv_bounding_box_st bb = uv_uigridlayout_next(&grid);
 
@@ -97,7 +97,22 @@ void system_calib_show(void) {
 	snprintf(this->calib_values3_str, CALIB_LINE_LEN, "0\n0\n0\n \n \n0\n0\n0");
 
 
+	bb = uv_uigridlayout_next(&grid);
+	bb = uv_uigridlayout_next(&grid);
+	uv_uilabel_init(&this->partfilterstatus_label, &UI_FONT_SMALL,
+			ALIGN_BOTTOM_CENTER, C(0xFFFFFF), uv_uistyles[0].window_c,
+			this->partfilterstatus_str);
+	memset(this->partfilterstatus_str, 0, sizeof(this->partfilterstatus_str));
+	uv_uiwindow_add(&this->window, &this->partfilterstatus_label,
+			bb.x, bb.y, bb.width, bb.height);
 
+	bb = uv_uigridlayout_next(&grid);
+	uv_uitogglebutton_init(&this->regenforce_togglebutton, false,
+			"Regen Force", &uv_uistyles[0]);
+	uv_uiwindow_add(&this->window, &this->regenforce_togglebutton,
+			bb.x, bb.y, bb.width, bb.height);
+
+	this->delay = 0;
 
 }
 
@@ -149,8 +164,36 @@ uv_uiobject_ret_e system_calib_step(const uint16_t step_ms) {
 				r_calib_data[0], r_calib_data[1], r_calib_data[2]);
 		uv_ui_refresh(&this->calib_values3);
 	}
+	else if (uv_uitogglebutton_clicked(&this->regenforce_togglebutton)) {
+		uv_canopen_sdo_write8(ESB_NODE_ID, ESB_REGEN_FORCE_INDEX,
+				ESB_REGEN_FORCE_SUBINDEX,
+				uv_uitogglebutton_get_state(&this->regenforce_togglebutton));
+	}
 	else {
 
+	}
+	if (uv_delay(step_ms, &this->delay)) {
+		uv_delay_init(500, &this->delay);
+		uint8_t stat = uv_canopen_sdo_read8(ESB_NODE_ID,
+						ESB_PARTICULATEFILTER_STATUS_INDEX,
+						ESB_PARTICULATEFILTER_STATUS_SUBINDEX);
+		char *str;
+		switch(stat) {
+		case 1:
+			str = "Low";
+			break;
+		case 2:
+			str = "Med";
+			break;
+		case 3:
+			str = "High";
+			break;
+		default:
+			str = "Empty";
+		}
+		sprintf(this->partfilterstatus_str,
+				"Particulate filter:\n%s", str);
+		uv_ui_refresh(&this->partfilterstatus_label);
 	}
 
 	return ret;
